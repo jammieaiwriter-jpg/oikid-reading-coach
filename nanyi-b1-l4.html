@@ -9,6 +9,13 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
 .bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
 .note{font-size:.92rem;color:#52606d;line-height:1.6}
+.rounds{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.rchip{border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 13px;font-weight:900;font-size:.85rem;cursor:pointer}
+.rchip.done{background:#7bdcb5;border-color:#7bdcb5;color:#0b3a2a}
+.rchip.cur{background:#fff;border-color:#fff;color:#155e75}
+.rchip:disabled{opacity:.55;cursor:default}
+.round-hide{display:none !important}
+.round-done-note{background:#e6fcf5;border:1px solid #2f9e44;color:#17623a;border-radius:10px;padding:12px 14px;font-weight:800;margin:12px 0;display:none}
 .hero .note{color:#d9f5fb}
 .section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
 .head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -66,8 +73,10 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 <div class="intro">這一課 7 區一條線：① 原創課文朗讀（我的新房間）→ ② 單字驗收（先聽唸對，再聽音拼寫，全 40 字）→ ③④ 原創文法題（There be句型／what·who·where 問句，答錯會浮出補題）→ ⑥ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑦ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課文。</div>
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="note" id="prog"></div>
+<div class="rounds" id="rounds"></div>
 <div class="note">🎤 麥克風聲音由瀏覽器的語音服務即時辨識，本頁不錄存任何音訊。</div>
 </div>
+<div class="round-done-note" id="round-done"></div>
 <div class="section"><div class="head"><span>區塊 1 / 6　① 課文朗讀：My New Room（原創）</span><span class="pg">講義 原創課次對應文本（我的新房間／新家導覽）</span></div><div class="body">
 <div class="tip">原創課次文本，用本課單字和 There be／wh 問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。</div>
 <div class="sub">逐句唸過</div>
@@ -1659,7 +1668,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 </div>
 <div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button><a class="btn alt" style="text-decoration:none" href="vocab-daily.html">📅 每日單字</a></div>
 <div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
-const DATA={"lesson": "南一B1-L4", "child": "Bobo", "title": "My New Room — 南一英文 第一冊 Lesson 4", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（There be／wh 問句，答錯補題）→ 文法綜合挑戰 → GEPT 延伸閱讀", "storage": "nanyi-b1-l4-pre-v1", "intro": "這一課 7 區一條線：① 原創課文朗讀（我的新房間）→ ② 單字驗收（先聽唸對，再聽音拼寫，全 40 字）→ ③④ 原創文法題（There be句型／what·who·where 問句，答錯會浮出補題）→ ⑥ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑦ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課文。", "vocabAll": [{"w": "again", "zh": "再一次"}, {"w": "animal", "zh": "動物"}, {"w": "area", "zh": "地區、區域"}, {"w": "bamboo", "zh": "竹子"}, {"w": "bathroom", "zh": "浴室、廁所"}, {"w": "bedroom", "zh": "臥室"}, {"w": "behind", "zh": "在……後面"}, {"w": "between", "zh": "在……之間"}, {"w": "bottle", "zh": "瓶子"}, {"w": "busy", "zh": "忙碌的"}, {"w": "cheer", "zh": "歡呼、鼓舞"}, {"w": "dining room", "zh": "飯廳"}, {"w": "garage", "zh": "車庫"}, {"w": "garden", "zh": "花園"}, {"w": "gift", "zh": "禮物"}, {"w": "hard-working", "zh": "勤奮的"}, {"w": "hunt", "zh": "打獵、狩獵；搜尋、尋找"}, {"w": "inside", "zh": "在……裡面、在室內"}, {"w": "jacket", "zh": "夾克"}, {"w": "kind", "zh": "親切的、體貼的"}, {"w": "kitchen", "zh": "廚房"}, {"w": "living room", "zh": "客廳"}, {"w": "love", "zh": "愛、喜愛"}, {"w": "lunch", "zh": "午餐"}, {"w": "near", "zh": "在……附近"}, {"w": "panda", "zh": "熊貓"}, {"w": "pin", "zh": "別針、大頭針"}, {"w": "player", "zh": "（運動）選手、球員"}, {"w": "pocket", "zh": "口袋"}, {"w": "shoulder", "zh": "肩膀"}, {"w": "smart", "zh": "聰明的"}, {"w": "so", "zh": "如此地、非常地"}, {"w": "sofa", "zh": "沙發"}, {"w": "spider", "zh": "蜘蛛"}, {"w": "surprise", "zh": "驚喜"}, {"w": "swimming pool", "zh": "游泳池"}, {"w": "team", "zh": "團隊"}, {"w": "Thanksgiving", "zh": "感恩節"}, {"w": "water", "zh": "水"}, {"w": "window", "zh": "窗戶"}], "blocks": [{"id": "text", "name": "① 課文朗讀：My New Room（原創）", "page": "原創課次對應文本（我的新房間／新家導覽）", "note": "原創課次文本，用本課單字和 There be／wh 問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["Last month, my family moved to a new house. It is not big, but it is very nice. I am so happy about my new room!", "There is a soft sofa between two windows in the living room. There is a small TV near the sofa, too.", "My bedroom is next to the bathroom. There is a white bed and a blue jacket on the chair. A gift is inside my desk!", "What is the gift? It is a panda pin from my mom. She says, \"Happy new home!\" I love it so much.", "There wasn't a garage at our old house, but there is one here. Dad's bike is inside the garage, behind the door.", "In the dining room, there is a big table. There are four chairs and a bottle of water on the table.", "Who cooks lunch in the kitchen? My grandma does! She is hard-working and kind. There is a window between the kitchen and the garden.", "Is there an animal in the garden? Yes, there is! A little spider is on a leaf. It isn't scary; it's kind of cute.", "There is a swimming pool near our house, too. My brother is a smart basketball player, and I cheer for his team.", "Where is my cat now? She is on my shoulder! We hunt for her toy again and again. This new home is a nice surprise for our whole family."], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：What is in your bedroom?", "keywords": ["bed", "window", "there is", "there are", "sofa", "desk"], "minHits": 2, "model": "There is a bed and a window in my bedroom."}, {"kind": "fill", "q": "課文克漏字：There is a soft sofa between two ____ in the living room.", "answer": "windows", "options": ["windows", "gardens", "bottles"], "say": "There is a soft sofa between two windows in the living room."}, {"kind": "fill", "q": "閱讀理解：What is inside the girl's desk?", "answer": "A gift.", "options": ["A gift.", "A jacket.", "A bottle."], "say": "A gift is inside my desk!"}, {"kind": "fill", "q": "閱讀理解：Who gives her the panda pin?", "answer": "Her mom.", "options": ["Her mom.", "Her grandma.", "Her brother."], "say": "It is a panda pin from my mom."}, {"kind": "tf", "q": "閱讀理解：There was a garage at their old house.", "answer": "False", "say": "There wasn't a garage at our old house, but there is one here."}, {"kind": "fill", "q": "閱讀理解：Who cooks lunch in the kitchen?", "answer": "Her grandma.", "options": ["Her grandma.", "Her mom.", "Her dad."], "say": "Who cooks lunch in the kitchen? My grandma does!"}, {"kind": "fill", "q": "課文克漏字：A little spider is on a ____.", "answer": "leaf", "options": ["leaf", "sofa", "desk"], "say": "A little spider is on a leaf."}, {"kind": "tf", "q": "閱讀理解：Her brother is a smart basketball player.", "answer": "True", "say": "My brother is a smart basketball player, and I cheer for his team."}, {"kind": "fill", "q": "閱讀理解：Where is the cat at the end of the text?", "answer": "On her shoulder.", "options": ["On her shoulder.", "In the garage.", "In the garden."], "say": "She is on my shoulder!"}, {"kind": "fill", "q": "課文克漏字：In the dining room, there is a big ____.", "answer": "table", "options": ["table", "sofa", "bottle"], "say": "In the dining room, there is a big table."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 40 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後每個字都要「聽音拼寫」或選出正確片語——挖空給提示，拼錯或選錯不算過。國中生要背的是拼字，不是選項。", "read": ["Try again! What animal do you see in the garden? This area of the room is for my books.", "My panda toy is holding a small bamboo stick. The bathroom is next to my bedroom, and my bedroom has a big window.", "The garage is behind the kitchen. There is a lamp between the two beds.", "A bottle of water is on the table. My mom is busy in the kitchen today.", "We cheer for the team every game. There is a big table in the dining room.", "Dad's bike is inside the garage. There are many flowers in the garden.", "This gift is from my grandma. My sister is hard-working and smart.", "Let's hunt for the toy spider! The gift is inside a small box.", "My blue jacket is on the sofa. Our new neighbor is very kind.", "There is a window in the kitchen. We watch TV in the living room.", "I love my new room so much. We eat lunch near the garden.", "The bathroom is near my bedroom. I have a cute panda pin.", "Where is my panda pin? My brother is a good basketball player.", "There is a pin in my pocket. A little spider is on my shoulder!", "She is a smart and hard-working student. This room is so nice!", "There is a sofa between the windows. A toy spider is inside the box.", "The gift is a big surprise for me. There is a swimming pool near our house.", "Our team is busy this week. We have a big dinner on Thanksgiving.", "There is a bottle of water on the table. There is a window between the sofa and the door."], "words": [{"w": "again", "zh": "再一次", "pos": "adv."}, {"w": "animal", "zh": "動物", "pos": "n."}, {"w": "area", "zh": "地區、區域", "pos": "n."}, {"w": "bamboo", "zh": "竹子", "pos": "n."}, {"w": "bathroom", "zh": "浴室、廁所", "pos": "n."}, {"w": "bedroom", "zh": "臥室", "pos": "n."}, {"w": "behind", "zh": "在……後面", "pos": "prep."}, {"w": "between", "zh": "在……之間", "pos": "prep."}, {"w": "bottle", "zh": "瓶子", "pos": "n."}, {"w": "busy", "zh": "忙碌的", "pos": "adj."}, {"w": "cheer", "zh": "歡呼、鼓舞", "pos": "v."}, {"w": "dining room", "zh": "飯廳", "pos": "n."}, {"w": "garage", "zh": "車庫", "pos": "n."}, {"w": "garden", "zh": "花園", "pos": "n."}, {"w": "gift", "zh": "禮物", "pos": "n."}, {"w": "hard-working", "zh": "勤奮的", "pos": "adj."}, {"w": "hunt", "zh": "打獵、狩獵；搜尋、尋找", "pos": "v./n."}, {"w": "inside", "zh": "在……裡面、在室內", "pos": "prep."}, {"w": "jacket", "zh": "夾克", "pos": "n."}, {"w": "kind", "zh": "親切的、體貼的", "pos": "adj."}, {"w": "kitchen", "zh": "廚房", "pos": "n."}, {"w": "living room", "zh": "客廳", "pos": "n."}, {"w": "love", "zh": "愛、喜愛", "pos": "v./n."}, {"w": "lunch", "zh": "午餐", "pos": "n."}, {"w": "near", "zh": "在……附近", "pos": "prep."}, {"w": "panda", "zh": "熊貓", "pos": "n."}, {"w": "pin", "zh": "別針、大頭針", "pos": "n."}, {"w": "player", "zh": "（運動）選手、球員", "pos": "n."}, {"w": "pocket", "zh": "口袋", "pos": "n."}, {"w": "shoulder", "zh": "肩膀", "pos": "n."}, {"w": "smart", "zh": "聰明的", "pos": "adj."}, {"w": "so", "zh": "如此地、非常地", "pos": "adv."}, {"w": "sofa", "zh": "沙發", "pos": "n."}, {"w": "spider", "zh": "蜘蛛", "pos": "n."}, {"w": "surprise", "zh": "驚喜", "pos": "n."}, {"w": "swimming pool", "zh": "游泳池", "pos": "n."}, {"w": "team", "zh": "團隊", "pos": "n."}, {"w": "Thanksgiving", "zh": "感恩節", "pos": "n."}, {"w": "water", "zh": "水", "pos": "n."}, {"w": "window", "zh": "窗戶", "pos": "n."}], "practice": [{"kind": "spell", "q": "拼寫：再一次（一格一個字母，先按🔊聽）", "answer": "again", "say": "Try again! You can find the pin again.", "mask": "a_a__"}, {"kind": "spell", "q": "拼寫：動物（一格一個字母，先按🔊聽）", "answer": "animal", "say": "What animal do you see in the garden?", "mask": "a_i_a_"}, {"kind": "spell", "q": "拼寫：地區、區域（一格一個字母，先按🔊聽）", "answer": "area", "say": "This area of the room is for my books.", "mask": "a_e_"}, {"kind": "spell", "q": "拼寫：竹子（一格一個字母，先按🔊聽）", "answer": "bamboo", "say": "My panda toy is holding a small bamboo stick.", "mask": "b_m_o_"}, {"kind": "spell", "q": "拼寫：浴室、廁所（一格一個字母，先按🔊聽）", "answer": "bathroom", "say": "The bathroom is next to my bedroom.", "mask": "b_t_r_o_"}, {"kind": "spell", "q": "拼寫：臥室（一格一個字母，先按🔊聽）", "answer": "bedroom", "say": "My bedroom has a big window.", "mask": "b_d_o__"}, {"kind": "spell", "q": "拼寫：在……後面（一格一個字母，先按🔊聽）", "answer": "behind", "say": "The garage is behind the kitchen.", "mask": "b_h_n_"}, {"kind": "spell", "q": "拼寫：在……之間（一格一個字母，先按🔊聽）", "answer": "between", "say": "There is a lamp between the two beds.", "mask": "b_t_e__"}, {"kind": "spell", "q": "拼寫：瓶子（一格一個字母，先按🔊聽）", "answer": "bottle", "say": "A bottle of water is on the table.", "mask": "b_t_l_"}, {"kind": "spell", "q": "拼寫：忙碌的（一格一個字母，先按🔊聽）", "answer": "busy", "say": "My mom is busy in the kitchen today.", "mask": "b_s_"}, {"kind": "spell", "q": "拼寫：歡呼、鼓舞（一格一個字母，先按🔊聽）", "answer": "cheer", "say": "We cheer for the team every game.", "mask": "c_e__"}, {"kind": "fill", "q": "（飯廳）There is a big table in the ____.", "answer": "dining room", "options": ["dining room", "living room", "bathroom"], "say": "There is a big table in the dining room."}, {"kind": "spell", "q": "拼寫：車庫（一格一個字母，先按🔊聽）", "answer": "garage", "say": "Dad's bike is inside the garage.", "mask": "g_r_g_"}, {"kind": "spell", "q": "拼寫：花園（一格一個字母，先按🔊聽）", "answer": "garden", "say": "There are many flowers in the garden.", "mask": "g_r_e_"}, {"kind": "spell", "q": "拼寫：禮物（一格一個字母，先按🔊聽）", "answer": "gift", "say": "This gift is from my grandma.", "mask": "g_f_"}, {"kind": "spell", "q": "拼寫：勤奮的（一格一個字母，先按🔊聽）", "answer": "hard-working", "say": "My sister is hard-working and smart.", "mask": "h_r_-__r_i__"}, {"kind": "spell", "q": "拼寫：打獵、狩獵；搜尋、尋找（一格一個字母，先按🔊聽）", "answer": "hunt", "say": "Let's hunt for the toy spider!", "mask": "h_n_"}, {"kind": "spell", "q": "拼寫：在……裡面、在室內（一格一個字母，先按🔊聽）", "answer": "inside", "say": "The gift is inside a small box.", "mask": "i_s_d_"}, {"kind": "spell", "q": "拼寫：夾克（一格一個字母，先按🔊聽）", "answer": "jacket", "say": "My blue jacket is on the sofa.", "mask": "j_c_e_"}, {"kind": "spell", "q": "拼寫：親切的、體貼的（一格一個字母，先按🔊聽）", "answer": "kind", "say": "Our new neighbor is very kind.", "mask": "k_n_"}, {"kind": "spell", "q": "拼寫：廚房（一格一個字母，先按🔊聽）", "answer": "kitchen", "say": "There is a window in the kitchen.", "mask": "k_t_h__"}, {"kind": "fill", "q": "（客廳）We watch TV in the ____.", "answer": "living room", "options": ["living room", "dining room", "bedroom"], "say": "We watch TV in the living room."}, {"kind": "spell", "q": "拼寫：愛、喜愛（一格一個字母，先按🔊聽）", "answer": "love", "say": "I love my new room so much.", "mask": "l_v_"}, {"kind": "spell", "q": "拼寫：午餐（一格一個字母，先按🔊聽）", "answer": "lunch", "say": "We eat lunch near the garden.", "mask": "l_n__"}, {"kind": "spell", "q": "拼寫：在……附近（一格一個字母，先按🔊聽）", "answer": "near", "say": "The bathroom is near my bedroom.", "mask": "n_a_"}, {"kind": "spell", "q": "拼寫：熊貓（一格一個字母，先按🔊聽）", "answer": "panda", "say": "I have a cute panda pin.", "mask": "p_n__"}, {"kind": "spell", "q": "拼寫：別針、大頭針（一格一個字母，先按🔊聽）", "answer": "pin", "say": "Where is my panda pin?", "mask": "pi_"}, {"kind": "spell", "q": "拼寫：（運動）選手、球員（一格一個字母，先按🔊聽）", "answer": "player", "say": "My brother is a good basketball player.", "mask": "p_a_e_"}, {"kind": "spell", "q": "拼寫：口袋（一格一個字母，先按🔊聽）", "answer": "pocket", "say": "There is a pin in my pocket.", "mask": "p_c_e_"}, {"kind": "spell", "q": "拼寫：肩膀（一格一個字母，先按🔊聽）", "answer": "shoulder", "say": "A little spider is on my shoulder!", "mask": "s_o_l_e_"}, {"kind": "spell", "q": "拼寫：聰明的（一格一個字母，先按🔊聽）", "answer": "smart", "say": "She is a smart and hard-working student.", "mask": "s_a__"}, {"kind": "spell", "q": "拼寫：如此地、非常地（一格一個字母，先按🔊聽）", "answer": "so", "say": "This room is so nice!", "mask": "s_"}, {"kind": "spell", "q": "拼寫：沙發（一格一個字母，先按🔊聽）", "answer": "sofa", "say": "There is a sofa between the windows.", "mask": "s_f_"}, {"kind": "spell", "q": "拼寫：蜘蛛（一格一個字母，先按🔊聽）", "answer": "spider", "say": "A toy spider is inside the box.", "mask": "s_i_e_"}, {"kind": "spell", "q": "拼寫：驚喜（一格一個字母，先按🔊聽）", "answer": "surprise", "say": "The gift is a big surprise for me.", "mask": "s_r_r_s_"}, {"kind": "fill", "q": "（游泳池）There is a ____ near our house.", "answer": "swimming pool", "options": ["swimming pool", "living room", "dining room"], "say": "There is a swimming pool near our house."}, {"kind": "spell", "q": "拼寫：團隊（一格一個字母，先按🔊聽）", "answer": "team", "say": "Our team is busy this week.", "mask": "t_a_"}, {"kind": "spell", "q": "拼寫：感恩節（一格一個字母，先按🔊聽）", "answer": "Thanksgiving", "say": "We have a big dinner on Thanksgiving.", "mask": "T_a_k__i_i__"}, {"kind": "spell", "q": "拼寫：水（一格一個字母，先按🔊聽）", "answer": "water", "say": "There is a bottle of water on the table.", "mask": "w_t__"}, {"kind": "spell", "q": "拼寫：窗戶（一格一個字母，先按🔊聽）", "answer": "window", "say": "There is a window between the sofa and the door.", "mask": "w_n_o_"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：There be 存在句（＝知洞 GP-11）", "page": "原創題（對應課本文法點）", "note": "There is + 單數／There are + 複數，地方可加在句尾。否定：There isn't / aren't。問句：Is / Are there...? 直接作答，答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "There ____ a sofa between the windows.", "answer": "is", "options": ["is", "are", "am"], "say": "There is a sofa between the windows."}, {"kind": "fill", "q": "There ____ two bedrooms in my new house.", "answer": "are", "options": ["are", "is", "am"], "say": "There are two bedrooms in my new house."}, {"kind": "fill", "q": "____ there a garage at your house? Yes, there is.", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a garage at your house?"}, {"kind": "fill", "q": "____ there any gifts on the table?", "answer": "Are", "options": ["Are", "Is", "Does"], "say": "Are there any gifts on the table?"}, {"kind": "fill", "q": "There ____ any water in the bottle. (negative)", "answer": "isn't", "options": ["isn't", "aren't", "doesn't"], "say": "There isn't any water in the bottle."}, {"kind": "fill", "q": "There ____ many players on the team.", "answer": "are", "options": ["are", "is", "be"], "say": "There are many players on the team."}, {"kind": "fill", "q": "Is there a kitchen near the dining room? Yes, ____.", "answer": "there is", "options": ["there is", "there are", "it is"], "say": "Yes, there is."}, {"kind": "fill", "q": "Are there any animals in the garden? No, ____.", "answer": "there aren't", "options": ["there aren't", "there isn't", "they aren't"], "say": "No, there aren't."}, {"kind": "fill", "q": "There ____ a window behind the sofa.", "answer": "is", "options": ["is", "are", "am"], "say": "There is a window behind the sofa.", "backup": true}, {"kind": "fill", "q": "There ____ four chairs in the dining room.", "answer": "are", "options": ["are", "is", "am"], "say": "There are four chairs in the dining room.", "backup": true}, {"kind": "fill", "q": "____ there a swimming pool near your house?", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a swimming pool near your house?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：what／who／where 問句（＝知洞 GP-06）", "page": "原創題（對應課本文法點）", "note": "What 問東西、Who 問人、Where 問地方。回答時把問句對應的資訊講出來。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is in the garden? A spider is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is in the garden?"}, {"kind": "fill", "q": "____ cooks lunch in the kitchen? My grandma does.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who cooks lunch in the kitchen?"}, {"kind": "fill", "q": "____ is my panda pin? It is in my pocket.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is my panda pin?"}, {"kind": "fill", "q": "____ is the gift for? It is for my sister.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is the gift for?"}, {"kind": "fill", "q": "____ is between the two windows? A sofa is.", "answer": "What", "options": ["What", "Where", "Who"], "say": "What is between the two windows?"}, {"kind": "fill", "q": "____ is the bathroom? It is near my bedroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is the bathroom?"}, {"kind": "fill", "q": "____ is hard-working on your team? The captain is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is hard-working on your team?"}, {"kind": "fill", "q": "____ do you keep inside your jacket? A bottle of water.", "answer": "What", "options": ["What", "Where", "Who"], "say": "What do you keep inside your jacket?"}, {"kind": "fill", "q": "____ is the surprise? It's a panda pin.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is the surprise?", "backup": true}, {"kind": "fill", "q": "____ is near the swimming pool? My house is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is near the swimming pool?", "backup": true}, {"kind": "fill", "q": "____ is the kind girl on your team? Mia is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is the kind girl on your team?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑥ 文法綜合挑戰（混考）", "page": "原創題（GP-11／GP-06 混出，並帶一點 GP-01～04／07）", "note": "進階區：選項故意混著不同文法點，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is in the garage? My dad's bike is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is in the garage?"}, {"kind": "fill", "q": "There ____ a spider on my shoulder!", "answer": "is", "options": ["is", "are", "am"], "say": "There is a spider on my shoulder!"}, {"kind": "fill", "q": "____ there any gifts under the tree? Yes, there are.", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are there any gifts under the tree?"}, {"kind": "fill", "q": "____ cooks dinner at your house? My mom does.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who cooks dinner at your house?"}, {"kind": "fill", "q": "____ is inside your pocket? A small pin.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is inside your pocket?"}, {"kind": "fill", "q": "There ____ three players on the small team.", "answer": "are", "options": ["are", "is", "am"], "say": "There are three players on the small team."}, {"kind": "fill", "q": "____ is your new bedroom? It is near the bathroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is your new bedroom?"}, {"kind": "fill", "q": "How ____ pandas are there in the garden?", "answer": "many", "options": ["many", "much", "more"], "say": "How many pandas are there in the garden?"}, {"kind": "fill", "q": "____ there a bottle of water on the table?", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a bottle of water on the table?", "backup": true}, {"kind": "fill", "q": "____ is so kind and hard-working? Our coach is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is so kind and hard-working?", "backup": true}, {"kind": "fill", "q": "Look! ____ is a big surprise behind the sofa.", "answer": "There", "options": ["There", "Here", "These"], "say": "Look! There is a big surprise behind the sofa.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑦ GEPT 延伸閱讀：Nina's Birthday Treasure Hunt", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】原創短文，字彙在英檢初級 2000 字內。流程：①先整篇從頭讀到尾——遇到沒學過的字用上下文猜，不要停 → ②做理解題驗證有沒有讀懂（答案都在文中）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。情境是生日派對尋寶遊戲，與①課文（新家房間導覽）不同。", "read": ["Today is my cousin Nina's birthday. Her party is at the park near her house. It is a warm, sunny day, and everyone is excited.", "There are ten children at the party. There is a big yellow table under a tree. On the table, there are balloons, cups, and a beautiful cake. The cake looks like a panda!", "\"Where is the birthday girl?\" Nina's mom asks. \"She is behind the tree with her friends,\" someone says. We all shout, \"Surprise!\" when Nina comes out. She is so happy.", "After lunch, we play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park. \"What do we need to find?\" a boy asks. \"You need to find five yellow boxes,\" Nina's uncle says.", "We make two teams. My team is hard-working, and we run fast. \"Who can find a box first?\" I ask my friend.", "We look near the flowers, behind the swings, and inside a basket. Our team finds three boxes! The other team cheers for us, and we cheer for them, too.", "Each box has a small prize inside: a pin, a toy spider, or a bottle of juice.", "Nina says, \"This is the best birthday ever! Thank you for coming, everyone!\" We all sing a happy song for her. It is a wonderful day at the park."], "words": [{"w": "balloon", "zh": "氣球", "pos": "n."}, {"w": "treasure hunt", "zh": "尋寶遊戲", "pos": "n."}, {"w": "hide", "zh": "藏、躲", "pos": "v."}, {"w": "prize", "zh": "獎品", "pos": "n."}, {"w": "basket", "zh": "籃子", "pos": "n."}, {"w": "shout", "zh": "喊叫", "pos": "v."}], "practice": [{"kind": "fill", "qtype": "main", "q": "主旨：What is this passage mainly about?", "answer": "A fun birthday party with games.", "options": ["A fun birthday party with games.", "A trip to a new school.", "A rainy day at home."], "say": "Today is my cousin Nina's birthday. Her party is at the park near her house."}, {"kind": "fill", "qtype": "detail", "q": "細節：What does the cake look like?", "answer": "A panda.", "options": ["A panda.", "A bird.", "A house."], "say": "The cake looks like a panda!"}, {"kind": "fill", "qtype": "detail", "q": "細節：How many boxes does the writer's team find?", "answer": "Three.", "options": ["Three.", "Five.", "Ten."], "say": "Our team finds three boxes!"}, {"kind": "tf", "qtype": "inference", "q": "推論：The writer's team and the other team are friendly to each other.", "answer": "True", "say": "The other team cheers for us, and we cheer for them, too."}, {"kind": "fill", "qtype": "vocab", "q": "字義猜測：從上下文推測，\"treasure hunt\" 這個遊戲最可能是在做什麼？", "answer": "Looking for hidden boxes.", "options": ["Looking for hidden boxes.", "Singing songs together.", "Eating lunch quickly."], "say": "We play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park."}], "article": ["Today is my cousin Nina's birthday. Her party is at the park near her house. It is a warm, sunny day, and everyone is excited.", "There are ten children at the party. There is a big yellow table under a tree. On the table, there are balloons, cups, and a beautiful cake. The cake looks like a panda!", "\"Where is the birthday girl?\" Nina's mom asks. \"She is behind the tree with her friends,\" someone says. We all shout, \"Surprise!\" when Nina comes out. She is so happy.", "After lunch, we play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park. \"What do we need to find?\" a boy asks. \"You need to find five yellow boxes,\" Nina's uncle says.", "We make two teams. My team is hard-working, and we run fast. \"Who can find a box first?\" I ask my friend.", "We look near the flowers, behind the swings, and inside a basket. Our team finds three boxes! The other team cheers for us, and we cheer for them, too.", "Each box has a small prize inside: a pin, a toy spider, or a bottle of juice.", "Nina says, \"This is the best birthday ever! Thank you for coming, everyone!\" We all sing a happy song for her. It is a wonderful day at the park."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "My New Room", "words": 40, "grammarPoints": ["GP-11", "GP-06"], "setting": "搬新家後的房間與住家導覽（①）＋表親生日派對尋寶遊戲（⑦），全新原創情境，與課本課文及南一B1-L1範本人物、場景、事件零重疊", "generated": "2026-09-04", "humanCheck": "未沿用原課文或範本之角色、情節、句序及特色語句"}};
+const DATA={"lesson": "南一B1-L4", "child": "Bobo", "title": "My New Room — 南一英文 第一冊 Lesson 4", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（There be／wh 問句，答錯補題）→ 文法綜合挑戰 → GEPT 延伸閱讀", "storage": "nanyi-b1-l4-pre-v1", "intro": "這一課 7 區一條線：① 原創課文朗讀（我的新房間）→ ② 單字驗收（先聽唸對，再聽音拼寫，全 40 字）→ ③④ 原創文法題（There be句型／what·who·where 問句，答錯會浮出補題）→ ⑥ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑦ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課文。", "vocabAll": [{"w": "again", "zh": "再一次"}, {"w": "animal", "zh": "動物"}, {"w": "area", "zh": "地區、區域"}, {"w": "bamboo", "zh": "竹子"}, {"w": "bathroom", "zh": "浴室、廁所"}, {"w": "bedroom", "zh": "臥室"}, {"w": "behind", "zh": "在……後面"}, {"w": "between", "zh": "在……之間"}, {"w": "bottle", "zh": "瓶子"}, {"w": "busy", "zh": "忙碌的"}, {"w": "cheer", "zh": "歡呼、鼓舞"}, {"w": "dining room", "zh": "飯廳"}, {"w": "garage", "zh": "車庫"}, {"w": "garden", "zh": "花園"}, {"w": "gift", "zh": "禮物"}, {"w": "hard-working", "zh": "勤奮的"}, {"w": "hunt", "zh": "打獵、狩獵；搜尋、尋找"}, {"w": "inside", "zh": "在……裡面、在室內"}, {"w": "jacket", "zh": "夾克"}, {"w": "kind", "zh": "親切的、體貼的"}, {"w": "kitchen", "zh": "廚房"}, {"w": "living room", "zh": "客廳"}, {"w": "love", "zh": "愛、喜愛"}, {"w": "lunch", "zh": "午餐"}, {"w": "near", "zh": "在……附近"}, {"w": "panda", "zh": "熊貓"}, {"w": "pin", "zh": "別針、大頭針"}, {"w": "player", "zh": "（運動）選手、球員"}, {"w": "pocket", "zh": "口袋"}, {"w": "shoulder", "zh": "肩膀"}, {"w": "smart", "zh": "聰明的"}, {"w": "so", "zh": "如此地、非常地"}, {"w": "sofa", "zh": "沙發"}, {"w": "spider", "zh": "蜘蛛"}, {"w": "surprise", "zh": "驚喜"}, {"w": "swimming pool", "zh": "游泳池"}, {"w": "team", "zh": "團隊"}, {"w": "Thanksgiving", "zh": "感恩節"}, {"w": "water", "zh": "水"}, {"w": "window", "zh": "窗戶"}], "blocks": [{"id": "text", "name": "① 課文朗讀：My New Room（原創）", "page": "原創課次對應文本（我的新房間／新家導覽）", "note": "原創課次文本，用本課單字和 There be／wh 問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["Last month, my family moved to a new house. It is not big, but it is very nice. I am so happy about my new room!", "There is a soft sofa between two windows in the living room. There is a small TV near the sofa, too.", "My bedroom is next to the bathroom. There is a white bed and a blue jacket on the chair. A gift is inside my desk!", "What is the gift? It is a panda pin from my mom. She says, \"Happy new home!\" I love it so much.", "There wasn't a garage at our old house, but there is one here. Dad's bike is inside the garage, behind the door.", "In the dining room, there is a big table. There are four chairs and a bottle of water on the table.", "Who cooks lunch in the kitchen? My grandma does! She is hard-working and kind. There is a window between the kitchen and the garden.", "Is there an animal in the garden? Yes, there is! A little spider is on a leaf. It isn't scary; it's kind of cute.", "There is a swimming pool near our house, too. My brother is a smart basketball player, and I cheer for his team.", "Where is my cat now? She is on my shoulder! We hunt for her toy again and again. This new home is a nice surprise for our whole family."], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：What is in your bedroom?", "keywords": ["bed", "window", "there is", "there are", "sofa", "desk"], "minHits": 2, "model": "There is a bed and a window in my bedroom."}, {"kind": "fill", "q": "課文克漏字：There is a soft sofa between two ____ in the living room.", "answer": "windows", "options": ["windows", "gardens", "bottles"], "say": "There is a soft sofa between two windows in the living room."}, {"kind": "fill", "q": "閱讀理解：What is inside the girl's desk?", "answer": "A gift.", "options": ["A gift.", "A jacket.", "A bottle."], "say": "A gift is inside my desk!"}, {"kind": "fill", "q": "閱讀理解：Who gives her the panda pin?", "answer": "Her mom.", "options": ["Her mom.", "Her grandma.", "Her brother."], "say": "It is a panda pin from my mom."}, {"kind": "tf", "q": "閱讀理解：There was a garage at their old house.", "answer": "False", "say": "There wasn't a garage at our old house, but there is one here."}, {"kind": "fill", "q": "閱讀理解：Who cooks lunch in the kitchen?", "answer": "Her grandma.", "options": ["Her grandma.", "Her mom.", "Her dad."], "say": "Who cooks lunch in the kitchen? My grandma does!"}, {"kind": "fill", "q": "課文克漏字：A little spider is on a ____.", "answer": "leaf", "options": ["leaf", "sofa", "desk"], "say": "A little spider is on a leaf."}, {"kind": "tf", "q": "閱讀理解：Her brother is a smart basketball player.", "answer": "True", "say": "My brother is a smart basketball player, and I cheer for his team."}, {"kind": "fill", "q": "閱讀理解：Where is the cat at the end of the text?", "answer": "On her shoulder.", "options": ["On her shoulder.", "In the garage.", "In the garden."], "say": "She is on my shoulder!"}, {"kind": "fill", "q": "課文克漏字：In the dining room, there is a big ____.", "answer": "table", "options": ["table", "sofa", "bottle"], "say": "In the dining room, there is a big table."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 40 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後每個字都要「聽音拼寫」或選出正確片語——挖空給提示，拼錯或選錯不算過。國中生要背的是拼字，不是選項。", "read": ["Try again! What animal do you see in the garden? This area of the room is for my books.", "My panda toy is holding a small bamboo stick. The bathroom is next to my bedroom, and my bedroom has a big window.", "The garage is behind the kitchen. There is a lamp between the two beds.", "A bottle of water is on the table. My mom is busy in the kitchen today.", "We cheer for the team every game. There is a big table in the dining room.", "Dad's bike is inside the garage. There are many flowers in the garden.", "This gift is from my grandma. My sister is hard-working and smart.", "Let's hunt for the toy spider! The gift is inside a small box.", "My blue jacket is on the sofa. Our new neighbor is very kind.", "There is a window in the kitchen. We watch TV in the living room.", "I love my new room so much. We eat lunch near the garden.", "The bathroom is near my bedroom. I have a cute panda pin.", "Where is my panda pin? My brother is a good basketball player.", "There is a pin in my pocket. A little spider is on my shoulder!", "She is a smart and hard-working student. This room is so nice!", "There is a sofa between the windows. A toy spider is inside the box.", "The gift is a big surprise for me. There is a swimming pool near our house.", "Our team is busy this week. We have a big dinner on Thanksgiving.", "There is a bottle of water on the table. There is a window between the sofa and the door."], "words": [{"w": "again", "zh": "再一次", "pos": "adv."}, {"w": "animal", "zh": "動物", "pos": "n."}, {"w": "area", "zh": "地區、區域", "pos": "n."}, {"w": "bamboo", "zh": "竹子", "pos": "n."}, {"w": "bathroom", "zh": "浴室、廁所", "pos": "n."}, {"w": "bedroom", "zh": "臥室", "pos": "n."}, {"w": "behind", "zh": "在……後面", "pos": "prep."}, {"w": "between", "zh": "在……之間", "pos": "prep."}, {"w": "bottle", "zh": "瓶子", "pos": "n."}, {"w": "busy", "zh": "忙碌的", "pos": "adj."}, {"w": "cheer", "zh": "歡呼、鼓舞", "pos": "v."}, {"w": "dining room", "zh": "飯廳", "pos": "n."}, {"w": "garage", "zh": "車庫", "pos": "n."}, {"w": "garden", "zh": "花園", "pos": "n."}, {"w": "gift", "zh": "禮物", "pos": "n."}, {"w": "hard-working", "zh": "勤奮的", "pos": "adj."}, {"w": "hunt", "zh": "打獵、狩獵；搜尋、尋找", "pos": "v./n."}, {"w": "inside", "zh": "在……裡面、在室內", "pos": "prep."}, {"w": "jacket", "zh": "夾克", "pos": "n."}, {"w": "kind", "zh": "親切的、體貼的", "pos": "adj."}, {"w": "kitchen", "zh": "廚房", "pos": "n."}, {"w": "living room", "zh": "客廳", "pos": "n."}, {"w": "love", "zh": "愛、喜愛", "pos": "v./n."}, {"w": "lunch", "zh": "午餐", "pos": "n."}, {"w": "near", "zh": "在……附近", "pos": "prep."}, {"w": "panda", "zh": "熊貓", "pos": "n."}, {"w": "pin", "zh": "別針、大頭針", "pos": "n."}, {"w": "player", "zh": "（運動）選手、球員", "pos": "n."}, {"w": "pocket", "zh": "口袋", "pos": "n."}, {"w": "shoulder", "zh": "肩膀", "pos": "n."}, {"w": "smart", "zh": "聰明的", "pos": "adj."}, {"w": "so", "zh": "如此地、非常地", "pos": "adv."}, {"w": "sofa", "zh": "沙發", "pos": "n."}, {"w": "spider", "zh": "蜘蛛", "pos": "n."}, {"w": "surprise", "zh": "驚喜", "pos": "n."}, {"w": "swimming pool", "zh": "游泳池", "pos": "n."}, {"w": "team", "zh": "團隊", "pos": "n."}, {"w": "Thanksgiving", "zh": "感恩節", "pos": "n."}, {"w": "water", "zh": "水", "pos": "n."}, {"w": "window", "zh": "窗戶", "pos": "n."}], "practice": [{"kind": "spell", "q": "拼寫：再一次（一格一個字母，先按🔊聽）", "answer": "again", "say": "Try again! You can find the pin again.", "mask": "a_a__"}, {"kind": "spell", "q": "拼寫：動物（一格一個字母，先按🔊聽）", "answer": "animal", "say": "What animal do you see in the garden?", "mask": "a_i_a_"}, {"kind": "spell", "q": "拼寫：地區、區域（一格一個字母，先按🔊聽）", "answer": "area", "say": "This area of the room is for my books.", "mask": "a_e_"}, {"kind": "spell", "q": "拼寫：竹子（一格一個字母，先按🔊聽）", "answer": "bamboo", "say": "My panda toy is holding a small bamboo stick.", "mask": "b_m_o_"}, {"kind": "spell", "q": "拼寫：浴室、廁所（一格一個字母，先按🔊聽）", "answer": "bathroom", "say": "The bathroom is next to my bedroom.", "mask": "b_t_r_o_"}, {"kind": "spell", "q": "拼寫：臥室（一格一個字母，先按🔊聽）", "answer": "bedroom", "say": "My bedroom has a big window.", "mask": "b_d_o__"}, {"kind": "spell", "q": "拼寫：在……後面（一格一個字母，先按🔊聽）", "answer": "behind", "say": "The garage is behind the kitchen.", "mask": "b_h_n_"}, {"kind": "spell", "q": "拼寫：在……之間（一格一個字母，先按🔊聽）", "answer": "between", "say": "There is a lamp between the two beds.", "mask": "b_t_e__"}, {"kind": "spell", "q": "拼寫：瓶子（一格一個字母，先按🔊聽）", "answer": "bottle", "say": "A bottle of water is on the table.", "mask": "b_t_l_"}, {"kind": "spell", "q": "拼寫：忙碌的（一格一個字母，先按🔊聽）", "answer": "busy", "say": "My mom is busy in the kitchen today.", "mask": "b_s_"}, {"kind": "spell", "q": "拼寫：歡呼、鼓舞（一格一個字母，先按🔊聽）", "answer": "cheer", "say": "We cheer for the team every game.", "mask": "c_e__"}, {"kind": "fill", "q": "（飯廳）There is a big table in the ____.", "answer": "dining room", "options": ["dining room", "living room", "bathroom"], "say": "There is a big table in the dining room."}, {"kind": "spell", "q": "拼寫：車庫（一格一個字母，先按🔊聽）", "answer": "garage", "say": "Dad's bike is inside the garage.", "mask": "g_r_g_"}, {"kind": "spell", "q": "拼寫：花園（一格一個字母，先按🔊聽）", "answer": "garden", "say": "There are many flowers in the garden.", "mask": "g_r_e_"}, {"kind": "spell", "q": "拼寫：禮物（一格一個字母，先按🔊聽）", "answer": "gift", "say": "This gift is from my grandma.", "mask": "g_f_"}, {"kind": "spell", "q": "拼寫：勤奮的（一格一個字母，先按🔊聽）", "answer": "hard-working", "say": "My sister is hard-working and smart.", "mask": "h_r_-__r_i__"}, {"kind": "spell", "q": "拼寫：打獵、狩獵；搜尋、尋找（一格一個字母，先按🔊聽）", "answer": "hunt", "say": "Let's hunt for the toy spider!", "mask": "h_n_"}, {"kind": "spell", "q": "拼寫：在……裡面、在室內（一格一個字母，先按🔊聽）", "answer": "inside", "say": "The gift is inside a small box.", "mask": "i_s_d_"}, {"kind": "spell", "q": "拼寫：夾克（一格一個字母，先按🔊聽）", "answer": "jacket", "say": "My blue jacket is on the sofa.", "mask": "j_c_e_"}, {"kind": "spell", "q": "拼寫：親切的、體貼的（一格一個字母，先按🔊聽）", "answer": "kind", "say": "Our new neighbor is very kind.", "mask": "k_n_"}, {"kind": "spell", "q": "拼寫：廚房（一格一個字母，先按🔊聽）", "answer": "kitchen", "say": "There is a window in the kitchen.", "mask": "k_t_h__"}, {"kind": "fill", "q": "（客廳）We watch TV in the ____.", "answer": "living room", "options": ["living room", "dining room", "bedroom"], "say": "We watch TV in the living room."}, {"kind": "spell", "q": "拼寫：愛、喜愛（一格一個字母，先按🔊聽）", "answer": "love", "say": "I love my new room so much.", "mask": "l_v_"}, {"kind": "spell", "q": "拼寫：午餐（一格一個字母，先按🔊聽）", "answer": "lunch", "say": "We eat lunch near the garden.", "mask": "l_n__"}, {"kind": "spell", "q": "拼寫：在……附近（一格一個字母，先按🔊聽）", "answer": "near", "say": "The bathroom is near my bedroom.", "mask": "n_a_"}, {"kind": "spell", "q": "拼寫：熊貓（一格一個字母，先按🔊聽）", "answer": "panda", "say": "I have a cute panda pin.", "mask": "p_n__"}, {"kind": "spell", "q": "拼寫：別針、大頭針（一格一個字母，先按🔊聽）", "answer": "pin", "say": "Where is my panda pin?", "mask": "pi_"}, {"kind": "spell", "q": "拼寫：（運動）選手、球員（一格一個字母，先按🔊聽）", "answer": "player", "say": "My brother is a good basketball player.", "mask": "p_a_e_"}, {"kind": "spell", "q": "拼寫：口袋（一格一個字母，先按🔊聽）", "answer": "pocket", "say": "There is a pin in my pocket.", "mask": "p_c_e_"}, {"kind": "spell", "q": "拼寫：肩膀（一格一個字母，先按🔊聽）", "answer": "shoulder", "say": "A little spider is on my shoulder!", "mask": "s_o_l_e_"}, {"kind": "spell", "q": "拼寫：聰明的（一格一個字母，先按🔊聽）", "answer": "smart", "say": "She is a smart and hard-working student.", "mask": "s_a__"}, {"kind": "spell", "q": "拼寫：如此地、非常地（一格一個字母，先按🔊聽）", "answer": "so", "say": "This room is so nice!", "mask": "s_"}, {"kind": "spell", "q": "拼寫：沙發（一格一個字母，先按🔊聽）", "answer": "sofa", "say": "There is a sofa between the windows.", "mask": "s_f_"}, {"kind": "spell", "q": "拼寫：蜘蛛（一格一個字母，先按🔊聽）", "answer": "spider", "say": "A toy spider is inside the box.", "mask": "s_i_e_"}, {"kind": "spell", "q": "拼寫：驚喜（一格一個字母，先按🔊聽）", "answer": "surprise", "say": "The gift is a big surprise for me.", "mask": "s_r_r_s_"}, {"kind": "fill", "q": "（游泳池）There is a ____ near our house.", "answer": "swimming pool", "options": ["swimming pool", "living room", "dining room"], "say": "There is a swimming pool near our house."}, {"kind": "spell", "q": "拼寫：團隊（一格一個字母，先按🔊聽）", "answer": "team", "say": "Our team is busy this week.", "mask": "t_a_"}, {"kind": "spell", "q": "拼寫：感恩節（一格一個字母，先按🔊聽）", "answer": "Thanksgiving", "say": "We have a big dinner on Thanksgiving.", "mask": "T_a_k__i_i__"}, {"kind": "spell", "q": "拼寫：水（一格一個字母，先按🔊聽）", "answer": "water", "say": "There is a bottle of water on the table.", "mask": "w_t__"}, {"kind": "spell", "q": "拼寫：窗戶（一格一個字母，先按🔊聽）", "answer": "window", "say": "There is a window between the sofa and the door.", "mask": "w_n_o_"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：There be 存在句（＝知洞 GP-11）", "page": "原創題（對應課本文法點）", "note": "There is + 單數／There are + 複數，地方可加在句尾。否定：There isn't / aren't。問句：Is / Are there...? 直接作答，答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "There ____ a sofa between the windows.", "answer": "is", "options": ["is", "are", "am"], "say": "There is a sofa between the windows."}, {"kind": "fill", "q": "There ____ two bedrooms in my new house.", "answer": "are", "options": ["are", "is", "am"], "say": "There are two bedrooms in my new house."}, {"kind": "fill", "q": "____ there a garage at your house? Yes, there is.", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a garage at your house?"}, {"kind": "fill", "q": "____ there any gifts on the table?", "answer": "Are", "options": ["Are", "Is", "Does"], "say": "Are there any gifts on the table?"}, {"kind": "fill", "q": "There ____ any water in the bottle. (negative)", "answer": "isn't", "options": ["isn't", "aren't", "doesn't"], "say": "There isn't any water in the bottle."}, {"kind": "fill", "q": "There ____ many players on the team.", "answer": "are", "options": ["are", "is", "be"], "say": "There are many players on the team."}, {"kind": "fill", "q": "Is there a kitchen near the dining room? Yes, ____.", "answer": "there is", "options": ["there is", "there are", "it is"], "say": "Yes, there is."}, {"kind": "fill", "q": "Are there any animals in the garden? No, ____.", "answer": "there aren't", "options": ["there aren't", "there isn't", "they aren't"], "say": "No, there aren't."}, {"kind": "fill", "q": "There ____ a window behind the sofa.", "answer": "is", "options": ["is", "are", "am"], "say": "There is a window behind the sofa.", "backup": true}, {"kind": "fill", "q": "There ____ four chairs in the dining room.", "answer": "are", "options": ["are", "is", "am"], "say": "There are four chairs in the dining room.", "backup": true}, {"kind": "fill", "q": "____ there a swimming pool near your house?", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a swimming pool near your house?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：what／who／where 問句（＝知洞 GP-06）", "page": "原創題（對應課本文法點）", "note": "What 問東西、Who 問人、Where 問地方。回答時把問句對應的資訊講出來。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is in the garden? A spider is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is in the garden?"}, {"kind": "fill", "q": "____ cooks lunch in the kitchen? My grandma does.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who cooks lunch in the kitchen?"}, {"kind": "fill", "q": "____ is my panda pin? It is in my pocket.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is my panda pin?"}, {"kind": "fill", "q": "____ is the gift for? It is for my sister.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is the gift for?"}, {"kind": "fill", "q": "____ is between the two windows? A sofa is.", "answer": "What", "options": ["What", "Where", "Who"], "say": "What is between the two windows?"}, {"kind": "fill", "q": "____ is the bathroom? It is near my bedroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is the bathroom?"}, {"kind": "fill", "q": "____ is hard-working on your team? The captain is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is hard-working on your team?"}, {"kind": "fill", "q": "____ do you keep inside your jacket? A bottle of water.", "answer": "What", "options": ["What", "Where", "Who"], "say": "What do you keep inside your jacket?"}, {"kind": "fill", "q": "____ is the surprise? It's a panda pin.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is the surprise?", "backup": true}, {"kind": "fill", "q": "____ is near the swimming pool? My house is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is near the swimming pool?", "backup": true}, {"kind": "fill", "q": "____ is the kind girl on your team? Mia is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is the kind girl on your team?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑥ 文法綜合挑戰（混考）", "page": "原創題（GP-11／GP-06 混出，並帶一點 GP-01～04／07）", "note": "進階區：選項故意混著不同文法點，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is in the garage? My dad's bike is.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is in the garage?"}, {"kind": "fill", "q": "There ____ a spider on my shoulder!", "answer": "is", "options": ["is", "are", "am"], "say": "There is a spider on my shoulder!"}, {"kind": "fill", "q": "____ there any gifts under the tree? Yes, there are.", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are there any gifts under the tree?"}, {"kind": "fill", "q": "____ cooks dinner at your house? My mom does.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who cooks dinner at your house?"}, {"kind": "fill", "q": "____ is inside your pocket? A small pin.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is inside your pocket?"}, {"kind": "fill", "q": "There ____ three players on the small team.", "answer": "are", "options": ["are", "is", "am"], "say": "There are three players on the small team."}, {"kind": "fill", "q": "____ is your new bedroom? It is near the bathroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is your new bedroom?"}, {"kind": "fill", "q": "How ____ pandas are there in the garden?", "answer": "many", "options": ["many", "much", "more"], "say": "How many pandas are there in the garden?"}, {"kind": "fill", "q": "____ there a bottle of water on the table?", "answer": "Is", "options": ["Is", "Are", "Do"], "say": "Is there a bottle of water on the table?", "backup": true}, {"kind": "fill", "q": "____ is so kind and hard-working? Our coach is.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is so kind and hard-working?", "backup": true}, {"kind": "fill", "q": "Look! ____ is a big surprise behind the sofa.", "answer": "There", "options": ["There", "Here", "These"], "say": "Look! There is a big surprise behind the sofa.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑦ GEPT 延伸閱讀：Nina's Birthday Treasure Hunt", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】原創短文，字彙在英檢初級 2000 字內。流程：①先整篇從頭讀到尾——遇到沒學過的字用上下文猜，不要停 → ②做理解題驗證有沒有讀懂（答案都在文中）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。情境是生日派對尋寶遊戲，與①課文（新家房間導覽）不同。", "read": ["Today is my cousin Nina's birthday. Her party is at the park near her house. It is a warm, sunny day, and everyone is excited.", "There are ten children at the party. There is a big yellow table under a tree. On the table, there are balloons, cups, and a beautiful cake. The cake looks like a panda!", "\"Where is the birthday girl?\" Nina's mom asks. \"She is behind the tree with her friends,\" someone says. We all shout, \"Surprise!\" when Nina comes out. She is so happy.", "After lunch, we play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park. \"What do we need to find?\" a boy asks. \"You need to find five yellow boxes,\" Nina's uncle says.", "We make two teams. My team is hard-working, and we run fast. \"Who can find a box first?\" I ask my friend.", "We look near the flowers, behind the swings, and inside a basket. Our team finds three boxes! The other team cheers for us, and we cheer for them, too.", "Each box has a small prize inside: a pin, a toy spider, or a bottle of juice.", "Nina says, \"This is the best birthday ever! Thank you for coming, everyone!\" We all sing a happy song for her. It is a wonderful day at the park."], "words": [{"w": "balloon", "zh": "氣球", "pos": "n."}, {"w": "treasure hunt", "zh": "尋寶遊戲", "pos": "n."}, {"w": "hide", "zh": "藏、躲", "pos": "v."}, {"w": "prize", "zh": "獎品", "pos": "n."}, {"w": "basket", "zh": "籃子", "pos": "n."}, {"w": "shout", "zh": "喊叫", "pos": "v."}], "practice": [{"kind": "fill", "qtype": "main", "q": "主旨：What is this passage mainly about?", "answer": "A fun birthday party with games.", "options": ["A fun birthday party with games.", "A trip to a new school.", "A rainy day at home."], "say": "Today is my cousin Nina's birthday. Her party is at the park near her house."}, {"kind": "fill", "qtype": "detail", "q": "細節：What does the cake look like?", "answer": "A panda.", "options": ["A panda.", "A bird.", "A house."], "say": "The cake looks like a panda!"}, {"kind": "fill", "qtype": "detail", "q": "細節：How many boxes does the writer's team find?", "answer": "Three.", "options": ["Three.", "Five.", "Ten."], "say": "Our team finds three boxes!"}, {"kind": "tf", "qtype": "inference", "q": "推論：The writer's team and the other team are friendly to each other.", "answer": "True", "say": "The other team cheers for us, and we cheer for them, too."}, {"kind": "fill", "qtype": "vocab", "q": "字義猜測：從上下文推測，\"treasure hunt\" 這個遊戲最可能是在做什麼？", "answer": "Looking for hidden boxes.", "options": ["Looking for hidden boxes.", "Singing songs together.", "Eating lunch quickly."], "say": "We play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park."}], "article": ["Today is my cousin Nina's birthday. Her party is at the park near her house. It is a warm, sunny day, and everyone is excited.", "There are ten children at the party. There is a big yellow table under a tree. On the table, there are balloons, cups, and a beautiful cake. The cake looks like a panda!", "\"Where is the birthday girl?\" Nina's mom asks. \"She is behind the tree with her friends,\" someone says. We all shout, \"Surprise!\" when Nina comes out. She is so happy.", "After lunch, we play a fun game called a treasure hunt. Nina's uncle hides small gifts around the park. \"What do we need to find?\" a boy asks. \"You need to find five yellow boxes,\" Nina's uncle says.", "We make two teams. My team is hard-working, and we run fast. \"Who can find a box first?\" I ask my friend.", "We look near the flowers, behind the swings, and inside a basket. Our team finds three boxes! The other team cheers for us, and we cheer for them, too.", "Each box has a small prize inside: a pin, a toy spider, or a bottle of juice.", "Nina says, \"This is the best birthday ever! Thank you for coming, everyone!\" We all sing a happy song for her. It is a wonderful day at the park."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "My New Room", "words": 40, "grammarPoints": ["GP-11", "GP-06"], "setting": "搬新家後的房間與住家導覽（①）＋表親生日派對尋寶遊戲（⑦），全新原創情境，與課本課文及南一B1-L1範本人物、場景、事件零重疊", "generated": "2026-09-04", "humanCheck": "未沿用原課文或範本之角色、情節、句序及特色語句"}, "lessonId": "nanyi-b1-l4", "gps": ["GP-01", "GP-02", "GP-04", "GP-06", "GP-07", "GP-12", "GP-11", "GP-03"], "articleBank": [{"id": "nanyi-b1-l4-a-day-on-the-bus", "title": "A Busy Day on the Number 5 Bus", "format": "passage", "paras": ["Every morning, there is a school bus near Ken's house. It's the number 5 bus, and it's always full of students. Ken sits near the window and watches the busy street.", "\"There are new seats on this bus,\" a girl says to Ken. \"And there is a new driver, too.\" The driver is friendly. He says hello to every student by name.", "\"There isn't much space near the door,\" Ken says. \"But there is an empty seat at the back.\" He walks carefully to the back seat and sits down with his bag.", "At the next stop, there are many people waiting. An old woman gets on the bus. \"Please take my seat,\" Ken says. \"There's more space here.\" The woman smiles and says thank you.", "\"There is a big park near the third stop,\" the girl tells Ken. \"I see dogs and kids there every day.\" Ken looks out the window and sees a family with a small dog.", "\"There are traffic jams near the bridge sometimes,\" the driver says. \"So please don't worry if we are a little late today.\" The bus moves slowly but safely through the busy street.", "When the bus stops near the school, Ken says goodbye to the driver. \"There's always something interesting on this bus,\" he thinks. \"I like this short trip every morning.\""], "words": [{"w": "space", "zh": "空間", "pos": "n."}, {"w": "empty", "zh": "空的", "pos": "adj."}, {"w": "traffic jams", "zh": "交通阻塞", "pos": "n."}, {"w": "bridge", "zh": "橋", "pos": "n."}, {"w": "safely", "zh": "安全地", "pos": "adv."}], "reading": [{"qtype": "主旨", "q": "What is this story mainly about?", "answer": "Ken's morning bus ride to school.", "options": ["Ken's morning bus ride to school.", "Ken's first day at a new school.", "Ken's trip to the park with his family."], "say": "Every morning, there is a school bus near Ken's house."}, {"qtype": "細節", "q": "What does Ken do for the old woman?", "answer": "He gives her his seat.", "options": ["He gives her his seat.", "He helps her with her bag.", "He talks to the driver for her."], "say": "Please take my seat, Ken says."}, {"qtype": "細節", "q": "What is near the third bus stop?", "answer": "A big park.", "options": ["A big park.", "A bridge.", "A school."], "say": "There is a big park near the third stop."}, {"qtype": "推論", "q": "How does Ken probably feel about the bus ride?", "answer": "He enjoys it and finds it interesting.", "options": ["He enjoys it and finds it interesting.", "He feels bored every day.", "He is afraid of the bus."], "say": "There's always something interesting on this bus. I like this short trip every morning."}, {"qtype": "字義猜測", "q": "In the story, \"empty\" most likely means:", "answer": "with nobody or nothing in it", "options": ["with nobody or nothing in it", "very colorful and bright", "broken and old"], "say": "There is an empty seat at the back."}, {"qtype": "細節", "q": "Why does the driver say the bus might be late?", "answer": "There can be traffic jams near the bridge.", "options": ["There can be traffic jams near the bridge.", "The bus is too full of students.", "The driver is new to this route."], "say": "There are traffic jams near the bridge sometimes."}]}, {"id": "nanyi-b1-l4-class-garden", "title": "Our Small Garden Behind the School", "format": "passage", "paras": ["Behind our school, there is a small garden. Our class plants vegetables there every spring. Tina and Owen check the garden every morning before class. It's their favorite job of the week.", "\"There are three rows of tomatoes near the fence,\" Tina says. \"And there is a row of carrots between the tomatoes and the wall.\" The garden is colorful and full of life.", "\"Please water the plants first,\" the teacher says. \"Then pull the weeds near the small plants.\" Owen carries a bottle of water, and Tina uses a small tool for the weeds.", "\"There isn't much rain this week,\" Owen says. \"So the plants are a little dry.\" He waters the tomatoes carefully. The soil turns from light brown to dark brown.", "\"Look at this baby tomato!\" Tina calls. \"It's so small and green now.\" Owen smiles. \"In one month, there will be many red tomatoes here. We can share them with our class.\"", "There is a bee near the flowers, but nobody is afraid. \"Bees are our garden's little helpers,\" the teacher says. \"They help the flowers grow into fruit and vegetables.\"", "At the end of the class, there are happy smiles everywhere. \"This garden is hard work, but it's also fun,\" Tina says. \"I can't wait to see the tomatoes next month.\""], "words": [{"w": "rows", "zh": "排；列", "pos": "n."}, {"w": "fence", "zh": "圍籬", "pos": "n."}, {"w": "weeds", "zh": "雜草", "pos": "n."}, {"w": "tool", "zh": "工具", "pos": "n."}, {"w": "soil", "zh": "泥土", "pos": "n."}], "reading": [{"qtype": "主旨", "q": "What is this story mainly about?", "answer": "A class takes care of a small garden at school.", "options": ["A class takes care of a small garden at school.", "A class studies plants in a science book.", "A class visits a large farm."], "say": "Behind our school, there is a small garden. Our class plants vegetables there every spring."}, {"qtype": "細節", "q": "What two vegetables are in the garden?", "answer": "Tomatoes and carrots.", "options": ["Tomatoes and carrots.", "Potatoes and corn.", "Peppers and onions."], "say": "There are three rows of tomatoes, and there is a row of carrots."}, {"qtype": "細節", "q": "What do the students do before pulling weeds?", "answer": "They water the plants first.", "options": ["They water the plants first.", "They plant new seeds.", "They clean the tools."], "say": "Please water the plants first. Then pull the weeds near the small plants."}, {"qtype": "推論", "q": "How do Tina and Owen probably feel about the garden work?", "answer": "They find it hard but enjoyable.", "options": ["They find it hard but enjoyable.", "They think it is boring and useless.", "They want a teacher to do it instead."], "say": "This garden is hard work, but it's also fun, Tina says."}, {"qtype": "字義猜測", "q": "In the story, \"weeds\" most likely means:", "answer": "unwanted small plants growing in the garden", "options": ["unwanted small plants growing in the garden", "a kind of garden tool", "a type of red flower"], "say": "Pull the weeds near the small plants."}, {"qtype": "細節", "q": "What does the teacher say about the bee?", "answer": "It is a little helper for the garden.", "options": ["It is a little helper for the garden.", "It is dangerous and scary.", "It should be removed right away."], "say": "Bees are our garden's little helpers."}]}]};
 const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
  won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
  there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
@@ -1915,8 +1924,14 @@ function updatePracticeVis(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b||!
     if(p.backup&&!active.has(unit(pid))){it.style.display='none';return}
     if(passed.has(unit(pid))){it.style.display='';return}
     it.style.display=open?'':'none';open=false})}
-function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
-  el('prog').textContent='進度 '+passed.size+' / '+t+'　（'+DATA.blocks.length+' 個區塊）'}
+function prog(){
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length){
+    var ids=roundActive(curRound),d=ids.filter(function(id){return passed.has(unit(id))}).length;
+    el('bar').style.width=Math.round(d/Math.max(ids.length,1)*100)+'%';
+    var doneR=0;for(var i=0;i<ROUNDS.length;i++)if(roundDone(i))doneR++;
+    el('prog').textContent='第 '+(curRound+1)+' 回　'+d+' / '+ids.length+'　｜　全課 '+ROUNDS.length+' 回・完成 '+doneR;
+  }else{const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+    el('prog').textContent='進度 '+passed.size+' / '+t}}
 /* 分階段通知：開工一則、每個區塊完成一則、全部完成一則。 */
 function blockOf(k){const m=String(k).match(/^(.+)-(?:w|r|p)\d+$/);return m?m[1]:''}
 function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
@@ -1926,6 +1941,7 @@ function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
 const notified=new Set();
 function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
   if(/-p\d+$/.test(k))updatePracticeVis(blockOf(k));
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length)renderRoundChips();
   /* 拼寫題過關 → 餵 FSRS 記憶卡（1次過=good、2次=hard、3次以上=again） */
   if(/-p\d+$/.test(k)&&window.VocabSRS){try{const p=findP(k);
     if(p&&p.kind==='spell'){const a=attempts[k]||1;
@@ -2114,6 +2130,807 @@ const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
 async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
   body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
 load();
+
+/* --- 回合制（2026-09-04：輕量化——開頁只見當前一回，總量以「回」呈現）---
+   單位＝關卡 id 依頁面順序；在 words/read/practice 段邊界切回，每回目標 ≤35（上限 40）。
+   回合是顯示層：進度照舊存 passed，回合完成度由 passed 推導。 */
+var ROUNDS=[];
+function buildRounds(){
+  var segs=[];
+  DATA.blocks.forEach(function(b){
+    var w=(b.words||[]).map(function(_,i){return b.id+'-w'+i});
+    var r=(b.read||[]).map(function(_,i){return b.id+'-r'+i});
+    var p=(b.practice||[]).map(function(_,i){return b.id+'-p'+i});
+    if(b.wordsAfterPractice){ if(r.length)segs.push(r); if(p.length)segs.push(p); if(w.length)segs.push(w); }
+    else{ if(w.length)segs.push(w); if(r.length)segs.push(r); if(p.length)segs.push(p); }
+  });
+  ROUNDS=[];var cur=[];
+  segs.forEach(function(seg){
+    if(cur.length&&cur.length+seg.length>40){ROUNDS.push(cur);cur=[]}
+    cur=cur.concat(seg);
+    if(cur.length>=25){ROUNDS.push(cur);cur=[]}
+  });
+  if(cur.length){ if(ROUNDS.length&&cur.length<12){ROUNDS[ROUNDS.length-1]=ROUNDS[ROUNDS.length-1].concat(cur)} else ROUNDS.push(cur) }
+}
+function roundActive(k){var ids=ROUNDS[k]||[];return ids.filter(function(id){
+  var m=id.match(/^(.+)-p(\d+)$/);if(!m)return true;
+  var b=DATA.blocks.find(function(x){return x.id===m[1]});var p=b&&b.practice[+m[2]];
+  return !(p&&p.backup)||active.has(unit(id))})}
+function roundDone(k){return roundActive(k).every(function(id){return passed.has(unit(id))})}
+var curRound=0;
+function pickRound(){for(var i=0;i<ROUNDS.length;i++){if(!roundDone(i)){curRound=i;return}}curRound=ROUNDS.length-1}
+function applyRoundVis(){
+  var vis={};(ROUNDS[curRound]||[]).forEach(function(id){vis[id]=1});
+  DATA.blocks.forEach(function(b){
+    var any=false;
+    ['w','r','p'].forEach(function(t){
+      var arr=t==='w'?(b.words||[]):t==='r'?(b.read||[]):(b.practice||[]);
+      arr.forEach(function(_,i){var id=b.id+'-'+t+i,el2=el(id+'-item');if(!el2)return;
+        if(vis[id]){el2.classList.remove('round-hide');any=true}
+        else el2.classList.add('round-hide')});
+    });
+    var sec=el(b.id+'-p0-item')||el(b.id+'-r0-item')||el(b.id+'-w0-item');
+    var section=sec?sec.closest('.section'):null;
+    if(section)section.style.display=any?'':'none';
+  });
+  updatePracticeVisAll();
+  renderRoundChips();
+}
+function updatePracticeVisAll(){DATA.blocks.forEach(function(b){updatePracticeVis(b.id)})}
+function renderRoundChips(){
+  var host=el('rounds');if(!host)return;host.innerHTML='';
+  var done=0;
+  for(var i=0;i<ROUNDS.length;i++){
+    var d=roundDone(i);if(d)done++;
+    var b=document.createElement('button');
+    b.className='rchip'+(d?' done':'')+(i===curRound?' cur':'');
+    b.textContent=(d?'✓ ':'')+'第'+(i+1)+'回';
+    (function(k){b.onclick=function(){curRound=k;applyRoundVis();prog();try{window.scrollTo(0,0)}catch(e){}}})(i);
+    host.appendChild(b);
+  }
+  var note=el('round-done');
+  if(note){var allDone=done===ROUNDS.length;
+    if(roundDone(curRound)&&!allDone){note.style.display='block';
+      note.innerHTML='🎉 第'+(curRound+1)+'回完成！明天做下一回也可以，想繼續就點上面下一個回合。'}
+    else note.style.display='none'}
+}
+buildRounds();pickRound();applyRoundVis();prog();
+
+/* --- 文章輪替（矩陣v2：一課多篇，做完自動換下一篇，也可手動換）--- */
+function artHostBlockIdx(){return DATA.blocks.findIndex(function(b){return b.article&&b.article.length})}
+function artKey(){return DATA.storage+'-art'}
+function curArt(){try{return +(localStorage.getItem(artKey())||0)}catch(e){return 0}}
+function esc(t){var d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
+function buildArtBlock(v){
+  var A=(DATA.articleBank||[])[v-1]; /* v=0 用 spec 原文，v>=1 用庫 */
+  if(v===0||!A)return null;
+  var isRead=(A.format==='passage'||A.format==='letter');
+  var fmtName={passage:'短文',notice:'圖表告示',dialog:'對話',letter:'信件'}[A.format]||'短文';
+  return {id:'artv'+v,name:'⑦ 延伸閱讀（第 '+(v+1)+' 篇・'+fmtName+'）：'+A.title,
+    page:'文章庫 '+A.id,note:(A.format==='notice'?'看懂這份真實素材，回答問題（會考圖表告示題型）。':
+      A.format==='dialog'?'讀懂這段對話，回答問題（會考對話題型）。':
+      '【挑戰閱讀】先把整篇讀完，答題，最後'+(isRead?'分段朗讀。':'完成。')),
+    article:A.paras,read:isRead?A.paras:[],words:A.words||[],
+    wordsAfterPractice:true,readAfterPractice:isRead,
+    practiceLabel:'閱讀理解題（原創）',practice:(A.reading||[]).map(function(q){
+      return {kind:q.qtype==='TF'?'tf':'fill',q:(q.qtype?q.qtype+'：':'')+q.q,answer:q.answer,options:q.options,say:q.say}})}
+}
+function sectionHTML(b){
+  var h='<div class="head"><span>'+esc(b.name)+'</span><span class="pg">'+esc(b.page||'')+'</span></div><div class="body">';
+  if(b.note)h+='<div class="tip">'+esc(b.note)+'</div>';
+  if(b.article&&b.article.length){h+='<div class="sub">先把整篇讀完（用眼睛讀，還不用唸）</div><div class="article">';
+    b.article.forEach(function(p2){h+='<p>'+esc(p2)+'</p>'});h+='</div>'}
+  var wordsHTML='';
+  (b.words||[]).forEach(function(w,wi){var wid=b.id+'-w'+wi;
+    wordsHTML+='<div class="item" id="'+wid+'-item"><div class="label">單字</div>'
+      +'<div class="sentence"><strong>'+esc(w.w)+'</strong>'+(w.pos?' <span class="pos">'+esc(w.pos)+'</span>':'')+'　<span class="note">'+esc(w.zh)+'</span></div>'
+      +'<button class="btn" onclick="demoWord(\''+wid+'\')">🔊 聽</button>'
+      +'<button class="btn ok" id="'+wid+'-start" onclick="startWord(\''+wid+'\')" disabled>開始唸</button>'
+      +'<button class="btn warn" id="'+wid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+wid+'-out"></div><div class="result" id="'+wid+'-res"></div></div>'});
+  var readHTML='';
+  (b.read||[]).forEach(function(r,si){var rid=b.id+'-r'+si;
+    readHTML+='<div class="item" id="'+rid+'-item"><div class="label">唸 '+(si+1)+'</div>'
+      +'<div class="sentence">'+esc(r)+'</div>'
+      +'<button class="btn" onclick="demoRead(\''+rid+'\')">🔊 示範</button>'
+      +'<button class="btn ok" id="'+rid+'-start" onclick="startRead(\''+rid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+rid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+rid+'-out"></div><div class="result" id="'+rid+'-res"></div>'
+      +'<div class="diff" id="'+rid+'-diff"></div></div>'});
+  var pracHTML='<div class="sub">'+esc(b.practiceLabel||'閱讀理解題（原創）')+'</div>';
+  (b.practice||[]).forEach(function(p2,pi){var pid=b.id+'-p'+pi;
+    pracHTML+='<div class="item" id="'+pid+'-item"><div class="label">第 '+(pi+1)+' 題</div>'
+      +'<div class="sentence">'+esc(p2.q)+'</div><div class="opts" id="'+pid+'-opts">';
+    (p2.options||['True','False']).forEach(function(o,oi){
+      pracHTML+='<button class="opt" onclick="pick(\''+pid+'\','+oi+',this)">'+esc(o)+'</button>'});
+    pracHTML+='</div><div class="result" id="'+pid+'-res"></div>'
+      +'<div class="sayzone" id="'+pid+'-sayzone" style="display:none">'
+      +'<div class="lead" id="'+pid+'-lead"></div><div class="target" id="'+pid+'-target"></div>'
+      +'<button class="btn" id="'+pid+'-demo">🔊 示範</button>'
+      +'<button class="btn ok" id="'+pid+'-say-start" onclick="startSay(\''+pid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+pid+'-say-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+pid+'-say-out"></div><div class="result" id="'+pid+'-say-res"></div></div></div>'});
+  if(b.wordsAfterPractice){h+=pracHTML;if(wordsHTML)h+='<div class="sub">生字補充（讀完文章了，來確認剛才用上下文猜的字）</div>'+wordsHTML;
+    if(b.readAfterPractice&&readHTML)h+='<div class="sub">最後朗讀（答完題才唸，一次一整段）</div>'+readHTML}
+  else{h+=wordsHTML+readHTML+pracHTML}
+  return h+'</div>'
+}
+function applyArticle(v){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var nb=buildArtBlock(v);
+  if(nb){DATA.blocks[idx]=nb}
+  /* v===0：保留 server 端渲染的原文區塊，不動 */
+  if(nb){
+    var oldFirst=null;
+    /* 找到 article 區塊的 section 容器：憑舊 block 的任一 item id */
+    var sec=document.querySelectorAll('.section')[idx];
+    if(sec){sec.innerHTML=sectionHTML(nb)}
+    /* 重建 WORDS 映射 */
+    Object.keys(WORDS).forEach(function(k){if(k.indexOf('artv')===0||k.indexOf('geptread')===0)delete WORDS[k]});
+  }
+  DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w,wi){WORDS[b.id+'-w'+wi]=w.w})});
+  /* 已通過的關卡重新標記 */
+  passed.forEach(function(k){var it=el(k+'-item');if(it){it.classList.add('done');var st=el(k+'-start');if(st)st.disabled=true}});
+  buildRounds();pickRound();applyRoundVis();prog();renderArtSwitch();
+}
+function renderArtSwitch(){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var bank=DATA.articleBank||[];if(!bank.length)return;
+  var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+  var head=sec.querySelector('.head');if(!head||head.querySelector('.art-switch'))return;
+  var btn=document.createElement('button');btn.className='btn alt art-switch';
+  btn.style.cssText='font-size:.78rem;padding:5px 10px';
+  btn.textContent='📚 換一篇（'+(curArt()+1)+'/'+(bank.length+1)+'）';
+  btn.onclick=function(){var v=(curArt()+1)%(bank.length+1);
+    try{localStorage.setItem(artKey(),v)}catch(e){}
+    if(v===0){location.reload();return} /* 回第 1 篇：用 server 版重載最單純 */
+    applyArticle(v)};
+  head.appendChild(btn);
+}
+(function(){var v=curArt();var bank=DATA.articleBank||[];
+  if(v>0&&v<=bank.length){applyArticle(v)}else{renderArtSwitch()}})();
+
+/* --- 無限加練（bonus 題海：文法用 GrammarGen、單字用字表生成；不列入關卡進度）--- */
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function vocabBonusItems(n){
+  var ws=[];DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w){if(w.zh)ws.push(w)})});
+  ws=shuffle(ws.slice());var out=[];
+  for(var i=0;i<Math.min(n,ws.length);i++){var w=ws[i];
+    var pool=shuffle(ws.filter(function(x){return x.w!==w.w&&(!w.pos||x.pos===w.pos)}).slice(0,8));
+    while(pool.length<2)pool.push(ws[(i+1+pool.length)%ws.length]);
+    if(Math.random()<0.5){var opts=shuffle([w.w,pool[0].w,pool[1].w]);
+      out.push({q:'「'+w.zh+'」的英文是？',answer:w.w,options:opts,say:w.w})}
+    else{var opts2=shuffle([w.zh,pool[0].zh,pool[1].zh]);
+      out.push({q:w.w+' 的意思是？',answer:w.zh,options:opts2,say:w.w})}}
+  return out}
+function bonusRun(host,items,label){
+  host.innerHTML='';var i=0,ok=0;
+  function next(){
+    if(i>=items.length){host.innerHTML='<div class="tip">'+label+'加練完成：'+ok+' / '+items.length+' ✓　<button class="btn" onclick="this.closest(\'.bonus-host\').dispatchEvent(new Event(\'again\'))">🎲 再來一輪</button></div>';return}
+    var it=items[i];
+    var d=document.createElement('div');d.className='item';
+    d.innerHTML='<div class="label">加練 '+(i+1)+' / '+items.length+'（不列入關卡）</div>'
+      +'<div class="sentence">'+esc(it.q)+'</div><div class="opts"></div><div class="result"></div>';
+    var opts=d.querySelector('.opts'),res=d.querySelector('.result');
+    shuffle(it.options.slice()).forEach(function(o){
+      var b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=function(){
+        var right=String(o)===String(it.answer);
+        opts.querySelectorAll('.opt').forEach(function(x){x.disabled=true});
+        b.classList.add(right?'correct':'wrong');
+        if(right){ok++;res.className='result oktext';res.textContent='✓ '+(it.say||'')}
+        else{res.className='result failtext';res.textContent='✗ 正解：'+it.answer+'　'+(it.say||'')}
+        i++;setTimeout(next,right?600:1600)};
+      opts.appendChild(b)});
+    host.innerHTML='';host.appendChild(d)}
+  next()}
+function mountBonus(){
+  DATA.blocks.forEach(function(b,idx){
+    var isMix=/gramMix/i.test(b.id),isVocab=b.id==='vocab';
+    if(!isMix&&!isVocab)return;
+    var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+    var body=sec.querySelector('.body');if(!body||body.querySelector('.bonus-host'))return;
+    var host=document.createElement('div');host.className='bonus-host';
+    var btn=document.createElement('button');btn.className='btn';
+    btn.textContent=isMix?'🎲 無限加練：文法混題（8 題）':'🎲 無限加練：單字快問（8 題）';
+    function go(){
+      var items=isMix&&window.GrammarGen?GrammarGen.make(DATA.gps||[],8):vocabBonusItems(8);
+      bonusRun(host,items,isMix?'文法':'單字')}
+    btn.onclick=go;host.addEventListener('again',go);
+    body.appendChild(btn);body.appendChild(host)});
+}
+mountBonus();
+
+
+
+
+</script><script>
+/*
+ * grammar-gen.js
+ * 英文文法無限出題引擎 —— 零依賴、純 JS，可直接內嵌到瀏覽器頁面，也可在 Node 測試中 require()。
+ *
+ * 使用方式：
+ *   瀏覽器: <script src="grammar-gen.js"><\/script>  -> window.GrammarGen.make(["GP-01","GP-10"], 20, seed)
+ *   Node:   const GrammarGen = require("./grammar-gen.js"); GrammarGen.make(["GP-01"], 50, 42)
+ *
+ * 輸出題目格式（與現有練習頁一致）：
+ *   { kind:"fill", q, answer, options:[3個, 已隨機排序], say, gp:"GP-01" }
+ *
+ * 設計重點（硬規則）：
+ *   - 每個模板的 3 個選項中，只有 1 個在該題的上下文下文法正確；另外 2 個一定錯，
+ *     且錯誤原因是「詞池與句型骨架搭配後恆錯」，不是碰運氣才錯。
+ *   - say 一律用 q.replace("___", answer) 生成，保證包含正確答案原字串。
+ *   - 支援 seed（整數）→ 可重現；不給 seed 用 Math.random()。
+ */
+(function (root) {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // 0. 隨機數工具（可種子化）
+  // ---------------------------------------------------------------------
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeRng(seed) {
+    if (seed === undefined || seed === null) {
+      return Math.random;
+    }
+    return mulberry32(Number(seed) || 0);
+  }
+
+  function pick(rng, arr) {
+    return arr[Math.floor(rng() * arr.length)];
+  }
+
+  function pickIndex(rng, n) {
+    return Math.floor(rng() * n);
+  }
+
+  // 從陣列中隨機挑 count 個「排除 excludeSet 內容」的相異元素
+  function pickDistinctExcluding(rng, arr, excludeArr, count) {
+    var pool = arr.filter(function (x) {
+      return excludeArr.indexOf(x) === -1;
+    });
+    var out = [];
+    var used = {};
+    var guard = 0;
+    while (out.length < count && guard < 500) {
+      guard++;
+      var cand = pick(rng, pool);
+      if (!used[cand]) {
+        used[cand] = true;
+        out.push(cand);
+      }
+    }
+    return out;
+  }
+
+  function shuffle(rng, arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function cap(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // 刻意產生「看起來像單字但拼錯」的干擾項：重複最後一個字母。
+  // 保證不等於詞池中任何真實單字（我們的詞池沒有雙寫尾字母的巧合詞）。
+  function mangle(word) {
+    return word + word.slice(-1);
+  }
+
+  // ---------------------------------------------------------------------
+  // 1. 詞池（GEPT 初級基礎字）
+  // ---------------------------------------------------------------------
+  var NAMES = [
+    { name: "Tom", g: "m" },
+    { name: "Jack", g: "m" },
+    { name: "Sam", g: "m" },
+    { name: "Ben", g: "m" },
+    { name: "Leo", g: "m" },
+    { name: "Amy", g: "f" },
+    { name: "Mary", g: "f" },
+    { name: "Lily", g: "f" },
+    { name: "Kate", g: "f" },
+    { name: "Nina", g: "f" },
+  ];
+
+  // nouns: sg / pl / vowel(是否母音開頭，用於 a/an) / wrongPl(刻意錯誤複數)
+  var NOUN_DEFS = [
+    ["cat", "cats", false],
+    ["dog", "dogs", false],
+    ["book", "books", false],
+    ["apple", "apples", true],
+    ["ball", "balls", false],
+    ["box", "boxes", false],
+    ["pen", "pens", false],
+    ["cup", "cups", false],
+    ["bag", "bags", false],
+    ["hat", "hats", false],
+    ["car", "cars", false],
+    ["bike", "bikes", false],
+    ["egg", "eggs", true],
+    ["banana", "bananas", false],
+    ["chair", "chairs", false],
+    ["orange", "oranges", true],
+    ["umbrella", "umbrellas", true],
+    ["watch", "watches", false],
+    ["baby", "babies", false],
+    ["kite", "kites", false],
+  ];
+  var NOUNS = NOUN_DEFS.map(function (d) {
+    var sg = d[0],
+      pl = d[1],
+      vowel = d[2];
+    // 規律變化 (sg+'s'===pl) 的錯誤複數用 sg+'es'；不規律變化(es/ies)的錯誤複數用 sg+'s'
+    var wrongPl = pl === sg + "s" ? sg + "es" : sg + "s";
+    return { sg: sg, pl: pl, vowel: vowel, wrongPl: wrongPl };
+  });
+
+  var ADJECTIVES = [
+    "big", "small", "tall", "short", "happy", "sad", "hungry",
+    "thirsty", "tired", "busy", "kind", "smart", "young", "nice",
+  ];
+
+  var PLACES = [
+    "school", "park", "zoo", "library", "store", "classroom",
+    "garden", "playground", "room", "home",
+  ];
+
+  // 動作動詞（用於現在進行式 & can & 祈使句）: base / s(第三人稱單數) / ing / wrongIng
+  var ACTION_VERB_DEFS = [
+    ["run", "runs", "running", "runing"],
+    ["swim", "swims", "swimming", "swiming"],
+    ["sit", "sits", "sitting", "siting"],
+    ["write", "writes", "writing", "writeing"],
+    ["make", "makes", "making", "makeing"],
+    ["come", "comes", "coming", "comeing"],
+    ["play", "plays", "playing", "playeing"],
+    ["read", "reads", "reading", "readeing"],
+    ["eat", "eats", "eating", "eateing"],
+    ["jump", "jumps", "jumping", "jumpeing"],
+    ["sing", "sings", "singing", "singeing"],
+    ["dance", "dances", "dancing", "danceing"],
+    ["ride", "rides", "riding", "rideing"],
+    ["cook", "cooks", "cooking", "cookeing"],
+    ["fly", "flies", "flying", "flyeing"],
+    ["drive", "drives", "driving", "driveing"],
+    ["open", "opens", "opening", "openning"],
+    ["close", "closes", "closing", "closeing"],
+    ["wash", "washes", "washing", "washeing"],
+    ["clean", "cleans", "cleaning", "cleanning"],
+    ["listen", "listens", "listening", "listenning"],
+    ["look", "looks", "looking", "lookking"],
+    ["stop", "stops", "stopping", "stoping"],
+    ["wait", "waits", "waiting", "waitting"],
+    ["stand", "stands", "standing", "standding"],
+    ["help", "helps", "helping", "helpping"],
+  ];
+  var ACTION_VERBS = ACTION_VERB_DEFS.map(function (d) {
+    return { base: d[0], s: d[1], ing: d[2], wrongIng: d[3] };
+  });
+
+  var MASS_NOUNS = [
+    "water", "rice", "milk", "money", "juice", "bread", "cheese", "tea", "coffee", "soup",
+  ];
+
+  var WEEKDAYS = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+  ];
+  var MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  var CARDINAL = [
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+    "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three",
+    "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight",
+    "twenty-nine", "thirty", "thirty-one",
+  ];
+  var ORDINAL = [
+    "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth",
+    "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+    "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth",
+    "twenty-first", "twenty-second", "twenty-third", "twenty-fourth", "twenty-fifth",
+    "twenty-sixth", "twenty-seventh", "twenty-eighth", "twenty-ninth", "thirtieth",
+    "thirty-first",
+  ];
+
+  // 全部 be 動詞主詞（含姓名、人稱代名詞），每個都標好正確 be 型態
+  function allBeSubjects() {
+    var list = NAMES.map(function (n) {
+      return { text: n.name, be: "is" };
+    });
+    list.push({ text: "He", be: "is" });
+    list.push({ text: "She", be: "is" });
+    list.push({ text: "It", be: "is" });
+    list.push({ text: "I", be: "am" });
+    list.push({ text: "You", be: "are" });
+    list.push({ text: "We", be: "are" });
+    list.push({ text: "They", be: "are" });
+    return list;
+  }
+  var BE_SUBJECTS = allBeSubjects();
+  var ALL_BE_FORMS = ["am", "is", "are"];
+
+  function twoNameSubject(rng) {
+    var n1 = pick(rng, NAMES);
+    var n2 = pick(rng, NAMES.filter(function (n) { return n.name !== n1.name; }));
+    return { text: n1.name + " and " + n2.name, be: "are" };
+  }
+
+  // ---------------------------------------------------------------------
+  // 2. 每個 GP 的骨架 + 生成邏輯
+  // ---------------------------------------------------------------------
+  function buildItem(gp, q, answer, distractors, extra) {
+    var options3 = [answer].concat(distractors);
+    var say = q.replace("___", answer);
+    // 若空格在句首，插入的答案要大寫成句首字母（例如 "open" -> "Open"）
+    if (q.indexOf("___") === 0 && say.length > 0) {
+      say = say.charAt(0).toUpperCase() + say.slice(1);
+    }
+    return {
+      kind: "fill",
+      q: q,
+      answer: answer,
+      options: options3,
+      say: say,
+      gp: gp,
+    };
+  }
+
+  function finalizeOptions(rng, item) {
+    item.options = shuffle(rng, item.options);
+    return item;
+  }
+
+  // ---- GP-01 be動詞 -------------------------------------------------
+  function genGP01(rng) {
+    var subj = rng() < 0.15 ? twoNameSubject(rng) : pick(rng, BE_SUBJECTS);
+    var wrongForms = ALL_BE_FORMS.filter(function (f) { return f !== subj.be; });
+    var faces = [
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ very " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + " today."; },
+      function () { return subj.text + " ___ so " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ at the " + pick(rng, PLACES) + "."; },
+      function () { return subj.text + " ___ in the " + pick(rng, PLACES) + "."; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-01", q, subj.be, wrongForms);
+  }
+
+  // ---- GP-02 名詞複數 -------------------------------------------------
+  function genGP02(rng) {
+    var noun = pick(rng, NOUNS);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)]; // two..nine
+    var isPlural = rng() < 0.5;
+    var faces;
+    if (isPlural) {
+      faces = [
+        function () { return "I have " + numWord + " ___."; },
+        function () { return "There are " + numWord + " ___ on the desk."; },
+        function () { return "I see " + numWord + " ___ in the sky."; },
+      ];
+      var q = pick(rng, faces)();
+      return buildItem("GP-02", q, noun.pl, [noun.sg, noun.wrongPl]);
+    } else {
+      faces = [
+        function () { return "She has one ___."; },
+        function () { return "He has one ___ in his bag."; },
+        function () { return "We need one ___ for the party."; },
+      ];
+      var q2 = pick(rng, faces)();
+      return buildItem("GP-02", q2, noun.sg, [noun.pl, noun.wrongPl]);
+    }
+  }
+
+  // ---- GP-03 冠詞 a/an -------------------------------------------------
+  function genGP03(rng) {
+    var noun = pick(rng, NOUNS);
+    var correct = noun.vowel ? "an" : "a";
+    var wrongArticle = noun.vowel ? "a" : "an";
+    var faces = [
+      function () { return "I have ___ " + noun.sg + "."; },
+      function () { return "She wants ___ " + noun.sg + "."; },
+      function () { return "There is ___ " + noun.sg + " on the table."; },
+      function () { return "Look! It's ___ " + noun.sg + "."; },
+      function () { return "He needs ___ " + noun.sg + " today."; },
+      function () { return "Can I have ___ " + noun.sg + "?"; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-03", q, correct, [wrongArticle, "some"]);
+  }
+
+  // ---- GP-04 指示代名詞 -------------------------------------------------
+  function genGP04(rng) {
+    var sgNoun = pick(rng, NOUNS).sg;
+    var plNoun = pick(rng, NOUNS).pl;
+    var faces = [
+      { ctx: "It's right here.", blankQ: "___ is my " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "It's over there.", blankQ: "___ is my " + sgNoun + ".", answer: "That", wrong: ["This", "Those"] },
+      { ctx: "They're right here.", blankQ: "___ are my " + plNoun + ".", answer: "These", wrong: ["Those", "This"] },
+      { ctx: "They're over there.", blankQ: "___ are my " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+      { ctx: "Look, it's close to me.", blankQ: "___ is a nice " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "Look, they're far away.", blankQ: "___ are cute " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+    ];
+    var f = pick(rng, faces);
+    var q = f.ctx + " " + f.blankQ;
+    return buildItem("GP-04", q, f.answer, f.wrong);
+  }
+
+  // ---- GP-06 Wh 問句 -------------------------------------------------
+  function genGP06(rng) {
+    var noun = pick(rng, NOUNS).sg;
+    var noun2 = pick(rng, NOUNS.filter(function (n) { return n.sg !== noun; })).sg;
+    var place = pick(rng, PLACES);
+    var name = pick(rng, NAMES).name;
+    var name1 = pick(rng, NAMES).name;
+    var name2 = pick(rng, NAMES.filter(function (n) { return n.name !== name1; })).name;
+    var faces = [
+      { q: "___ is that? It's a " + noun + ".", answer: "What" },
+      { q: "___ is she? She is " + name + ".", answer: "Who" },
+      { q: "___ is my " + noun + "? It's in the " + place + ".", answer: "Where" },
+      { q: "___ are they? They are my friends, " + name1 + " and " + name2 + ".", answer: "Who" },
+      { q: "___ is your favorite toy? It's a " + noun2 + ".", answer: "What" },
+      { q: "___ is the cat? It's under the " + place + ".", answer: "Where" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["What", "Who", "Where"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-06", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-07 How 問句 -------------------------------------------------
+  function genGP07(rng) {
+    var name = pick(rng, NAMES).name;
+    var plNoun = pick(rng, NOUNS).pl;
+    var mass = pick(rng, MASS_NOUNS);
+    var faces = [
+      { q: "How ___ are you, " + name + "?", answer: "old" },
+      { q: "How ___ is your dog?", answer: "old" },
+      { q: "How ___ " + plNoun + " are there?", answer: "many" },
+      { q: "How ___ students are in your class?", answer: "many" },
+      { q: "How ___ " + mass + " is there?", answer: "much" },
+      { q: "How ___ " + mass + " do you need?", answer: "much" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["old", "many", "much"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-07", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-10 現在進行式 -------------------------------------------------
+  function genGP10(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var mode = pickIndex(rng, 6);
+    var subj, q, answer, wrong;
+    if (mode < 3) {
+      // 測試 be 動詞主詞一致
+      if (mode === 0) subj = { text: "I", be: "am" };
+      else if (mode === 1) subj = pick(rng, [{ text: "He", be: "is" }, { text: "She", be: "is" }, { text: pick(rng, NAMES).name, be: "is" }]);
+      else subj = pick(rng, [{ text: "We", be: "are" }, { text: "They", be: "are" }, twoNameSubject(rng)]);
+      q = subj.text + " ___ " + v.ing + " now.";
+      answer = subj.be;
+      wrong = ALL_BE_FORMS.filter(function (f) { return f !== answer; });
+    } else {
+      // 測試 -ing 拼法
+      var subjTexts = ["I am", "He is", "They are"];
+      var chosen = subjTexts[mode - 3];
+      q = chosen + " ___ now.";
+      answer = v.ing;
+      wrong = [v.wrongIng, v.base];
+    }
+    return buildItem("GP-10", q, answer, wrong);
+  }
+
+  // ---- GP-11 There be -------------------------------------------------
+  function genGP11(rng) {
+    var sgNoun = pick(rng, NOUNS);
+    var plNoun = pick(rng, NOUNS).pl;
+    var place = pick(rng, PLACES);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)];
+    var faces = [
+      { q: "There ___ a " + sgNoun.sg + " on the " + place + ".", answer: "is" },
+      { q: "There ___ " + numWord + " " + plNoun + " in the " + place + ".", answer: "are" },
+      { q: "There ___ many " + plNoun + " on the " + place + ".", answer: "are" },
+      { q: "There ___ " + (sgNoun.vowel ? "an " : "a ") + sgNoun.sg + " in the bag.", answer: "is" },
+      { q: "There ___ some " + plNoun + " near the " + place + ".", answer: "are" },
+      { q: "There ___ one " + sgNoun.sg + " under the " + place + ".", answer: "is" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["is", "are", "am"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-11", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-12 祈使句 -------------------------------------------------
+  function genGP12(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var faces = [
+      { q: "___ the door, please.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Please ___ your hands.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Don't ___ in the classroom.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ quiet, please!", answer: "Be", wrong: ["Is", "Are"] },
+      { q: "___ your book, everyone.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Let's ___ now.", answer: v.base, wrong: [v.s, v.ing] },
+    ];
+    var f = pick(rng, faces);
+    return buildItem("GP-12", f.q, f.answer, f.wrong);
+  }
+
+  // ---- GP-14 can -------------------------------------------------
+  function genGP14(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var name = pick(rng, NAMES).name;
+    var faces = [
+      "" + name + " can ___ well.",
+      "I can ___ every day.",
+      "They can ___ now.",
+      "We can ___ here.",
+      "Can " + name + " ___ today?",
+      "You can ___ after school.",
+    ];
+    var q = pick(rng, faces);
+    return buildItem("GP-14", q, v.base, [v.s, "to " + v.base]);
+  }
+
+  // ---- GP-21 基數序數 -------------------------------------------------
+  function genGP21(rng) {
+    var mode = pickIndex(rng, 6);
+    if (mode < 3) {
+      var n = 2 + pickIndex(rng, 8); // 2..9 (plural noun 需要 >=2)
+      var pl = pick(rng, NOUNS).pl;
+      var faces = [
+        "I have ___ " + pl + ".",
+        "There are ___ " + pl + " on the table.",
+        "She bought ___ " + pl + " at the store.",
+      ];
+      var q = faces[mode];
+      return buildItem("GP-21", q, CARDINAL[n - 1], [ORDINAL[n - 1], mangle(CARDINAL[n - 1])]);
+    } else {
+      var n2 = 1 + pickIndex(rng, 12);
+      var facesO = [
+        "This is my ___ time here.",
+        "He is the ___ in line.",
+        "Today is her ___ day at school.",
+      ];
+      var q2 = facesO[mode - 3];
+      return buildItem("GP-21", q2, ORDINAL[n2 - 1], [CARDINAL[n2 - 1], mangle(ORDINAL[n2 - 1])]);
+    }
+  }
+
+  // ---- GP-23 星期月份日期 -------------------------------------------------
+  function genGP23(rng) {
+    var mode = pickIndex(rng, 6);
+    var q, answer;
+    if (mode === 0) {
+      var i0 = pickIndex(rng, 7);
+      var d0 = WEEKDAYS[i0], d1 = WEEKDAYS[(i0 + 1) % 7], d2 = WEEKDAYS[(i0 + 2) % 7];
+      q = d0 + ", " + d1 + ", ___.";
+      answer = d2;
+      var wrong = pickDistinctExcluding(rng, WEEKDAYS, [d0, d1, d2], 2);
+      return buildItem("GP-23", q, answer, wrong);
+    } else if (mode === 1 || mode === 2) {
+      var im = pickIndex(rng, 12);
+      var m = MONTHS[im];
+      if (mode === 1) {
+        answer = MONTHS[(im + 11) % 12];
+        q = "The month before " + m + " is ___.";
+      } else {
+        answer = MONTHS[(im + 1) % 12];
+        q = "The month after " + m + " is ___.";
+      }
+      var wrongM = pickDistinctExcluding(rng, MONTHS, [m, answer], 2);
+      return buildItem("GP-23", q, answer, wrongM);
+    } else if (mode === 3) {
+      var ix = 1 + pickIndex(rng, 5); // 避免邊界
+      var dPrev = WEEKDAYS[ix - 1], dMid = WEEKDAYS[ix], dNext = WEEKDAYS[ix + 1];
+      q = dPrev + ", ___, " + dNext + ".";
+      answer = dMid;
+      var wrongMid = pickDistinctExcluding(rng, WEEKDAYS, [dPrev, dMid, dNext], 2);
+      return buildItem("GP-23", q, answer, wrongMid);
+    } else if (mode === 4) {
+      var im2 = pickIndex(rng, 11);
+      var m0 = MONTHS[im2], m1 = MONTHS[im2 + 1], m2 = MONTHS[im2 + 2 > 11 ? 11 : im2 + 2];
+      // 確保三個相異（月份陣列長度足夠時必相異）
+      if (im2 + 2 <= 11) {
+        m2 = MONTHS[im2 + 2];
+      } else {
+        im2 = 9; m0 = MONTHS[9]; m1 = MONTHS[10]; m2 = MONTHS[11];
+      }
+      q = m0 + ", " + m1 + ", ___.";
+      answer = m2;
+      var wrongMo = pickDistinctExcluding(rng, MONTHS, [m0, m1, m2], 2);
+      return buildItem("GP-23", q, answer, wrongMo);
+    } else {
+      var iy = pickIndex(rng, 7);
+      var dy = WEEKDAYS[iy];
+      answer = WEEKDAYS[(iy + 1) % 7];
+      q = "The day after " + dy + " is ___.";
+      var wrongDy = pickDistinctExcluding(rng, WEEKDAYS, [dy, answer], 2);
+      return buildItem("GP-23", q, answer, wrongDy);
+    }
+  }
+
+  var GENERATORS = {
+    "GP-01": genGP01,
+    "GP-02": genGP02,
+    "GP-03": genGP03,
+    "GP-04": genGP04,
+    "GP-06": genGP06,
+    "GP-07": genGP07,
+    "GP-10": genGP10,
+    "GP-11": genGP11,
+    "GP-12": genGP12,
+    "GP-14": genGP14,
+    "GP-21": genGP21,
+    "GP-23": genGP23,
+  };
+
+  var SUPPORTED_GPS = Object.keys(GENERATORS);
+
+  // ---------------------------------------------------------------------
+  // 3. 對外主函式
+  // ---------------------------------------------------------------------
+  function make(gpList, n, seed) {
+    if (!gpList || !gpList.length) gpList = SUPPORTED_GPS.slice();
+    gpList = gpList.filter(function (gp) { return GENERATORS[gp]; });
+    if (!gpList.length) return [];
+    var rng = makeRng(seed);
+    var out = [];
+    var seen = {};
+    var guard = 0;
+    var maxGuard = n * 50 + 200;
+    var i = 0;
+    while (out.length < n && guard < maxGuard) {
+      guard++;
+      var gp = gpList[i % gpList.length];
+      i++;
+      var item = GENERATORS[gp](rng);
+      finalizeOptions(rng, item);
+      var key = item.gp + "|" + item.q + "|" + item.answer;
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push(item);
+    }
+    return out;
+  }
+
+  var GrammarGen = {
+    make: make,
+    supportedGPs: SUPPORTED_GPS,
+    _internal: {
+      DATA: {
+        NAMES: NAMES, NOUNS: NOUNS, ADJECTIVES: ADJECTIVES, PLACES: PLACES,
+        ACTION_VERBS: ACTION_VERBS, MASS_NOUNS: MASS_NOUNS, WEEKDAYS: WEEKDAYS,
+        MONTHS: MONTHS, CARDINAL: CARDINAL, ORDINAL: ORDINAL,
+      },
+      mangle: mangle,
+      makeRng: makeRng,
+    },
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = GrammarGen;
+  } else {
+    root.GrammarGen = GrammarGen;
+  }
+})(typeof window !== "undefined" ? window : this);
 
 </script><script>
 /*!

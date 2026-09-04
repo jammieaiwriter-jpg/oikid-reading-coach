@@ -9,6 +9,13 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
 .bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
 .note{font-size:.92rem;color:#52606d;line-height:1.6}
+.rounds{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.rchip{border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 13px;font-weight:900;font-size:.85rem;cursor:pointer}
+.rchip.done{background:#7bdcb5;border-color:#7bdcb5;color:#0b3a2a}
+.rchip.cur{background:#fff;border-color:#fff;color:#155e75}
+.rchip:disabled{opacity:.55;cursor:default}
+.round-hide{display:none !important}
+.round-done-note{background:#e6fcf5;border:1px solid #2f9e44;color:#17623a;border-radius:10px;padding:12px 14px;font-weight:800;margin:12px 0;display:none}
 .hero .note{color:#d9f5fb}
 .section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
 .head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -66,8 +73,10 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 <div class="intro">這一課 6 區一條線：① 原創課文朗讀（社團博覽會）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 36 字）→ ③④ 原創文法題（be 動詞、What/Who/Where 問句，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。</div>
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="note" id="prog"></div>
+<div class="rounds" id="rounds"></div>
 <div class="note">🎤 麥克風聲音由瀏覽器的語音服務即時辨識，本頁不錄存任何音訊。</div>
 </div>
+<div class="round-done-note" id="round-done"></div>
 <div class="section"><div class="head"><span>區塊 1 / 6　① 課文朗讀：Club Fair Day（原創）</span><span class="pg">講義 原創課次對應文本（開學社團博覽會）</span></div><div class="body">
 <div class="tip">原創課次文本，用本課單字和 be 動詞／wh-問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。</div>
 <div class="sub">逐句唸過</div>
@@ -1466,7 +1475,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 </div>
 <div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button><a class="btn alt" style="text-decoration:none" href="vocab-daily.html">📅 每日單字</a></div>
 <div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
-const DATA={"lesson": "康軒B1-L1", "child": "Bobo", "title": "Welcome to Junior High! — 康軒英文 第一冊 Lesson 1", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（答錯補題）→ 文法綜合挑戰 → GEPT 延伸閱讀", "storage": "kang-b1-l1-pre-v1", "intro": "這一課 6 區一條線：① 原創課文朗讀（社團博覽會）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 36 字）→ ③④ 原創文法題（be 動詞、What/Who/Where 問句，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。", "vocabAll": [{"w": "again", "zh": "再一次"}, {"w": "aunt", "zh": "姑姑、阿姨、伯母、嬸嬸、舅媽"}, {"w": "beautiful", "zh": "美麗的、漂亮的"}, {"w": "child", "zh": "孩子"}, {"w": "class", "zh": "班級；課程"}, {"w": "classroom", "zh": "教室"}, {"w": "cook", "zh": "廚師；煮"}, {"w": "cousin", "zh": "堂／表兄弟姐妹"}, {"w": "cute", "zh": "可愛的"}, {"w": "daughter", "zh": "女兒"}, {"w": "doctor", "zh": "醫生"}, {"w": "family", "zh": "家庭、家人"}, {"w": "farmer", "zh": "農夫"}, {"w": "handsome", "zh": "英俊的"}, {"w": "husband", "zh": "丈夫"}, {"w": "junior high school", "zh": "國中（國民中學）"}, {"w": "man", "zh": "男人"}, {"w": "news", "zh": "新聞、消息"}, {"w": "nice", "zh": "好的、好心的"}, {"w": "nurse", "zh": "護理師、護士"}, {"w": "our", "zh": "我們的"}, {"w": "parent", "zh": "雙親之一"}, {"w": "PE", "zh": "體育"}, {"w": "pet", "zh": "寵物"}, {"w": "problem", "zh": "問題"}, {"w": "really", "zh": "真地"}, {"w": "same", "zh": "相同的、一樣的"}, {"w": "senior high school", "zh": "高中"}, {"w": "son", "zh": "兒子"}, {"w": "strict", "zh": "嚴格的"}, {"w": "too", "zh": "也；太、過於"}, {"w": "uncle", "zh": "叔叔、伯伯、舅舅、姑丈、姨丈"}, {"w": "warm", "zh": "溫暖的"}, {"w": "wife", "zh": "妻子"}, {"w": "woman", "zh": "女人"}, {"w": "young", "zh": "年輕的"}], "blocks": [{"id": "text", "name": "① 課文朗讀：Club Fair Day（原創）", "page": "原創課次對應文本（開學社團博覽會）", "note": "原創課次文本，用本課單字和 be 動詞／wh-問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["Today is a special day at our junior high school. It is Club Fair Day! Every class has a table in the big gym.", "I am a new student here. I am a little nervous, but I am also excited. My cousin Nina is with me today.", "What is this club? I ask a tall man. This is the Cooking Club, he says. He is the cook, and he is really nice.", "Who is that woman near the window? She is young and cute, Nina says. She is the leader of the Pet Club.", "The Pet Club has two rabbits and one cute cat. Where is the PE Club? Nina asks. It is near the classroom, the man says.", "We walk to the News Club next. A strict teacher is there. She is not angry; she is just serious about the school news.", "This club and that club are not the same, Nina says. One is quiet, and one is noisy. I am happy about both clubs.", "At the last table, we meet a farmer's son. He is in the Garden Club. Are you a farmer, too? I ask with a smile.", "Is there a problem? a teacher asks us. No, there isn't, I say. We are just looking at every club again.", "Our school is warm and beautiful today. I am really glad I am in junior high school. I already feel like part of a family."], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：Why are you excited or nervous on the first day of junior high school?", "keywords": ["excited", "nervous", "new", "school", "class", "friend"], "minHits": 2, "model": "I am a little nervous, but I am also excited about my new class."}, {"kind": "fill", "q": "課文克漏字：What day is it at school today?", "answer": "Club Fair Day.", "options": ["Club Fair Day.", "Sports Day.", "Music Day."], "say": "Today is Club Fair Day!"}, {"kind": "fill", "q": "閱讀理解：Who is with the narrator at the fair?", "answer": "Her cousin, Nina.", "options": ["Her cousin, Nina.", "Her sister, Nina.", "Her teacher, Nina."], "say": "My cousin Nina is with me today."}, {"kind": "fill", "q": "閱讀理解：What is the tall man's job at the Cooking Club?", "answer": "He is the cook.", "options": ["He is the cook.", "He is the teacher.", "He is the leader."], "say": "He is the cook, and he is really nice."}, {"kind": "fill", "q": "閱讀理解：How does Nina describe the woman near the window?", "answer": "Young and cute.", "options": ["Young and cute.", "Old and strict.", "Tall and quiet."], "say": "She is young and cute, Nina says."}, {"kind": "fill", "q": "閱讀理解：Where is the PE Club?", "answer": "Near the classroom.", "options": ["Near the classroom.", "Near the gym.", "Near the garden."], "say": "It is near the classroom, the man says."}, {"kind": "tf", "q": "閱讀理解：The News Club teacher is very angry.", "answer": "False", "say": "She is not angry; she is just serious about the school news."}, {"kind": "tf", "q": "閱讀理解：This club and that club are the same.", "answer": "False", "say": "This club and that club are not the same."}, {"kind": "fill", "q": "閱讀理解：Who do they meet at the last table?", "answer": "A farmer's son.", "options": ["A farmer's son.", "A doctor's daughter.", "A nurse's cousin."], "say": "We meet a farmer's son."}, {"kind": "fill", "q": "閱讀理解：Is there a problem at the fair?", "answer": "No, there isn't.", "options": ["No, there isn't.", "Yes, there is.", "Maybe there is."], "say": "No, there isn't, I say."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 36 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後大部分單字都要「聽音拼寫」——挖空給提示，打出完整單字，拼錯不算過；junior high school／senior high school 是片語，用選詞填空。國中生要背的是拼字，不是選項。", "read": ["Let's try that again. My aunt is a nice teacher. The flowers on her desk are beautiful. Every child gets a name tag today. Our class is in Room 101. The classroom is warm and bright.", "My uncle is a cook at a small restaurant. My cousin Nina is in the same class. The rabbit at the Pet Club is really cute. The teacher's daughter helps at the fair, too.", "My aunt is a doctor at the city hospital. We are like a family at this school. My uncle is a farmer near the mountains. The young man in the photo is handsome. My aunt's husband is a doctor.", "I am a new student at junior high school. The tall man is the club leader. We read the school news every morning. Our new teacher is really nice. My cousin is a nurse at the hospital.", "This is our classroom, and that is our garden. Every parent got a letter about the fair. We have PE class after lunch on Monday. The Pet Club has a cute pet rabbit. Is there a problem with your schedule?", "This club is really fun for young students. These two clubs are not the same. My brother is a student at senior high school. He is the coach's son, and he is strict, too.", "The PE teacher is strict but warm. I want to join the Pet Club, too. My uncle is a farmer, and he is really strong. The classroom feels warm on a cold day.", "The coach's wife is a nurse at our school. The young woman at the desk is the club leader. The new students are young and a little nervous."], "words": [{"w": "again", "zh": "再一次", "pos": "adv."}, {"w": "aunt", "zh": "姑姑、阿姨、伯母、嬸嬸、舅媽", "pos": "n."}, {"w": "beautiful", "zh": "美麗的、漂亮的", "pos": "adj."}, {"w": "child", "zh": "孩子", "pos": "n."}, {"w": "class", "zh": "班級；課程", "pos": "n."}, {"w": "classroom", "zh": "教室", "pos": "n."}, {"w": "cook", "zh": "廚師；煮", "pos": "n./v."}, {"w": "cousin", "zh": "堂／表兄弟姐妹", "pos": "n."}, {"w": "cute", "zh": "可愛的", "pos": "adj."}, {"w": "daughter", "zh": "女兒", "pos": "n."}, {"w": "doctor", "zh": "醫生", "pos": "n."}, {"w": "family", "zh": "家庭、家人", "pos": "n."}, {"w": "farmer", "zh": "農夫", "pos": "n."}, {"w": "handsome", "zh": "英俊的", "pos": "adj."}, {"w": "husband", "zh": "丈夫", "pos": "n."}, {"w": "junior high school", "zh": "國中（國民中學）", "pos": "n."}, {"w": "man", "zh": "男人", "pos": "n."}, {"w": "news", "zh": "新聞、消息", "pos": "n."}, {"w": "nice", "zh": "好的、好心的", "pos": "adj."}, {"w": "nurse", "zh": "護理師、護士", "pos": "n."}, {"w": "our", "zh": "我們的", "pos": "det."}, {"w": "parent", "zh": "雙親之一", "pos": "n."}, {"w": "PE", "zh": "體育", "pos": "n."}, {"w": "pet", "zh": "寵物", "pos": "n."}, {"w": "problem", "zh": "問題", "pos": "n."}, {"w": "really", "zh": "真地", "pos": "adv."}, {"w": "same", "zh": "相同的、一樣的", "pos": "adj."}, {"w": "senior high school", "zh": "高中", "pos": "n."}, {"w": "son", "zh": "兒子", "pos": "n."}, {"w": "strict", "zh": "嚴格的", "pos": "adj."}, {"w": "too", "zh": "也；太、過於", "pos": "adv."}, {"w": "uncle", "zh": "叔叔、伯伯、舅舅、姑丈、姨丈", "pos": "n."}, {"w": "warm", "zh": "溫暖的", "pos": "adj."}, {"w": "wife", "zh": "妻子", "pos": "n."}, {"w": "woman", "zh": "女人", "pos": "n."}, {"w": "young", "zh": "年輕的", "pos": "adj."}], "practice": [{"kind": "fill", "q": "Choose: My ____ is a doctor, and my uncle is a farmer.", "answer": "aunt", "options": ["aunt", "cousin", "daughter"], "say": "My aunt is a doctor, and my uncle is a farmer."}, {"kind": "fill", "q": "Choose: The two clubs are not the ____.", "answer": "same", "options": ["same", "warm", "strict"], "say": "The two clubs are not the same."}, {"kind": "spell", "q": "拼寫：再一次（一格一個字母，先按🔊聽）", "answer": "again", "say": "Let's try that again.", "mask": "a_a_n"}, {"kind": "spell", "q": "拼寫：姑姑、阿姨、伯母、嬸嬸、舅媽（一格一個字母，先按🔊聽）", "answer": "aunt", "say": "My aunt is a nice teacher.", "mask": "a_n_"}, {"kind": "spell", "q": "拼寫：美麗的、漂亮的（一格一個字母，先按🔊聽）", "answer": "beautiful", "say": "The flowers on her desk are beautiful.", "mask": "b_a_t_f_l"}, {"kind": "spell", "q": "拼寫：孩子（一格一個字母，先按🔊聽）", "answer": "child", "say": "Every child gets a name tag today.", "mask": "c_i_d"}, {"kind": "spell", "q": "拼寫：班級；課程（一格一個字母，先按🔊聽）", "answer": "class", "say": "Our class is in Room 101.", "mask": "c_a_s"}, {"kind": "spell", "q": "拼寫：教室（一格一個字母，先按🔊聽）", "answer": "classroom", "say": "The classroom is warm and bright.", "mask": "c_a__r__m"}, {"kind": "spell", "q": "拼寫：廚師；煮（一格一個字母，先按🔊聽）", "answer": "cook", "say": "My uncle is a cook at a small restaurant.", "mask": "c__k"}, {"kind": "spell", "q": "拼寫：堂／表兄弟姐妹（一格一個字母，先按🔊聽）", "answer": "cousin", "say": "My cousin Nina is in the same class.", "mask": "c__s_n"}, {"kind": "spell", "q": "拼寫：可愛的（一格一個字母，先按🔊聽）", "answer": "cute", "say": "The rabbit at the Pet Club is really cute.", "mask": "c_t_"}, {"kind": "spell", "q": "拼寫：女兒（一格一個字母，先按🔊聽）", "answer": "daughter", "say": "The teacher's daughter helps at the fair, too.", "mask": "d_u__t_r"}, {"kind": "spell", "q": "拼寫：醫生（一格一個字母，先按🔊聽）", "answer": "doctor", "say": "My aunt is a doctor at the city hospital.", "mask": "d_c_or"}, {"kind": "spell", "q": "拼寫：家庭、家人（一格一個字母，先按🔊聽）", "answer": "family", "say": "We are like a family at this school.", "mask": "f_m_ly"}, {"kind": "spell", "q": "拼寫：農夫（一格一個字母，先按🔊聽）", "answer": "farmer", "say": "My uncle is a farmer near the mountains.", "mask": "f_r_er"}, {"kind": "spell", "q": "拼寫：英俊的（一格一個字母，先按🔊聽）", "answer": "handsome", "say": "The young man in the photo is handsome.", "mask": "h_n_s_m_"}, {"kind": "spell", "q": "拼寫：丈夫（一格一個字母，先按🔊聽）", "answer": "husband", "say": "My aunt's husband is a doctor.", "mask": "h_s_a_d"}, {"kind": "fill", "q": "填空（國中（國民中學））：I am a new student at ____.", "answer": "junior high school", "options": ["junior high school", "the Pet Club", "the gym"], "say": "I am a new student at junior high school."}, {"kind": "spell", "q": "拼寫：男人（一格一個字母，先按🔊聽）", "answer": "man", "say": "The tall man is the club leader.", "mask": "m_n"}, {"kind": "spell", "q": "拼寫：新聞、消息（一格一個字母，先按🔊聽）", "answer": "news", "say": "We read the school news every morning.", "mask": "n_w_"}, {"kind": "spell", "q": "拼寫：好的、好心的（一格一個字母，先按🔊聽）", "answer": "nice", "say": "Our new teacher is really nice.", "mask": "n_c_"}, {"kind": "spell", "q": "拼寫：護理師、護士（一格一個字母，先按🔊聽）", "answer": "nurse", "say": "My cousin is a nurse at the hospital.", "mask": "n_r_e"}, {"kind": "spell", "q": "拼寫：我們的（一格一個字母，先按🔊聽）", "answer": "our", "say": "This is our classroom, and that is our garden.", "mask": "o_r"}, {"kind": "spell", "q": "拼寫：雙親之一（一格一個字母，先按🔊聽）", "answer": "parent", "say": "Every parent got a letter about the fair.", "mask": "p_r_nt"}, {"kind": "spell", "q": "拼寫：體育（一格一個字母，先按🔊聽）", "answer": "PE", "say": "We have PE class after lunch on Monday.", "mask": "P_"}, {"kind": "spell", "q": "拼寫：寵物（一格一個字母，先按🔊聽）", "answer": "pet", "say": "The Pet Club has a cute pet rabbit.", "mask": "p_t"}, {"kind": "spell", "q": "拼寫：問題（一格一個字母，先按🔊聽）", "answer": "problem", "say": "Is there a problem with your schedule?", "mask": "p_o_l_m"}, {"kind": "spell", "q": "拼寫：真地（一格一個字母，先按🔊聽）", "answer": "really", "say": "This club is really fun for young students.", "mask": "r_a_ly"}, {"kind": "spell", "q": "拼寫：相同的、一樣的（一格一個字母，先按🔊聽）", "answer": "same", "say": "These two clubs are not the same.", "mask": "s_m_"}, {"kind": "fill", "q": "填空（高中）：I am a new student at ____.", "answer": "senior high school", "options": ["senior high school", "the Pet Club", "the gym"], "say": "My brother is a student at senior high school."}, {"kind": "spell", "q": "拼寫：兒子（一格一個字母，先按🔊聽）", "answer": "son", "say": "He is the coach's son, and he is strict, too.", "mask": "s_n"}, {"kind": "spell", "q": "拼寫：嚴格的（一格一個字母，先按🔊聽）", "answer": "strict", "say": "The PE teacher is strict but warm.", "mask": "s_r_ct"}, {"kind": "spell", "q": "拼寫：也；太、過於（一格一個字母，先按🔊聽）", "answer": "too", "say": "I want to join the Pet Club, too.", "mask": "t_o"}, {"kind": "spell", "q": "拼寫：叔叔、伯伯、舅舅、姑丈、姨丈（一格一個字母，先按🔊聽）", "answer": "uncle", "say": "My uncle is a farmer, and he is really strong.", "mask": "u_c_e"}, {"kind": "spell", "q": "拼寫：溫暖的（一格一個字母，先按🔊聽）", "answer": "warm", "say": "The classroom feels warm on a cold day.", "mask": "w_r_"}, {"kind": "spell", "q": "拼寫：妻子（一格一個字母，先按🔊聽）", "answer": "wife", "say": "The coach's wife is a nurse at our school.", "mask": "w_f_"}, {"kind": "spell", "q": "拼寫：女人（一格一個字母，先按🔊聽）", "answer": "woman", "say": "The young woman at the desk is the club leader.", "mask": "w_m_n"}, {"kind": "spell", "q": "拼寫：年輕的（一格一個字母，先按🔊聽）", "answer": "young", "say": "The new students are young and a little nervous.", "mask": "y_u_g"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：be 動詞（＝知洞 GP-01）", "page": "原創題（be 動詞：am／is／are）", "note": "I am／You are／He, She, It is／複數用 are。縮寫：I am not 可以縮寫成 I'm not，但 am not 沒有 amn't 這種縮寫。規則記好直接作答，每題答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "I ____ a new student.", "answer": "am", "options": ["am", "is", "are"], "say": "I am a new student."}, {"kind": "fill", "q": "Nina ____ my cousin.", "answer": "is", "options": ["is", "am", "are"], "say": "Nina is my cousin."}, {"kind": "fill", "q": "The rabbits ____ cute.", "answer": "are", "options": ["are", "is", "am"], "say": "The rabbits are cute."}, {"kind": "fill", "q": "____ you excited about the fair?", "answer": "Are", "options": ["Are", "Is", "Am"], "say": "Are you excited about the fair?"}, {"kind": "fill", "q": "Is the teacher angry? No, ____.", "answer": "she isn't", "options": ["she isn't", "she is", "he isn't"], "say": "No, she isn't."}, {"kind": "tf", "q": "am not 可以縮寫成 amn't。", "answer": "False", "say": "I am not nervous."}, {"kind": "fill", "q": "He ____ the cook at the Cooking Club.", "answer": "is", "options": ["is", "am", "are"], "say": "He is the cook at the Cooking Club.", "backup": true}, {"kind": "fill", "q": "We ____ happy about the clubs.", "answer": "are", "options": ["are", "is", "am"], "say": "We are happy about the clubs.", "backup": true}, {"kind": "fill", "q": "Is she the leader? Yes, she ____.", "answer": "is", "options": ["is", "are", "am"], "say": "Yes, she is.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：What／Who／Where 問句（＝知洞 GP-06）", "page": "原創題（wh-問句與答句）", "note": "What is this? → It is a ___. Who is she? → She is ___. Where is it? → It is in/on/under ___. 問句用 be 動詞倒裝，答句用 It is／She is／He is／They are。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is this? It is a rabbit.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is this? It is a rabbit."}, {"kind": "fill", "q": "____ is that man? He is the cook.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is that man? He is the cook."}, {"kind": "fill", "q": "____ is the PE Club? It is near the classroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is the PE Club? It is near the classroom."}, {"kind": "fill", "q": "What is this? ____ a cute cat.", "answer": "It is", "options": ["It is", "She is", "They are"], "say": "What is this? It is a cute cat."}, {"kind": "fill", "q": "Who is she? ____ the club leader.", "answer": "She is", "options": ["She is", "It is", "He is"], "say": "Who is she? She is the club leader."}, {"kind": "fill", "q": "Where is the basket? It is ____ the table.", "answer": "on", "options": ["on", "in", "by"], "say": "It is on the table."}, {"kind": "fill", "q": "____ are those? They are rabbits.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What are those? They are rabbits.", "backup": true}, {"kind": "fill", "q": "____ is your teacher? She is in the classroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is your teacher? She is in the classroom.", "backup": true}, {"kind": "fill", "q": "____ is your cousin? She is Nina.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is your cousin? She is Nina.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑤ 文法綜合挑戰（混考）", "page": "原創題（GP-01/GP-06 混出）", "note": "進階區：選項故意把 be 動詞（is/are/am）跟疑問詞（What/Who/Where）放在同一題，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is this club?", "answer": "What", "options": ["What", "is", "are"], "say": "What is this club?"}, {"kind": "fill", "q": "____ she the leader of this club?", "answer": "Is", "options": ["Is", "Who", "Where"], "say": "Is she the leader of this club?"}, {"kind": "fill", "q": "The rabbits ____ in the Pet Club.", "answer": "are", "options": ["are", "who", "what"], "say": "The rabbits are in the Pet Club."}, {"kind": "fill", "q": "____ is the cook? He is a tall man.", "answer": "Who", "options": ["Who", "Are", "Am"], "say": "Who is the cook? He is a tall man."}, {"kind": "fill", "q": "____ is the News Club? It is near the gym.", "answer": "Where", "options": ["Where", "Is", "Are"], "say": "Where is the News Club? It is near the gym."}, {"kind": "fill", "q": "We ____ excited about the fair.", "answer": "are", "options": ["are", "who", "where"], "say": "We are excited about the fair."}, {"kind": "fill", "q": "____ that a strict teacher?", "answer": "Is", "options": ["Is", "What", "Who"], "say": "Is that a strict teacher?"}, {"kind": "fill", "q": "____ is your favorite club? My favorite is the Pet Club.", "answer": "What", "options": ["What", "Are", "Is"], "say": "What is your favorite club? My favorite is the Pet Club."}, {"kind": "fill", "q": "____ are those students? They are new, too.", "answer": "Who", "options": ["Who", "Are", "Is"], "say": "Who are those students? They are new, too.", "backup": true}, {"kind": "fill", "q": "____ is the basket? It is on the table.", "answer": "Where", "options": ["Where", "Is", "Are"], "say": "Where is the basket? It is on the table.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑥ GEPT 延伸閱讀：A Saturday at Grandma's House", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】約 227 字原創短文，字彙在英檢初級 2000 字內，情境換成假日探望阿嬤（跟課文的社團博覽會不同）。流程刻意這樣排：①直接把整篇文章從頭讀到尾——遇到沒學過的字用上下文猜，不要停 → ②做理解題驗證有沒有讀懂（答案都在文中）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。", "read": ["Every Saturday, my family visits my grandma. She lives in a small house near a big garden. My little brother and I love this day very much. Grandma always has a big smile for us.", "This morning, we drive to grandma's house early. The sun is bright, and the sky is blue. My brother sings a happy song in the car. I look out the window and see green fields.", "Grandma is in the garden when we arrive. She grows tomatoes and beans there. Today, she picks fresh vegetables for lunch. We help her carry a big basket. The basket is heavy, but we are happy to help.", "After that, grandma cooks a wonderful lunch for us. She makes soup, rice, and fish. The kitchen smells so good. My brother tries to help her cook, too, but he is not very good at it yet!", "In the afternoon, we play with grandma's dog. Its name is Lucky. Lucky can catch a ball very well. My brother laughs every time Lucky jumps and runs. We are tired, but we are having fun.", "Before we leave, grandma gives us a basket of fresh vegetables. She gives my brother and me a big hug. \"Come back next Saturday!\" she says.", "We wave and say goodbye. It is a wonderful day with grandma, and we are already excited for next week."], "words": [{"w": "garden", "zh": "花園、菜園", "pos": "n."}, {"w": "basket", "zh": "籃子", "pos": "n."}, {"w": "hug", "zh": "擁抱", "pos": "n./v."}, {"w": "catch", "zh": "接住、抓住", "pos": "v."}, {"w": "wonderful", "zh": "very good", "pos": "adj."}, {"w": "goodbye", "zh": "再見", "pos": "n./interj."}], "practice": [{"kind": "fill", "q": "主旨：What is this story mainly about?", "answer": "A family visit to grandma's house.", "options": ["A family visit to grandma's house.", "A boy's birthday party.", "A school trip to the zoo."], "say": "Every Saturday, my family visits my grandma.", "qtype": "main"}, {"kind": "fill", "q": "細節：What does grandma grow in her garden?", "answer": "Tomatoes and beans.", "options": ["Tomatoes and beans.", "Apples and oranges.", "Rice and fish."], "say": "She grows tomatoes and beans there.", "qtype": "detail"}, {"kind": "fill", "q": "細節：What do they play with in the afternoon?", "answer": "Grandma's dog, Lucky.", "options": ["Grandma's dog, Lucky.", "A new bicycle.", "A soccer ball with friends."], "say": "In the afternoon, we play with grandma's dog.", "qtype": "detail"}, {"kind": "fill", "q": "推論：Based on the story, how does the family feel about visiting grandma?", "answer": "They love it and want to come back.", "options": ["They love it and want to come back.", "They think it is boring.", "They are scared of grandma's dog."], "say": "We are already excited for next week.", "qtype": "inference"}, {"kind": "fill", "q": "字義猜測：In the story, the word \"wonderful\" most likely means ____.", "answer": "very good", "options": ["very good", "very bad", "very quiet"], "say": "Grandma cooks a wonderful lunch for us.", "qtype": "vocab"}, {"kind": "tf", "q": "細節：The family visits grandma every Sunday.", "answer": "False", "say": "Every Saturday, my family visits my grandma.", "qtype": "detail"}], "article": ["Every Saturday, my family visits my grandma. She lives in a small house near a big garden. My little brother and I love this day very much. Grandma always has a big smile for us.", "This morning, we drive to grandma's house early. The sun is bright, and the sky is blue. My brother sings a happy song in the car. I look out the window and see green fields.", "Grandma is in the garden when we arrive. She grows tomatoes and beans there. Today, she picks fresh vegetables for lunch. We help her carry a big basket. The basket is heavy, but we are happy to help.", "After that, grandma cooks a wonderful lunch for us. She makes soup, rice, and fish. The kitchen smells so good. My brother tries to help her cook, too, but he is not very good at it yet!", "In the afternoon, we play with grandma's dog. Its name is Lucky. Lucky can catch a ball very well. My brother laughs every time Lucky jumps and runs. We are tired, but we are having fun.", "Before we leave, grandma gives us a basket of fresh vegetables. She gives my brother and me a big hug. \"Come back next Saturday!\" she says.", "We wave and say goodbye. It is a wonderful day with grandma, and we are already excited for next week."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "Club Fair Day", "words": 36, "grammarPoints": ["GP-01", "GP-06"], "setting": "開學社團博覽會（全新原創情境，與課本課文之人物、場景、事件順序零重疊）", "generated": "2026-09-04", "humanCheck": "未沿用原課文角色、情節、句序及特色語句"}};
+const DATA={"lesson": "康軒B1-L1", "child": "Bobo", "title": "Welcome to Junior High! — 康軒英文 第一冊 Lesson 1", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（答錯補題）→ 文法綜合挑戰 → GEPT 延伸閱讀", "storage": "kang-b1-l1-pre-v1", "intro": "這一課 6 區一條線：① 原創課文朗讀（社團博覽會）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 36 字）→ ③④ 原創文法題（be 動詞、What/Who/Where 問句，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。", "vocabAll": [{"w": "again", "zh": "再一次"}, {"w": "aunt", "zh": "姑姑、阿姨、伯母、嬸嬸、舅媽"}, {"w": "beautiful", "zh": "美麗的、漂亮的"}, {"w": "child", "zh": "孩子"}, {"w": "class", "zh": "班級；課程"}, {"w": "classroom", "zh": "教室"}, {"w": "cook", "zh": "廚師；煮"}, {"w": "cousin", "zh": "堂／表兄弟姐妹"}, {"w": "cute", "zh": "可愛的"}, {"w": "daughter", "zh": "女兒"}, {"w": "doctor", "zh": "醫生"}, {"w": "family", "zh": "家庭、家人"}, {"w": "farmer", "zh": "農夫"}, {"w": "handsome", "zh": "英俊的"}, {"w": "husband", "zh": "丈夫"}, {"w": "junior high school", "zh": "國中（國民中學）"}, {"w": "man", "zh": "男人"}, {"w": "news", "zh": "新聞、消息"}, {"w": "nice", "zh": "好的、好心的"}, {"w": "nurse", "zh": "護理師、護士"}, {"w": "our", "zh": "我們的"}, {"w": "parent", "zh": "雙親之一"}, {"w": "PE", "zh": "體育"}, {"w": "pet", "zh": "寵物"}, {"w": "problem", "zh": "問題"}, {"w": "really", "zh": "真地"}, {"w": "same", "zh": "相同的、一樣的"}, {"w": "senior high school", "zh": "高中"}, {"w": "son", "zh": "兒子"}, {"w": "strict", "zh": "嚴格的"}, {"w": "too", "zh": "也；太、過於"}, {"w": "uncle", "zh": "叔叔、伯伯、舅舅、姑丈、姨丈"}, {"w": "warm", "zh": "溫暖的"}, {"w": "wife", "zh": "妻子"}, {"w": "woman", "zh": "女人"}, {"w": "young", "zh": "年輕的"}], "blocks": [{"id": "text", "name": "① 課文朗讀：Club Fair Day（原創）", "page": "原創課次對應文本（開學社團博覽會）", "note": "原創課次文本，用本課單字和 be 動詞／wh-問句寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["Today is a special day at our junior high school. It is Club Fair Day! Every class has a table in the big gym.", "I am a new student here. I am a little nervous, but I am also excited. My cousin Nina is with me today.", "What is this club? I ask a tall man. This is the Cooking Club, he says. He is the cook, and he is really nice.", "Who is that woman near the window? She is young and cute, Nina says. She is the leader of the Pet Club.", "The Pet Club has two rabbits and one cute cat. Where is the PE Club? Nina asks. It is near the classroom, the man says.", "We walk to the News Club next. A strict teacher is there. She is not angry; she is just serious about the school news.", "This club and that club are not the same, Nina says. One is quiet, and one is noisy. I am happy about both clubs.", "At the last table, we meet a farmer's son. He is in the Garden Club. Are you a farmer, too? I ask with a smile.", "Is there a problem? a teacher asks us. No, there isn't, I say. We are just looking at every club again.", "Our school is warm and beautiful today. I am really glad I am in junior high school. I already feel like part of a family."], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：Why are you excited or nervous on the first day of junior high school?", "keywords": ["excited", "nervous", "new", "school", "class", "friend"], "minHits": 2, "model": "I am a little nervous, but I am also excited about my new class."}, {"kind": "fill", "q": "課文克漏字：What day is it at school today?", "answer": "Club Fair Day.", "options": ["Club Fair Day.", "Sports Day.", "Music Day."], "say": "Today is Club Fair Day!"}, {"kind": "fill", "q": "閱讀理解：Who is with the narrator at the fair?", "answer": "Her cousin, Nina.", "options": ["Her cousin, Nina.", "Her sister, Nina.", "Her teacher, Nina."], "say": "My cousin Nina is with me today."}, {"kind": "fill", "q": "閱讀理解：What is the tall man's job at the Cooking Club?", "answer": "He is the cook.", "options": ["He is the cook.", "He is the teacher.", "He is the leader."], "say": "He is the cook, and he is really nice."}, {"kind": "fill", "q": "閱讀理解：How does Nina describe the woman near the window?", "answer": "Young and cute.", "options": ["Young and cute.", "Old and strict.", "Tall and quiet."], "say": "She is young and cute, Nina says."}, {"kind": "fill", "q": "閱讀理解：Where is the PE Club?", "answer": "Near the classroom.", "options": ["Near the classroom.", "Near the gym.", "Near the garden."], "say": "It is near the classroom, the man says."}, {"kind": "tf", "q": "閱讀理解：The News Club teacher is very angry.", "answer": "False", "say": "She is not angry; she is just serious about the school news."}, {"kind": "tf", "q": "閱讀理解：This club and that club are the same.", "answer": "False", "say": "This club and that club are not the same."}, {"kind": "fill", "q": "閱讀理解：Who do they meet at the last table?", "answer": "A farmer's son.", "options": ["A farmer's son.", "A doctor's daughter.", "A nurse's cousin."], "say": "We meet a farmer's son."}, {"kind": "fill", "q": "閱讀理解：Is there a problem at the fair?", "answer": "No, there isn't.", "options": ["No, there isn't.", "Yes, there is.", "Maybe there is."], "say": "No, there isn't, I say."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 36 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後大部分單字都要「聽音拼寫」——挖空給提示，打出完整單字，拼錯不算過；junior high school／senior high school 是片語，用選詞填空。國中生要背的是拼字，不是選項。", "read": ["Let's try that again. My aunt is a nice teacher. The flowers on her desk are beautiful. Every child gets a name tag today. Our class is in Room 101. The classroom is warm and bright.", "My uncle is a cook at a small restaurant. My cousin Nina is in the same class. The rabbit at the Pet Club is really cute. The teacher's daughter helps at the fair, too.", "My aunt is a doctor at the city hospital. We are like a family at this school. My uncle is a farmer near the mountains. The young man in the photo is handsome. My aunt's husband is a doctor.", "I am a new student at junior high school. The tall man is the club leader. We read the school news every morning. Our new teacher is really nice. My cousin is a nurse at the hospital.", "This is our classroom, and that is our garden. Every parent got a letter about the fair. We have PE class after lunch on Monday. The Pet Club has a cute pet rabbit. Is there a problem with your schedule?", "This club is really fun for young students. These two clubs are not the same. My brother is a student at senior high school. He is the coach's son, and he is strict, too.", "The PE teacher is strict but warm. I want to join the Pet Club, too. My uncle is a farmer, and he is really strong. The classroom feels warm on a cold day.", "The coach's wife is a nurse at our school. The young woman at the desk is the club leader. The new students are young and a little nervous."], "words": [{"w": "again", "zh": "再一次", "pos": "adv."}, {"w": "aunt", "zh": "姑姑、阿姨、伯母、嬸嬸、舅媽", "pos": "n."}, {"w": "beautiful", "zh": "美麗的、漂亮的", "pos": "adj."}, {"w": "child", "zh": "孩子", "pos": "n."}, {"w": "class", "zh": "班級；課程", "pos": "n."}, {"w": "classroom", "zh": "教室", "pos": "n."}, {"w": "cook", "zh": "廚師；煮", "pos": "n./v."}, {"w": "cousin", "zh": "堂／表兄弟姐妹", "pos": "n."}, {"w": "cute", "zh": "可愛的", "pos": "adj."}, {"w": "daughter", "zh": "女兒", "pos": "n."}, {"w": "doctor", "zh": "醫生", "pos": "n."}, {"w": "family", "zh": "家庭、家人", "pos": "n."}, {"w": "farmer", "zh": "農夫", "pos": "n."}, {"w": "handsome", "zh": "英俊的", "pos": "adj."}, {"w": "husband", "zh": "丈夫", "pos": "n."}, {"w": "junior high school", "zh": "國中（國民中學）", "pos": "n."}, {"w": "man", "zh": "男人", "pos": "n."}, {"w": "news", "zh": "新聞、消息", "pos": "n."}, {"w": "nice", "zh": "好的、好心的", "pos": "adj."}, {"w": "nurse", "zh": "護理師、護士", "pos": "n."}, {"w": "our", "zh": "我們的", "pos": "det."}, {"w": "parent", "zh": "雙親之一", "pos": "n."}, {"w": "PE", "zh": "體育", "pos": "n."}, {"w": "pet", "zh": "寵物", "pos": "n."}, {"w": "problem", "zh": "問題", "pos": "n."}, {"w": "really", "zh": "真地", "pos": "adv."}, {"w": "same", "zh": "相同的、一樣的", "pos": "adj."}, {"w": "senior high school", "zh": "高中", "pos": "n."}, {"w": "son", "zh": "兒子", "pos": "n."}, {"w": "strict", "zh": "嚴格的", "pos": "adj."}, {"w": "too", "zh": "也；太、過於", "pos": "adv."}, {"w": "uncle", "zh": "叔叔、伯伯、舅舅、姑丈、姨丈", "pos": "n."}, {"w": "warm", "zh": "溫暖的", "pos": "adj."}, {"w": "wife", "zh": "妻子", "pos": "n."}, {"w": "woman", "zh": "女人", "pos": "n."}, {"w": "young", "zh": "年輕的", "pos": "adj."}], "practice": [{"kind": "fill", "q": "Choose: My ____ is a doctor, and my uncle is a farmer.", "answer": "aunt", "options": ["aunt", "cousin", "daughter"], "say": "My aunt is a doctor, and my uncle is a farmer."}, {"kind": "fill", "q": "Choose: The two clubs are not the ____.", "answer": "same", "options": ["same", "warm", "strict"], "say": "The two clubs are not the same."}, {"kind": "spell", "q": "拼寫：再一次（一格一個字母，先按🔊聽）", "answer": "again", "say": "Let's try that again.", "mask": "a_a_n"}, {"kind": "spell", "q": "拼寫：姑姑、阿姨、伯母、嬸嬸、舅媽（一格一個字母，先按🔊聽）", "answer": "aunt", "say": "My aunt is a nice teacher.", "mask": "a_n_"}, {"kind": "spell", "q": "拼寫：美麗的、漂亮的（一格一個字母，先按🔊聽）", "answer": "beautiful", "say": "The flowers on her desk are beautiful.", "mask": "b_a_t_f_l"}, {"kind": "spell", "q": "拼寫：孩子（一格一個字母，先按🔊聽）", "answer": "child", "say": "Every child gets a name tag today.", "mask": "c_i_d"}, {"kind": "spell", "q": "拼寫：班級；課程（一格一個字母，先按🔊聽）", "answer": "class", "say": "Our class is in Room 101.", "mask": "c_a_s"}, {"kind": "spell", "q": "拼寫：教室（一格一個字母，先按🔊聽）", "answer": "classroom", "say": "The classroom is warm and bright.", "mask": "c_a__r__m"}, {"kind": "spell", "q": "拼寫：廚師；煮（一格一個字母，先按🔊聽）", "answer": "cook", "say": "My uncle is a cook at a small restaurant.", "mask": "c__k"}, {"kind": "spell", "q": "拼寫：堂／表兄弟姐妹（一格一個字母，先按🔊聽）", "answer": "cousin", "say": "My cousin Nina is in the same class.", "mask": "c__s_n"}, {"kind": "spell", "q": "拼寫：可愛的（一格一個字母，先按🔊聽）", "answer": "cute", "say": "The rabbit at the Pet Club is really cute.", "mask": "c_t_"}, {"kind": "spell", "q": "拼寫：女兒（一格一個字母，先按🔊聽）", "answer": "daughter", "say": "The teacher's daughter helps at the fair, too.", "mask": "d_u__t_r"}, {"kind": "spell", "q": "拼寫：醫生（一格一個字母，先按🔊聽）", "answer": "doctor", "say": "My aunt is a doctor at the city hospital.", "mask": "d_c_or"}, {"kind": "spell", "q": "拼寫：家庭、家人（一格一個字母，先按🔊聽）", "answer": "family", "say": "We are like a family at this school.", "mask": "f_m_ly"}, {"kind": "spell", "q": "拼寫：農夫（一格一個字母，先按🔊聽）", "answer": "farmer", "say": "My uncle is a farmer near the mountains.", "mask": "f_r_er"}, {"kind": "spell", "q": "拼寫：英俊的（一格一個字母，先按🔊聽）", "answer": "handsome", "say": "The young man in the photo is handsome.", "mask": "h_n_s_m_"}, {"kind": "spell", "q": "拼寫：丈夫（一格一個字母，先按🔊聽）", "answer": "husband", "say": "My aunt's husband is a doctor.", "mask": "h_s_a_d"}, {"kind": "fill", "q": "填空（國中（國民中學））：I am a new student at ____.", "answer": "junior high school", "options": ["junior high school", "the Pet Club", "the gym"], "say": "I am a new student at junior high school."}, {"kind": "spell", "q": "拼寫：男人（一格一個字母，先按🔊聽）", "answer": "man", "say": "The tall man is the club leader.", "mask": "m_n"}, {"kind": "spell", "q": "拼寫：新聞、消息（一格一個字母，先按🔊聽）", "answer": "news", "say": "We read the school news every morning.", "mask": "n_w_"}, {"kind": "spell", "q": "拼寫：好的、好心的（一格一個字母，先按🔊聽）", "answer": "nice", "say": "Our new teacher is really nice.", "mask": "n_c_"}, {"kind": "spell", "q": "拼寫：護理師、護士（一格一個字母，先按🔊聽）", "answer": "nurse", "say": "My cousin is a nurse at the hospital.", "mask": "n_r_e"}, {"kind": "spell", "q": "拼寫：我們的（一格一個字母，先按🔊聽）", "answer": "our", "say": "This is our classroom, and that is our garden.", "mask": "o_r"}, {"kind": "spell", "q": "拼寫：雙親之一（一格一個字母，先按🔊聽）", "answer": "parent", "say": "Every parent got a letter about the fair.", "mask": "p_r_nt"}, {"kind": "spell", "q": "拼寫：體育（一格一個字母，先按🔊聽）", "answer": "PE", "say": "We have PE class after lunch on Monday.", "mask": "P_"}, {"kind": "spell", "q": "拼寫：寵物（一格一個字母，先按🔊聽）", "answer": "pet", "say": "The Pet Club has a cute pet rabbit.", "mask": "p_t"}, {"kind": "spell", "q": "拼寫：問題（一格一個字母，先按🔊聽）", "answer": "problem", "say": "Is there a problem with your schedule?", "mask": "p_o_l_m"}, {"kind": "spell", "q": "拼寫：真地（一格一個字母，先按🔊聽）", "answer": "really", "say": "This club is really fun for young students.", "mask": "r_a_ly"}, {"kind": "spell", "q": "拼寫：相同的、一樣的（一格一個字母，先按🔊聽）", "answer": "same", "say": "These two clubs are not the same.", "mask": "s_m_"}, {"kind": "fill", "q": "填空（高中）：I am a new student at ____.", "answer": "senior high school", "options": ["senior high school", "the Pet Club", "the gym"], "say": "My brother is a student at senior high school."}, {"kind": "spell", "q": "拼寫：兒子（一格一個字母，先按🔊聽）", "answer": "son", "say": "He is the coach's son, and he is strict, too.", "mask": "s_n"}, {"kind": "spell", "q": "拼寫：嚴格的（一格一個字母，先按🔊聽）", "answer": "strict", "say": "The PE teacher is strict but warm.", "mask": "s_r_ct"}, {"kind": "spell", "q": "拼寫：也；太、過於（一格一個字母，先按🔊聽）", "answer": "too", "say": "I want to join the Pet Club, too.", "mask": "t_o"}, {"kind": "spell", "q": "拼寫：叔叔、伯伯、舅舅、姑丈、姨丈（一格一個字母，先按🔊聽）", "answer": "uncle", "say": "My uncle is a farmer, and he is really strong.", "mask": "u_c_e"}, {"kind": "spell", "q": "拼寫：溫暖的（一格一個字母，先按🔊聽）", "answer": "warm", "say": "The classroom feels warm on a cold day.", "mask": "w_r_"}, {"kind": "spell", "q": "拼寫：妻子（一格一個字母，先按🔊聽）", "answer": "wife", "say": "The coach's wife is a nurse at our school.", "mask": "w_f_"}, {"kind": "spell", "q": "拼寫：女人（一格一個字母，先按🔊聽）", "answer": "woman", "say": "The young woman at the desk is the club leader.", "mask": "w_m_n"}, {"kind": "spell", "q": "拼寫：年輕的（一格一個字母，先按🔊聽）", "answer": "young", "say": "The new students are young and a little nervous.", "mask": "y_u_g"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：be 動詞（＝知洞 GP-01）", "page": "原創題（be 動詞：am／is／are）", "note": "I am／You are／He, She, It is／複數用 are。縮寫：I am not 可以縮寫成 I'm not，但 am not 沒有 amn't 這種縮寫。規則記好直接作答，每題答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "I ____ a new student.", "answer": "am", "options": ["am", "is", "are"], "say": "I am a new student."}, {"kind": "fill", "q": "Nina ____ my cousin.", "answer": "is", "options": ["is", "am", "are"], "say": "Nina is my cousin."}, {"kind": "fill", "q": "The rabbits ____ cute.", "answer": "are", "options": ["are", "is", "am"], "say": "The rabbits are cute."}, {"kind": "fill", "q": "____ you excited about the fair?", "answer": "Are", "options": ["Are", "Is", "Am"], "say": "Are you excited about the fair?"}, {"kind": "fill", "q": "Is the teacher angry? No, ____.", "answer": "she isn't", "options": ["she isn't", "she is", "he isn't"], "say": "No, she isn't."}, {"kind": "tf", "q": "am not 可以縮寫成 amn't。", "answer": "False", "say": "I am not nervous."}, {"kind": "fill", "q": "He ____ the cook at the Cooking Club.", "answer": "is", "options": ["is", "am", "are"], "say": "He is the cook at the Cooking Club.", "backup": true}, {"kind": "fill", "q": "We ____ happy about the clubs.", "answer": "are", "options": ["are", "is", "am"], "say": "We are happy about the clubs.", "backup": true}, {"kind": "fill", "q": "Is she the leader? Yes, she ____.", "answer": "is", "options": ["is", "are", "am"], "say": "Yes, she is.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：What／Who／Where 問句（＝知洞 GP-06）", "page": "原創題（wh-問句與答句）", "note": "What is this? → It is a ___. Who is she? → She is ___. Where is it? → It is in/on/under ___. 問句用 be 動詞倒裝，答句用 It is／She is／He is／They are。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is this? It is a rabbit.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What is this? It is a rabbit."}, {"kind": "fill", "q": "____ is that man? He is the cook.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is that man? He is the cook."}, {"kind": "fill", "q": "____ is the PE Club? It is near the classroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is the PE Club? It is near the classroom."}, {"kind": "fill", "q": "What is this? ____ a cute cat.", "answer": "It is", "options": ["It is", "She is", "They are"], "say": "What is this? It is a cute cat."}, {"kind": "fill", "q": "Who is she? ____ the club leader.", "answer": "She is", "options": ["She is", "It is", "He is"], "say": "Who is she? She is the club leader."}, {"kind": "fill", "q": "Where is the basket? It is ____ the table.", "answer": "on", "options": ["on", "in", "by"], "say": "It is on the table."}, {"kind": "fill", "q": "____ are those? They are rabbits.", "answer": "What", "options": ["What", "Who", "Where"], "say": "What are those? They are rabbits.", "backup": true}, {"kind": "fill", "q": "____ is your teacher? She is in the classroom.", "answer": "Where", "options": ["Where", "What", "Who"], "say": "Where is your teacher? She is in the classroom.", "backup": true}, {"kind": "fill", "q": "____ is your cousin? She is Nina.", "answer": "Who", "options": ["Who", "What", "Where"], "say": "Who is your cousin? She is Nina.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑤ 文法綜合挑戰（混考）", "page": "原創題（GP-01/GP-06 混出）", "note": "進階區：選項故意把 be 動詞（is/are/am）跟疑問詞（What/Who/Where）放在同一題，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "____ is this club?", "answer": "What", "options": ["What", "is", "are"], "say": "What is this club?"}, {"kind": "fill", "q": "____ she the leader of this club?", "answer": "Is", "options": ["Is", "Who", "Where"], "say": "Is she the leader of this club?"}, {"kind": "fill", "q": "The rabbits ____ in the Pet Club.", "answer": "are", "options": ["are", "who", "what"], "say": "The rabbits are in the Pet Club."}, {"kind": "fill", "q": "____ is the cook? He is a tall man.", "answer": "Who", "options": ["Who", "Are", "Am"], "say": "Who is the cook? He is a tall man."}, {"kind": "fill", "q": "____ is the News Club? It is near the gym.", "answer": "Where", "options": ["Where", "Is", "Are"], "say": "Where is the News Club? It is near the gym."}, {"kind": "fill", "q": "We ____ excited about the fair.", "answer": "are", "options": ["are", "who", "where"], "say": "We are excited about the fair."}, {"kind": "fill", "q": "____ that a strict teacher?", "answer": "Is", "options": ["Is", "What", "Who"], "say": "Is that a strict teacher?"}, {"kind": "fill", "q": "____ is your favorite club? My favorite is the Pet Club.", "answer": "What", "options": ["What", "Are", "Is"], "say": "What is your favorite club? My favorite is the Pet Club."}, {"kind": "fill", "q": "____ are those students? They are new, too.", "answer": "Who", "options": ["Who", "Are", "Is"], "say": "Who are those students? They are new, too.", "backup": true}, {"kind": "fill", "q": "____ is the basket? It is on the table.", "answer": "Where", "options": ["Where", "Is", "Are"], "say": "Where is the basket? It is on the table.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑥ GEPT 延伸閱讀：A Saturday at Grandma's House", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】約 227 字原創短文，字彙在英檢初級 2000 字內，情境換成假日探望阿嬤（跟課文的社團博覽會不同）。流程刻意這樣排：①直接把整篇文章從頭讀到尾——遇到沒學過的字用上下文猜，不要停 → ②做理解題驗證有沒有讀懂（答案都在文中）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。", "read": ["Every Saturday, my family visits my grandma. She lives in a small house near a big garden. My little brother and I love this day very much. Grandma always has a big smile for us.", "This morning, we drive to grandma's house early. The sun is bright, and the sky is blue. My brother sings a happy song in the car. I look out the window and see green fields.", "Grandma is in the garden when we arrive. She grows tomatoes and beans there. Today, she picks fresh vegetables for lunch. We help her carry a big basket. The basket is heavy, but we are happy to help.", "After that, grandma cooks a wonderful lunch for us. She makes soup, rice, and fish. The kitchen smells so good. My brother tries to help her cook, too, but he is not very good at it yet!", "In the afternoon, we play with grandma's dog. Its name is Lucky. Lucky can catch a ball very well. My brother laughs every time Lucky jumps and runs. We are tired, but we are having fun.", "Before we leave, grandma gives us a basket of fresh vegetables. She gives my brother and me a big hug. \"Come back next Saturday!\" she says.", "We wave and say goodbye. It is a wonderful day with grandma, and we are already excited for next week."], "words": [{"w": "garden", "zh": "花園、菜園", "pos": "n."}, {"w": "basket", "zh": "籃子", "pos": "n."}, {"w": "hug", "zh": "擁抱", "pos": "n./v."}, {"w": "catch", "zh": "接住、抓住", "pos": "v."}, {"w": "wonderful", "zh": "very good", "pos": "adj."}, {"w": "goodbye", "zh": "再見", "pos": "n./interj."}], "practice": [{"kind": "fill", "q": "主旨：What is this story mainly about?", "answer": "A family visit to grandma's house.", "options": ["A family visit to grandma's house.", "A boy's birthday party.", "A school trip to the zoo."], "say": "Every Saturday, my family visits my grandma.", "qtype": "main"}, {"kind": "fill", "q": "細節：What does grandma grow in her garden?", "answer": "Tomatoes and beans.", "options": ["Tomatoes and beans.", "Apples and oranges.", "Rice and fish."], "say": "She grows tomatoes and beans there.", "qtype": "detail"}, {"kind": "fill", "q": "細節：What do they play with in the afternoon?", "answer": "Grandma's dog, Lucky.", "options": ["Grandma's dog, Lucky.", "A new bicycle.", "A soccer ball with friends."], "say": "In the afternoon, we play with grandma's dog.", "qtype": "detail"}, {"kind": "fill", "q": "推論：Based on the story, how does the family feel about visiting grandma?", "answer": "They love it and want to come back.", "options": ["They love it and want to come back.", "They think it is boring.", "They are scared of grandma's dog."], "say": "We are already excited for next week.", "qtype": "inference"}, {"kind": "fill", "q": "字義猜測：In the story, the word \"wonderful\" most likely means ____.", "answer": "very good", "options": ["very good", "very bad", "very quiet"], "say": "Grandma cooks a wonderful lunch for us.", "qtype": "vocab"}, {"kind": "tf", "q": "細節：The family visits grandma every Sunday.", "answer": "False", "say": "Every Saturday, my family visits my grandma.", "qtype": "detail"}], "article": ["Every Saturday, my family visits my grandma. She lives in a small house near a big garden. My little brother and I love this day very much. Grandma always has a big smile for us.", "This morning, we drive to grandma's house early. The sun is bright, and the sky is blue. My brother sings a happy song in the car. I look out the window and see green fields.", "Grandma is in the garden when we arrive. She grows tomatoes and beans there. Today, she picks fresh vegetables for lunch. We help her carry a big basket. The basket is heavy, but we are happy to help.", "After that, grandma cooks a wonderful lunch for us. She makes soup, rice, and fish. The kitchen smells so good. My brother tries to help her cook, too, but he is not very good at it yet!", "In the afternoon, we play with grandma's dog. Its name is Lucky. Lucky can catch a ball very well. My brother laughs every time Lucky jumps and runs. We are tired, but we are having fun.", "Before we leave, grandma gives us a basket of fresh vegetables. She gives my brother and me a big hug. \"Come back next Saturday!\" she says.", "We wave and say goodbye. It is a wonderful day with grandma, and we are already excited for next week."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "Club Fair Day", "words": 36, "grammarPoints": ["GP-01", "GP-06"], "setting": "開學社團博覽會（全新原創情境，與課本課文之人物、場景、事件順序零重疊）", "generated": "2026-09-04", "humanCheck": "未沿用原課文角色、情節、句序及特色語句"}, "lessonId": "kang-b1-l1", "gps": ["GP-01", "GP-06", "GP-03"], "articleBank": [{"id": "kang-b1-l1-breakfast-shop-menu", "title": "Warm Family Breakfast Shop Menu", "format": "notice", "paras": ["Warm Family Breakfast Shop", "Egg Sandwich — NT$35", "Ham and Cheese Sandwich — NT$45", "Hot Dog — NT$30", "Rice Ball — NT$25", "Hot Milk Tea — NT$20", "Hot Soy Milk — NT$15", "Cold Orange Juice — NT$25", "Open Time: 6:00 a.m. to 10:30 a.m.", "Our cook is Mr. Wang. He is a nice man, and his food is really good!", "Kids under 6 years old: a free egg sandwich with any drink.", "Are you a student? A drink is only NT$10 for junior high school and senior high school students."], "words": [{"w": "sandwich", "zh": "三明治", "pos": "n."}, {"w": "soy milk", "zh": "豆漿", "pos": "n."}], "reading": [{"qtype": "細節", "q": "熱狗多少錢？", "answer": "NT$30", "options": ["NT$25", "NT$30", "NT$45"], "say": "How much is the hot dog?"}, {"qtype": "細節", "q": "早餐店的營業時間是幾點到幾點？", "answer": "6:00 a.m. 到 10:30 a.m.", "options": ["6:00 a.m. 到 10:30 a.m.", "7:00 a.m. 到 11:00 a.m.", "6:30 a.m. 到 10:00 a.m."], "say": "What are the shop's open hours?"}, {"qtype": "細節", "q": "誰是這間早餐店的廚師？", "answer": "Mr. Wang", "options": ["Mr. Wang", "Mr. Lee", "Mr. Chen"], "say": "Who is the cook at this breakfast shop?"}, {"qtype": "推論", "q": "一位國中生想買一杯飲料，他大概要付多少錢？", "answer": "NT$10", "options": ["NT$10", "NT$20", "NT$25"], "say": "A junior high school student wants a drink. About how much will they pay?"}]}, {"id": "kang-b1-l1-letter-to-pen-pal", "title": "A Letter to My New Pen Pal", "format": "letter", "paras": ["Dear Nora,", "Hi! My name is Leo. I am a junior high school student. I am really happy to have a pen pal from your class!", "Let me tell you about my family. My family is not big, but we are warm and close. My father is a farmer, and my mother is a cook at our school.", "My father is strict, but he is also kind. My mother is beautiful and very nice. They are the same age, and they are both really busy.", "I have one sister and one brother. My sister is young and very cute. My brother is in senior high school. He is tall and handsome.", "We also have a pet dog. Its name is Coco. Coco is a good pet, and it is friendly to our neighbors, too.", "My aunt and uncle live near our house. Their daughter is my cousin, and she is my best friend. We are in the same class this year!", "Is your family big or small? Are you a farmer's child, too? Please write back and tell me about your family. Do you want to send me a photo of your family?", "Your new friend,", "Leo"], "words": [{"w": "neighbor", "zh": "鄰居", "pos": "n."}, {"w": "tall", "zh": "高的", "pos": "adj."}], "reading": [{"qtype": "主旨", "q": "這封信主要在說什麼？", "answer": "Leo 向新筆友介紹自己的家人", "options": ["Leo 向新筆友介紹自己的家人", "Leo 邀請筆友來家裡玩", "Leo 介紹他的學校"], "say": "What is this letter mainly about?"}, {"qtype": "細節", "q": "Leo 的爸爸是做什麼的？", "answer": "農夫", "options": ["農夫", "醫生", "廚師"], "say": "What is Leo's father's job?"}, {"qtype": "細節", "q": "Leo 的哥哥現在讀什麼學校？", "answer": "高中", "options": ["國中", "高中", "小學"], "say": "What school does Leo's brother go to?"}, {"qtype": "推論", "q": "從信的內容看，Leo 和他的表姐（堂姐）感情如何？", "answer": "非常要好，是最好的朋友", "options": ["非常要好，是最好的朋友", "不太熟", "常常吵架"], "say": "Based on the letter, how does Leo feel about his cousin?"}, {"qtype": "字義猜測", "q": "根據上下文，\"neighbor\" 最接近的意思是？", "answer": "鄰居", "options": ["鄰居", "老師", "醫生"], "say": "Based on the context, what does 'neighbor' mean?"}]}, {"id": "kang-b1-l1-pet-adoption-day", "title": "A Pet Adoption Day", "format": "passage", "paras": ["Today is a big pet adoption day at the park. Many families are here. Ben and his little cousin Ivy are here, too. \"Look at that dog! Is it friendly?\" Ivy asks.", "A young woman with the dog says, \"Yes, she is very friendly. Her name is Coco.\" Ben sees a small cat in a box. \"Who is this cat?\" he asks the man beside the box.", "The man is a nice farmer. \"Her name is Momo. She is two years old,\" the farmer says. \"Is she a good pet for a child?\" Ben asks. \"Yes, she is,\" the farmer says with a warm smile.", "Ivy is happy. \"Are you a doctor for animals?\" she asks a woman in a white coat. \"No, I'm not a doctor. I'm a nurse for pets,\" the woman says. \"My job is easy but busy today.\" Ivy thinks the nurse is really kind.", "Ben's aunt and uncle are also here with their son and daughter. \"Where is your family from?\" a boy asks Ben. \"We are from a small town near the city,\" Ben says. \"Our family loves animals very much.\"", "At noon, Ben and Ivy meet Momo again. \"How old are you, Momo?\" Ivy asks with a big smile. Momo is quiet and cute. Ben's mom says, \"She can be our new pet!\"", "Ben and Ivy are so happy. It is a beautiful day for their family, and Momo has a new home."], "words": [{"w": "adoption", "zh": "領養", "pos": "n."}, {"w": "friendly", "zh": "友善的", "pos": "adj."}, {"w": "smile", "zh": "微笑", "pos": "n."}, {"w": "kind", "zh": "親切的", "pos": "adj."}], "reading": [{"qtype": "主旨", "q": "這篇文章主要在說什麼？", "answer": "一家人到公園參加寵物領養日", "options": ["一家人到公園參加寵物領養日", "一家人去看醫生", "一家人去買寵物用品"], "say": "What is this story mainly about?"}, {"qtype": "細節", "q": "Coco 是什麼動物？", "answer": "狗", "options": ["狗", "貓", "兔子"], "say": "What animal is Coco?"}, {"qtype": "細節", "q": "Momo 幾歲？", "answer": "兩歲", "options": ["一歲", "兩歲", "三歲"], "say": "How old is Momo?"}, {"qtype": "推論", "q": "為什麼 Ivy 覺得那位護理師很親切？", "answer": "因為她耐心又溫和地回答問題", "options": ["因為她耐心又溫和地回答問題", "因為她送 Ivy 禮物", "因為她是 Ivy 的親戚"], "say": "Why does Ivy think the nurse is kind?"}, {"qtype": "字義猜測", "q": "根據上下文，\"friendly\" 最接近的意思是？", "answer": "友善的", "options": ["友善的", "生氣的", "害怕的"], "say": "Based on the context, what does 'friendly' mean?"}, {"qtype": "細節", "q": "在故事的最後，誰成為 Ben 家的新寵物？", "answer": "Momo", "options": ["Coco", "Momo", "一隻鳥"], "say": "At the end of the story, who becomes the new pet of Ben's family?"}]}, {"id": "kang-b1-l1-school-radio-station", "title": "News at the School Radio Station", "format": "passage", "paras": ["It is Friday morning at the junior high school. Nina and Oscar are in the small radio room. They are the school news team today. \"Are you ready, Oscar?\" Nina asks.", "\"Yes, I am ready,\" Oscar says with a big smile. \"Who is our guest today?\" Nina asks the teacher. \"Your guest is Mr. Chen. He is a strict but nice PE teacher,\" the teacher says.", "Mr. Chen comes into the room. \"Good morning! What is your class doing this week?\" Nina asks him. \"My class is doing a fun sports day,\" Mr. Chen says. \"Is it hard for the students?\" Oscar asks.", "\"No, it is not hard. It is fun for everyone,\" Mr. Chen says with a warm smile. Nina and Oscar are happy to hear the good news.", "\"Where is the sports day?\" Nina asks. \"It is near the classroom, on the small field,\" Mr. Chen says. \"Our students are excited. Some are young, and some are not so young, but all are happy.\"", "After the talk, Oscar reads more school news. \"Our cousin school has a new nurse and a new doctor for students,\" he says. \"They are very nice people.\"", "At the end, Nina says, \"Thank you, Mr. Chen! That is all of our news for today.\" Oscar and Nina are proud. Their radio show is short but really special for their school family."], "words": [{"w": "guest", "zh": "來賓", "pos": "n."}, {"w": "excited", "zh": "興奮的", "pos": "adj."}, {"w": "proud", "zh": "驕傲的", "pos": "adj."}], "reading": [{"qtype": "主旨", "q": "這篇文章主要在說什麼？", "answer": "兩位學生在學校廣播站訪問老師", "options": ["兩位學生在學校廣播站訪問老師", "老師在教體育課", "學生在準備考試"], "say": "What is this story mainly about?"}, {"qtype": "細節", "q": "今天的來賓是誰？", "answer": "Mr. Chen", "options": ["Mr. Chen", "校長", "護理師"], "say": "Who is today's guest?"}, {"qtype": "細節", "q": "運動會在哪裡舉行？", "answer": "教室旁的小操場", "options": ["教室旁的小操場", "體育館", "隔壁學校"], "say": "Where is the sports day?"}, {"qtype": "推論", "q": "為什麼 Nina 和 Oscar 對訪問結果感到開心？", "answer": "因為運動會聽起來很有趣又不難", "options": ["因為運動會聽起來很有趣又不難", "因為他們可以放假", "因為老師給他們禮物"], "say": "Why are Nina and Oscar happy after the interview?"}, {"qtype": "字義猜測", "q": "根據上下文，\"proud\" 最接近的意思是？", "answer": "驕傲的", "options": ["驕傲的", "難過的", "疲累的"], "say": "Based on the context, what does 'proud' mean?"}, {"qtype": "細節", "q": "Oscar 還播報了什麼消息？", "answer": "姐妹校有新的護理師和醫生", "options": ["姐妹校有新的護理師和醫生", "學校要放假", "運動會取消了"], "say": "What other news does Oscar read?"}]}, {"id": "kang-b1-l1-small-families-today", "title": "Small Families in Taiwan Today", "format": "passage", "paras": ["In Taiwan, many families are small today. In the past, a family often had many people. Grandparents, parents, aunts, uncles, and cousins lived in one big house. Now, a family is often just parents and one or two children.", "Why are families smaller now? Many parents are busy with work. A big family with many children is not easy for young parents. Also, houses in the city are small, so a big family is hard to have.", "Ben's family is a good example. His father is a doctor, and his mother is a nurse. They are both busy every day. Ben is their only child. He does not have a brother or a sister, but he has a cousin near his house.", "Is a small family a problem? Not really! Ben's parents are warm and nice to him. His aunt and uncle are close to his family, too. They are not a big family, but they are a happy family.", "Many children today are like Ben. They live with just their parents, but they are still close to their grandparents, aunts, and uncles. Family is not about the number of people. It is about being warm and kind to each other.", "Small or big, every family is special in its own way."], "words": [{"w": "grandparent", "zh": "祖父母", "pos": "n."}, {"w": "example", "zh": "例子", "pos": "n."}, {"w": "special", "zh": "特別的", "pos": "adj."}], "reading": [{"qtype": "主旨", "q": "這篇文章主要在說什麼？", "answer": "台灣的家庭現在變得比較小", "options": ["台灣的家庭現在變得比較小", "如何找到好醫生", "怎麼蓋一間大房子"], "say": "What is this passage mainly about?"}, {"qtype": "細節", "q": "以前的大家庭通常住在哪裡？", "answer": "同一間大房子", "options": ["同一間大房子", "很多間小房子", "學校附近"], "say": "Where did a big family often live in the past?"}, {"qtype": "細節", "q": "文章提到家庭變小的原因不包括下列哪一項？", "answer": "城市的房子很便宜", "options": ["父母工作忙碌", "城市的房子很小", "城市的房子很便宜"], "say": "Which is NOT a reason for smaller families in the passage?"}, {"qtype": "推論", "q": "根據文章，Ben 的家庭氣氛可能是什麼樣子？", "answer": "溫暖而親近", "options": ["溫暖而親近", "冷淡而疏遠", "嚴格而緊張"], "say": "Based on the passage, what is Ben's family life probably like?"}, {"qtype": "字義猜測", "q": "根據上下文，\"grandparent\" 最接近的意思是？", "answer": "祖父母", "options": ["祖父母", "鄰居", "老師"], "say": "Based on the context, what does 'grandparent' mean?"}]}]};
 const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
  won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
  there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
@@ -1722,8 +1731,14 @@ function updatePracticeVis(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b||!
     if(p.backup&&!active.has(unit(pid))){it.style.display='none';return}
     if(passed.has(unit(pid))){it.style.display='';return}
     it.style.display=open?'':'none';open=false})}
-function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
-  el('prog').textContent='進度 '+passed.size+' / '+t+'　（'+DATA.blocks.length+' 個區塊）'}
+function prog(){
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length){
+    var ids=roundActive(curRound),d=ids.filter(function(id){return passed.has(unit(id))}).length;
+    el('bar').style.width=Math.round(d/Math.max(ids.length,1)*100)+'%';
+    var doneR=0;for(var i=0;i<ROUNDS.length;i++)if(roundDone(i))doneR++;
+    el('prog').textContent='第 '+(curRound+1)+' 回　'+d+' / '+ids.length+'　｜　全課 '+ROUNDS.length+' 回・完成 '+doneR;
+  }else{const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+    el('prog').textContent='進度 '+passed.size+' / '+t}}
 /* 分階段通知：開工一則、每個區塊完成一則、全部完成一則。 */
 function blockOf(k){const m=String(k).match(/^(.+)-(?:w|r|p)\d+$/);return m?m[1]:''}
 function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
@@ -1733,6 +1748,7 @@ function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
 const notified=new Set();
 function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
   if(/-p\d+$/.test(k))updatePracticeVis(blockOf(k));
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length)renderRoundChips();
   /* 拼寫題過關 → 餵 FSRS 記憶卡（1次過=good、2次=hard、3次以上=again） */
   if(/-p\d+$/.test(k)&&window.VocabSRS){try{const p=findP(k);
     if(p&&p.kind==='spell'){const a=attempts[k]||1;
@@ -1921,6 +1937,807 @@ const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
 async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
   body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
 load();
+
+/* --- 回合制（2026-09-04：輕量化——開頁只見當前一回，總量以「回」呈現）---
+   單位＝關卡 id 依頁面順序；在 words/read/practice 段邊界切回，每回目標 ≤35（上限 40）。
+   回合是顯示層：進度照舊存 passed，回合完成度由 passed 推導。 */
+var ROUNDS=[];
+function buildRounds(){
+  var segs=[];
+  DATA.blocks.forEach(function(b){
+    var w=(b.words||[]).map(function(_,i){return b.id+'-w'+i});
+    var r=(b.read||[]).map(function(_,i){return b.id+'-r'+i});
+    var p=(b.practice||[]).map(function(_,i){return b.id+'-p'+i});
+    if(b.wordsAfterPractice){ if(r.length)segs.push(r); if(p.length)segs.push(p); if(w.length)segs.push(w); }
+    else{ if(w.length)segs.push(w); if(r.length)segs.push(r); if(p.length)segs.push(p); }
+  });
+  ROUNDS=[];var cur=[];
+  segs.forEach(function(seg){
+    if(cur.length&&cur.length+seg.length>40){ROUNDS.push(cur);cur=[]}
+    cur=cur.concat(seg);
+    if(cur.length>=25){ROUNDS.push(cur);cur=[]}
+  });
+  if(cur.length){ if(ROUNDS.length&&cur.length<12){ROUNDS[ROUNDS.length-1]=ROUNDS[ROUNDS.length-1].concat(cur)} else ROUNDS.push(cur) }
+}
+function roundActive(k){var ids=ROUNDS[k]||[];return ids.filter(function(id){
+  var m=id.match(/^(.+)-p(\d+)$/);if(!m)return true;
+  var b=DATA.blocks.find(function(x){return x.id===m[1]});var p=b&&b.practice[+m[2]];
+  return !(p&&p.backup)||active.has(unit(id))})}
+function roundDone(k){return roundActive(k).every(function(id){return passed.has(unit(id))})}
+var curRound=0;
+function pickRound(){for(var i=0;i<ROUNDS.length;i++){if(!roundDone(i)){curRound=i;return}}curRound=ROUNDS.length-1}
+function applyRoundVis(){
+  var vis={};(ROUNDS[curRound]||[]).forEach(function(id){vis[id]=1});
+  DATA.blocks.forEach(function(b){
+    var any=false;
+    ['w','r','p'].forEach(function(t){
+      var arr=t==='w'?(b.words||[]):t==='r'?(b.read||[]):(b.practice||[]);
+      arr.forEach(function(_,i){var id=b.id+'-'+t+i,el2=el(id+'-item');if(!el2)return;
+        if(vis[id]){el2.classList.remove('round-hide');any=true}
+        else el2.classList.add('round-hide')});
+    });
+    var sec=el(b.id+'-p0-item')||el(b.id+'-r0-item')||el(b.id+'-w0-item');
+    var section=sec?sec.closest('.section'):null;
+    if(section)section.style.display=any?'':'none';
+  });
+  updatePracticeVisAll();
+  renderRoundChips();
+}
+function updatePracticeVisAll(){DATA.blocks.forEach(function(b){updatePracticeVis(b.id)})}
+function renderRoundChips(){
+  var host=el('rounds');if(!host)return;host.innerHTML='';
+  var done=0;
+  for(var i=0;i<ROUNDS.length;i++){
+    var d=roundDone(i);if(d)done++;
+    var b=document.createElement('button');
+    b.className='rchip'+(d?' done':'')+(i===curRound?' cur':'');
+    b.textContent=(d?'✓ ':'')+'第'+(i+1)+'回';
+    (function(k){b.onclick=function(){curRound=k;applyRoundVis();prog();try{window.scrollTo(0,0)}catch(e){}}})(i);
+    host.appendChild(b);
+  }
+  var note=el('round-done');
+  if(note){var allDone=done===ROUNDS.length;
+    if(roundDone(curRound)&&!allDone){note.style.display='block';
+      note.innerHTML='🎉 第'+(curRound+1)+'回完成！明天做下一回也可以，想繼續就點上面下一個回合。'}
+    else note.style.display='none'}
+}
+buildRounds();pickRound();applyRoundVis();prog();
+
+/* --- 文章輪替（矩陣v2：一課多篇，做完自動換下一篇，也可手動換）--- */
+function artHostBlockIdx(){return DATA.blocks.findIndex(function(b){return b.article&&b.article.length})}
+function artKey(){return DATA.storage+'-art'}
+function curArt(){try{return +(localStorage.getItem(artKey())||0)}catch(e){return 0}}
+function esc(t){var d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
+function buildArtBlock(v){
+  var A=(DATA.articleBank||[])[v-1]; /* v=0 用 spec 原文，v>=1 用庫 */
+  if(v===0||!A)return null;
+  var isRead=(A.format==='passage'||A.format==='letter');
+  var fmtName={passage:'短文',notice:'圖表告示',dialog:'對話',letter:'信件'}[A.format]||'短文';
+  return {id:'artv'+v,name:'⑦ 延伸閱讀（第 '+(v+1)+' 篇・'+fmtName+'）：'+A.title,
+    page:'文章庫 '+A.id,note:(A.format==='notice'?'看懂這份真實素材，回答問題（會考圖表告示題型）。':
+      A.format==='dialog'?'讀懂這段對話，回答問題（會考對話題型）。':
+      '【挑戰閱讀】先把整篇讀完，答題，最後'+(isRead?'分段朗讀。':'完成。')),
+    article:A.paras,read:isRead?A.paras:[],words:A.words||[],
+    wordsAfterPractice:true,readAfterPractice:isRead,
+    practiceLabel:'閱讀理解題（原創）',practice:(A.reading||[]).map(function(q){
+      return {kind:q.qtype==='TF'?'tf':'fill',q:(q.qtype?q.qtype+'：':'')+q.q,answer:q.answer,options:q.options,say:q.say}})}
+}
+function sectionHTML(b){
+  var h='<div class="head"><span>'+esc(b.name)+'</span><span class="pg">'+esc(b.page||'')+'</span></div><div class="body">';
+  if(b.note)h+='<div class="tip">'+esc(b.note)+'</div>';
+  if(b.article&&b.article.length){h+='<div class="sub">先把整篇讀完（用眼睛讀，還不用唸）</div><div class="article">';
+    b.article.forEach(function(p2){h+='<p>'+esc(p2)+'</p>'});h+='</div>'}
+  var wordsHTML='';
+  (b.words||[]).forEach(function(w,wi){var wid=b.id+'-w'+wi;
+    wordsHTML+='<div class="item" id="'+wid+'-item"><div class="label">單字</div>'
+      +'<div class="sentence"><strong>'+esc(w.w)+'</strong>'+(w.pos?' <span class="pos">'+esc(w.pos)+'</span>':'')+'　<span class="note">'+esc(w.zh)+'</span></div>'
+      +'<button class="btn" onclick="demoWord(\''+wid+'\')">🔊 聽</button>'
+      +'<button class="btn ok" id="'+wid+'-start" onclick="startWord(\''+wid+'\')" disabled>開始唸</button>'
+      +'<button class="btn warn" id="'+wid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+wid+'-out"></div><div class="result" id="'+wid+'-res"></div></div>'});
+  var readHTML='';
+  (b.read||[]).forEach(function(r,si){var rid=b.id+'-r'+si;
+    readHTML+='<div class="item" id="'+rid+'-item"><div class="label">唸 '+(si+1)+'</div>'
+      +'<div class="sentence">'+esc(r)+'</div>'
+      +'<button class="btn" onclick="demoRead(\''+rid+'\')">🔊 示範</button>'
+      +'<button class="btn ok" id="'+rid+'-start" onclick="startRead(\''+rid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+rid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+rid+'-out"></div><div class="result" id="'+rid+'-res"></div>'
+      +'<div class="diff" id="'+rid+'-diff"></div></div>'});
+  var pracHTML='<div class="sub">'+esc(b.practiceLabel||'閱讀理解題（原創）')+'</div>';
+  (b.practice||[]).forEach(function(p2,pi){var pid=b.id+'-p'+pi;
+    pracHTML+='<div class="item" id="'+pid+'-item"><div class="label">第 '+(pi+1)+' 題</div>'
+      +'<div class="sentence">'+esc(p2.q)+'</div><div class="opts" id="'+pid+'-opts">';
+    (p2.options||['True','False']).forEach(function(o,oi){
+      pracHTML+='<button class="opt" onclick="pick(\''+pid+'\','+oi+',this)">'+esc(o)+'</button>'});
+    pracHTML+='</div><div class="result" id="'+pid+'-res"></div>'
+      +'<div class="sayzone" id="'+pid+'-sayzone" style="display:none">'
+      +'<div class="lead" id="'+pid+'-lead"></div><div class="target" id="'+pid+'-target"></div>'
+      +'<button class="btn" id="'+pid+'-demo">🔊 示範</button>'
+      +'<button class="btn ok" id="'+pid+'-say-start" onclick="startSay(\''+pid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+pid+'-say-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+pid+'-say-out"></div><div class="result" id="'+pid+'-say-res"></div></div></div>'});
+  if(b.wordsAfterPractice){h+=pracHTML;if(wordsHTML)h+='<div class="sub">生字補充（讀完文章了，來確認剛才用上下文猜的字）</div>'+wordsHTML;
+    if(b.readAfterPractice&&readHTML)h+='<div class="sub">最後朗讀（答完題才唸，一次一整段）</div>'+readHTML}
+  else{h+=wordsHTML+readHTML+pracHTML}
+  return h+'</div>'
+}
+function applyArticle(v){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var nb=buildArtBlock(v);
+  if(nb){DATA.blocks[idx]=nb}
+  /* v===0：保留 server 端渲染的原文區塊，不動 */
+  if(nb){
+    var oldFirst=null;
+    /* 找到 article 區塊的 section 容器：憑舊 block 的任一 item id */
+    var sec=document.querySelectorAll('.section')[idx];
+    if(sec){sec.innerHTML=sectionHTML(nb)}
+    /* 重建 WORDS 映射 */
+    Object.keys(WORDS).forEach(function(k){if(k.indexOf('artv')===0||k.indexOf('geptread')===0)delete WORDS[k]});
+  }
+  DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w,wi){WORDS[b.id+'-w'+wi]=w.w})});
+  /* 已通過的關卡重新標記 */
+  passed.forEach(function(k){var it=el(k+'-item');if(it){it.classList.add('done');var st=el(k+'-start');if(st)st.disabled=true}});
+  buildRounds();pickRound();applyRoundVis();prog();renderArtSwitch();
+}
+function renderArtSwitch(){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var bank=DATA.articleBank||[];if(!bank.length)return;
+  var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+  var head=sec.querySelector('.head');if(!head||head.querySelector('.art-switch'))return;
+  var btn=document.createElement('button');btn.className='btn alt art-switch';
+  btn.style.cssText='font-size:.78rem;padding:5px 10px';
+  btn.textContent='📚 換一篇（'+(curArt()+1)+'/'+(bank.length+1)+'）';
+  btn.onclick=function(){var v=(curArt()+1)%(bank.length+1);
+    try{localStorage.setItem(artKey(),v)}catch(e){}
+    if(v===0){location.reload();return} /* 回第 1 篇：用 server 版重載最單純 */
+    applyArticle(v)};
+  head.appendChild(btn);
+}
+(function(){var v=curArt();var bank=DATA.articleBank||[];
+  if(v>0&&v<=bank.length){applyArticle(v)}else{renderArtSwitch()}})();
+
+/* --- 無限加練（bonus 題海：文法用 GrammarGen、單字用字表生成；不列入關卡進度）--- */
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function vocabBonusItems(n){
+  var ws=[];DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w){if(w.zh)ws.push(w)})});
+  ws=shuffle(ws.slice());var out=[];
+  for(var i=0;i<Math.min(n,ws.length);i++){var w=ws[i];
+    var pool=shuffle(ws.filter(function(x){return x.w!==w.w&&(!w.pos||x.pos===w.pos)}).slice(0,8));
+    while(pool.length<2)pool.push(ws[(i+1+pool.length)%ws.length]);
+    if(Math.random()<0.5){var opts=shuffle([w.w,pool[0].w,pool[1].w]);
+      out.push({q:'「'+w.zh+'」的英文是？',answer:w.w,options:opts,say:w.w})}
+    else{var opts2=shuffle([w.zh,pool[0].zh,pool[1].zh]);
+      out.push({q:w.w+' 的意思是？',answer:w.zh,options:opts2,say:w.w})}}
+  return out}
+function bonusRun(host,items,label){
+  host.innerHTML='';var i=0,ok=0;
+  function next(){
+    if(i>=items.length){host.innerHTML='<div class="tip">'+label+'加練完成：'+ok+' / '+items.length+' ✓　<button class="btn" onclick="this.closest(\'.bonus-host\').dispatchEvent(new Event(\'again\'))">🎲 再來一輪</button></div>';return}
+    var it=items[i];
+    var d=document.createElement('div');d.className='item';
+    d.innerHTML='<div class="label">加練 '+(i+1)+' / '+items.length+'（不列入關卡）</div>'
+      +'<div class="sentence">'+esc(it.q)+'</div><div class="opts"></div><div class="result"></div>';
+    var opts=d.querySelector('.opts'),res=d.querySelector('.result');
+    shuffle(it.options.slice()).forEach(function(o){
+      var b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=function(){
+        var right=String(o)===String(it.answer);
+        opts.querySelectorAll('.opt').forEach(function(x){x.disabled=true});
+        b.classList.add(right?'correct':'wrong');
+        if(right){ok++;res.className='result oktext';res.textContent='✓ '+(it.say||'')}
+        else{res.className='result failtext';res.textContent='✗ 正解：'+it.answer+'　'+(it.say||'')}
+        i++;setTimeout(next,right?600:1600)};
+      opts.appendChild(b)});
+    host.innerHTML='';host.appendChild(d)}
+  next()}
+function mountBonus(){
+  DATA.blocks.forEach(function(b,idx){
+    var isMix=/gramMix/i.test(b.id),isVocab=b.id==='vocab';
+    if(!isMix&&!isVocab)return;
+    var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+    var body=sec.querySelector('.body');if(!body||body.querySelector('.bonus-host'))return;
+    var host=document.createElement('div');host.className='bonus-host';
+    var btn=document.createElement('button');btn.className='btn';
+    btn.textContent=isMix?'🎲 無限加練：文法混題（8 題）':'🎲 無限加練：單字快問（8 題）';
+    function go(){
+      var items=isMix&&window.GrammarGen?GrammarGen.make(DATA.gps||[],8):vocabBonusItems(8);
+      bonusRun(host,items,isMix?'文法':'單字')}
+    btn.onclick=go;host.addEventListener('again',go);
+    body.appendChild(btn);body.appendChild(host)});
+}
+mountBonus();
+
+
+
+
+</script><script>
+/*
+ * grammar-gen.js
+ * 英文文法無限出題引擎 —— 零依賴、純 JS，可直接內嵌到瀏覽器頁面，也可在 Node 測試中 require()。
+ *
+ * 使用方式：
+ *   瀏覽器: <script src="grammar-gen.js"><\/script>  -> window.GrammarGen.make(["GP-01","GP-10"], 20, seed)
+ *   Node:   const GrammarGen = require("./grammar-gen.js"); GrammarGen.make(["GP-01"], 50, 42)
+ *
+ * 輸出題目格式（與現有練習頁一致）：
+ *   { kind:"fill", q, answer, options:[3個, 已隨機排序], say, gp:"GP-01" }
+ *
+ * 設計重點（硬規則）：
+ *   - 每個模板的 3 個選項中，只有 1 個在該題的上下文下文法正確；另外 2 個一定錯，
+ *     且錯誤原因是「詞池與句型骨架搭配後恆錯」，不是碰運氣才錯。
+ *   - say 一律用 q.replace("___", answer) 生成，保證包含正確答案原字串。
+ *   - 支援 seed（整數）→ 可重現；不給 seed 用 Math.random()。
+ */
+(function (root) {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // 0. 隨機數工具（可種子化）
+  // ---------------------------------------------------------------------
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeRng(seed) {
+    if (seed === undefined || seed === null) {
+      return Math.random;
+    }
+    return mulberry32(Number(seed) || 0);
+  }
+
+  function pick(rng, arr) {
+    return arr[Math.floor(rng() * arr.length)];
+  }
+
+  function pickIndex(rng, n) {
+    return Math.floor(rng() * n);
+  }
+
+  // 從陣列中隨機挑 count 個「排除 excludeSet 內容」的相異元素
+  function pickDistinctExcluding(rng, arr, excludeArr, count) {
+    var pool = arr.filter(function (x) {
+      return excludeArr.indexOf(x) === -1;
+    });
+    var out = [];
+    var used = {};
+    var guard = 0;
+    while (out.length < count && guard < 500) {
+      guard++;
+      var cand = pick(rng, pool);
+      if (!used[cand]) {
+        used[cand] = true;
+        out.push(cand);
+      }
+    }
+    return out;
+  }
+
+  function shuffle(rng, arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function cap(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // 刻意產生「看起來像單字但拼錯」的干擾項：重複最後一個字母。
+  // 保證不等於詞池中任何真實單字（我們的詞池沒有雙寫尾字母的巧合詞）。
+  function mangle(word) {
+    return word + word.slice(-1);
+  }
+
+  // ---------------------------------------------------------------------
+  // 1. 詞池（GEPT 初級基礎字）
+  // ---------------------------------------------------------------------
+  var NAMES = [
+    { name: "Tom", g: "m" },
+    { name: "Jack", g: "m" },
+    { name: "Sam", g: "m" },
+    { name: "Ben", g: "m" },
+    { name: "Leo", g: "m" },
+    { name: "Amy", g: "f" },
+    { name: "Mary", g: "f" },
+    { name: "Lily", g: "f" },
+    { name: "Kate", g: "f" },
+    { name: "Nina", g: "f" },
+  ];
+
+  // nouns: sg / pl / vowel(是否母音開頭，用於 a/an) / wrongPl(刻意錯誤複數)
+  var NOUN_DEFS = [
+    ["cat", "cats", false],
+    ["dog", "dogs", false],
+    ["book", "books", false],
+    ["apple", "apples", true],
+    ["ball", "balls", false],
+    ["box", "boxes", false],
+    ["pen", "pens", false],
+    ["cup", "cups", false],
+    ["bag", "bags", false],
+    ["hat", "hats", false],
+    ["car", "cars", false],
+    ["bike", "bikes", false],
+    ["egg", "eggs", true],
+    ["banana", "bananas", false],
+    ["chair", "chairs", false],
+    ["orange", "oranges", true],
+    ["umbrella", "umbrellas", true],
+    ["watch", "watches", false],
+    ["baby", "babies", false],
+    ["kite", "kites", false],
+  ];
+  var NOUNS = NOUN_DEFS.map(function (d) {
+    var sg = d[0],
+      pl = d[1],
+      vowel = d[2];
+    // 規律變化 (sg+'s'===pl) 的錯誤複數用 sg+'es'；不規律變化(es/ies)的錯誤複數用 sg+'s'
+    var wrongPl = pl === sg + "s" ? sg + "es" : sg + "s";
+    return { sg: sg, pl: pl, vowel: vowel, wrongPl: wrongPl };
+  });
+
+  var ADJECTIVES = [
+    "big", "small", "tall", "short", "happy", "sad", "hungry",
+    "thirsty", "tired", "busy", "kind", "smart", "young", "nice",
+  ];
+
+  var PLACES = [
+    "school", "park", "zoo", "library", "store", "classroom",
+    "garden", "playground", "room", "home",
+  ];
+
+  // 動作動詞（用於現在進行式 & can & 祈使句）: base / s(第三人稱單數) / ing / wrongIng
+  var ACTION_VERB_DEFS = [
+    ["run", "runs", "running", "runing"],
+    ["swim", "swims", "swimming", "swiming"],
+    ["sit", "sits", "sitting", "siting"],
+    ["write", "writes", "writing", "writeing"],
+    ["make", "makes", "making", "makeing"],
+    ["come", "comes", "coming", "comeing"],
+    ["play", "plays", "playing", "playeing"],
+    ["read", "reads", "reading", "readeing"],
+    ["eat", "eats", "eating", "eateing"],
+    ["jump", "jumps", "jumping", "jumpeing"],
+    ["sing", "sings", "singing", "singeing"],
+    ["dance", "dances", "dancing", "danceing"],
+    ["ride", "rides", "riding", "rideing"],
+    ["cook", "cooks", "cooking", "cookeing"],
+    ["fly", "flies", "flying", "flyeing"],
+    ["drive", "drives", "driving", "driveing"],
+    ["open", "opens", "opening", "openning"],
+    ["close", "closes", "closing", "closeing"],
+    ["wash", "washes", "washing", "washeing"],
+    ["clean", "cleans", "cleaning", "cleanning"],
+    ["listen", "listens", "listening", "listenning"],
+    ["look", "looks", "looking", "lookking"],
+    ["stop", "stops", "stopping", "stoping"],
+    ["wait", "waits", "waiting", "waitting"],
+    ["stand", "stands", "standing", "standding"],
+    ["help", "helps", "helping", "helpping"],
+  ];
+  var ACTION_VERBS = ACTION_VERB_DEFS.map(function (d) {
+    return { base: d[0], s: d[1], ing: d[2], wrongIng: d[3] };
+  });
+
+  var MASS_NOUNS = [
+    "water", "rice", "milk", "money", "juice", "bread", "cheese", "tea", "coffee", "soup",
+  ];
+
+  var WEEKDAYS = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+  ];
+  var MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  var CARDINAL = [
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+    "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three",
+    "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight",
+    "twenty-nine", "thirty", "thirty-one",
+  ];
+  var ORDINAL = [
+    "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth",
+    "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+    "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth",
+    "twenty-first", "twenty-second", "twenty-third", "twenty-fourth", "twenty-fifth",
+    "twenty-sixth", "twenty-seventh", "twenty-eighth", "twenty-ninth", "thirtieth",
+    "thirty-first",
+  ];
+
+  // 全部 be 動詞主詞（含姓名、人稱代名詞），每個都標好正確 be 型態
+  function allBeSubjects() {
+    var list = NAMES.map(function (n) {
+      return { text: n.name, be: "is" };
+    });
+    list.push({ text: "He", be: "is" });
+    list.push({ text: "She", be: "is" });
+    list.push({ text: "It", be: "is" });
+    list.push({ text: "I", be: "am" });
+    list.push({ text: "You", be: "are" });
+    list.push({ text: "We", be: "are" });
+    list.push({ text: "They", be: "are" });
+    return list;
+  }
+  var BE_SUBJECTS = allBeSubjects();
+  var ALL_BE_FORMS = ["am", "is", "are"];
+
+  function twoNameSubject(rng) {
+    var n1 = pick(rng, NAMES);
+    var n2 = pick(rng, NAMES.filter(function (n) { return n.name !== n1.name; }));
+    return { text: n1.name + " and " + n2.name, be: "are" };
+  }
+
+  // ---------------------------------------------------------------------
+  // 2. 每個 GP 的骨架 + 生成邏輯
+  // ---------------------------------------------------------------------
+  function buildItem(gp, q, answer, distractors, extra) {
+    var options3 = [answer].concat(distractors);
+    var say = q.replace("___", answer);
+    // 若空格在句首，插入的答案要大寫成句首字母（例如 "open" -> "Open"）
+    if (q.indexOf("___") === 0 && say.length > 0) {
+      say = say.charAt(0).toUpperCase() + say.slice(1);
+    }
+    return {
+      kind: "fill",
+      q: q,
+      answer: answer,
+      options: options3,
+      say: say,
+      gp: gp,
+    };
+  }
+
+  function finalizeOptions(rng, item) {
+    item.options = shuffle(rng, item.options);
+    return item;
+  }
+
+  // ---- GP-01 be動詞 -------------------------------------------------
+  function genGP01(rng) {
+    var subj = rng() < 0.15 ? twoNameSubject(rng) : pick(rng, BE_SUBJECTS);
+    var wrongForms = ALL_BE_FORMS.filter(function (f) { return f !== subj.be; });
+    var faces = [
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ very " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + " today."; },
+      function () { return subj.text + " ___ so " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ at the " + pick(rng, PLACES) + "."; },
+      function () { return subj.text + " ___ in the " + pick(rng, PLACES) + "."; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-01", q, subj.be, wrongForms);
+  }
+
+  // ---- GP-02 名詞複數 -------------------------------------------------
+  function genGP02(rng) {
+    var noun = pick(rng, NOUNS);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)]; // two..nine
+    var isPlural = rng() < 0.5;
+    var faces;
+    if (isPlural) {
+      faces = [
+        function () { return "I have " + numWord + " ___."; },
+        function () { return "There are " + numWord + " ___ on the desk."; },
+        function () { return "I see " + numWord + " ___ in the sky."; },
+      ];
+      var q = pick(rng, faces)();
+      return buildItem("GP-02", q, noun.pl, [noun.sg, noun.wrongPl]);
+    } else {
+      faces = [
+        function () { return "She has one ___."; },
+        function () { return "He has one ___ in his bag."; },
+        function () { return "We need one ___ for the party."; },
+      ];
+      var q2 = pick(rng, faces)();
+      return buildItem("GP-02", q2, noun.sg, [noun.pl, noun.wrongPl]);
+    }
+  }
+
+  // ---- GP-03 冠詞 a/an -------------------------------------------------
+  function genGP03(rng) {
+    var noun = pick(rng, NOUNS);
+    var correct = noun.vowel ? "an" : "a";
+    var wrongArticle = noun.vowel ? "a" : "an";
+    var faces = [
+      function () { return "I have ___ " + noun.sg + "."; },
+      function () { return "She wants ___ " + noun.sg + "."; },
+      function () { return "There is ___ " + noun.sg + " on the table."; },
+      function () { return "Look! It's ___ " + noun.sg + "."; },
+      function () { return "He needs ___ " + noun.sg + " today."; },
+      function () { return "Can I have ___ " + noun.sg + "?"; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-03", q, correct, [wrongArticle, "some"]);
+  }
+
+  // ---- GP-04 指示代名詞 -------------------------------------------------
+  function genGP04(rng) {
+    var sgNoun = pick(rng, NOUNS).sg;
+    var plNoun = pick(rng, NOUNS).pl;
+    var faces = [
+      { ctx: "It's right here.", blankQ: "___ is my " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "It's over there.", blankQ: "___ is my " + sgNoun + ".", answer: "That", wrong: ["This", "Those"] },
+      { ctx: "They're right here.", blankQ: "___ are my " + plNoun + ".", answer: "These", wrong: ["Those", "This"] },
+      { ctx: "They're over there.", blankQ: "___ are my " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+      { ctx: "Look, it's close to me.", blankQ: "___ is a nice " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "Look, they're far away.", blankQ: "___ are cute " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+    ];
+    var f = pick(rng, faces);
+    var q = f.ctx + " " + f.blankQ;
+    return buildItem("GP-04", q, f.answer, f.wrong);
+  }
+
+  // ---- GP-06 Wh 問句 -------------------------------------------------
+  function genGP06(rng) {
+    var noun = pick(rng, NOUNS).sg;
+    var noun2 = pick(rng, NOUNS.filter(function (n) { return n.sg !== noun; })).sg;
+    var place = pick(rng, PLACES);
+    var name = pick(rng, NAMES).name;
+    var name1 = pick(rng, NAMES).name;
+    var name2 = pick(rng, NAMES.filter(function (n) { return n.name !== name1; })).name;
+    var faces = [
+      { q: "___ is that? It's a " + noun + ".", answer: "What" },
+      { q: "___ is she? She is " + name + ".", answer: "Who" },
+      { q: "___ is my " + noun + "? It's in the " + place + ".", answer: "Where" },
+      { q: "___ are they? They are my friends, " + name1 + " and " + name2 + ".", answer: "Who" },
+      { q: "___ is your favorite toy? It's a " + noun2 + ".", answer: "What" },
+      { q: "___ is the cat? It's under the " + place + ".", answer: "Where" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["What", "Who", "Where"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-06", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-07 How 問句 -------------------------------------------------
+  function genGP07(rng) {
+    var name = pick(rng, NAMES).name;
+    var plNoun = pick(rng, NOUNS).pl;
+    var mass = pick(rng, MASS_NOUNS);
+    var faces = [
+      { q: "How ___ are you, " + name + "?", answer: "old" },
+      { q: "How ___ is your dog?", answer: "old" },
+      { q: "How ___ " + plNoun + " are there?", answer: "many" },
+      { q: "How ___ students are in your class?", answer: "many" },
+      { q: "How ___ " + mass + " is there?", answer: "much" },
+      { q: "How ___ " + mass + " do you need?", answer: "much" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["old", "many", "much"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-07", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-10 現在進行式 -------------------------------------------------
+  function genGP10(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var mode = pickIndex(rng, 6);
+    var subj, q, answer, wrong;
+    if (mode < 3) {
+      // 測試 be 動詞主詞一致
+      if (mode === 0) subj = { text: "I", be: "am" };
+      else if (mode === 1) subj = pick(rng, [{ text: "He", be: "is" }, { text: "She", be: "is" }, { text: pick(rng, NAMES).name, be: "is" }]);
+      else subj = pick(rng, [{ text: "We", be: "are" }, { text: "They", be: "are" }, twoNameSubject(rng)]);
+      q = subj.text + " ___ " + v.ing + " now.";
+      answer = subj.be;
+      wrong = ALL_BE_FORMS.filter(function (f) { return f !== answer; });
+    } else {
+      // 測試 -ing 拼法
+      var subjTexts = ["I am", "He is", "They are"];
+      var chosen = subjTexts[mode - 3];
+      q = chosen + " ___ now.";
+      answer = v.ing;
+      wrong = [v.wrongIng, v.base];
+    }
+    return buildItem("GP-10", q, answer, wrong);
+  }
+
+  // ---- GP-11 There be -------------------------------------------------
+  function genGP11(rng) {
+    var sgNoun = pick(rng, NOUNS);
+    var plNoun = pick(rng, NOUNS).pl;
+    var place = pick(rng, PLACES);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)];
+    var faces = [
+      { q: "There ___ a " + sgNoun.sg + " on the " + place + ".", answer: "is" },
+      { q: "There ___ " + numWord + " " + plNoun + " in the " + place + ".", answer: "are" },
+      { q: "There ___ many " + plNoun + " on the " + place + ".", answer: "are" },
+      { q: "There ___ " + (sgNoun.vowel ? "an " : "a ") + sgNoun.sg + " in the bag.", answer: "is" },
+      { q: "There ___ some " + plNoun + " near the " + place + ".", answer: "are" },
+      { q: "There ___ one " + sgNoun.sg + " under the " + place + ".", answer: "is" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["is", "are", "am"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-11", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-12 祈使句 -------------------------------------------------
+  function genGP12(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var faces = [
+      { q: "___ the door, please.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Please ___ your hands.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Don't ___ in the classroom.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ quiet, please!", answer: "Be", wrong: ["Is", "Are"] },
+      { q: "___ your book, everyone.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Let's ___ now.", answer: v.base, wrong: [v.s, v.ing] },
+    ];
+    var f = pick(rng, faces);
+    return buildItem("GP-12", f.q, f.answer, f.wrong);
+  }
+
+  // ---- GP-14 can -------------------------------------------------
+  function genGP14(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var name = pick(rng, NAMES).name;
+    var faces = [
+      "" + name + " can ___ well.",
+      "I can ___ every day.",
+      "They can ___ now.",
+      "We can ___ here.",
+      "Can " + name + " ___ today?",
+      "You can ___ after school.",
+    ];
+    var q = pick(rng, faces);
+    return buildItem("GP-14", q, v.base, [v.s, "to " + v.base]);
+  }
+
+  // ---- GP-21 基數序數 -------------------------------------------------
+  function genGP21(rng) {
+    var mode = pickIndex(rng, 6);
+    if (mode < 3) {
+      var n = 2 + pickIndex(rng, 8); // 2..9 (plural noun 需要 >=2)
+      var pl = pick(rng, NOUNS).pl;
+      var faces = [
+        "I have ___ " + pl + ".",
+        "There are ___ " + pl + " on the table.",
+        "She bought ___ " + pl + " at the store.",
+      ];
+      var q = faces[mode];
+      return buildItem("GP-21", q, CARDINAL[n - 1], [ORDINAL[n - 1], mangle(CARDINAL[n - 1])]);
+    } else {
+      var n2 = 1 + pickIndex(rng, 12);
+      var facesO = [
+        "This is my ___ time here.",
+        "He is the ___ in line.",
+        "Today is her ___ day at school.",
+      ];
+      var q2 = facesO[mode - 3];
+      return buildItem("GP-21", q2, ORDINAL[n2 - 1], [CARDINAL[n2 - 1], mangle(ORDINAL[n2 - 1])]);
+    }
+  }
+
+  // ---- GP-23 星期月份日期 -------------------------------------------------
+  function genGP23(rng) {
+    var mode = pickIndex(rng, 6);
+    var q, answer;
+    if (mode === 0) {
+      var i0 = pickIndex(rng, 7);
+      var d0 = WEEKDAYS[i0], d1 = WEEKDAYS[(i0 + 1) % 7], d2 = WEEKDAYS[(i0 + 2) % 7];
+      q = d0 + ", " + d1 + ", ___.";
+      answer = d2;
+      var wrong = pickDistinctExcluding(rng, WEEKDAYS, [d0, d1, d2], 2);
+      return buildItem("GP-23", q, answer, wrong);
+    } else if (mode === 1 || mode === 2) {
+      var im = pickIndex(rng, 12);
+      var m = MONTHS[im];
+      if (mode === 1) {
+        answer = MONTHS[(im + 11) % 12];
+        q = "The month before " + m + " is ___.";
+      } else {
+        answer = MONTHS[(im + 1) % 12];
+        q = "The month after " + m + " is ___.";
+      }
+      var wrongM = pickDistinctExcluding(rng, MONTHS, [m, answer], 2);
+      return buildItem("GP-23", q, answer, wrongM);
+    } else if (mode === 3) {
+      var ix = 1 + pickIndex(rng, 5); // 避免邊界
+      var dPrev = WEEKDAYS[ix - 1], dMid = WEEKDAYS[ix], dNext = WEEKDAYS[ix + 1];
+      q = dPrev + ", ___, " + dNext + ".";
+      answer = dMid;
+      var wrongMid = pickDistinctExcluding(rng, WEEKDAYS, [dPrev, dMid, dNext], 2);
+      return buildItem("GP-23", q, answer, wrongMid);
+    } else if (mode === 4) {
+      var im2 = pickIndex(rng, 11);
+      var m0 = MONTHS[im2], m1 = MONTHS[im2 + 1], m2 = MONTHS[im2 + 2 > 11 ? 11 : im2 + 2];
+      // 確保三個相異（月份陣列長度足夠時必相異）
+      if (im2 + 2 <= 11) {
+        m2 = MONTHS[im2 + 2];
+      } else {
+        im2 = 9; m0 = MONTHS[9]; m1 = MONTHS[10]; m2 = MONTHS[11];
+      }
+      q = m0 + ", " + m1 + ", ___.";
+      answer = m2;
+      var wrongMo = pickDistinctExcluding(rng, MONTHS, [m0, m1, m2], 2);
+      return buildItem("GP-23", q, answer, wrongMo);
+    } else {
+      var iy = pickIndex(rng, 7);
+      var dy = WEEKDAYS[iy];
+      answer = WEEKDAYS[(iy + 1) % 7];
+      q = "The day after " + dy + " is ___.";
+      var wrongDy = pickDistinctExcluding(rng, WEEKDAYS, [dy, answer], 2);
+      return buildItem("GP-23", q, answer, wrongDy);
+    }
+  }
+
+  var GENERATORS = {
+    "GP-01": genGP01,
+    "GP-02": genGP02,
+    "GP-03": genGP03,
+    "GP-04": genGP04,
+    "GP-06": genGP06,
+    "GP-07": genGP07,
+    "GP-10": genGP10,
+    "GP-11": genGP11,
+    "GP-12": genGP12,
+    "GP-14": genGP14,
+    "GP-21": genGP21,
+    "GP-23": genGP23,
+  };
+
+  var SUPPORTED_GPS = Object.keys(GENERATORS);
+
+  // ---------------------------------------------------------------------
+  // 3. 對外主函式
+  // ---------------------------------------------------------------------
+  function make(gpList, n, seed) {
+    if (!gpList || !gpList.length) gpList = SUPPORTED_GPS.slice();
+    gpList = gpList.filter(function (gp) { return GENERATORS[gp]; });
+    if (!gpList.length) return [];
+    var rng = makeRng(seed);
+    var out = [];
+    var seen = {};
+    var guard = 0;
+    var maxGuard = n * 50 + 200;
+    var i = 0;
+    while (out.length < n && guard < maxGuard) {
+      guard++;
+      var gp = gpList[i % gpList.length];
+      i++;
+      var item = GENERATORS[gp](rng);
+      finalizeOptions(rng, item);
+      var key = item.gp + "|" + item.q + "|" + item.answer;
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push(item);
+    }
+    return out;
+  }
+
+  var GrammarGen = {
+    make: make,
+    supportedGPs: SUPPORTED_GPS,
+    _internal: {
+      DATA: {
+        NAMES: NAMES, NOUNS: NOUNS, ADJECTIVES: ADJECTIVES, PLACES: PLACES,
+        ACTION_VERBS: ACTION_VERBS, MASS_NOUNS: MASS_NOUNS, WEEKDAYS: WEEKDAYS,
+        MONTHS: MONTHS, CARDINAL: CARDINAL, ORDINAL: ORDINAL,
+      },
+      mangle: mangle,
+      makeRng: makeRng,
+    },
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = GrammarGen;
+  } else {
+    root.GrammarGen = GrammarGen;
+  }
+})(typeof window !== "undefined" ? window : this);
 
 </script><script>
 /*!

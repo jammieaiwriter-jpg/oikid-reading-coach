@@ -9,6 +9,13 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
 .bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
 .note{font-size:.92rem;color:#52606d;line-height:1.6}
+.rounds{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.rchip{border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 13px;font-weight:900;font-size:.85rem;cursor:pointer}
+.rchip.done{background:#7bdcb5;border-color:#7bdcb5;color:#0b3a2a}
+.rchip.cur{background:#fff;border-color:#fff;color:#155e75}
+.rchip:disabled{opacity:.55;cursor:default}
+.round-hide{display:none !important}
+.round-done-note{background:#e6fcf5;border:1px solid #2f9e44;color:#17623a;border-radius:10px;padding:12px 14px;font-weight:800;margin:12px 0;display:none}
 .hero .note{color:#d9f5fb}
 .section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
 .head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -66,8 +73,10 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 <div class="intro">這一課 7 區一條線：① 原創課文朗讀（一週家事輪值表）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 31 字）→ ③④ 原創文法題（現在進行式／星期月份日期，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。</div>
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="note" id="prog"></div>
+<div class="rounds" id="rounds"></div>
 <div class="note">🎤 麥克風聲音由瀏覽器的語音服務即時辨識，本頁不錄存任何音訊。</div>
 </div>
+<div class="round-done-note" id="round-done"></div>
 <div class="section"><div class="head"><span>區塊 1 / 6　① 課文朗讀：Our Weekly Chore Chart（原創）</span><span class="pg">講義 原創課次對應文本（一週家事輪值表）</span></div><div class="body">
 <div class="tip">原創課次文本，用本課單字和文法寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。</div>
 <div class="sub">逐句唸過</div>
@@ -1332,7 +1341,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 </div>
 <div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button><a class="btn alt" style="text-decoration:none" href="vocab-daily.html">📅 每日單字</a></div>
 <div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
-const DATA={"lesson": "康軒B1-L5", "child": "Bobo", "title": "Our Weekly Chore Chart — 康軒英文 第一冊 Lesson 5", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（答錯補題）→ GEPT 延伸閱讀", "storage": "kang-b1-l5-pre-v1", "intro": "這一課 7 區一條線：① 原創課文朗讀（一週家事輪值表）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 31 字）→ ③④ 原創文法題（現在進行式／星期月份日期，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。", "vocabAll": [{"w": "a.m.", "zh": "上午、凌晨", "pos": "adv."}, {"w": "basketball", "zh": "籃球", "pos": "n."}, {"w": "birthday", "zh": "生日", "pos": "n."}, {"w": "chat", "zh": "聊天", "pos": "v."}, {"w": "city", "zh": "城市", "pos": "n."}, {"w": "day", "zh": "日、天", "pos": "n."}, {"w": "everybody", "zh": "每個人、各位", "pos": "pron."}, {"w": "everyone", "zh": "每個人", "pos": "pron."}, {"w": "Friday", "zh": "星期五", "pos": "n."}, {"w": "group", "zh": "團體", "pos": "n."}, {"w": "join", "zh": "參加、加入", "pos": "v."}, {"w": "life", "zh": "生活、生命（人生）", "pos": "n."}, {"w": "meeting", "zh": "會議、會面", "pos": "n."}, {"w": "Monday", "zh": "星期一", "pos": "n."}, {"w": "noon", "zh": "中午", "pos": "n."}, {"w": "o'clock", "zh": "點鐘", "pos": "adv."}, {"w": "p.m.", "zh": "下午、晚上", "pos": "adv."}, {"w": "party", "zh": "派對", "pos": "n."}, {"w": "prepare", "zh": "準備", "pos": "v."}, {"w": "rise", "zh": "上升、起身", "pos": "v."}, {"w": "Saturday", "zh": "星期六", "pos": "n."}, {"w": "say", "zh": "說", "pos": "v."}, {"w": "shine", "zh": "照耀、發光", "pos": "v."}, {"w": "sun", "zh": "太陽", "pos": "n."}, {"w": "Sunday", "zh": "星期日", "pos": "n."}, {"w": "Thursday", "zh": "星期四", "pos": "n."}, {"w": "tonight", "zh": "今晚", "pos": "adv."}, {"w": "Tuesday", "zh": "星期二", "pos": "n."}, {"w": "Wednesday", "zh": "星期三", "pos": "n."}, {"w": "week", "zh": "週", "pos": "n."}, {"w": "weekend", "zh": "週末", "pos": "n."}], "blocks": [{"id": "text", "name": "① 課文朗讀：Our Weekly Chore Chart（原創）", "page": "原創課次對應文本（一週家事輪值表）", "note": "原創課次文本，用本課單字和文法寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["My family makes a new chore chart every week. On Monday, my dad is washing the car. My mom is cooking lunch, and we are cleaning our rooms. Everybody has a job this week.", "On Tuesday and Wednesday, we take turns. My sister is feeding our dog at seven a.m. I am setting the table at noon. My mom is washing the dishes at eight p.m.", "Thursday is busy. Mom has a meeting at six o'clock, so Dad is preparing dinner alone. The sun is still shining outside. I say, \"I can help you, Dad!\" He smiles and says thanks.", "Friday is Mom's birthday! This year it falls on May 8th. We are not doing chores that night. Everyone is planning a small party, and Dad is buying a cake.", "Our family has a big cleaning day every year, on Saturday, June 3rd. This Saturday, we are painting the old fence together. Later, we join our neighbors for basketball. City life is busy, but weekends can be fun.", "Sunday is our rest day. Tonight we are not working; we are chatting on the sofa. Everybody rises late on Sunday morning. Next week, our chart starts again on Monday!"], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：What day is your busiest day? What are you doing?", "keywords": ["busy", "day", "doing", "clean", "help", "chore"], "minHits": 2, "model": "My busiest day is Saturday. I am cleaning my room and helping my mom."}, {"kind": "fill", "q": "課文克漏字：On Monday, my dad is ____ the car.", "answer": "washing", "options": ["washing", "cooking", "cleaning"], "say": "On Monday, my dad is washing the car."}, {"kind": "fill", "q": "閱讀理解：What time is the sister feeding the dog?", "answer": "At seven a.m.", "options": ["At seven a.m.", "At noon", "At eight p.m."], "say": "My sister is feeding our dog at seven a.m."}, {"kind": "tf", "q": "閱讀理解：Mom is washing the dishes at eight a.m.", "answer": "False", "say": "My mom is washing the dishes at eight p.m."}, {"kind": "fill", "q": "閱讀理解：What day is Mom's meeting?", "answer": "Thursday", "options": ["Thursday", "Tuesday", "Sunday"], "say": "Thursday is busy. Mom has a meeting at six o'clock."}, {"kind": "fill", "q": "課文克漏字：Friday is Mom's birthday! This year it falls on ____.", "answer": "May 8th", "options": ["May 8th", "June 3rd", "May 3rd"], "say": "This year it falls on May 8th."}, {"kind": "tf", "q": "閱讀理解：The family is doing chores on Friday night.", "answer": "False", "say": "We are not doing chores that night. Everyone is planning a small party."}, {"kind": "fill", "q": "閱讀理解：When is the family's big cleaning day every year?", "answer": "On Saturday, June 3rd.", "options": ["On Saturday, June 3rd.", "On Friday, May 8th.", "On Sunday, June 3rd."], "say": "Our family has a big cleaning day every year, on Saturday, June 3rd."}, {"kind": "fill", "q": "閱讀理解：What are they doing on Sunday night?", "answer": "They are chatting on the sofa.", "options": ["They are chatting on the sofa.", "They are washing the car.", "They are painting the fence."], "say": "Tonight we are not working; we are chatting on the sofa."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 31 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後每個字都要「聽音拼寫」——挖空給提示，打出完整單字，拼錯不算過。a.m./p.m. 這兩個字仍收在拼寫練習裡，只是沒有放進上方的單字卡（詳見交付說明）。", "read": ["The sun rises at six a.m., and it sets after six p.m. School starts at eight o'clock. We eat lunch at noon every day.", "On Monday, we clean the house. On Tuesday and Wednesday, we do homework. On Thursday, we have a test. Friday is my favorite day of the week.", "Saturday and Sunday are the weekend. Every day of the week feels different to me. On the weekend, I can rest and play.", "My birthday is next month, and Mom is planning a big party for me. We prepare food and games together. This is the best part of my life.", "Everybody in my class is friendly. Everyone wants to join our study group after school. Our city has many parks for us to meet.", "The sun begins to rise in the morning and shine over the city. Tonight, the sky is clear, and we can see many stars.", "After the meeting, my friends and I chat about our basketball game. I say, \"Let's play together this weekend!\""], "words": [{"w": "basketball", "zh": "籃球", "pos": "n."}, {"w": "birthday", "zh": "生日", "pos": "n."}, {"w": "chat", "zh": "聊天", "pos": "v."}, {"w": "city", "zh": "城市", "pos": "n."}, {"w": "day", "zh": "日、天", "pos": "n."}, {"w": "everybody", "zh": "每個人、各位", "pos": "pron."}, {"w": "everyone", "zh": "每個人", "pos": "pron."}, {"w": "Friday", "zh": "星期五", "pos": "n."}, {"w": "group", "zh": "團體", "pos": "n."}, {"w": "join", "zh": "參加、加入", "pos": "v."}, {"w": "life", "zh": "生活、生命（人生）", "pos": "n."}, {"w": "meeting", "zh": "會議、會面", "pos": "n."}, {"w": "Monday", "zh": "星期一", "pos": "n."}, {"w": "noon", "zh": "中午", "pos": "n."}, {"w": "o'clock", "zh": "點鐘", "pos": "adv."}, {"w": "party", "zh": "派對", "pos": "n."}, {"w": "prepare", "zh": "準備", "pos": "v."}, {"w": "rise", "zh": "上升、起身", "pos": "v."}, {"w": "Saturday", "zh": "星期六", "pos": "n."}, {"w": "say", "zh": "說", "pos": "v."}, {"w": "shine", "zh": "照耀、發光", "pos": "v."}, {"w": "sun", "zh": "太陽", "pos": "n."}, {"w": "Sunday", "zh": "星期日", "pos": "n."}, {"w": "Thursday", "zh": "星期四", "pos": "n."}, {"w": "tonight", "zh": "今晚", "pos": "adv."}, {"w": "Tuesday", "zh": "星期二", "pos": "n."}, {"w": "Wednesday", "zh": "星期三", "pos": "n."}, {"w": "week", "zh": "週", "pos": "n."}, {"w": "weekend", "zh": "週末", "pos": "n."}], "practice": [{"kind": "spell", "q": "拼寫：上午、凌晨（一格一個字母，先按🔊聽）", "answer": "a.m.", "say": "The sun rises at six a.m. every morning.", "mask": "a._."}, {"kind": "spell", "q": "拼寫：籃球（一格一個字母，先按🔊聽）", "answer": "basketball", "say": "I say, \"Let's play basketball together this weekend!\"", "mask": "b__k_tb__l"}, {"kind": "spell", "q": "拼寫：生日（一格一個字母，先按🔊聽）", "answer": "birthday", "say": "My birthday is next month, and Mom is planning a big party for me.", "mask": "b_r_h__y"}, {"kind": "spell", "q": "拼寫：聊天（一格一個字母，先按🔊聽）", "answer": "chat", "say": "After the meeting, my friends and I chat about our basketball game.", "mask": "c_a_"}, {"kind": "spell", "q": "拼寫：城市（一格一個字母，先按🔊聽）", "answer": "city", "say": "Our city has many parks for us to meet.", "mask": "c_t_"}, {"kind": "spell", "q": "拼寫：日、天（一格一個字母，先按🔊聽）", "answer": "day", "say": "Every day of the week feels different to me.", "mask": "d__"}, {"kind": "spell", "q": "拼寫：每個人、各位（一格一個字母，先按🔊聽）", "answer": "everybody", "say": "Everybody in my class is friendly.", "mask": "e__r_b_d_"}, {"kind": "spell", "q": "拼寫：每個人（一格一個字母，先按🔊聽）", "answer": "everyone", "say": "Everyone wants to join our study group after school.", "mask": "e__r_o_e"}, {"kind": "spell", "q": "拼寫：星期五（一格一個字母，先按🔊聽）", "answer": "Friday", "say": "Friday is my favorite day of the week.", "mask": "F__d__"}, {"kind": "spell", "q": "拼寫：團體（一格一個字母，先按🔊聽）", "answer": "group", "say": "Everyone wants to join our study group after school.", "mask": "g__u_"}, {"kind": "spell", "q": "拼寫：參加、加入（一格一個字母，先按🔊聽）", "answer": "join", "say": "Everyone wants to join our study group after school.", "mask": "j__n"}, {"kind": "spell", "q": "拼寫：生活、生命（人生）（一格一個字母，先按🔊聽）", "answer": "life", "say": "This is the best part of my life.", "mask": "l_f_"}, {"kind": "spell", "q": "拼寫：會議、會面（一格一個字母，先按🔊聽）", "answer": "meeting", "say": "After the meeting, my friends and I chat about our basketball game.", "mask": "m__t__g"}, {"kind": "spell", "q": "拼寫：星期一（一格一個字母，先按🔊聽）", "answer": "Monday", "say": "On Monday, we clean the house.", "mask": "M__d__"}, {"kind": "spell", "q": "拼寫：中午（一格一個字母，先按🔊聽）", "answer": "noon", "say": "We eat lunch at noon every day.", "mask": "n__n"}, {"kind": "spell", "q": "拼寫：點鐘（一格一個字母，先按🔊聽）", "answer": "o'clock", "say": "School starts at eight o'clock.", "mask": "o'c___k"}, {"kind": "spell", "q": "拼寫：下午、晚上（一格一個字母，先按🔊聽）", "answer": "p.m.", "say": "The sun sets after six p.m.", "mask": "p._."}, {"kind": "spell", "q": "拼寫：派對（一格一個字母，先按🔊聽）", "answer": "party", "say": "Mom is planning a big party for me.", "mask": "p__t_"}, {"kind": "spell", "q": "拼寫：準備（一格一個字母，先按🔊聽）", "answer": "prepare", "say": "We prepare food and games together.", "mask": "p__p_r_"}, {"kind": "spell", "q": "拼寫：上升、起身（一格一個字母，先按🔊聽）", "answer": "rise", "say": "The sun begins to rise in the morning.", "mask": "r_s_"}, {"kind": "spell", "q": "拼寫：星期六（一格一個字母，先按🔊聽）", "answer": "Saturday", "say": "Saturday and Sunday are the weekend.", "mask": "S_t__d__"}, {"kind": "spell", "q": "拼寫：說（一格一個字母，先按🔊聽）", "answer": "say", "say": "I say, \"Let's play together this weekend!\"", "mask": "s__"}, {"kind": "spell", "q": "拼寫：照耀、發光（一格一個字母，先按🔊聽）", "answer": "shine", "say": "The sun begins to rise in the morning and shine over the city.", "mask": "s__n_"}, {"kind": "spell", "q": "拼寫：太陽（一格一個字母，先按🔊聽）", "answer": "sun", "say": "The sun rises at six a.m., and it sets after six p.m.", "mask": "s__"}, {"kind": "spell", "q": "拼寫：星期日（一格一個字母，先按🔊聽）", "answer": "Sunday", "say": "Saturday and Sunday are the weekend.", "mask": "S__d__"}, {"kind": "spell", "q": "拼寫：星期四（一格一個字母，先按🔊聽）", "answer": "Thursday", "say": "On Thursday, we have a test.", "mask": "T__r_d__"}, {"kind": "spell", "q": "拼寫：今晚（一格一個字母，先按🔊聽）", "answer": "tonight", "say": "Tonight, the sky is clear, and we can see many stars.", "mask": "t___g_t"}, {"kind": "spell", "q": "拼寫：星期二（一格一個字母，先按🔊聽）", "answer": "Tuesday", "say": "On Tuesday and Wednesday, we do homework.", "mask": "T__s___"}, {"kind": "spell", "q": "拼寫：星期三（一格一個字母，先按🔊聽）", "answer": "Wednesday", "say": "On Tuesday and Wednesday, we do homework.", "mask": "W__n__d__"}, {"kind": "spell", "q": "拼寫：週（一格一個字母，先按🔊聽）", "answer": "week", "say": "Every day of the week feels different to me.", "mask": "w__k"}, {"kind": "spell", "q": "拼寫：週末（一格一個字母，先按🔊聽）", "answer": "weekend", "say": "Saturday and Sunday are the weekend.", "mask": "w__k__d"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：現在進行式（＝知洞 GP-10）", "page": "原創題（對應本課文法點）", "note": "be + Ving：I am／You are／He, She, It is／複數用 are + Ving。否定句在 be 動詞後加 not；一般問句把 be 動詞移到句首；What is/are ~ doing? 問「正在做什麼」。直接作答，每題答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "Dad ____ (wash) the car now.", "answer": "is washing", "options": ["is washing", "washes", "wash"], "say": "Dad is washing the car now."}, {"kind": "fill", "q": "The children ____ (play) basketball in the yard.", "answer": "are playing", "options": ["are playing", "plays", "is playing"], "say": "The children are playing basketball in the yard."}, {"kind": "fill", "q": "We ____ (not / sleep) now.", "answer": "are not sleeping", "options": ["are not sleeping", "don't sleep", "not sleeping"], "say": "We are not sleeping now."}, {"kind": "fill", "q": "____ you doing your homework now?", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are you doing your homework now?"}, {"kind": "fill", "q": "What ____ she doing at the moment?", "answer": "is", "options": ["is", "are", "does"], "say": "What is she doing at the moment?"}, {"kind": "fill", "q": "The sun ____ (shine) brightly today.", "answer": "is shining", "options": ["is shining", "shines", "shine"], "say": "The sun is shining brightly today."}, {"kind": "tf", "q": "文法判斷：'She is play the piano now.' 是正確的句子。", "answer": "False", "say": "She is playing the piano now."}, {"kind": "fill", "q": "Look! The dog ____ (run) in the park.", "answer": "is running", "options": ["is running", "runs", "run"], "say": "Look! The dog is running in the park."}, {"kind": "fill", "q": "He ____ (write) an email now.", "answer": "is writing", "options": ["is writing", "writes", "write"], "say": "He is writing an email now.", "backup": true}, {"kind": "fill", "q": "____ the kids swimming now?", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are the kids swimming now?", "backup": true}, {"kind": "fill", "q": "What ____ you doing right now?", "answer": "are", "options": ["are", "is", "do"], "say": "What are you doing right now?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：星期、月份與日期（＝知洞 GP-23）", "page": "原創題（對應本課文法點）", "note": "星期用 on（on Monday）、月份用 in（in May）、確切日期用 on（on May 3rd）、確切時刻用 at（at noon）。日期要用序數字（first, second, third, fourth…）。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "We have a class meeting ____ Monday.", "answer": "on", "options": ["on", "in", "at"], "say": "We have a class meeting on Monday."}, {"kind": "fill", "q": "My mom's birthday is ____ May.", "answer": "in", "options": ["in", "on", "at"], "say": "My mom's birthday is in May."}, {"kind": "fill", "q": "The concert is ____ May 3rd.", "answer": "on", "options": ["on", "in", "at"], "say": "The concert is on May 3rd."}, {"kind": "fill", "q": "one, two, three, ____（序數字）", "answer": "fourth", "options": ["fourth", "four", "forth"], "say": "One, two, three, fourth."}, {"kind": "fill", "q": "9 → ____（序數字）", "answer": "ninth", "options": ["ninth", "nineth", "nine's"], "say": "Nine, ninth."}, {"kind": "fill", "q": "Her birthday party starts ____ noon.", "answer": "at", "options": ["at", "on", "in"], "say": "Her birthday party starts at noon."}, {"kind": "tf", "q": "文法判斷：'I visit my grandma in Sunday.' 是正確的句子。", "answer": "False", "say": "I visit my grandma on Sunday."}, {"kind": "fill", "q": "School starts again ____ September.", "answer": "in", "options": ["in", "on", "at"], "say": "School starts again in September."}, {"kind": "fill", "q": "Christmas is ____ December.", "answer": "in", "options": ["in", "on", "at"], "say": "Christmas is in December.", "backup": true}, {"kind": "fill", "q": "one → first, two → ____", "answer": "second", "options": ["second", "two's", "twoth"], "say": "One, first; two, second.", "backup": true}, {"kind": "fill", "q": "The game is ____ Saturday afternoon.", "answer": "on", "options": ["on", "in", "at"], "say": "The game is on Saturday afternoon.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑤ 文法綜合挑戰（混考）", "page": "原創題（GP-10／GP-23 混出）", "note": "進階區：選項故意把現在進行式跟星期月份日期的答案混在一起，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "Dad ____ dinner right now.", "answer": "is cooking", "options": ["is cooking", "on Sunday", "in June"], "say": "Dad is cooking dinner right now."}, {"kind": "fill", "q": "The class trip is ____ May 3rd.", "answer": "on", "options": ["on", "is walking", "are jumping"], "say": "The class trip is on May 3rd."}, {"kind": "fill", "q": "Look! The kids ____ basketball in the park.", "answer": "are playing", "options": ["are playing", "in July", "on Friday"], "say": "Look! The kids are playing basketball in the park."}, {"kind": "fill", "q": "My birthday is ____ August.", "answer": "in", "options": ["in", "is singing", "are chatting"], "say": "My birthday is in August."}, {"kind": "fill", "q": "What ____ you doing now?", "answer": "are", "options": ["are", "on", "in"], "say": "What are you doing now?"}, {"kind": "fill", "q": "one, two, three, ____（序數字）", "answer": "fourth", "options": ["fourth", "is running", "on Tuesday"], "say": "One, two, three, fourth."}, {"kind": "fill", "q": "We ____ (not / sleep) now.", "answer": "are not sleeping", "options": ["are not sleeping", "in March", "on Monday"], "say": "We are not sleeping now."}, {"kind": "fill", "q": "The meeting starts ____ Thursday.", "answer": "on", "options": ["on", "is meeting", "are meeting"], "say": "The meeting starts on Thursday."}, {"kind": "fill", "q": "She ____ (write) a letter now.", "answer": "is writing", "options": ["is writing", "in April", "on Wednesday"], "say": "She is writing a letter now.", "backup": true}, {"kind": "fill", "q": "Sports Day is ____ October.", "answer": "in", "options": ["in", "is running", "are jumping"], "say": "Sports Day is in October.", "backup": true}, {"kind": "tf", "q": "文法判斷：'They is watching TV.' 是正確的句子。", "answer": "False", "say": "They are watching TV.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑥ GEPT 延伸閱讀：A Video Call Across the World", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】原創短文，字彙在英檢初級 2000 字內，情境跟課文（家事輪值表）不同——這次是跨時區的家庭視訊通話。流程刻意這樣排：①直接把整篇文章從頭讀到尾——會遇到幾個沒學過的字，用上下文猜，不要停（考試就是這樣）→ ②做理解題驗證有沒有讀懂（答案都在文中，用讀的找，不要猜選項）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。", "read": ["Mia lives in Taipei. Her cousin Leo lives in New York. The two cities are far away from each other, but the cousins talk every week on a video call.", "Time is different in the two places. When it is morning in Taipei, it is still night in New York. So they must plan their call time with care.", "This Sunday, Mia is sitting at her desk at nine in the morning. She is holding her tablet and waiting for the call. At the same moment, Leo is eating his dinner. For him, it is eight in the evening.", "\"Hi, Mia! Can you hear me?\" Leo asks with a smile. \"Yes, I can hear you well!\" Mia says. They are talking about school and friends. Leo is telling her about his new soccer team, and Mia is telling him about her art class.", "Then Mia shows Leo a photo of her dog. Leo shows her a photo of his new bike. They both laugh and talk for almost an hour.", "Before they say goodbye, they check their plans for next week. Their next call will be on Saturday. For Leo, it will be Saturday afternoon. For Mia, it will be early Sunday morning.", "A video call is nice, but it is not the same as a real hug. Still, it helps a family feel close. Every week, Mia and Leo wait for this special hour together."], "words": [{"w": "tablet", "zh": "平板電腦", "pos": "n."}], "practice": [{"kind": "fill", "qtype": "main", "q": "主旨題：What is this passage mainly about?", "answer": "Mia and Leo's weekly video call.", "options": ["Mia and Leo's weekly video call.", "A trip to New York.", "A soccer game in Taipei."], "say": "Mia and Leo talk every week on a video call."}, {"kind": "fill", "qtype": "detail", "q": "細節題：What time is it in Taipei when Mia starts the call?", "answer": "Nine a.m.", "options": ["Nine a.m.", "Eight p.m.", "Nine p.m."], "say": "Mia is sitting at her desk at nine a.m."}, {"kind": "fill", "qtype": "detail", "q": "細節題：What is Leo doing when the call starts?", "answer": "He is eating his dinner.", "options": ["He is eating his dinner.", "He is doing his homework.", "He is playing soccer."], "say": "At that same moment, Leo is eating his dinner."}, {"kind": "fill", "qtype": "causal", "q": "推論題：Why must the cousins plan their call time with care?", "answer": "Because the time is different in the two cities.", "options": ["Because the time is different in the two cities.", "Because Leo is always busy.", "Because Mia does not like video calls."], "say": "Time is different in the two places, so the cousins must plan their call time with care."}, {"kind": "fill", "qtype": "guess", "q": "字義猜測：文中 \"She is holding her tablet and waiting for the call.\" 這句話裡的 tablet 最接近下面哪個意思？", "answer": "螢幕型的平板電腦", "options": ["螢幕型的平板電腦", "一種藥丸", "一本小筆記本"], "say": "She is holding her tablet and waiting for the call."}], "article": ["Mia lives in Taipei. Her cousin Leo lives in New York. The two cities are far away from each other, but the cousins talk every week on a video call.", "Time is different in the two places. When it is morning in Taipei, it is still night in New York. So they must plan their call time with care.", "This Sunday, Mia is sitting at her desk at nine in the morning. She is holding her tablet and waiting for the call. At the same moment, Leo is eating his dinner. For him, it is eight in the evening.", "\"Hi, Mia! Can you hear me?\" Leo asks with a smile. \"Yes, I can hear you well!\" Mia says. They are talking about school and friends. Leo is telling her about his new soccer team, and Mia is telling him about her art class.", "Then Mia shows Leo a photo of her dog. Leo shows her a photo of his new bike. They both laugh and talk for almost an hour.", "Before they say goodbye, they check their plans for next week. Their next call will be on Saturday. For Leo, it will be Saturday afternoon. For Mia, it will be early Sunday morning.", "A video call is nice, but it is not the same as a real hug. Still, it helps a family feel close. Every week, Mia and Leo wait for this special hour together."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "Our Weekly Chore Chart", "words": 31, "grammarPoints": ["GP-10", "GP-23"], "setting": "一週家事輪值表（全新情境，與課本課文之人物、場景、事件順序零重疊）；GEPT 延伸閱讀另用跨時區家庭視訊通話情境", "generated": "2026-09-04", "humanCheck": "未沿用原課文角色、情節、句序及特色語句"}};
+const DATA={"lesson": "康軒B1-L5", "child": "Bobo", "title": "Our Weekly Chore Chart — 康軒英文 第一冊 Lesson 5", "subtitle": "課文整段朗讀 → 單字聽音拼寫 → 原創文法題（答錯補題）→ GEPT 延伸閱讀", "storage": "kang-b1-l5-pre-v1", "intro": "這一課 7 區一條線：① 原創課文朗讀（一週家事輪值表）→ ② 單字驗收（先聽唸對，再聽音拼寫，全課 31 字）→ ③④ 原創文法題（現在進行式／星期月份日期，答錯會浮出補題）→ ⑤ 文法綜合挑戰（混考，看選項猜不出考點）→ ⑥ GEPT 延伸閱讀短文＋理解題。每一題答完都要把整句唸出來，猜對也要唸。本頁為非官方原創學習資源，依該課次之字彙與文法能力設計，不收錄、不重製教科書課本內容。", "vocabAll": [{"w": "a.m.", "zh": "上午、凌晨", "pos": "adv."}, {"w": "basketball", "zh": "籃球", "pos": "n."}, {"w": "birthday", "zh": "生日", "pos": "n."}, {"w": "chat", "zh": "聊天", "pos": "v."}, {"w": "city", "zh": "城市", "pos": "n."}, {"w": "day", "zh": "日、天", "pos": "n."}, {"w": "everybody", "zh": "每個人、各位", "pos": "pron."}, {"w": "everyone", "zh": "每個人", "pos": "pron."}, {"w": "Friday", "zh": "星期五", "pos": "n."}, {"w": "group", "zh": "團體", "pos": "n."}, {"w": "join", "zh": "參加、加入", "pos": "v."}, {"w": "life", "zh": "生活、生命（人生）", "pos": "n."}, {"w": "meeting", "zh": "會議、會面", "pos": "n."}, {"w": "Monday", "zh": "星期一", "pos": "n."}, {"w": "noon", "zh": "中午", "pos": "n."}, {"w": "o'clock", "zh": "點鐘", "pos": "adv."}, {"w": "p.m.", "zh": "下午、晚上", "pos": "adv."}, {"w": "party", "zh": "派對", "pos": "n."}, {"w": "prepare", "zh": "準備", "pos": "v."}, {"w": "rise", "zh": "上升、起身", "pos": "v."}, {"w": "Saturday", "zh": "星期六", "pos": "n."}, {"w": "say", "zh": "說", "pos": "v."}, {"w": "shine", "zh": "照耀、發光", "pos": "v."}, {"w": "sun", "zh": "太陽", "pos": "n."}, {"w": "Sunday", "zh": "星期日", "pos": "n."}, {"w": "Thursday", "zh": "星期四", "pos": "n."}, {"w": "tonight", "zh": "今晚", "pos": "adv."}, {"w": "Tuesday", "zh": "星期二", "pos": "n."}, {"w": "Wednesday", "zh": "星期三", "pos": "n."}, {"w": "week", "zh": "週", "pos": "n."}, {"w": "weekend", "zh": "週末", "pos": "n."}], "blocks": [{"id": "text", "name": "① 課文朗讀：Our Weekly Chore Chart（原創）", "page": "原創課次對應文本（一週家事輪值表）", "note": "原創課次文本，用本課單字和文法寫成（課本課文請看課本跟著念）。一次念一整段，念完做理解題——題目從這篇文字就能作答。", "read": ["My family makes a new chore chart every week. On Monday, my dad is washing the car. My mom is cooking lunch, and we are cleaning our rooms. Everybody has a job this week.", "On Tuesday and Wednesday, we take turns. My sister is feeding our dog at seven a.m. I am setting the table at noon. My mom is washing the dishes at eight p.m.", "Thursday is busy. Mom has a meeting at six o'clock, so Dad is preparing dinner alone. The sun is still shining outside. I say, \"I can help you, Dad!\" He smiles and says thanks.", "Friday is Mom's birthday! This year it falls on May 8th. We are not doing chores that night. Everyone is planning a small party, and Dad is buying a cake.", "Our family has a big cleaning day every year, on Saturday, June 3rd. This Saturday, we are painting the old fence together. Later, we join our neighbors for basketball. City life is busy, but weekends can be fun.", "Sunday is our rest day. Tonight we are not working; we are chatting on the sofa. Everybody rises late on Sunday morning. Next week, our chart starts again on Monday!"], "words": [], "practice": [{"kind": "speak", "q": "Warm-up：What day is your busiest day? What are you doing?", "keywords": ["busy", "day", "doing", "clean", "help", "chore"], "minHits": 2, "model": "My busiest day is Saturday. I am cleaning my room and helping my mom."}, {"kind": "fill", "q": "課文克漏字：On Monday, my dad is ____ the car.", "answer": "washing", "options": ["washing", "cooking", "cleaning"], "say": "On Monday, my dad is washing the car."}, {"kind": "fill", "q": "閱讀理解：What time is the sister feeding the dog?", "answer": "At seven a.m.", "options": ["At seven a.m.", "At noon", "At eight p.m."], "say": "My sister is feeding our dog at seven a.m."}, {"kind": "tf", "q": "閱讀理解：Mom is washing the dishes at eight a.m.", "answer": "False", "say": "My mom is washing the dishes at eight p.m."}, {"kind": "fill", "q": "閱讀理解：What day is Mom's meeting?", "answer": "Thursday", "options": ["Thursday", "Tuesday", "Sunday"], "say": "Thursday is busy. Mom has a meeting at six o'clock."}, {"kind": "fill", "q": "課文克漏字：Friday is Mom's birthday! This year it falls on ____.", "answer": "May 8th", "options": ["May 8th", "June 3rd", "May 3rd"], "say": "This year it falls on May 8th."}, {"kind": "tf", "q": "閱讀理解：The family is doing chores on Friday night.", "answer": "False", "say": "We are not doing chores that night. Everyone is planning a small party."}, {"kind": "fill", "q": "閱讀理解：When is the family's big cleaning day every year?", "answer": "On Saturday, June 3rd.", "options": ["On Saturday, June 3rd.", "On Friday, May 8th.", "On Sunday, June 3rd."], "say": "Our family has a big cleaning day every year, on Saturday, June 3rd."}, {"kind": "fill", "q": "閱讀理解：What are they doing on Sunday night?", "answer": "They are chatting on the sofa.", "options": ["They are chatting on the sofa.", "They are washing the car.", "They are painting the fence."], "say": "Tonight we are not working; we are chatting on the sofa."}], "practiceLabel": "課文理解題（原創）"}, {"id": "vocab", "name": "② 單字驗收（全課 31 字）", "page": "本課單字（例句原創）", "note": "全課單字集中在這一區：先聽 → 唸對才過，然後每個字都要「聽音拼寫」——挖空給提示，打出完整單字，拼錯不算過。a.m./p.m. 這兩個字仍收在拼寫練習裡，只是沒有放進上方的單字卡（詳見交付說明）。", "read": ["The sun rises at six a.m., and it sets after six p.m. School starts at eight o'clock. We eat lunch at noon every day.", "On Monday, we clean the house. On Tuesday and Wednesday, we do homework. On Thursday, we have a test. Friday is my favorite day of the week.", "Saturday and Sunday are the weekend. Every day of the week feels different to me. On the weekend, I can rest and play.", "My birthday is next month, and Mom is planning a big party for me. We prepare food and games together. This is the best part of my life.", "Everybody in my class is friendly. Everyone wants to join our study group after school. Our city has many parks for us to meet.", "The sun begins to rise in the morning and shine over the city. Tonight, the sky is clear, and we can see many stars.", "After the meeting, my friends and I chat about our basketball game. I say, \"Let's play together this weekend!\""], "words": [{"w": "basketball", "zh": "籃球", "pos": "n."}, {"w": "birthday", "zh": "生日", "pos": "n."}, {"w": "chat", "zh": "聊天", "pos": "v."}, {"w": "city", "zh": "城市", "pos": "n."}, {"w": "day", "zh": "日、天", "pos": "n."}, {"w": "everybody", "zh": "每個人、各位", "pos": "pron."}, {"w": "everyone", "zh": "每個人", "pos": "pron."}, {"w": "Friday", "zh": "星期五", "pos": "n."}, {"w": "group", "zh": "團體", "pos": "n."}, {"w": "join", "zh": "參加、加入", "pos": "v."}, {"w": "life", "zh": "生活、生命（人生）", "pos": "n."}, {"w": "meeting", "zh": "會議、會面", "pos": "n."}, {"w": "Monday", "zh": "星期一", "pos": "n."}, {"w": "noon", "zh": "中午", "pos": "n."}, {"w": "o'clock", "zh": "點鐘", "pos": "adv."}, {"w": "party", "zh": "派對", "pos": "n."}, {"w": "prepare", "zh": "準備", "pos": "v."}, {"w": "rise", "zh": "上升、起身", "pos": "v."}, {"w": "Saturday", "zh": "星期六", "pos": "n."}, {"w": "say", "zh": "說", "pos": "v."}, {"w": "shine", "zh": "照耀、發光", "pos": "v."}, {"w": "sun", "zh": "太陽", "pos": "n."}, {"w": "Sunday", "zh": "星期日", "pos": "n."}, {"w": "Thursday", "zh": "星期四", "pos": "n."}, {"w": "tonight", "zh": "今晚", "pos": "adv."}, {"w": "Tuesday", "zh": "星期二", "pos": "n."}, {"w": "Wednesday", "zh": "星期三", "pos": "n."}, {"w": "week", "zh": "週", "pos": "n."}, {"w": "weekend", "zh": "週末", "pos": "n."}], "practice": [{"kind": "spell", "q": "拼寫：上午、凌晨（一格一個字母，先按🔊聽）", "answer": "a.m.", "say": "The sun rises at six a.m. every morning.", "mask": "a._."}, {"kind": "spell", "q": "拼寫：籃球（一格一個字母，先按🔊聽）", "answer": "basketball", "say": "I say, \"Let's play basketball together this weekend!\"", "mask": "b__k_tb__l"}, {"kind": "spell", "q": "拼寫：生日（一格一個字母，先按🔊聽）", "answer": "birthday", "say": "My birthday is next month, and Mom is planning a big party for me.", "mask": "b_r_h__y"}, {"kind": "spell", "q": "拼寫：聊天（一格一個字母，先按🔊聽）", "answer": "chat", "say": "After the meeting, my friends and I chat about our basketball game.", "mask": "c_a_"}, {"kind": "spell", "q": "拼寫：城市（一格一個字母，先按🔊聽）", "answer": "city", "say": "Our city has many parks for us to meet.", "mask": "c_t_"}, {"kind": "spell", "q": "拼寫：日、天（一格一個字母，先按🔊聽）", "answer": "day", "say": "Every day of the week feels different to me.", "mask": "d__"}, {"kind": "spell", "q": "拼寫：每個人、各位（一格一個字母，先按🔊聽）", "answer": "everybody", "say": "Everybody in my class is friendly.", "mask": "e__r_b_d_"}, {"kind": "spell", "q": "拼寫：每個人（一格一個字母，先按🔊聽）", "answer": "everyone", "say": "Everyone wants to join our study group after school.", "mask": "e__r_o_e"}, {"kind": "spell", "q": "拼寫：星期五（一格一個字母，先按🔊聽）", "answer": "Friday", "say": "Friday is my favorite day of the week.", "mask": "F__d__"}, {"kind": "spell", "q": "拼寫：團體（一格一個字母，先按🔊聽）", "answer": "group", "say": "Everyone wants to join our study group after school.", "mask": "g__u_"}, {"kind": "spell", "q": "拼寫：參加、加入（一格一個字母，先按🔊聽）", "answer": "join", "say": "Everyone wants to join our study group after school.", "mask": "j__n"}, {"kind": "spell", "q": "拼寫：生活、生命（人生）（一格一個字母，先按🔊聽）", "answer": "life", "say": "This is the best part of my life.", "mask": "l_f_"}, {"kind": "spell", "q": "拼寫：會議、會面（一格一個字母，先按🔊聽）", "answer": "meeting", "say": "After the meeting, my friends and I chat about our basketball game.", "mask": "m__t__g"}, {"kind": "spell", "q": "拼寫：星期一（一格一個字母，先按🔊聽）", "answer": "Monday", "say": "On Monday, we clean the house.", "mask": "M__d__"}, {"kind": "spell", "q": "拼寫：中午（一格一個字母，先按🔊聽）", "answer": "noon", "say": "We eat lunch at noon every day.", "mask": "n__n"}, {"kind": "spell", "q": "拼寫：點鐘（一格一個字母，先按🔊聽）", "answer": "o'clock", "say": "School starts at eight o'clock.", "mask": "o'c___k"}, {"kind": "spell", "q": "拼寫：下午、晚上（一格一個字母，先按🔊聽）", "answer": "p.m.", "say": "The sun sets after six p.m.", "mask": "p._."}, {"kind": "spell", "q": "拼寫：派對（一格一個字母，先按🔊聽）", "answer": "party", "say": "Mom is planning a big party for me.", "mask": "p__t_"}, {"kind": "spell", "q": "拼寫：準備（一格一個字母，先按🔊聽）", "answer": "prepare", "say": "We prepare food and games together.", "mask": "p__p_r_"}, {"kind": "spell", "q": "拼寫：上升、起身（一格一個字母，先按🔊聽）", "answer": "rise", "say": "The sun begins to rise in the morning.", "mask": "r_s_"}, {"kind": "spell", "q": "拼寫：星期六（一格一個字母，先按🔊聽）", "answer": "Saturday", "say": "Saturday and Sunday are the weekend.", "mask": "S_t__d__"}, {"kind": "spell", "q": "拼寫：說（一格一個字母，先按🔊聽）", "answer": "say", "say": "I say, \"Let's play together this weekend!\"", "mask": "s__"}, {"kind": "spell", "q": "拼寫：照耀、發光（一格一個字母，先按🔊聽）", "answer": "shine", "say": "The sun begins to rise in the morning and shine over the city.", "mask": "s__n_"}, {"kind": "spell", "q": "拼寫：太陽（一格一個字母，先按🔊聽）", "answer": "sun", "say": "The sun rises at six a.m., and it sets after six p.m.", "mask": "s__"}, {"kind": "spell", "q": "拼寫：星期日（一格一個字母，先按🔊聽）", "answer": "Sunday", "say": "Saturday and Sunday are the weekend.", "mask": "S__d__"}, {"kind": "spell", "q": "拼寫：星期四（一格一個字母，先按🔊聽）", "answer": "Thursday", "say": "On Thursday, we have a test.", "mask": "T__r_d__"}, {"kind": "spell", "q": "拼寫：今晚（一格一個字母，先按🔊聽）", "answer": "tonight", "say": "Tonight, the sky is clear, and we can see many stars.", "mask": "t___g_t"}, {"kind": "spell", "q": "拼寫：星期二（一格一個字母，先按🔊聽）", "answer": "Tuesday", "say": "On Tuesday and Wednesday, we do homework.", "mask": "T__s___"}, {"kind": "spell", "q": "拼寫：星期三（一格一個字母，先按🔊聽）", "answer": "Wednesday", "say": "On Tuesday and Wednesday, we do homework.", "mask": "W__n__d__"}, {"kind": "spell", "q": "拼寫：週（一格一個字母，先按🔊聽）", "answer": "week", "say": "Every day of the week feels different to me.", "mask": "w__k"}, {"kind": "spell", "q": "拼寫：週末（一格一個字母，先按🔊聽）", "answer": "weekend", "say": "Saturday and Sunday are the weekend.", "mask": "w__k__d"}], "practiceLabel": "單字練習（原創）"}, {"id": "gramA", "name": "③ 文法 A：現在進行式（＝知洞 GP-10）", "page": "原創題（對應本課文法點）", "note": "be + Ving：I am／You are／He, She, It is／複數用 are + Ving。否定句在 be 動詞後加 not；一般問句把 be 動詞移到句首；What is/are ~ doing? 問「正在做什麼」。直接作答，每題答完把整句唸出來。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "Dad ____ (wash) the car now.", "answer": "is washing", "options": ["is washing", "washes", "wash"], "say": "Dad is washing the car now."}, {"kind": "fill", "q": "The children ____ (play) basketball in the yard.", "answer": "are playing", "options": ["are playing", "plays", "is playing"], "say": "The children are playing basketball in the yard."}, {"kind": "fill", "q": "We ____ (not / sleep) now.", "answer": "are not sleeping", "options": ["are not sleeping", "don't sleep", "not sleeping"], "say": "We are not sleeping now."}, {"kind": "fill", "q": "____ you doing your homework now?", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are you doing your homework now?"}, {"kind": "fill", "q": "What ____ she doing at the moment?", "answer": "is", "options": ["is", "are", "does"], "say": "What is she doing at the moment?"}, {"kind": "fill", "q": "The sun ____ (shine) brightly today.", "answer": "is shining", "options": ["is shining", "shines", "shine"], "say": "The sun is shining brightly today."}, {"kind": "tf", "q": "文法判斷：'She is play the piano now.' 是正確的句子。", "answer": "False", "say": "She is playing the piano now."}, {"kind": "fill", "q": "Look! The dog ____ (run) in the park.", "answer": "is running", "options": ["is running", "runs", "run"], "say": "Look! The dog is running in the park."}, {"kind": "fill", "q": "He ____ (write) an email now.", "answer": "is writing", "options": ["is writing", "writes", "write"], "say": "He is writing an email now.", "backup": true}, {"kind": "fill", "q": "____ the kids swimming now?", "answer": "Are", "options": ["Are", "Is", "Do"], "say": "Are the kids swimming now?", "backup": true}, {"kind": "fill", "q": "What ____ you doing right now?", "answer": "are", "options": ["are", "is", "do"], "say": "What are you doing right now?", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramB", "name": "④ 文法 B：星期、月份與日期（＝知洞 GP-23）", "page": "原創題（對應本課文法點）", "note": "星期用 on（on Monday）、月份用 in（in May）、確切日期用 on（on May 3rd）、確切時刻用 at（at noon）。日期要用序數字（first, second, third, fourth…）。直接作答，答完唸整句。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "We have a class meeting ____ Monday.", "answer": "on", "options": ["on", "in", "at"], "say": "We have a class meeting on Monday."}, {"kind": "fill", "q": "My mom's birthday is ____ May.", "answer": "in", "options": ["in", "on", "at"], "say": "My mom's birthday is in May."}, {"kind": "fill", "q": "The concert is ____ May 3rd.", "answer": "on", "options": ["on", "in", "at"], "say": "The concert is on May 3rd."}, {"kind": "fill", "q": "one, two, three, ____（序數字）", "answer": "fourth", "options": ["fourth", "four", "forth"], "say": "One, two, three, fourth."}, {"kind": "fill", "q": "9 → ____（序數字）", "answer": "ninth", "options": ["ninth", "nineth", "nine's"], "say": "Nine, ninth."}, {"kind": "fill", "q": "Her birthday party starts ____ noon.", "answer": "at", "options": ["at", "on", "in"], "say": "Her birthday party starts at noon."}, {"kind": "tf", "q": "文法判斷：'I visit my grandma in Sunday.' 是正確的句子。", "answer": "False", "say": "I visit my grandma on Sunday."}, {"kind": "fill", "q": "School starts again ____ September.", "answer": "in", "options": ["in", "on", "at"], "say": "School starts again in September."}, {"kind": "fill", "q": "Christmas is ____ December.", "answer": "in", "options": ["in", "on", "at"], "say": "Christmas is in December.", "backup": true}, {"kind": "fill", "q": "one → first, two → ____", "answer": "second", "options": ["second", "two's", "twoth"], "say": "One, first; two, second.", "backup": true}, {"kind": "fill", "q": "The game is ____ Saturday afternoon.", "answer": "on", "options": ["on", "in", "at"], "say": "The game is on Saturday afternoon.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "gramMix", "name": "⑤ 文法綜合挑戰（混考）", "page": "原創題（GP-10／GP-23 混出）", "note": "進階區：選項故意把現在進行式跟星期月份日期的答案混在一起，看選項猜不出這題考什麼——只能把句子真的讀懂。答錯會加補題。", "read": [], "words": [], "practice": [{"kind": "fill", "q": "Dad ____ dinner right now.", "answer": "is cooking", "options": ["is cooking", "on Sunday", "in June"], "say": "Dad is cooking dinner right now."}, {"kind": "fill", "q": "The class trip is ____ May 3rd.", "answer": "on", "options": ["on", "is walking", "are jumping"], "say": "The class trip is on May 3rd."}, {"kind": "fill", "q": "Look! The kids ____ basketball in the park.", "answer": "are playing", "options": ["are playing", "in July", "on Friday"], "say": "Look! The kids are playing basketball in the park."}, {"kind": "fill", "q": "My birthday is ____ August.", "answer": "in", "options": ["in", "is singing", "are chatting"], "say": "My birthday is in August."}, {"kind": "fill", "q": "What ____ you doing now?", "answer": "are", "options": ["are", "on", "in"], "say": "What are you doing now?"}, {"kind": "fill", "q": "one, two, three, ____（序數字）", "answer": "fourth", "options": ["fourth", "is running", "on Tuesday"], "say": "One, two, three, fourth."}, {"kind": "fill", "q": "We ____ (not / sleep) now.", "answer": "are not sleeping", "options": ["are not sleeping", "in March", "on Monday"], "say": "We are not sleeping now."}, {"kind": "fill", "q": "The meeting starts ____ Thursday.", "answer": "on", "options": ["on", "is meeting", "are meeting"], "say": "The meeting starts on Thursday."}, {"kind": "fill", "q": "She ____ (write) a letter now.", "answer": "is writing", "options": ["is writing", "in April", "on Wednesday"], "say": "She is writing a letter now.", "backup": true}, {"kind": "fill", "q": "Sports Day is ____ October.", "answer": "in", "options": ["in", "is running", "are jumping"], "say": "Sports Day is in October.", "backup": true}, {"kind": "tf", "q": "文法判斷：'They is watching TV.' 是正確的句子。", "answer": "False", "say": "They are watching TV.", "backup": true}], "practiceLabel": "原創練習題｜對應本課文法重點"}, {"id": "geptread", "name": "⑥ GEPT 延伸閱讀：A Video Call Across the World", "page": "原創短文（GEPT 初級字彙範圍）", "note": "【挑戰閱讀】原創短文，字彙在英檢初級 2000 字內，情境跟課文（家事輪值表）不同——這次是跨時區的家庭視訊通話。流程刻意這樣排：①直接把整篇文章從頭讀到尾——會遇到幾個沒學過的字，用上下文猜，不要停（考試就是這樣）→ ②做理解題驗證有沒有讀懂（答案都在文中，用讀的找，不要猜選項）→ ③生字補充，確認剛才猜的意思 → ④最後一段一段朗讀收尾。", "read": ["Mia lives in Taipei. Her cousin Leo lives in New York. The two cities are far away from each other, but the cousins talk every week on a video call.", "Time is different in the two places. When it is morning in Taipei, it is still night in New York. So they must plan their call time with care.", "This Sunday, Mia is sitting at her desk at nine in the morning. She is holding her tablet and waiting for the call. At the same moment, Leo is eating his dinner. For him, it is eight in the evening.", "\"Hi, Mia! Can you hear me?\" Leo asks with a smile. \"Yes, I can hear you well!\" Mia says. They are talking about school and friends. Leo is telling her about his new soccer team, and Mia is telling him about her art class.", "Then Mia shows Leo a photo of her dog. Leo shows her a photo of his new bike. They both laugh and talk for almost an hour.", "Before they say goodbye, they check their plans for next week. Their next call will be on Saturday. For Leo, it will be Saturday afternoon. For Mia, it will be early Sunday morning.", "A video call is nice, but it is not the same as a real hug. Still, it helps a family feel close. Every week, Mia and Leo wait for this special hour together."], "words": [{"w": "tablet", "zh": "平板電腦", "pos": "n."}], "practice": [{"kind": "fill", "qtype": "main", "q": "主旨題：What is this passage mainly about?", "answer": "Mia and Leo's weekly video call.", "options": ["Mia and Leo's weekly video call.", "A trip to New York.", "A soccer game in Taipei."], "say": "Mia and Leo talk every week on a video call."}, {"kind": "fill", "qtype": "detail", "q": "細節題：What time is it in Taipei when Mia starts the call?", "answer": "Nine a.m.", "options": ["Nine a.m.", "Eight p.m.", "Nine p.m."], "say": "Mia is sitting at her desk at nine a.m."}, {"kind": "fill", "qtype": "detail", "q": "細節題：What is Leo doing when the call starts?", "answer": "He is eating his dinner.", "options": ["He is eating his dinner.", "He is doing his homework.", "He is playing soccer."], "say": "At that same moment, Leo is eating his dinner."}, {"kind": "fill", "qtype": "causal", "q": "推論題：Why must the cousins plan their call time with care?", "answer": "Because the time is different in the two cities.", "options": ["Because the time is different in the two cities.", "Because Leo is always busy.", "Because Mia does not like video calls."], "say": "Time is different in the two places, so the cousins must plan their call time with care."}, {"kind": "fill", "qtype": "guess", "q": "字義猜測：文中 \"She is holding her tablet and waiting for the call.\" 這句話裡的 tablet 最接近下面哪個意思？", "answer": "螢幕型的平板電腦", "options": ["螢幕型的平板電腦", "一種藥丸", "一本小筆記本"], "say": "She is holding her tablet and waiting for the call."}], "article": ["Mia lives in Taipei. Her cousin Leo lives in New York. The two cities are far away from each other, but the cousins talk every week on a video call.", "Time is different in the two places. When it is morning in Taipei, it is still night in New York. So they must plan their call time with care.", "This Sunday, Mia is sitting at her desk at nine in the morning. She is holding her tablet and waiting for the call. At the same moment, Leo is eating his dinner. For him, it is eight in the evening.", "\"Hi, Mia! Can you hear me?\" Leo asks with a smile. \"Yes, I can hear you well!\" Mia says. They are talking about school and friends. Leo is telling her about his new soccer team, and Mia is telling him about her art class.", "Then Mia shows Leo a photo of her dog. Leo shows her a photo of his new bike. They both laugh and talk for almost an hour.", "Before they say goodbye, they check their plans for next week. Their next call will be on Saturday. For Leo, it will be Saturday afternoon. For Mia, it will be early Sunday morning.", "A video call is nice, but it is not the same as a real hug. Still, it helps a family feel close. Every week, Mia and Leo wait for this special hour together."], "readAfterPractice": true, "wordsAfterPractice": true, "practiceLabel": "閱讀理解題（原創）"}], "provenance": {"originalText": "Our Weekly Chore Chart", "words": 31, "grammarPoints": ["GP-10", "GP-23"], "setting": "一週家事輪值表（全新情境，與課本課文之人物、場景、事件順序零重疊）；GEPT 延伸閱讀另用跨時區家庭視訊通話情境", "generated": "2026-09-04", "humanCheck": "未沿用原課文角色、情節、句序及特色語句"}, "lessonId": "kang-b1-l5", "gps": ["GP-01", "GP-06", "GP-04", "GP-02", "GP-12", "GP-14", "GP-10", "GP-23", "GP-03"], "articleBank": [{"id": "kang-b1-l5-bike-ride-around-lake", "title": "A Saturday Bike Ride Around the Lake", "format": "passage", "paras": ["It is Saturday morning, and the sun is warm and bright. Sam and his group of friends are riding their bikes around the big lake near the city.", "\"Are you riding fast today?\" Ivy asks Sam. \"No, I'm not riding fast. I like to look around,\" Sam says with a smile. They ride beside the water.", "At nine o'clock, they stop and rest. \"What are you looking at, Leo?\" Ivy asks. \"I'm looking at the lake. It is so beautiful today,\" Leo says.", "\"Can we ride to the other side of the lake?\" Sam asks. \"Sure, we can. It's not far,\" Ivy says. They start riding again, and everyone is laughing and enjoying the day.", "By noon, they are eating lunch near the lake. \"We are enjoying a really good Saturday,\" Leo says. \"Next Saturday, we can ride here again,\" Sam says, and everyone agrees.", "After lunch, some ducks are swimming in the water. \"Look, they are swimming so fast!\" Ivy says. The friends are watching the ducks and laughing together.", "In the afternoon, they are riding home. \"This is a really great Saturday,\" Sam says. Everyone is tired but happy. They plan to join this bike group again next weekend."], "words": [{"w": "lake", "zh": "湖", "pos": "n."}, {"w": "bike", "zh": "腳踏車", "pos": "n."}, {"w": "riding", "zh": "騎乘", "pos": "v."}, {"w": "swimming", "zh": "游泳", "pos": "v."}, {"w": "duck", "zh": "鴨子", "pos": "n."}, {"w": "weekend", "zh": "週末", "pos": "n."}], "reading": [{"qtype": "主旨", "q": "這篇文章主要在說什麼？", "answer": "一群朋友週六一起騎腳踏車環湖", "options": ["一群朋友週六一起騎腳踏車環湖", "一群朋友去參加游泳比賽", "一群朋友在湖邊露營過夜"], "say": "What is this story mainly about?"}, {"qtype": "細節", "q": "他們幾點停下來休息？", "answer": "九點", "options": ["八點", "九點", "十點"], "say": "What time do they stop to rest?"}, {"qtype": "細節", "q": "Leo 停下來時在做什麼？", "answer": "拍湖的照片", "options": ["拍湖的照片", "喝水", "修腳踏車"], "say": "What is Leo doing when they stop?"}, {"qtype": "推論", "q": "為什麼 Sam 說今天是這週最棒的星期六？", "answer": "因為和朋友一起騎車玩得很開心", "options": ["因為和朋友一起騎車玩得很開心", "因為他贏得了比賽", "因為他買了新腳踏車"], "say": "Why does Sam say this is the best Saturday of the week?"}, {"qtype": "字義猜測", "q": "根據上下文，\"weekend\" 最接近的意思是？", "answer": "週末", "options": ["週末", "假日禮物", "早晨"], "say": "Based on the context, what does 'weekend' mean?"}, {"qtype": "細節", "q": "他們計畫下週六要做什麼？", "answer": "再一起來湖邊騎車", "options": ["再一起來湖邊騎車", "去爬山", "去看電影"], "say": "What do they plan to do next Saturday?"}]}, {"id": "kang-b1-l5-planetarium-stargazing", "title": "A Night at the Planetarium", "format": "passage", "paras": ["It is Friday night, and the planetarium is open late. Oscar and his aunt are standing in line with many people. The stars tonight are really bright.", "\"Are you looking forward to this?\" his aunt asks. \"Yes! I'm waiting to see the big star show,\" Oscar says. They walk inside and find their seats.", "The room is dark, and everyone is watching the ceiling. \"Look, that's the Big Dipper,\" a worker says, pointing at seven bright stars. Oscar is listening carefully to every word.", "\"What day is the next full moon?\" Oscar asks. \"It's on Sunday,\" the worker says. \"On Sunday night, the moon is really big and bright.\"", "After the show, they are learning about planets at a small table. \"This one is enjoying the stars,\" Oscar's aunt says, and Oscar is smiling and nodding at every planet.", "\"Can we come back next Saturday?\" Oscar asks. \"Sure, we can,\" his aunt says. \"There is a new show every weekend.\" Oscar is holding a small star map from the gift shop.", "On the way home, Oscar is thinking about the planets and stars. \"This was a really great night,\" he says. His aunt agrees, and they plan their next visit together."], "words": [{"w": "planetarium", "zh": "天文館", "pos": "n."}, {"w": "ceiling", "zh": "天花板", "pos": "n."}, {"w": "planet", "zh": "行星", "pos": "n."}, {"w": "moon", "zh": "月亮", "pos": "n."}], "reading": [{"qtype": "主旨", "q": "這篇文章主要在說什麼？", "answer": "Oscar 和阿姨去天文館看星星和星象秀", "options": ["Oscar 和阿姨去天文館看星星和星象秀", "Oscar 和阿姨去看電影", "Oscar 和阿姨在家看星星"], "say": "What is this story mainly about?"}, {"qtype": "細節", "q": "工作人員指的第一個星象是什麼？", "answer": "北斗七星", "options": ["北斗七星", "月亮", "土星"], "say": "What does the worker point at first?"}, {"qtype": "細節", "q": "Oscar 從紀念品店拿了什麼？", "answer": "一張星圖", "options": ["一張星圖", "一本書", "一個望遠鏡"], "say": "What does Oscar get from the gift shop?"}, {"qtype": "推論", "q": "為什麼 Oscar 在回家路上還在想著行星和星星？", "answer": "因為他今晚玩得很開心並很喜歡這次的活動", "options": ["因為他今晚玩得很開心並很喜歡這次的活動", "因為他忘了帶作業", "因為他要準備考試"], "say": "Why is Oscar still thinking about planets and stars on the way home?"}, {"qtype": "字義猜測", "q": "根據上下文，\"ceiling\" 最接近的意思是？", "answer": "天花板", "options": ["天花板", "地板", "牆壁"], "say": "Based on the context, what does 'ceiling' mean?"}, {"qtype": "細節", "q": "他們計劃什麼時候再去天文館？", "answer": "下週六", "options": ["下週六", "下個月", "明天"], "say": "When do they plan to visit the planetarium again?"}]}]};
 const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
  won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
  there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
@@ -1588,8 +1597,14 @@ function updatePracticeVis(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b||!
     if(p.backup&&!active.has(unit(pid))){it.style.display='none';return}
     if(passed.has(unit(pid))){it.style.display='';return}
     it.style.display=open?'':'none';open=false})}
-function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
-  el('prog').textContent='進度 '+passed.size+' / '+t+'　（'+DATA.blocks.length+' 個區塊）'}
+function prog(){
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length){
+    var ids=roundActive(curRound),d=ids.filter(function(id){return passed.has(unit(id))}).length;
+    el('bar').style.width=Math.round(d/Math.max(ids.length,1)*100)+'%';
+    var doneR=0;for(var i=0;i<ROUNDS.length;i++)if(roundDone(i))doneR++;
+    el('prog').textContent='第 '+(curRound+1)+' 回　'+d+' / '+ids.length+'　｜　全課 '+ROUNDS.length+' 回・完成 '+doneR;
+  }else{const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+    el('prog').textContent='進度 '+passed.size+' / '+t}}
 /* 分階段通知：開工一則、每個區塊完成一則、全部完成一則。 */
 function blockOf(k){const m=String(k).match(/^(.+)-(?:w|r|p)\d+$/);return m?m[1]:''}
 function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
@@ -1599,6 +1614,7 @@ function blockIds(bid){const b=DATA.blocks.find(x=>x.id===bid);if(!b)return [];
 const notified=new Set();
 function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
   if(/-p\d+$/.test(k))updatePracticeVis(blockOf(k));
+  if(typeof ROUNDS!=='undefined'&&ROUNDS.length)renderRoundChips();
   /* 拼寫題過關 → 餵 FSRS 記憶卡（1次過=good、2次=hard、3次以上=again） */
   if(/-p\d+$/.test(k)&&window.VocabSRS){try{const p=findP(k);
     if(p&&p.kind==='spell'){const a=attempts[k]||1;
@@ -1787,6 +1803,807 @@ const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
 async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
   body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
 load();
+
+/* --- 回合制（2026-09-04：輕量化——開頁只見當前一回，總量以「回」呈現）---
+   單位＝關卡 id 依頁面順序；在 words/read/practice 段邊界切回，每回目標 ≤35（上限 40）。
+   回合是顯示層：進度照舊存 passed，回合完成度由 passed 推導。 */
+var ROUNDS=[];
+function buildRounds(){
+  var segs=[];
+  DATA.blocks.forEach(function(b){
+    var w=(b.words||[]).map(function(_,i){return b.id+'-w'+i});
+    var r=(b.read||[]).map(function(_,i){return b.id+'-r'+i});
+    var p=(b.practice||[]).map(function(_,i){return b.id+'-p'+i});
+    if(b.wordsAfterPractice){ if(r.length)segs.push(r); if(p.length)segs.push(p); if(w.length)segs.push(w); }
+    else{ if(w.length)segs.push(w); if(r.length)segs.push(r); if(p.length)segs.push(p); }
+  });
+  ROUNDS=[];var cur=[];
+  segs.forEach(function(seg){
+    if(cur.length&&cur.length+seg.length>40){ROUNDS.push(cur);cur=[]}
+    cur=cur.concat(seg);
+    if(cur.length>=25){ROUNDS.push(cur);cur=[]}
+  });
+  if(cur.length){ if(ROUNDS.length&&cur.length<12){ROUNDS[ROUNDS.length-1]=ROUNDS[ROUNDS.length-1].concat(cur)} else ROUNDS.push(cur) }
+}
+function roundActive(k){var ids=ROUNDS[k]||[];return ids.filter(function(id){
+  var m=id.match(/^(.+)-p(\d+)$/);if(!m)return true;
+  var b=DATA.blocks.find(function(x){return x.id===m[1]});var p=b&&b.practice[+m[2]];
+  return !(p&&p.backup)||active.has(unit(id))})}
+function roundDone(k){return roundActive(k).every(function(id){return passed.has(unit(id))})}
+var curRound=0;
+function pickRound(){for(var i=0;i<ROUNDS.length;i++){if(!roundDone(i)){curRound=i;return}}curRound=ROUNDS.length-1}
+function applyRoundVis(){
+  var vis={};(ROUNDS[curRound]||[]).forEach(function(id){vis[id]=1});
+  DATA.blocks.forEach(function(b){
+    var any=false;
+    ['w','r','p'].forEach(function(t){
+      var arr=t==='w'?(b.words||[]):t==='r'?(b.read||[]):(b.practice||[]);
+      arr.forEach(function(_,i){var id=b.id+'-'+t+i,el2=el(id+'-item');if(!el2)return;
+        if(vis[id]){el2.classList.remove('round-hide');any=true}
+        else el2.classList.add('round-hide')});
+    });
+    var sec=el(b.id+'-p0-item')||el(b.id+'-r0-item')||el(b.id+'-w0-item');
+    var section=sec?sec.closest('.section'):null;
+    if(section)section.style.display=any?'':'none';
+  });
+  updatePracticeVisAll();
+  renderRoundChips();
+}
+function updatePracticeVisAll(){DATA.blocks.forEach(function(b){updatePracticeVis(b.id)})}
+function renderRoundChips(){
+  var host=el('rounds');if(!host)return;host.innerHTML='';
+  var done=0;
+  for(var i=0;i<ROUNDS.length;i++){
+    var d=roundDone(i);if(d)done++;
+    var b=document.createElement('button');
+    b.className='rchip'+(d?' done':'')+(i===curRound?' cur':'');
+    b.textContent=(d?'✓ ':'')+'第'+(i+1)+'回';
+    (function(k){b.onclick=function(){curRound=k;applyRoundVis();prog();try{window.scrollTo(0,0)}catch(e){}}})(i);
+    host.appendChild(b);
+  }
+  var note=el('round-done');
+  if(note){var allDone=done===ROUNDS.length;
+    if(roundDone(curRound)&&!allDone){note.style.display='block';
+      note.innerHTML='🎉 第'+(curRound+1)+'回完成！明天做下一回也可以，想繼續就點上面下一個回合。'}
+    else note.style.display='none'}
+}
+buildRounds();pickRound();applyRoundVis();prog();
+
+/* --- 文章輪替（矩陣v2：一課多篇，做完自動換下一篇，也可手動換）--- */
+function artHostBlockIdx(){return DATA.blocks.findIndex(function(b){return b.article&&b.article.length})}
+function artKey(){return DATA.storage+'-art'}
+function curArt(){try{return +(localStorage.getItem(artKey())||0)}catch(e){return 0}}
+function esc(t){var d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
+function buildArtBlock(v){
+  var A=(DATA.articleBank||[])[v-1]; /* v=0 用 spec 原文，v>=1 用庫 */
+  if(v===0||!A)return null;
+  var isRead=(A.format==='passage'||A.format==='letter');
+  var fmtName={passage:'短文',notice:'圖表告示',dialog:'對話',letter:'信件'}[A.format]||'短文';
+  return {id:'artv'+v,name:'⑦ 延伸閱讀（第 '+(v+1)+' 篇・'+fmtName+'）：'+A.title,
+    page:'文章庫 '+A.id,note:(A.format==='notice'?'看懂這份真實素材，回答問題（會考圖表告示題型）。':
+      A.format==='dialog'?'讀懂這段對話，回答問題（會考對話題型）。':
+      '【挑戰閱讀】先把整篇讀完，答題，最後'+(isRead?'分段朗讀。':'完成。')),
+    article:A.paras,read:isRead?A.paras:[],words:A.words||[],
+    wordsAfterPractice:true,readAfterPractice:isRead,
+    practiceLabel:'閱讀理解題（原創）',practice:(A.reading||[]).map(function(q){
+      return {kind:q.qtype==='TF'?'tf':'fill',q:(q.qtype?q.qtype+'：':'')+q.q,answer:q.answer,options:q.options,say:q.say}})}
+}
+function sectionHTML(b){
+  var h='<div class="head"><span>'+esc(b.name)+'</span><span class="pg">'+esc(b.page||'')+'</span></div><div class="body">';
+  if(b.note)h+='<div class="tip">'+esc(b.note)+'</div>';
+  if(b.article&&b.article.length){h+='<div class="sub">先把整篇讀完（用眼睛讀，還不用唸）</div><div class="article">';
+    b.article.forEach(function(p2){h+='<p>'+esc(p2)+'</p>'});h+='</div>'}
+  var wordsHTML='';
+  (b.words||[]).forEach(function(w,wi){var wid=b.id+'-w'+wi;
+    wordsHTML+='<div class="item" id="'+wid+'-item"><div class="label">單字</div>'
+      +'<div class="sentence"><strong>'+esc(w.w)+'</strong>'+(w.pos?' <span class="pos">'+esc(w.pos)+'</span>':'')+'　<span class="note">'+esc(w.zh)+'</span></div>'
+      +'<button class="btn" onclick="demoWord(\''+wid+'\')">🔊 聽</button>'
+      +'<button class="btn ok" id="'+wid+'-start" onclick="startWord(\''+wid+'\')" disabled>開始唸</button>'
+      +'<button class="btn warn" id="'+wid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+wid+'-out"></div><div class="result" id="'+wid+'-res"></div></div>'});
+  var readHTML='';
+  (b.read||[]).forEach(function(r,si){var rid=b.id+'-r'+si;
+    readHTML+='<div class="item" id="'+rid+'-item"><div class="label">唸 '+(si+1)+'</div>'
+      +'<div class="sentence">'+esc(r)+'</div>'
+      +'<button class="btn" onclick="demoRead(\''+rid+'\')">🔊 示範</button>'
+      +'<button class="btn ok" id="'+rid+'-start" onclick="startRead(\''+rid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+rid+'-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+rid+'-out"></div><div class="result" id="'+rid+'-res"></div>'
+      +'<div class="diff" id="'+rid+'-diff"></div></div>'});
+  var pracHTML='<div class="sub">'+esc(b.practiceLabel||'閱讀理解題（原創）')+'</div>';
+  (b.practice||[]).forEach(function(p2,pi){var pid=b.id+'-p'+pi;
+    pracHTML+='<div class="item" id="'+pid+'-item"><div class="label">第 '+(pi+1)+' 題</div>'
+      +'<div class="sentence">'+esc(p2.q)+'</div><div class="opts" id="'+pid+'-opts">';
+    (p2.options||['True','False']).forEach(function(o,oi){
+      pracHTML+='<button class="opt" onclick="pick(\''+pid+'\','+oi+',this)">'+esc(o)+'</button>'});
+    pracHTML+='</div><div class="result" id="'+pid+'-res"></div>'
+      +'<div class="sayzone" id="'+pid+'-sayzone" style="display:none">'
+      +'<div class="lead" id="'+pid+'-lead"></div><div class="target" id="'+pid+'-target"></div>'
+      +'<button class="btn" id="'+pid+'-demo">🔊 示範</button>'
+      +'<button class="btn ok" id="'+pid+'-say-start" onclick="startSay(\''+pid+'\')">開始唸</button>'
+      +'<button class="btn warn" id="'+pid+'-say-stop" disabled style="display:none">停止</button>'
+      +'<div class="heard" id="'+pid+'-say-out"></div><div class="result" id="'+pid+'-say-res"></div></div></div>'});
+  if(b.wordsAfterPractice){h+=pracHTML;if(wordsHTML)h+='<div class="sub">生字補充（讀完文章了，來確認剛才用上下文猜的字）</div>'+wordsHTML;
+    if(b.readAfterPractice&&readHTML)h+='<div class="sub">最後朗讀（答完題才唸，一次一整段）</div>'+readHTML}
+  else{h+=wordsHTML+readHTML+pracHTML}
+  return h+'</div>'
+}
+function applyArticle(v){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var nb=buildArtBlock(v);
+  if(nb){DATA.blocks[idx]=nb}
+  /* v===0：保留 server 端渲染的原文區塊，不動 */
+  if(nb){
+    var oldFirst=null;
+    /* 找到 article 區塊的 section 容器：憑舊 block 的任一 item id */
+    var sec=document.querySelectorAll('.section')[idx];
+    if(sec){sec.innerHTML=sectionHTML(nb)}
+    /* 重建 WORDS 映射 */
+    Object.keys(WORDS).forEach(function(k){if(k.indexOf('artv')===0||k.indexOf('geptread')===0)delete WORDS[k]});
+  }
+  DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w,wi){WORDS[b.id+'-w'+wi]=w.w})});
+  /* 已通過的關卡重新標記 */
+  passed.forEach(function(k){var it=el(k+'-item');if(it){it.classList.add('done');var st=el(k+'-start');if(st)st.disabled=true}});
+  buildRounds();pickRound();applyRoundVis();prog();renderArtSwitch();
+}
+function renderArtSwitch(){
+  var idx=artHostBlockIdx();if(idx<0)return;
+  var bank=DATA.articleBank||[];if(!bank.length)return;
+  var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+  var head=sec.querySelector('.head');if(!head||head.querySelector('.art-switch'))return;
+  var btn=document.createElement('button');btn.className='btn alt art-switch';
+  btn.style.cssText='font-size:.78rem;padding:5px 10px';
+  btn.textContent='📚 換一篇（'+(curArt()+1)+'/'+(bank.length+1)+'）';
+  btn.onclick=function(){var v=(curArt()+1)%(bank.length+1);
+    try{localStorage.setItem(artKey(),v)}catch(e){}
+    if(v===0){location.reload();return} /* 回第 1 篇：用 server 版重載最單純 */
+    applyArticle(v)};
+  head.appendChild(btn);
+}
+(function(){var v=curArt();var bank=DATA.articleBank||[];
+  if(v>0&&v<=bank.length){applyArticle(v)}else{renderArtSwitch()}})();
+
+/* --- 無限加練（bonus 題海：文法用 GrammarGen、單字用字表生成；不列入關卡進度）--- */
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function vocabBonusItems(n){
+  var ws=[];DATA.blocks.forEach(function(b){(b.words||[]).forEach(function(w){if(w.zh)ws.push(w)})});
+  ws=shuffle(ws.slice());var out=[];
+  for(var i=0;i<Math.min(n,ws.length);i++){var w=ws[i];
+    var pool=shuffle(ws.filter(function(x){return x.w!==w.w&&(!w.pos||x.pos===w.pos)}).slice(0,8));
+    while(pool.length<2)pool.push(ws[(i+1+pool.length)%ws.length]);
+    if(Math.random()<0.5){var opts=shuffle([w.w,pool[0].w,pool[1].w]);
+      out.push({q:'「'+w.zh+'」的英文是？',answer:w.w,options:opts,say:w.w})}
+    else{var opts2=shuffle([w.zh,pool[0].zh,pool[1].zh]);
+      out.push({q:w.w+' 的意思是？',answer:w.zh,options:opts2,say:w.w})}}
+  return out}
+function bonusRun(host,items,label){
+  host.innerHTML='';var i=0,ok=0;
+  function next(){
+    if(i>=items.length){host.innerHTML='<div class="tip">'+label+'加練完成：'+ok+' / '+items.length+' ✓　<button class="btn" onclick="this.closest(\'.bonus-host\').dispatchEvent(new Event(\'again\'))">🎲 再來一輪</button></div>';return}
+    var it=items[i];
+    var d=document.createElement('div');d.className='item';
+    d.innerHTML='<div class="label">加練 '+(i+1)+' / '+items.length+'（不列入關卡）</div>'
+      +'<div class="sentence">'+esc(it.q)+'</div><div class="opts"></div><div class="result"></div>';
+    var opts=d.querySelector('.opts'),res=d.querySelector('.result');
+    shuffle(it.options.slice()).forEach(function(o){
+      var b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=function(){
+        var right=String(o)===String(it.answer);
+        opts.querySelectorAll('.opt').forEach(function(x){x.disabled=true});
+        b.classList.add(right?'correct':'wrong');
+        if(right){ok++;res.className='result oktext';res.textContent='✓ '+(it.say||'')}
+        else{res.className='result failtext';res.textContent='✗ 正解：'+it.answer+'　'+(it.say||'')}
+        i++;setTimeout(next,right?600:1600)};
+      opts.appendChild(b)});
+    host.innerHTML='';host.appendChild(d)}
+  next()}
+function mountBonus(){
+  DATA.blocks.forEach(function(b,idx){
+    var isMix=/gramMix/i.test(b.id),isVocab=b.id==='vocab';
+    if(!isMix&&!isVocab)return;
+    var sec=document.querySelectorAll('.section')[idx];if(!sec)return;
+    var body=sec.querySelector('.body');if(!body||body.querySelector('.bonus-host'))return;
+    var host=document.createElement('div');host.className='bonus-host';
+    var btn=document.createElement('button');btn.className='btn';
+    btn.textContent=isMix?'🎲 無限加練：文法混題（8 題）':'🎲 無限加練：單字快問（8 題）';
+    function go(){
+      var items=isMix&&window.GrammarGen?GrammarGen.make(DATA.gps||[],8):vocabBonusItems(8);
+      bonusRun(host,items,isMix?'文法':'單字')}
+    btn.onclick=go;host.addEventListener('again',go);
+    body.appendChild(btn);body.appendChild(host)});
+}
+mountBonus();
+
+
+
+
+</script><script>
+/*
+ * grammar-gen.js
+ * 英文文法無限出題引擎 —— 零依賴、純 JS，可直接內嵌到瀏覽器頁面，也可在 Node 測試中 require()。
+ *
+ * 使用方式：
+ *   瀏覽器: <script src="grammar-gen.js"><\/script>  -> window.GrammarGen.make(["GP-01","GP-10"], 20, seed)
+ *   Node:   const GrammarGen = require("./grammar-gen.js"); GrammarGen.make(["GP-01"], 50, 42)
+ *
+ * 輸出題目格式（與現有練習頁一致）：
+ *   { kind:"fill", q, answer, options:[3個, 已隨機排序], say, gp:"GP-01" }
+ *
+ * 設計重點（硬規則）：
+ *   - 每個模板的 3 個選項中，只有 1 個在該題的上下文下文法正確；另外 2 個一定錯，
+ *     且錯誤原因是「詞池與句型骨架搭配後恆錯」，不是碰運氣才錯。
+ *   - say 一律用 q.replace("___", answer) 生成，保證包含正確答案原字串。
+ *   - 支援 seed（整數）→ 可重現；不給 seed 用 Math.random()。
+ */
+(function (root) {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // 0. 隨機數工具（可種子化）
+  // ---------------------------------------------------------------------
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeRng(seed) {
+    if (seed === undefined || seed === null) {
+      return Math.random;
+    }
+    return mulberry32(Number(seed) || 0);
+  }
+
+  function pick(rng, arr) {
+    return arr[Math.floor(rng() * arr.length)];
+  }
+
+  function pickIndex(rng, n) {
+    return Math.floor(rng() * n);
+  }
+
+  // 從陣列中隨機挑 count 個「排除 excludeSet 內容」的相異元素
+  function pickDistinctExcluding(rng, arr, excludeArr, count) {
+    var pool = arr.filter(function (x) {
+      return excludeArr.indexOf(x) === -1;
+    });
+    var out = [];
+    var used = {};
+    var guard = 0;
+    while (out.length < count && guard < 500) {
+      guard++;
+      var cand = pick(rng, pool);
+      if (!used[cand]) {
+        used[cand] = true;
+        out.push(cand);
+      }
+    }
+    return out;
+  }
+
+  function shuffle(rng, arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function cap(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // 刻意產生「看起來像單字但拼錯」的干擾項：重複最後一個字母。
+  // 保證不等於詞池中任何真實單字（我們的詞池沒有雙寫尾字母的巧合詞）。
+  function mangle(word) {
+    return word + word.slice(-1);
+  }
+
+  // ---------------------------------------------------------------------
+  // 1. 詞池（GEPT 初級基礎字）
+  // ---------------------------------------------------------------------
+  var NAMES = [
+    { name: "Tom", g: "m" },
+    { name: "Jack", g: "m" },
+    { name: "Sam", g: "m" },
+    { name: "Ben", g: "m" },
+    { name: "Leo", g: "m" },
+    { name: "Amy", g: "f" },
+    { name: "Mary", g: "f" },
+    { name: "Lily", g: "f" },
+    { name: "Kate", g: "f" },
+    { name: "Nina", g: "f" },
+  ];
+
+  // nouns: sg / pl / vowel(是否母音開頭，用於 a/an) / wrongPl(刻意錯誤複數)
+  var NOUN_DEFS = [
+    ["cat", "cats", false],
+    ["dog", "dogs", false],
+    ["book", "books", false],
+    ["apple", "apples", true],
+    ["ball", "balls", false],
+    ["box", "boxes", false],
+    ["pen", "pens", false],
+    ["cup", "cups", false],
+    ["bag", "bags", false],
+    ["hat", "hats", false],
+    ["car", "cars", false],
+    ["bike", "bikes", false],
+    ["egg", "eggs", true],
+    ["banana", "bananas", false],
+    ["chair", "chairs", false],
+    ["orange", "oranges", true],
+    ["umbrella", "umbrellas", true],
+    ["watch", "watches", false],
+    ["baby", "babies", false],
+    ["kite", "kites", false],
+  ];
+  var NOUNS = NOUN_DEFS.map(function (d) {
+    var sg = d[0],
+      pl = d[1],
+      vowel = d[2];
+    // 規律變化 (sg+'s'===pl) 的錯誤複數用 sg+'es'；不規律變化(es/ies)的錯誤複數用 sg+'s'
+    var wrongPl = pl === sg + "s" ? sg + "es" : sg + "s";
+    return { sg: sg, pl: pl, vowel: vowel, wrongPl: wrongPl };
+  });
+
+  var ADJECTIVES = [
+    "big", "small", "tall", "short", "happy", "sad", "hungry",
+    "thirsty", "tired", "busy", "kind", "smart", "young", "nice",
+  ];
+
+  var PLACES = [
+    "school", "park", "zoo", "library", "store", "classroom",
+    "garden", "playground", "room", "home",
+  ];
+
+  // 動作動詞（用於現在進行式 & can & 祈使句）: base / s(第三人稱單數) / ing / wrongIng
+  var ACTION_VERB_DEFS = [
+    ["run", "runs", "running", "runing"],
+    ["swim", "swims", "swimming", "swiming"],
+    ["sit", "sits", "sitting", "siting"],
+    ["write", "writes", "writing", "writeing"],
+    ["make", "makes", "making", "makeing"],
+    ["come", "comes", "coming", "comeing"],
+    ["play", "plays", "playing", "playeing"],
+    ["read", "reads", "reading", "readeing"],
+    ["eat", "eats", "eating", "eateing"],
+    ["jump", "jumps", "jumping", "jumpeing"],
+    ["sing", "sings", "singing", "singeing"],
+    ["dance", "dances", "dancing", "danceing"],
+    ["ride", "rides", "riding", "rideing"],
+    ["cook", "cooks", "cooking", "cookeing"],
+    ["fly", "flies", "flying", "flyeing"],
+    ["drive", "drives", "driving", "driveing"],
+    ["open", "opens", "opening", "openning"],
+    ["close", "closes", "closing", "closeing"],
+    ["wash", "washes", "washing", "washeing"],
+    ["clean", "cleans", "cleaning", "cleanning"],
+    ["listen", "listens", "listening", "listenning"],
+    ["look", "looks", "looking", "lookking"],
+    ["stop", "stops", "stopping", "stoping"],
+    ["wait", "waits", "waiting", "waitting"],
+    ["stand", "stands", "standing", "standding"],
+    ["help", "helps", "helping", "helpping"],
+  ];
+  var ACTION_VERBS = ACTION_VERB_DEFS.map(function (d) {
+    return { base: d[0], s: d[1], ing: d[2], wrongIng: d[3] };
+  });
+
+  var MASS_NOUNS = [
+    "water", "rice", "milk", "money", "juice", "bread", "cheese", "tea", "coffee", "soup",
+  ];
+
+  var WEEKDAYS = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+  ];
+  var MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  var CARDINAL = [
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+    "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three",
+    "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight",
+    "twenty-nine", "thirty", "thirty-one",
+  ];
+  var ORDINAL = [
+    "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth",
+    "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+    "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth",
+    "twenty-first", "twenty-second", "twenty-third", "twenty-fourth", "twenty-fifth",
+    "twenty-sixth", "twenty-seventh", "twenty-eighth", "twenty-ninth", "thirtieth",
+    "thirty-first",
+  ];
+
+  // 全部 be 動詞主詞（含姓名、人稱代名詞），每個都標好正確 be 型態
+  function allBeSubjects() {
+    var list = NAMES.map(function (n) {
+      return { text: n.name, be: "is" };
+    });
+    list.push({ text: "He", be: "is" });
+    list.push({ text: "She", be: "is" });
+    list.push({ text: "It", be: "is" });
+    list.push({ text: "I", be: "am" });
+    list.push({ text: "You", be: "are" });
+    list.push({ text: "We", be: "are" });
+    list.push({ text: "They", be: "are" });
+    return list;
+  }
+  var BE_SUBJECTS = allBeSubjects();
+  var ALL_BE_FORMS = ["am", "is", "are"];
+
+  function twoNameSubject(rng) {
+    var n1 = pick(rng, NAMES);
+    var n2 = pick(rng, NAMES.filter(function (n) { return n.name !== n1.name; }));
+    return { text: n1.name + " and " + n2.name, be: "are" };
+  }
+
+  // ---------------------------------------------------------------------
+  // 2. 每個 GP 的骨架 + 生成邏輯
+  // ---------------------------------------------------------------------
+  function buildItem(gp, q, answer, distractors, extra) {
+    var options3 = [answer].concat(distractors);
+    var say = q.replace("___", answer);
+    // 若空格在句首，插入的答案要大寫成句首字母（例如 "open" -> "Open"）
+    if (q.indexOf("___") === 0 && say.length > 0) {
+      say = say.charAt(0).toUpperCase() + say.slice(1);
+    }
+    return {
+      kind: "fill",
+      q: q,
+      answer: answer,
+      options: options3,
+      say: say,
+      gp: gp,
+    };
+  }
+
+  function finalizeOptions(rng, item) {
+    item.options = shuffle(rng, item.options);
+    return item;
+  }
+
+  // ---- GP-01 be動詞 -------------------------------------------------
+  function genGP01(rng) {
+    var subj = rng() < 0.15 ? twoNameSubject(rng) : pick(rng, BE_SUBJECTS);
+    var wrongForms = ALL_BE_FORMS.filter(function (f) { return f !== subj.be; });
+    var faces = [
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ very " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + " today."; },
+      function () { return subj.text + " ___ so " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ at the " + pick(rng, PLACES) + "."; },
+      function () { return subj.text + " ___ in the " + pick(rng, PLACES) + "."; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-01", q, subj.be, wrongForms);
+  }
+
+  // ---- GP-02 名詞複數 -------------------------------------------------
+  function genGP02(rng) {
+    var noun = pick(rng, NOUNS);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)]; // two..nine
+    var isPlural = rng() < 0.5;
+    var faces;
+    if (isPlural) {
+      faces = [
+        function () { return "I have " + numWord + " ___."; },
+        function () { return "There are " + numWord + " ___ on the desk."; },
+        function () { return "I see " + numWord + " ___ in the sky."; },
+      ];
+      var q = pick(rng, faces)();
+      return buildItem("GP-02", q, noun.pl, [noun.sg, noun.wrongPl]);
+    } else {
+      faces = [
+        function () { return "She has one ___."; },
+        function () { return "He has one ___ in his bag."; },
+        function () { return "We need one ___ for the party."; },
+      ];
+      var q2 = pick(rng, faces)();
+      return buildItem("GP-02", q2, noun.sg, [noun.pl, noun.wrongPl]);
+    }
+  }
+
+  // ---- GP-03 冠詞 a/an -------------------------------------------------
+  function genGP03(rng) {
+    var noun = pick(rng, NOUNS);
+    var correct = noun.vowel ? "an" : "a";
+    var wrongArticle = noun.vowel ? "a" : "an";
+    var faces = [
+      function () { return "I have ___ " + noun.sg + "."; },
+      function () { return "She wants ___ " + noun.sg + "."; },
+      function () { return "There is ___ " + noun.sg + " on the table."; },
+      function () { return "Look! It's ___ " + noun.sg + "."; },
+      function () { return "He needs ___ " + noun.sg + " today."; },
+      function () { return "Can I have ___ " + noun.sg + "?"; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-03", q, correct, [wrongArticle, "some"]);
+  }
+
+  // ---- GP-04 指示代名詞 -------------------------------------------------
+  function genGP04(rng) {
+    var sgNoun = pick(rng, NOUNS).sg;
+    var plNoun = pick(rng, NOUNS).pl;
+    var faces = [
+      { ctx: "It's right here.", blankQ: "___ is my " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "It's over there.", blankQ: "___ is my " + sgNoun + ".", answer: "That", wrong: ["This", "Those"] },
+      { ctx: "They're right here.", blankQ: "___ are my " + plNoun + ".", answer: "These", wrong: ["Those", "This"] },
+      { ctx: "They're over there.", blankQ: "___ are my " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+      { ctx: "Look, it's close to me.", blankQ: "___ is a nice " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "Look, they're far away.", blankQ: "___ are cute " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+    ];
+    var f = pick(rng, faces);
+    var q = f.ctx + " " + f.blankQ;
+    return buildItem("GP-04", q, f.answer, f.wrong);
+  }
+
+  // ---- GP-06 Wh 問句 -------------------------------------------------
+  function genGP06(rng) {
+    var noun = pick(rng, NOUNS).sg;
+    var noun2 = pick(rng, NOUNS.filter(function (n) { return n.sg !== noun; })).sg;
+    var place = pick(rng, PLACES);
+    var name = pick(rng, NAMES).name;
+    var name1 = pick(rng, NAMES).name;
+    var name2 = pick(rng, NAMES.filter(function (n) { return n.name !== name1; })).name;
+    var faces = [
+      { q: "___ is that? It's a " + noun + ".", answer: "What" },
+      { q: "___ is she? She is " + name + ".", answer: "Who" },
+      { q: "___ is my " + noun + "? It's in the " + place + ".", answer: "Where" },
+      { q: "___ are they? They are my friends, " + name1 + " and " + name2 + ".", answer: "Who" },
+      { q: "___ is your favorite toy? It's a " + noun2 + ".", answer: "What" },
+      { q: "___ is the cat? It's under the " + place + ".", answer: "Where" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["What", "Who", "Where"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-06", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-07 How 問句 -------------------------------------------------
+  function genGP07(rng) {
+    var name = pick(rng, NAMES).name;
+    var plNoun = pick(rng, NOUNS).pl;
+    var mass = pick(rng, MASS_NOUNS);
+    var faces = [
+      { q: "How ___ are you, " + name + "?", answer: "old" },
+      { q: "How ___ is your dog?", answer: "old" },
+      { q: "How ___ " + plNoun + " are there?", answer: "many" },
+      { q: "How ___ students are in your class?", answer: "many" },
+      { q: "How ___ " + mass + " is there?", answer: "much" },
+      { q: "How ___ " + mass + " do you need?", answer: "much" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["old", "many", "much"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-07", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-10 現在進行式 -------------------------------------------------
+  function genGP10(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var mode = pickIndex(rng, 6);
+    var subj, q, answer, wrong;
+    if (mode < 3) {
+      // 測試 be 動詞主詞一致
+      if (mode === 0) subj = { text: "I", be: "am" };
+      else if (mode === 1) subj = pick(rng, [{ text: "He", be: "is" }, { text: "She", be: "is" }, { text: pick(rng, NAMES).name, be: "is" }]);
+      else subj = pick(rng, [{ text: "We", be: "are" }, { text: "They", be: "are" }, twoNameSubject(rng)]);
+      q = subj.text + " ___ " + v.ing + " now.";
+      answer = subj.be;
+      wrong = ALL_BE_FORMS.filter(function (f) { return f !== answer; });
+    } else {
+      // 測試 -ing 拼法
+      var subjTexts = ["I am", "He is", "They are"];
+      var chosen = subjTexts[mode - 3];
+      q = chosen + " ___ now.";
+      answer = v.ing;
+      wrong = [v.wrongIng, v.base];
+    }
+    return buildItem("GP-10", q, answer, wrong);
+  }
+
+  // ---- GP-11 There be -------------------------------------------------
+  function genGP11(rng) {
+    var sgNoun = pick(rng, NOUNS);
+    var plNoun = pick(rng, NOUNS).pl;
+    var place = pick(rng, PLACES);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)];
+    var faces = [
+      { q: "There ___ a " + sgNoun.sg + " on the " + place + ".", answer: "is" },
+      { q: "There ___ " + numWord + " " + plNoun + " in the " + place + ".", answer: "are" },
+      { q: "There ___ many " + plNoun + " on the " + place + ".", answer: "are" },
+      { q: "There ___ " + (sgNoun.vowel ? "an " : "a ") + sgNoun.sg + " in the bag.", answer: "is" },
+      { q: "There ___ some " + plNoun + " near the " + place + ".", answer: "are" },
+      { q: "There ___ one " + sgNoun.sg + " under the " + place + ".", answer: "is" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["is", "are", "am"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-11", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-12 祈使句 -------------------------------------------------
+  function genGP12(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var faces = [
+      { q: "___ the door, please.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Please ___ your hands.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Don't ___ in the classroom.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ quiet, please!", answer: "Be", wrong: ["Is", "Are"] },
+      { q: "___ your book, everyone.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Let's ___ now.", answer: v.base, wrong: [v.s, v.ing] },
+    ];
+    var f = pick(rng, faces);
+    return buildItem("GP-12", f.q, f.answer, f.wrong);
+  }
+
+  // ---- GP-14 can -------------------------------------------------
+  function genGP14(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var name = pick(rng, NAMES).name;
+    var faces = [
+      "" + name + " can ___ well.",
+      "I can ___ every day.",
+      "They can ___ now.",
+      "We can ___ here.",
+      "Can " + name + " ___ today?",
+      "You can ___ after school.",
+    ];
+    var q = pick(rng, faces);
+    return buildItem("GP-14", q, v.base, [v.s, "to " + v.base]);
+  }
+
+  // ---- GP-21 基數序數 -------------------------------------------------
+  function genGP21(rng) {
+    var mode = pickIndex(rng, 6);
+    if (mode < 3) {
+      var n = 2 + pickIndex(rng, 8); // 2..9 (plural noun 需要 >=2)
+      var pl = pick(rng, NOUNS).pl;
+      var faces = [
+        "I have ___ " + pl + ".",
+        "There are ___ " + pl + " on the table.",
+        "She bought ___ " + pl + " at the store.",
+      ];
+      var q = faces[mode];
+      return buildItem("GP-21", q, CARDINAL[n - 1], [ORDINAL[n - 1], mangle(CARDINAL[n - 1])]);
+    } else {
+      var n2 = 1 + pickIndex(rng, 12);
+      var facesO = [
+        "This is my ___ time here.",
+        "He is the ___ in line.",
+        "Today is her ___ day at school.",
+      ];
+      var q2 = facesO[mode - 3];
+      return buildItem("GP-21", q2, ORDINAL[n2 - 1], [CARDINAL[n2 - 1], mangle(ORDINAL[n2 - 1])]);
+    }
+  }
+
+  // ---- GP-23 星期月份日期 -------------------------------------------------
+  function genGP23(rng) {
+    var mode = pickIndex(rng, 6);
+    var q, answer;
+    if (mode === 0) {
+      var i0 = pickIndex(rng, 7);
+      var d0 = WEEKDAYS[i0], d1 = WEEKDAYS[(i0 + 1) % 7], d2 = WEEKDAYS[(i0 + 2) % 7];
+      q = d0 + ", " + d1 + ", ___.";
+      answer = d2;
+      var wrong = pickDistinctExcluding(rng, WEEKDAYS, [d0, d1, d2], 2);
+      return buildItem("GP-23", q, answer, wrong);
+    } else if (mode === 1 || mode === 2) {
+      var im = pickIndex(rng, 12);
+      var m = MONTHS[im];
+      if (mode === 1) {
+        answer = MONTHS[(im + 11) % 12];
+        q = "The month before " + m + " is ___.";
+      } else {
+        answer = MONTHS[(im + 1) % 12];
+        q = "The month after " + m + " is ___.";
+      }
+      var wrongM = pickDistinctExcluding(rng, MONTHS, [m, answer], 2);
+      return buildItem("GP-23", q, answer, wrongM);
+    } else if (mode === 3) {
+      var ix = 1 + pickIndex(rng, 5); // 避免邊界
+      var dPrev = WEEKDAYS[ix - 1], dMid = WEEKDAYS[ix], dNext = WEEKDAYS[ix + 1];
+      q = dPrev + ", ___, " + dNext + ".";
+      answer = dMid;
+      var wrongMid = pickDistinctExcluding(rng, WEEKDAYS, [dPrev, dMid, dNext], 2);
+      return buildItem("GP-23", q, answer, wrongMid);
+    } else if (mode === 4) {
+      var im2 = pickIndex(rng, 11);
+      var m0 = MONTHS[im2], m1 = MONTHS[im2 + 1], m2 = MONTHS[im2 + 2 > 11 ? 11 : im2 + 2];
+      // 確保三個相異（月份陣列長度足夠時必相異）
+      if (im2 + 2 <= 11) {
+        m2 = MONTHS[im2 + 2];
+      } else {
+        im2 = 9; m0 = MONTHS[9]; m1 = MONTHS[10]; m2 = MONTHS[11];
+      }
+      q = m0 + ", " + m1 + ", ___.";
+      answer = m2;
+      var wrongMo = pickDistinctExcluding(rng, MONTHS, [m0, m1, m2], 2);
+      return buildItem("GP-23", q, answer, wrongMo);
+    } else {
+      var iy = pickIndex(rng, 7);
+      var dy = WEEKDAYS[iy];
+      answer = WEEKDAYS[(iy + 1) % 7];
+      q = "The day after " + dy + " is ___.";
+      var wrongDy = pickDistinctExcluding(rng, WEEKDAYS, [dy, answer], 2);
+      return buildItem("GP-23", q, answer, wrongDy);
+    }
+  }
+
+  var GENERATORS = {
+    "GP-01": genGP01,
+    "GP-02": genGP02,
+    "GP-03": genGP03,
+    "GP-04": genGP04,
+    "GP-06": genGP06,
+    "GP-07": genGP07,
+    "GP-10": genGP10,
+    "GP-11": genGP11,
+    "GP-12": genGP12,
+    "GP-14": genGP14,
+    "GP-21": genGP21,
+    "GP-23": genGP23,
+  };
+
+  var SUPPORTED_GPS = Object.keys(GENERATORS);
+
+  // ---------------------------------------------------------------------
+  // 3. 對外主函式
+  // ---------------------------------------------------------------------
+  function make(gpList, n, seed) {
+    if (!gpList || !gpList.length) gpList = SUPPORTED_GPS.slice();
+    gpList = gpList.filter(function (gp) { return GENERATORS[gp]; });
+    if (!gpList.length) return [];
+    var rng = makeRng(seed);
+    var out = [];
+    var seen = {};
+    var guard = 0;
+    var maxGuard = n * 50 + 200;
+    var i = 0;
+    while (out.length < n && guard < maxGuard) {
+      guard++;
+      var gp = gpList[i % gpList.length];
+      i++;
+      var item = GENERATORS[gp](rng);
+      finalizeOptions(rng, item);
+      var key = item.gp + "|" + item.q + "|" + item.answer;
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push(item);
+    }
+    return out;
+  }
+
+  var GrammarGen = {
+    make: make,
+    supportedGPs: SUPPORTED_GPS,
+    _internal: {
+      DATA: {
+        NAMES: NAMES, NOUNS: NOUNS, ADJECTIVES: ADJECTIVES, PLACES: PLACES,
+        ACTION_VERBS: ACTION_VERBS, MASS_NOUNS: MASS_NOUNS, WEEKDAYS: WEEKDAYS,
+        MONTHS: MONTHS, CARDINAL: CARDINAL, ORDINAL: ORDINAL,
+      },
+      mangle: mangle,
+      makeRng: makeRng,
+    },
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = GrammarGen;
+  } else {
+    root.GrammarGen = GrammarGen;
+  }
+})(typeof window !== "undefined" ? window : this);
 
 </script><script>
 /*!
