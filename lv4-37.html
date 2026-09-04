@@ -1,0 +1,1066 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LV4-37 預習 — Hobbies — Indoor Hobbies</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 120px}
+.hero{background:#155e75;color:#fff;border-radius:10px;padding:22px 20px;margin-bottom:14px}
+.hero h1{font-size:1.6rem;margin:8px 0 4px}.hero h2{font-size:1rem;margin:0;color:#d9f5fb;font-weight:600}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 11px;font-weight:850;font-size:.8rem}
+.intro{font-size:.94rem;line-height:1.65;color:#e6f6fb;margin-top:10px}
+.progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
+.bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
+.note{font-size:.92rem;color:#52606d;line-height:1.6}
+.hero .note{color:#d9f5fb}
+.section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
+.head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.head .pg{font-size:.76rem;font-weight:800;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 9px}
+.body{padding:14px 16px}
+.sub{font-size:.78rem;font-weight:900;color:#0f7c90;letter-spacing:.05em;margin:14px 0 6px;text-transform:uppercase}
+.sub:first-child{margin-top:0}
+.tip{background:#f0f9ff;border-left:4px solid #0f7c90;padding:8px 11px;border-radius:6px;font-size:.9rem;color:#31556b;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid #bcccdc;background:#fff;border-radius:999px;padding:7px 13px;font-weight:800;cursor:pointer;font-size:.95rem}
+.chip.seen{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.chip .zh{color:#627d98;font-weight:700;font-size:.85rem;margin-left:6px}
+.chip.seen .zh{color:#2f9e44}
+.item{border:1px solid #d9e2ec;background:#fbfdff;border-radius:8px;padding:12px;margin:9px 0}
+.item.done{border-color:#2f9e44;background:#f4fdf7}
+.label{font-size:.74rem;color:#627d98;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.sentence{line-height:1.55;margin:6px 0 8px;font-size:1.02rem}
+.btn{border:0;border-radius:7px;padding:9px 13px;font-weight:850;cursor:pointer;background:#0f7c90;color:#fff;margin:3px 3px 3px 0;font-size:.92rem}
+.btn.ok{background:#1f7a4d}.btn.warn{background:#c65f1a}.btn.alt{background:#52606d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.opt{border:1px solid #bcccdc;background:#fff;border-radius:7px;padding:9px 14px;font-weight:800;cursor:pointer;font-size:.98rem}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.opt.wrong{background:#fff0f0;border-color:#e03131;color:#c92a2a}
+.opt:disabled{cursor:not-allowed}
+.answer-input{border:2px solid #bcccdc;border-radius:7px;padding:9px 11px;font-size:1.05rem;font-weight:800;width:130px}
+.result{font-size:.92rem;margin-top:7px;line-height:1.5}
+.oktext{color:#17623a;font-weight:850}.failtext{color:#c92a2a;font-weight:850}
+.heard{font-size:.86rem;color:#627d98;margin-top:5px;font-style:italic}
+.sayzone{margin-top:9px;padding:10px 11px;border-radius:8px;background:#fff8f1;border-left:4px solid #c65f1a}
+.sayzone.pass{background:#f4fdf7;border-left-color:#2f9e44}
+.sayzone .lead{font-size:.82rem;font-weight:900;color:#a4470f;margin-bottom:5px}
+.sayzone.pass .lead{color:#17623a}
+.target{font-size:1rem;font-weight:800;line-height:1.5;margin-bottom:7px}
+.modal{position:fixed;inset:0;background:rgba(15,30,45,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.show{display:flex}
+.modal .box{background:#fff;border-radius:12px;padding:20px;max-width:640px;width:100%;max-height:80vh;overflow:auto}
+.footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #d9e2ec;padding:9px 14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+</style></head><body><div class="wrap">
+<div class="hero">
+<span class="badge">LV4-37　預習</span>
+<h1>Hobbies — Indoor Hobbies</h1>
+<h2>講義 14 個區塊全覆蓋：每一區都要唸過，每一題答完都要唸出整句</h2>
+<div class="intro">這一課講義有 14 個小區塊。每個區塊都是：先認字 → 逐句唸過 → 做講義上的原題。每一題答對之後還要把正確的整句唸出來才算過，猜對也要唸。</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="note" id="prog"></div>
+</div>
+<div class="section"><div class="head"><span>區塊 1 / 14　Let&#x27;s Talk</span><span class="pg">講義 p2</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="talk1-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What are your hobbies?</div>
+<button class="btn" onclick="demoRead('talk1-r0')">🔊 示範</button>
+<button class="btn ok" id="talk1-r0-start" onclick="startRead('talk1-r0')">開始唸</button>
+<button class="btn warn" id="talk1-r0-stop" disabled>停止</button>
+<div class="heard" id="talk1-r0-out"></div><div class="result" id="talk1-r0-res"></div></div>
+<div class="item" id="talk1-r1-item"><div class="label">唸 2</div>
+<div class="sentence">My hobbies are playing the piano, drawing and reading.</div>
+<button class="btn" onclick="demoRead('talk1-r1')">🔊 示範</button>
+<button class="btn ok" id="talk1-r1-start" onclick="startRead('talk1-r1')">開始唸</button>
+<button class="btn warn" id="talk1-r1-stop" disabled>停止</button>
+<div class="heard" id="talk1-r1-out"></div><div class="result" id="talk1-r1-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="talk1-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">What are your hobbies? Tell me at least two things you like doing.</div>
+<button class="btn ok" id="talk1-p0-start" onclick="startTalk('talk1-p0')">開始說</button>
+<button class="btn warn" id="talk1-p0-stop" disabled>停止</button>
+<div class="heard" id="talk1-p0-out"></div>
+<div class="result" id="talk1-p0-res"></div>
+<div class="sayzone" id="talk1-p0-sayzone" style="display:none"><div class="lead" id="talk1-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="talk1-p0-target"></div><button class="btn" id="talk1-p0-demo">🔊 示範</button><button class="btn ok" id="talk1-p0-say-start" onclick="startSay('talk1-p0')">開始唸</button><button class="btn warn" id="talk1-p0-say-stop" disabled>停止</button><div class="heard" id="talk1-p0-say-out"></div><div class="result" id="talk1-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 2 / 14　What&#x27;s your favorite hobby?</span><span class="pg">講義 p3</span></div><div class="body">
+<div class="tip">favorite = the thing you like the most</div>
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="favorite-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>favorite</strong>　<span class="note">最喜歡的；最愛的</span></div>
+<button class="btn" onclick="demoWord('favorite-w0')">🔊 聽</button>
+<button class="btn ok" id="favorite-w0-start" onclick="startWord('favorite-w0')" disabled>開始唸</button>
+<button class="btn warn" id="favorite-w0-stop" disabled>停止</button>
+<div class="heard" id="favorite-w0-out"></div><div class="result" id="favorite-w0-res"></div></div>
+<div class="item" id="favorite-w1-item"><div class="label">單字</div>
+<div class="sentence"><strong>stamp</strong>　<span class="note">郵票</span></div>
+<button class="btn" onclick="demoWord('favorite-w1')">🔊 聽</button>
+<button class="btn ok" id="favorite-w1-start" onclick="startWord('favorite-w1')" disabled>開始唸</button>
+<button class="btn warn" id="favorite-w1-stop" disabled>停止</button>
+<div class="heard" id="favorite-w1-out"></div><div class="result" id="favorite-w1-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="favorite-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What&#x27;s your favorite hobby?</div>
+<button class="btn" onclick="demoRead('favorite-r0')">🔊 示範</button>
+<button class="btn ok" id="favorite-r0-start" onclick="startRead('favorite-r0')">開始唸</button>
+<button class="btn warn" id="favorite-r0-stop" disabled>停止</button>
+<div class="heard" id="favorite-r0-out"></div><div class="result" id="favorite-r0-res"></div></div>
+<div class="item" id="favorite-r1-item"><div class="label">唸 2</div>
+<div class="sentence">I like reading, cooking and playing guitar.</div>
+<button class="btn" onclick="demoRead('favorite-r1')">🔊 示範</button>
+<button class="btn ok" id="favorite-r1-start" onclick="startRead('favorite-r1')">開始唸</button>
+<button class="btn warn" id="favorite-r1-stop" disabled>停止</button>
+<div class="heard" id="favorite-r1-out"></div><div class="result" id="favorite-r1-res"></div></div>
+<div class="item" id="favorite-r2-item"><div class="label">唸 3</div>
+<div class="sentence">My favorite hobby is playing the guitar.</div>
+<button class="btn" onclick="demoRead('favorite-r2')">🔊 示範</button>
+<button class="btn ok" id="favorite-r2-start" onclick="startRead('favorite-r2')">開始唸</button>
+<button class="btn warn" id="favorite-r2-stop" disabled>停止</button>
+<div class="heard" id="favorite-r2-out"></div><div class="result" id="favorite-r2-res"></div></div>
+<div class="item" id="favorite-r3-item"><div class="label">唸 4</div>
+<div class="sentence">My favorite hobby is playing basketball.</div>
+<button class="btn" onclick="demoRead('favorite-r3')">🔊 示範</button>
+<button class="btn ok" id="favorite-r3-start" onclick="startRead('favorite-r3')">開始唸</button>
+<button class="btn warn" id="favorite-r3-stop" disabled>停止</button>
+<div class="heard" id="favorite-r3-out"></div><div class="result" id="favorite-r3-res"></div></div>
+<div class="item" id="favorite-r4-item"><div class="label">唸 5</div>
+<div class="sentence">My favorite hobby is collecting stamps.</div>
+<button class="btn" onclick="demoRead('favorite-r4')">🔊 示範</button>
+<button class="btn ok" id="favorite-r4-start" onclick="startRead('favorite-r4')">開始唸</button>
+<button class="btn warn" id="favorite-r4-stop" disabled>停止</button>
+<div class="heard" id="favorite-r4-out"></div><div class="result" id="favorite-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="favorite-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">My favorite hobby is collecting ______.</div>
+<div class="opts" id="favorite-p0-opts">
+<button class="opt" onclick="pick('favorite-p0',0,this)">stamps</button>
+<button class="opt" onclick="pick('favorite-p0',1,this)">shoes</button>
+<button class="opt" onclick="pick('favorite-p0',2,this)">cars</button>
+<button class="opt" onclick="pick('favorite-p0',3,this)">hats</button>
+</div>
+<div class="result" id="favorite-p0-res"></div>
+<div class="sayzone" id="favorite-p0-sayzone" style="display:none"><div class="lead" id="favorite-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="favorite-p0-target"></div><button class="btn" id="favorite-p0-demo">🔊 示範</button><button class="btn ok" id="favorite-p0-say-start" onclick="startSay('favorite-p0')">開始唸</button><button class="btn warn" id="favorite-p0-say-stop" disabled>停止</button><div class="heard" id="favorite-p0-say-out"></div><div class="result" id="favorite-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 3 / 14　Board Games</span><span class="pg">講義 p4–p5</span></div><div class="body">
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="boardgames-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>chess</strong>　<span class="note">西洋棋</span></div>
+<button class="btn" onclick="demoWord('boardgames-w0')">🔊 聽</button>
+<button class="btn ok" id="boardgames-w0-start" onclick="startWord('boardgames-w0')" disabled>開始唸</button>
+<button class="btn warn" id="boardgames-w0-stop" disabled>停止</button>
+<div class="heard" id="boardgames-w0-out"></div><div class="result" id="boardgames-w0-res"></div></div>
+<div class="item" id="boardgames-w1-item"><div class="label">單字</div>
+<div class="sentence"><strong>Chinese chess</strong>　<span class="note">象棋</span></div>
+<button class="btn" onclick="demoWord('boardgames-w1')">🔊 聽</button>
+<button class="btn ok" id="boardgames-w1-start" onclick="startWord('boardgames-w1')" disabled>開始唸</button>
+<button class="btn warn" id="boardgames-w1-stop" disabled>停止</button>
+<div class="heard" id="boardgames-w1-out"></div><div class="result" id="boardgames-w1-res"></div></div>
+<div class="item" id="boardgames-w2-item"><div class="label">單字</div>
+<div class="sentence"><strong>checkers</strong>　<span class="note">跳棋</span></div>
+<button class="btn" onclick="demoWord('boardgames-w2')">🔊 聽</button>
+<button class="btn ok" id="boardgames-w2-start" onclick="startWord('boardgames-w2')" disabled>開始唸</button>
+<button class="btn warn" id="boardgames-w2-stop" disabled>停止</button>
+<div class="heard" id="boardgames-w2-out"></div><div class="result" id="boardgames-w2-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="boardgames-r0-item"><div class="label">唸 1</div>
+<div class="sentence">The children are playing chess.</div>
+<button class="btn" onclick="demoRead('boardgames-r0')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r0-start" onclick="startRead('boardgames-r0')">開始唸</button>
+<button class="btn warn" id="boardgames-r0-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r0-out"></div><div class="result" id="boardgames-r0-res"></div></div>
+<div class="item" id="boardgames-r1-item"><div class="label">唸 2</div>
+<div class="sentence">They are not playing Chinese chess.</div>
+<button class="btn" onclick="demoRead('boardgames-r1')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r1-start" onclick="startRead('boardgames-r1')">開始唸</button>
+<button class="btn warn" id="boardgames-r1-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r1-out"></div><div class="result" id="boardgames-r1-res"></div></div>
+<div class="item" id="boardgames-r2-item"><div class="label">唸 3</div>
+<div class="sentence">Chess is a board game for two players.</div>
+<button class="btn" onclick="demoRead('boardgames-r2')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r2-start" onclick="startRead('boardgames-r2')">開始唸</button>
+<button class="btn warn" id="boardgames-r2-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r2-out"></div><div class="result" id="boardgames-r2-res"></div></div>
+<div class="item" id="boardgames-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Chinese children like playing Chinese chess.</div>
+<button class="btn" onclick="demoRead('boardgames-r3')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r3-start" onclick="startRead('boardgames-r3')">開始唸</button>
+<button class="btn warn" id="boardgames-r3-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r3-out"></div><div class="result" id="boardgames-r3-res"></div></div>
+<div class="item" id="boardgames-r4-item"><div class="label">唸 5</div>
+<div class="sentence">Checkers is a board game played by two players.</div>
+<button class="btn" onclick="demoRead('boardgames-r4')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r4-start" onclick="startRead('boardgames-r4')">開始唸</button>
+<button class="btn warn" id="boardgames-r4-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r4-out"></div><div class="result" id="boardgames-r4-res"></div></div>
+<div class="item" id="boardgames-r5-item"><div class="label">唸 6</div>
+<div class="sentence">Chinese checkers can be played by two, three, four, or six people.</div>
+<button class="btn" onclick="demoRead('boardgames-r5')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r5-start" onclick="startRead('boardgames-r5')">開始唸</button>
+<button class="btn warn" id="boardgames-r5-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r5-out"></div><div class="result" id="boardgames-r5-res"></div></div>
+<div class="item" id="boardgames-r6-item"><div class="label">唸 7</div>
+<div class="sentence">My brother and I like to play checkers on the weekend.</div>
+<button class="btn" onclick="demoRead('boardgames-r6')">🔊 示範</button>
+<button class="btn ok" id="boardgames-r6-start" onclick="startRead('boardgames-r6')">開始唸</button>
+<button class="btn warn" id="boardgames-r6-stop" disabled>停止</button>
+<div class="heard" id="boardgames-r6-out"></div><div class="result" id="boardgames-r6-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="boardgames-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">______ is a board game for two players.</div>
+<div class="opts" id="boardgames-p0-opts">
+<button class="opt" onclick="pick('boardgames-p0',0,this)">Chess</button>
+<button class="opt" onclick="pick('boardgames-p0',1,this)">Hockey</button>
+<button class="opt" onclick="pick('boardgames-p0',2,this)">Stamps</button>
+<button class="opt" onclick="pick('boardgames-p0',3,this)">Checkers</button>
+</div>
+<div class="result" id="boardgames-p0-res"></div>
+<div class="sayzone" id="boardgames-p0-sayzone" style="display:none"><div class="lead" id="boardgames-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="boardgames-p0-target"></div><button class="btn" id="boardgames-p0-demo">🔊 示範</button><button class="btn ok" id="boardgames-p0-say-start" onclick="startSay('boardgames-p0')">開始唸</button><button class="btn warn" id="boardgames-p0-say-stop" disabled>停止</button><div class="heard" id="boardgames-p0-say-out"></div><div class="result" id="boardgames-p0-say-res"></div></div>
+</div>
+<div class="item" id="boardgames-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">Chinese children like playing ______.</div>
+<div class="opts" id="boardgames-p1-opts">
+<button class="opt" onclick="pick('boardgames-p1',0,this)">Chinese chess</button>
+<button class="opt" onclick="pick('boardgames-p1',1,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('boardgames-p1',2,this)">board games</button>
+<button class="opt" onclick="pick('boardgames-p1',3,this)">checkers</button>
+</div>
+<div class="result" id="boardgames-p1-res"></div>
+<div class="sayzone" id="boardgames-p1-sayzone" style="display:none"><div class="lead" id="boardgames-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="boardgames-p1-target"></div><button class="btn" id="boardgames-p1-demo">🔊 示範</button><button class="btn ok" id="boardgames-p1-say-start" onclick="startSay('boardgames-p1')">開始唸</button><button class="btn warn" id="boardgames-p1-say-stop" disabled>停止</button><div class="heard" id="boardgames-p1-say-out"></div><div class="result" id="boardgames-p1-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 4 / 14　Like and Dislikes</span><span class="pg">講義 p6</span></div><div class="body">
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="likedislike-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>hockey</strong>　<span class="note">曲棍球</span></div>
+<button class="btn" onclick="demoWord('likedislike-w0')">🔊 聽</button>
+<button class="btn ok" id="likedislike-w0-start" onclick="startWord('likedislike-w0')" disabled>開始唸</button>
+<button class="btn warn" id="likedislike-w0-stop" disabled>停止</button>
+<div class="heard" id="likedislike-w0-out"></div><div class="result" id="likedislike-w0-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="likedislike-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Do you like hockey?</div>
+<button class="btn" onclick="demoRead('likedislike-r0')">🔊 示範</button>
+<button class="btn ok" id="likedislike-r0-start" onclick="startRead('likedislike-r0')">開始唸</button>
+<button class="btn warn" id="likedislike-r0-stop" disabled>停止</button>
+<div class="heard" id="likedislike-r0-out"></div><div class="result" id="likedislike-r0-res"></div></div>
+<div class="item" id="likedislike-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Yes, I like hockey.</div>
+<button class="btn" onclick="demoRead('likedislike-r1')">🔊 示範</button>
+<button class="btn ok" id="likedislike-r1-start" onclick="startRead('likedislike-r1')">開始唸</button>
+<button class="btn warn" id="likedislike-r1-stop" disabled>停止</button>
+<div class="heard" id="likedislike-r1-out"></div><div class="result" id="likedislike-r1-res"></div></div>
+<div class="item" id="likedislike-r2-item"><div class="label">唸 3</div>
+<div class="sentence">No, I don&#x27;t like hockey.</div>
+<button class="btn" onclick="demoRead('likedislike-r2')">🔊 示範</button>
+<button class="btn ok" id="likedislike-r2-start" onclick="startRead('likedislike-r2')">開始唸</button>
+<button class="btn warn" id="likedislike-r2-stop" disabled>停止</button>
+<div class="heard" id="likedislike-r2-out"></div><div class="result" id="likedislike-r2-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="likedislike-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Do you like ______? Yes, I like hockey.</div>
+<div class="opts" id="likedislike-p0-opts">
+<button class="opt" onclick="pick('likedislike-p0',0,this)">hockey</button>
+<button class="opt" onclick="pick('likedislike-p0',1,this)">chess</button>
+<button class="opt" onclick="pick('likedislike-p0',2,this)">knitting</button>
+<button class="opt" onclick="pick('likedislike-p0',3,this)">drawing</button>
+</div>
+<div class="result" id="likedislike-p0-res"></div>
+<div class="sayzone" id="likedislike-p0-sayzone" style="display:none"><div class="lead" id="likedislike-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="likedislike-p0-target"></div><button class="btn" id="likedislike-p0-demo">🔊 示範</button><button class="btn ok" id="likedislike-p0-say-start" onclick="startSay('likedislike-p0')">開始唸</button><button class="btn warn" id="likedislike-p0-say-stop" disabled>停止</button><div class="heard" id="likedislike-p0-say-out"></div><div class="result" id="likedislike-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 5 / 14　Learning Chess and Checkers</span><span class="pg">講義 p7</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="story1-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Judy was bored on a rainy day.</div>
+<button class="btn" onclick="demoRead('story1-r0')">🔊 示範</button>
+<button class="btn ok" id="story1-r0-start" onclick="startRead('story1-r0')">開始唸</button>
+<button class="btn warn" id="story1-r0-stop" disabled>停止</button>
+<div class="heard" id="story1-r0-out"></div><div class="result" id="story1-r0-res"></div></div>
+<div class="item" id="story1-r1-item"><div class="label">唸 2</div>
+<div class="sentence">So, she invited her friends Gary and Felix to play games!</div>
+<button class="btn" onclick="demoRead('story1-r1')">🔊 示範</button>
+<button class="btn ok" id="story1-r1-start" onclick="startRead('story1-r1')">開始唸</button>
+<button class="btn warn" id="story1-r1-stop" disabled>停止</button>
+<div class="heard" id="story1-r1-out"></div><div class="result" id="story1-r1-res"></div></div>
+<div class="item" id="story1-r2-item"><div class="label">唸 3</div>
+<div class="sentence">First, Gary taught Judy how to play chess.</div>
+<button class="btn" onclick="demoRead('story1-r2')">🔊 示範</button>
+<button class="btn ok" id="story1-r2-start" onclick="startRead('story1-r2')">開始唸</button>
+<button class="btn warn" id="story1-r2-stop" disabled>停止</button>
+<div class="heard" id="story1-r2-out"></div><div class="result" id="story1-r2-res"></div></div>
+<div class="item" id="story1-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Don&#x27;t let me take your king! said Gary.</div>
+<button class="btn" onclick="demoRead('story1-r3')">🔊 示範</button>
+<button class="btn ok" id="story1-r3-start" onclick="startRead('story1-r3')">開始唸</button>
+<button class="btn warn" id="story1-r3-stop" disabled>停止</button>
+<div class="heard" id="story1-r3-out"></div><div class="result" id="story1-r3-res"></div></div>
+<div class="item" id="story1-r4-item"><div class="label">唸 5</div>
+<div class="sentence">The queen is a very important piece, said Felix.</div>
+<button class="btn" onclick="demoRead('story1-r4')">🔊 示範</button>
+<button class="btn ok" id="story1-r4-start" onclick="startRead('story1-r4')">開始唸</button>
+<button class="btn warn" id="story1-r4-stop" disabled>停止</button>
+<div class="heard" id="story1-r4-out"></div><div class="result" id="story1-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="story1-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">First, Gary taught Judy how to play ______.</div>
+<div class="opts" id="story1-p0-opts">
+<button class="opt" onclick="pick('story1-p0',0,this)">chess</button>
+<button class="opt" onclick="pick('story1-p0',1,this)">cards</button>
+<button class="opt" onclick="pick('story1-p0',2,this)">hockey</button>
+<button class="opt" onclick="pick('story1-p0',3,this)">stamps</button>
+</div>
+<div class="result" id="story1-p0-res"></div>
+<div class="sayzone" id="story1-p0-sayzone" style="display:none"><div class="lead" id="story1-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="story1-p0-target"></div><button class="btn" id="story1-p0-demo">🔊 示範</button><button class="btn ok" id="story1-p0-say-start" onclick="startSay('story1-p0')">開始唸</button><button class="btn warn" id="story1-p0-say-stop" disabled>停止</button><div class="heard" id="story1-p0-say-out"></div><div class="result" id="story1-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 6 / 14　Learning Chinese Chess</span><span class="pg">講義 p8</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="story2-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Next, Felix taught Judy how to play Chinese chess.</div>
+<button class="btn" onclick="demoRead('story2-r0')">🔊 示範</button>
+<button class="btn ok" id="story2-r0-start" onclick="startRead('story2-r0')">開始唸</button>
+<button class="btn warn" id="story2-r0-stop" disabled>停止</button>
+<div class="heard" id="story2-r0-out"></div><div class="result" id="story2-r0-res"></div></div>
+<div class="item" id="story2-r1-item"><div class="label">唸 2</div>
+<div class="sentence">There is a river on the board! said Judy.</div>
+<button class="btn" onclick="demoRead('story2-r1')">🔊 示範</button>
+<button class="btn ok" id="story2-r1-start" onclick="startRead('story2-r1')">開始唸</button>
+<button class="btn warn" id="story2-r1-stop" disabled>停止</button>
+<div class="heard" id="story2-r1-out"></div><div class="result" id="story2-r1-res"></div></div>
+<div class="item" id="story2-r2-item"><div class="label">唸 3</div>
+<div class="sentence">This piece can jump over the others, and this piece is a cannon! said Felix.</div>
+<button class="btn" onclick="demoRead('story2-r2')">🔊 示範</button>
+<button class="btn ok" id="story2-r2-start" onclick="startRead('story2-r2')">開始唸</button>
+<button class="btn warn" id="story2-r2-stop" disabled>停止</button>
+<div class="heard" id="story2-r2-out"></div><div class="result" id="story2-r2-res"></div></div>
+<div class="item" id="story2-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Then Judy taught Felix and Gary how to play Chinese checkers.</div>
+<button class="btn" onclick="demoRead('story2-r3')">🔊 示範</button>
+<button class="btn ok" id="story2-r3-start" onclick="startRead('story2-r3')">開始唸</button>
+<button class="btn warn" id="story2-r3-stop" disabled>停止</button>
+<div class="heard" id="story2-r3-out"></div><div class="result" id="story2-r3-res"></div></div>
+<div class="item" id="story2-r4-item"><div class="label">唸 5</div>
+<div class="sentence">Try to get all of your pieces home! said Judy.</div>
+<button class="btn" onclick="demoRead('story2-r4')">🔊 示範</button>
+<button class="btn ok" id="story2-r4-start" onclick="startRead('story2-r4')">開始唸</button>
+<button class="btn warn" id="story2-r4-stop" disabled>停止</button>
+<div class="heard" id="story2-r4-out"></div><div class="result" id="story2-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="story2-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Then Judy taught Felix and Gary how to play ______.</div>
+<div class="opts" id="story2-p0-opts">
+<button class="opt" onclick="pick('story2-p0',0,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('story2-p0',1,this)">Chinese chess</button>
+<button class="opt" onclick="pick('story2-p0',2,this)">a board game</button>
+<button class="opt" onclick="pick('story2-p0',3,this)">a card game</button>
+</div>
+<div class="result" id="story2-p0-res"></div>
+<div class="sayzone" id="story2-p0-sayzone" style="display:none"><div class="lead" id="story2-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="story2-p0-target"></div><button class="btn" id="story2-p0-demo">🔊 示範</button><button class="btn ok" id="story2-p0-say-start" onclick="startSay('story2-p0')">開始唸</button><button class="btn warn" id="story2-p0-say-stop" disabled>停止</button><div class="heard" id="story2-p0-say-out"></div><div class="result" id="story2-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 7 / 14　Learning Checkers</span><span class="pg">講義 p9</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="story3-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Last, Gary taught Felix and Judy how to play checkers.</div>
+<button class="btn" onclick="demoRead('story3-r0')">🔊 示範</button>
+<button class="btn ok" id="story3-r0-start" onclick="startRead('story3-r0')">開始唸</button>
+<button class="btn warn" id="story3-r0-stop" disabled>停止</button>
+<div class="heard" id="story3-r0-out"></div><div class="result" id="story3-r0-res"></div></div>
+<div class="item" id="story3-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Playing checkers is so much fun! said Felix and Judy together.</div>
+<button class="btn" onclick="demoRead('story3-r1')">🔊 示範</button>
+<button class="btn ok" id="story3-r1-start" onclick="startRead('story3-r1')">開始唸</button>
+<button class="btn warn" id="story3-r1-stop" disabled>停止</button>
+<div class="heard" id="story3-r1-out"></div><div class="result" id="story3-r1-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="story3-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Last, Gary taught Felix and Judy how to play ______.</div>
+<div class="opts" id="story3-p0-opts">
+<button class="opt" onclick="pick('story3-p0',0,this)">checkers</button>
+<button class="opt" onclick="pick('story3-p0',1,this)">chess</button>
+<button class="opt" onclick="pick('story3-p0',2,this)">Chinese chess</button>
+<button class="opt" onclick="pick('story3-p0',3,this)">Chinese checkers</button>
+</div>
+<div class="result" id="story3-p0-res"></div>
+<div class="sayzone" id="story3-p0-sayzone" style="display:none"><div class="lead" id="story3-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="story3-p0-target"></div><button class="btn" id="story3-p0-demo">🔊 示範</button><button class="btn ok" id="story3-p0-say-start" onclick="startSay('story3-p0')">開始唸</button><button class="btn warn" id="story3-p0-say-stop" disabled>停止</button><div class="heard" id="story3-p0-say-out"></div><div class="result" id="story3-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 8 / 14　Read and Review</span><span class="pg">講義 p10</span></div><div class="body">
+<div class="tip">官方順序：chess → Chinese chess → Chinese checkers → checkers</div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="readreview-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What game did Judy, Gary, and Felix play first?</div>
+<button class="btn" onclick="demoRead('readreview-r0')">🔊 示範</button>
+<button class="btn ok" id="readreview-r0-start" onclick="startRead('readreview-r0')">開始唸</button>
+<button class="btn warn" id="readreview-r0-stop" disabled>停止</button>
+<div class="heard" id="readreview-r0-out"></div><div class="result" id="readreview-r0-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="readreview-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">first: ______</div>
+<div class="opts" id="readreview-p0-opts">
+<button class="opt" onclick="pick('readreview-p0',0,this)">chess</button>
+<button class="opt" onclick="pick('readreview-p0',1,this)">Chinese chess</button>
+<button class="opt" onclick="pick('readreview-p0',2,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('readreview-p0',3,this)">checkers</button>
+</div>
+<div class="result" id="readreview-p0-res"></div>
+<div class="sayzone" id="readreview-p0-sayzone" style="display:none"><div class="lead" id="readreview-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="readreview-p0-target"></div><button class="btn" id="readreview-p0-demo">🔊 示範</button><button class="btn ok" id="readreview-p0-say-start" onclick="startSay('readreview-p0')">開始唸</button><button class="btn warn" id="readreview-p0-say-stop" disabled>停止</button><div class="heard" id="readreview-p0-say-out"></div><div class="result" id="readreview-p0-say-res"></div></div>
+</div>
+<div class="item" id="readreview-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">second: ______</div>
+<div class="opts" id="readreview-p1-opts">
+<button class="opt" onclick="pick('readreview-p1',0,this)">chess</button>
+<button class="opt" onclick="pick('readreview-p1',1,this)">Chinese chess</button>
+<button class="opt" onclick="pick('readreview-p1',2,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('readreview-p1',3,this)">checkers</button>
+</div>
+<div class="result" id="readreview-p1-res"></div>
+<div class="sayzone" id="readreview-p1-sayzone" style="display:none"><div class="lead" id="readreview-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="readreview-p1-target"></div><button class="btn" id="readreview-p1-demo">🔊 示範</button><button class="btn ok" id="readreview-p1-say-start" onclick="startSay('readreview-p1')">開始唸</button><button class="btn warn" id="readreview-p1-say-stop" disabled>停止</button><div class="heard" id="readreview-p1-say-out"></div><div class="result" id="readreview-p1-say-res"></div></div>
+</div>
+<div class="item" id="readreview-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">third: ______</div>
+<div class="opts" id="readreview-p2-opts">
+<button class="opt" onclick="pick('readreview-p2',0,this)">chess</button>
+<button class="opt" onclick="pick('readreview-p2',1,this)">Chinese chess</button>
+<button class="opt" onclick="pick('readreview-p2',2,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('readreview-p2',3,this)">checkers</button>
+</div>
+<div class="result" id="readreview-p2-res"></div>
+<div class="sayzone" id="readreview-p2-sayzone" style="display:none"><div class="lead" id="readreview-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="readreview-p2-target"></div><button class="btn" id="readreview-p2-demo">🔊 示範</button><button class="btn ok" id="readreview-p2-say-start" onclick="startSay('readreview-p2')">開始唸</button><button class="btn warn" id="readreview-p2-say-stop" disabled>停止</button><div class="heard" id="readreview-p2-say-out"></div><div class="result" id="readreview-p2-say-res"></div></div>
+</div>
+<div class="item" id="readreview-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">last: ______</div>
+<div class="opts" id="readreview-p3-opts">
+<button class="opt" onclick="pick('readreview-p3',0,this)">chess</button>
+<button class="opt" onclick="pick('readreview-p3',1,this)">Chinese chess</button>
+<button class="opt" onclick="pick('readreview-p3',2,this)">Chinese checkers</button>
+<button class="opt" onclick="pick('readreview-p3',3,this)">checkers</button>
+</div>
+<div class="result" id="readreview-p3-res"></div>
+<div class="sayzone" id="readreview-p3-sayzone" style="display:none"><div class="lead" id="readreview-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="readreview-p3-target"></div><button class="btn" id="readreview-p3-demo">🔊 示範</button><button class="btn ok" id="readreview-p3-say-start" onclick="startSay('readreview-p3')">開始唸</button><button class="btn warn" id="readreview-p3-say-stop" disabled>停止</button><div class="heard" id="readreview-p3-say-out"></div><div class="result" id="readreview-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 9 / 14　Grammar Corner</span><span class="pg">講義 p11</span></div><div class="body">
+<div class="tip">動詞加 ing：一般直接加；子音+母音+子音結尾要重複最後一個子音再加 ing。</div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="grammar-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Many verbs in the present progressive end with the letters ing.</div>
+<button class="btn" onclick="demoRead('grammar-r0')">🔊 示範</button>
+<button class="btn ok" id="grammar-r0-start" onclick="startRead('grammar-r0')">開始唸</button>
+<button class="btn warn" id="grammar-r0-stop" disabled>停止</button>
+<div class="heard" id="grammar-r0-out"></div><div class="result" id="grammar-r0-res"></div></div>
+<div class="item" id="grammar-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Double the last consonant and add ing when the verb ends in consonant, vowel, consonant.</div>
+<button class="btn" onclick="demoRead('grammar-r1')">🔊 示範</button>
+<button class="btn ok" id="grammar-r1-start" onclick="startRead('grammar-r1')">開始唸</button>
+<button class="btn warn" id="grammar-r1-stop" disabled>停止</button>
+<div class="heard" id="grammar-r1-out"></div><div class="result" id="grammar-r1-res"></div></div>
+<div class="item" id="grammar-r2-item"><div class="label">唸 3</div>
+<div class="sentence">Drink and ing makes drinking.</div>
+<button class="btn" onclick="demoRead('grammar-r2')">🔊 示範</button>
+<button class="btn ok" id="grammar-r2-start" onclick="startRead('grammar-r2')">開始唸</button>
+<button class="btn warn" id="grammar-r2-stop" disabled>停止</button>
+<div class="heard" id="grammar-r2-out"></div><div class="result" id="grammar-r2-res"></div></div>
+<div class="item" id="grammar-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Walk and ing makes walking.</div>
+<button class="btn" onclick="demoRead('grammar-r3')">🔊 示範</button>
+<button class="btn ok" id="grammar-r3-start" onclick="startRead('grammar-r3')">開始唸</button>
+<button class="btn warn" id="grammar-r3-stop" disabled>停止</button>
+<div class="heard" id="grammar-r3-out"></div><div class="result" id="grammar-r3-res"></div></div>
+<div class="item" id="grammar-r4-item"><div class="label">唸 5</div>
+<div class="sentence">Jog and ing makes jogging.</div>
+<button class="btn" onclick="demoRead('grammar-r4')">🔊 示範</button>
+<button class="btn ok" id="grammar-r4-start" onclick="startRead('grammar-r4')">開始唸</button>
+<button class="btn warn" id="grammar-r4-stop" disabled>停止</button>
+<div class="heard" id="grammar-r4-out"></div><div class="result" id="grammar-r4-res"></div></div>
+<div class="item" id="grammar-r5-item"><div class="label">唸 6</div>
+<div class="sentence">Knit and ing makes knitting.</div>
+<button class="btn" onclick="demoRead('grammar-r5')">🔊 示範</button>
+<button class="btn ok" id="grammar-r5-start" onclick="startRead('grammar-r5')">開始唸</button>
+<button class="btn warn" id="grammar-r5-stop" disabled>停止</button>
+<div class="heard" id="grammar-r5-out"></div><div class="result" id="grammar-r5-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="grammar-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">walk + ing = ______</div>
+<div class="opts" id="grammar-p0-opts">
+<button class="opt" onclick="pick('grammar-p0',0,this)">walking</button>
+<button class="opt" onclick="pick('grammar-p0',1,this)">walkking</button>
+<button class="opt" onclick="pick('grammar-p0',2,this)">walked</button>
+<button class="opt" onclick="pick('grammar-p0',3,this)">walks</button>
+</div>
+<div class="result" id="grammar-p0-res"></div>
+<div class="sayzone" id="grammar-p0-sayzone" style="display:none"><div class="lead" id="grammar-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammar-p0-target"></div><button class="btn" id="grammar-p0-demo">🔊 示範</button><button class="btn ok" id="grammar-p0-say-start" onclick="startSay('grammar-p0')">開始唸</button><button class="btn warn" id="grammar-p0-say-stop" disabled>停止</button><div class="heard" id="grammar-p0-say-out"></div><div class="result" id="grammar-p0-say-res"></div></div>
+</div>
+<div class="item" id="grammar-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">jog + ing = ______</div>
+<div class="opts" id="grammar-p1-opts">
+<button class="opt" onclick="pick('grammar-p1',0,this)">jogging</button>
+<button class="opt" onclick="pick('grammar-p1',1,this)">joging</button>
+<button class="opt" onclick="pick('grammar-p1',2,this)">jogged</button>
+<button class="opt" onclick="pick('grammar-p1',3,this)">jogs</button>
+</div>
+<div class="result" id="grammar-p1-res"></div>
+<div class="sayzone" id="grammar-p1-sayzone" style="display:none"><div class="lead" id="grammar-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammar-p1-target"></div><button class="btn" id="grammar-p1-demo">🔊 示範</button><button class="btn ok" id="grammar-p1-say-start" onclick="startSay('grammar-p1')">開始唸</button><button class="btn warn" id="grammar-p1-say-stop" disabled>停止</button><div class="heard" id="grammar-p1-say-out"></div><div class="result" id="grammar-p1-say-res"></div></div>
+</div>
+<div class="item" id="grammar-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">drink + ing = ______</div>
+<div class="opts" id="grammar-p2-opts">
+<button class="opt" onclick="pick('grammar-p2',0,this)">drinking</button>
+<button class="opt" onclick="pick('grammar-p2',1,this)">drinkking</button>
+<button class="opt" onclick="pick('grammar-p2',2,this)">drank</button>
+<button class="opt" onclick="pick('grammar-p2',3,this)">drinks</button>
+</div>
+<div class="result" id="grammar-p2-res"></div>
+<div class="sayzone" id="grammar-p2-sayzone" style="display:none"><div class="lead" id="grammar-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammar-p2-target"></div><button class="btn" id="grammar-p2-demo">🔊 示範</button><button class="btn ok" id="grammar-p2-say-start" onclick="startSay('grammar-p2')">開始唸</button><button class="btn warn" id="grammar-p2-say-stop" disabled>停止</button><div class="heard" id="grammar-p2-say-out"></div><div class="result" id="grammar-p2-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 10 / 14　Spell the Words</span><span class="pg">講義 p12</span></div><div class="body">
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="spellwords-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>knitting</strong>　<span class="note">編織</span></div>
+<button class="btn" onclick="demoWord('spellwords-w0')">🔊 聽</button>
+<button class="btn ok" id="spellwords-w0-start" onclick="startWord('spellwords-w0')" disabled>開始唸</button>
+<button class="btn warn" id="spellwords-w0-stop" disabled>停止</button>
+<div class="heard" id="spellwords-w0-out"></div><div class="result" id="spellwords-w0-res"></div></div>
+<div class="item" id="spellwords-w1-item"><div class="label">單字</div>
+<div class="sentence"><strong>sitting</strong>　<span class="note">坐著</span></div>
+<button class="btn" onclick="demoWord('spellwords-w1')">🔊 聽</button>
+<button class="btn ok" id="spellwords-w1-start" onclick="startWord('spellwords-w1')" disabled>開始唸</button>
+<button class="btn warn" id="spellwords-w1-stop" disabled>停止</button>
+<div class="heard" id="spellwords-w1-out"></div><div class="result" id="spellwords-w1-res"></div></div>
+<div class="item" id="spellwords-w2-item"><div class="label">單字</div>
+<div class="sentence"><strong>swimming</strong>　<span class="note">游泳</span></div>
+<button class="btn" onclick="demoWord('spellwords-w2')">🔊 聽</button>
+<button class="btn ok" id="spellwords-w2-start" onclick="startWord('spellwords-w2')" disabled>開始唸</button>
+<button class="btn warn" id="spellwords-w2-stop" disabled>停止</button>
+<div class="heard" id="spellwords-w2-out"></div><div class="result" id="spellwords-w2-res"></div></div>
+<div class="item" id="spellwords-w3-item"><div class="label">單字</div>
+<div class="sentence"><strong>running</strong>　<span class="note">跑步</span></div>
+<button class="btn" onclick="demoWord('spellwords-w3')">🔊 聽</button>
+<button class="btn ok" id="spellwords-w3-start" onclick="startWord('spellwords-w3')" disabled>開始唸</button>
+<button class="btn warn" id="spellwords-w3-stop" disabled>停止</button>
+<div class="heard" id="spellwords-w3-out"></div><div class="result" id="spellwords-w3-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="spellwords-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Knit and ing makes knitting.</div>
+<button class="btn" onclick="demoRead('spellwords-r0')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r0-start" onclick="startRead('spellwords-r0')">開始唸</button>
+<button class="btn warn" id="spellwords-r0-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r0-out"></div><div class="result" id="spellwords-r0-res"></div></div>
+<div class="item" id="spellwords-r1-item"><div class="label">唸 2</div>
+<div class="sentence">She is knitting a scarf.</div>
+<button class="btn" onclick="demoRead('spellwords-r1')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r1-start" onclick="startRead('spellwords-r1')">開始唸</button>
+<button class="btn warn" id="spellwords-r1-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r1-out"></div><div class="result" id="spellwords-r1-res"></div></div>
+<div class="item" id="spellwords-r2-item"><div class="label">唸 3</div>
+<div class="sentence">Sit and ing makes sitting.</div>
+<button class="btn" onclick="demoRead('spellwords-r2')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r2-start" onclick="startRead('spellwords-r2')">開始唸</button>
+<button class="btn warn" id="spellwords-r2-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r2-out"></div><div class="result" id="spellwords-r2-res"></div></div>
+<div class="item" id="spellwords-r3-item"><div class="label">唸 4</div>
+<div class="sentence">The baby is sitting in a chair.</div>
+<button class="btn" onclick="demoRead('spellwords-r3')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r3-start" onclick="startRead('spellwords-r3')">開始唸</button>
+<button class="btn warn" id="spellwords-r3-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r3-out"></div><div class="result" id="spellwords-r3-res"></div></div>
+<div class="item" id="spellwords-r4-item"><div class="label">唸 5</div>
+<div class="sentence">Swim and ing makes swimming.</div>
+<button class="btn" onclick="demoRead('spellwords-r4')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r4-start" onclick="startRead('spellwords-r4')">開始唸</button>
+<button class="btn warn" id="spellwords-r4-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r4-out"></div><div class="result" id="spellwords-r4-res"></div></div>
+<div class="item" id="spellwords-r5-item"><div class="label">唸 6</div>
+<div class="sentence">The girl is swimming in the pool.</div>
+<button class="btn" onclick="demoRead('spellwords-r5')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r5-start" onclick="startRead('spellwords-r5')">開始唸</button>
+<button class="btn warn" id="spellwords-r5-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r5-out"></div><div class="result" id="spellwords-r5-res"></div></div>
+<div class="item" id="spellwords-r6-item"><div class="label">唸 7</div>
+<div class="sentence">Run and ing makes running.</div>
+<button class="btn" onclick="demoRead('spellwords-r6')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r6-start" onclick="startRead('spellwords-r6')">開始唸</button>
+<button class="btn warn" id="spellwords-r6-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r6-out"></div><div class="result" id="spellwords-r6-res"></div></div>
+<div class="item" id="spellwords-r7-item"><div class="label">唸 8</div>
+<div class="sentence">The man is running down the street.</div>
+<button class="btn" onclick="demoRead('spellwords-r7')">🔊 示範</button>
+<button class="btn ok" id="spellwords-r7-start" onclick="startRead('spellwords-r7')">開始唸</button>
+<button class="btn warn" id="spellwords-r7-stop" disabled>停止</button>
+<div class="heard" id="spellwords-r7-out"></div><div class="result" id="spellwords-r7-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="spellwords-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">knit + ing = ______</div>
+<div class="opts" id="spellwords-p0-opts">
+<button class="opt" onclick="pick('spellwords-p0',0,this)">knitting</button>
+<button class="opt" onclick="pick('spellwords-p0',1,this)">knitted</button>
+<button class="opt" onclick="pick('spellwords-p0',2,this)">knits</button>
+<button class="opt" onclick="pick('spellwords-p0',3,this)">knitng</button>
+</div>
+<div class="result" id="spellwords-p0-res"></div>
+<div class="sayzone" id="spellwords-p0-sayzone" style="display:none"><div class="lead" id="spellwords-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="spellwords-p0-target"></div><button class="btn" id="spellwords-p0-demo">🔊 示範</button><button class="btn ok" id="spellwords-p0-say-start" onclick="startSay('spellwords-p0')">開始唸</button><button class="btn warn" id="spellwords-p0-say-stop" disabled>停止</button><div class="heard" id="spellwords-p0-say-out"></div><div class="result" id="spellwords-p0-say-res"></div></div>
+</div>
+<div class="item" id="spellwords-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">sit + ing = ______</div>
+<div class="opts" id="spellwords-p1-opts">
+<button class="opt" onclick="pick('spellwords-p1',0,this)">sitting</button>
+<button class="opt" onclick="pick('spellwords-p1',1,this)">sited</button>
+<button class="opt" onclick="pick('spellwords-p1',2,this)">sits</button>
+<button class="opt" onclick="pick('spellwords-p1',3,this)">siting</button>
+</div>
+<div class="result" id="spellwords-p1-res"></div>
+<div class="sayzone" id="spellwords-p1-sayzone" style="display:none"><div class="lead" id="spellwords-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="spellwords-p1-target"></div><button class="btn" id="spellwords-p1-demo">🔊 示範</button><button class="btn ok" id="spellwords-p1-say-start" onclick="startSay('spellwords-p1')">開始唸</button><button class="btn warn" id="spellwords-p1-say-stop" disabled>停止</button><div class="heard" id="spellwords-p1-say-out"></div><div class="result" id="spellwords-p1-say-res"></div></div>
+</div>
+<div class="item" id="spellwords-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">swim + ing = ______</div>
+<div class="opts" id="spellwords-p2-opts">
+<button class="opt" onclick="pick('spellwords-p2',0,this)">swimming</button>
+<button class="opt" onclick="pick('spellwords-p2',1,this)">swiming</button>
+<button class="opt" onclick="pick('spellwords-p2',2,this)">swam</button>
+<button class="opt" onclick="pick('spellwords-p2',3,this)">swims</button>
+</div>
+<div class="result" id="spellwords-p2-res"></div>
+<div class="sayzone" id="spellwords-p2-sayzone" style="display:none"><div class="lead" id="spellwords-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="spellwords-p2-target"></div><button class="btn" id="spellwords-p2-demo">🔊 示範</button><button class="btn ok" id="spellwords-p2-say-start" onclick="startSay('spellwords-p2')">開始唸</button><button class="btn warn" id="spellwords-p2-say-stop" disabled>停止</button><div class="heard" id="spellwords-p2-say-out"></div><div class="result" id="spellwords-p2-say-res"></div></div>
+</div>
+<div class="item" id="spellwords-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">run + ing = ______</div>
+<div class="opts" id="spellwords-p3-opts">
+<button class="opt" onclick="pick('spellwords-p3',0,this)">running</button>
+<button class="opt" onclick="pick('spellwords-p3',1,this)">runing</button>
+<button class="opt" onclick="pick('spellwords-p3',2,this)">ran</button>
+<button class="opt" onclick="pick('spellwords-p3',3,this)">runs</button>
+</div>
+<div class="result" id="spellwords-p3-res"></div>
+<div class="sayzone" id="spellwords-p3-sayzone" style="display:none"><div class="lead" id="spellwords-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="spellwords-p3-target"></div><button class="btn" id="spellwords-p3-demo">🔊 示範</button><button class="btn ok" id="spellwords-p3-say-start" onclick="startSay('spellwords-p3')">開始唸</button><button class="btn warn" id="spellwords-p3-say-stop" disabled>停止</button><div class="heard" id="spellwords-p3-say-out"></div><div class="result" id="spellwords-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 11 / 14　Let&#x27;s Practice</span><span class="pg">講義 p13</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="letspractice-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What are they doing?</div>
+<button class="btn" onclick="demoRead('letspractice-r0')">🔊 示範</button>
+<button class="btn ok" id="letspractice-r0-start" onclick="startRead('letspractice-r0')">開始唸</button>
+<button class="btn warn" id="letspractice-r0-stop" disabled>停止</button>
+<div class="heard" id="letspractice-r0-out"></div><div class="result" id="letspractice-r0-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="letspractice-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Grandma is ______ a scarf.</div>
+<div class="opts" id="letspractice-p0-opts">
+<button class="opt" onclick="pick('letspractice-p0',0,this)">knitting</button>
+<button class="opt" onclick="pick('letspractice-p0',1,this)">sitting</button>
+<button class="opt" onclick="pick('letspractice-p0',2,this)">running</button>
+<button class="opt" onclick="pick('letspractice-p0',3,this)">swimming</button>
+</div>
+<div class="result" id="letspractice-p0-res"></div>
+<div class="sayzone" id="letspractice-p0-sayzone" style="display:none"><div class="lead" id="letspractice-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="letspractice-p0-target"></div><button class="btn" id="letspractice-p0-demo">🔊 示範</button><button class="btn ok" id="letspractice-p0-say-start" onclick="startSay('letspractice-p0')">開始唸</button><button class="btn warn" id="letspractice-p0-say-stop" disabled>停止</button><div class="heard" id="letspractice-p0-say-out"></div><div class="result" id="letspractice-p0-say-res"></div></div>
+</div>
+<div class="item" id="letspractice-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">David is ______ television.</div>
+<div class="opts" id="letspractice-p1-opts">
+<button class="opt" onclick="pick('letspractice-p1',0,this)">watching</button>
+<button class="opt" onclick="pick('letspractice-p1',1,this)">knitting</button>
+<button class="opt" onclick="pick('letspractice-p1',2,this)">running</button>
+<button class="opt" onclick="pick('letspractice-p1',3,this)">swimming</button>
+</div>
+<div class="result" id="letspractice-p1-res"></div>
+<div class="sayzone" id="letspractice-p1-sayzone" style="display:none"><div class="lead" id="letspractice-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="letspractice-p1-target"></div><button class="btn" id="letspractice-p1-demo">🔊 示範</button><button class="btn ok" id="letspractice-p1-say-start" onclick="startSay('letspractice-p1')">開始唸</button><button class="btn warn" id="letspractice-p1-say-stop" disabled>停止</button><div class="heard" id="letspractice-p1-say-out"></div><div class="result" id="letspractice-p1-say-res"></div></div>
+</div>
+<div class="item" id="letspractice-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">He is ______ with his mom.</div>
+<div class="opts" id="letspractice-p2-opts">
+<button class="opt" onclick="pick('letspractice-p2',0,this)">playing</button>
+<button class="opt" onclick="pick('letspractice-p2',1,this)">knitting</button>
+<button class="opt" onclick="pick('letspractice-p2',2,this)">sitting</button>
+<button class="opt" onclick="pick('letspractice-p2',3,this)">watching</button>
+</div>
+<div class="result" id="letspractice-p2-res"></div>
+<div class="sayzone" id="letspractice-p2-sayzone" style="display:none"><div class="lead" id="letspractice-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="letspractice-p2-target"></div><button class="btn" id="letspractice-p2-demo">🔊 示範</button><button class="btn ok" id="letspractice-p2-say-start" onclick="startSay('letspractice-p2')">開始唸</button><button class="btn warn" id="letspractice-p2-say-stop" disabled>停止</button><div class="heard" id="letspractice-p2-say-out"></div><div class="result" id="letspractice-p2-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 12 / 14　Practice</span><span class="pg">講義 p14</span></div><div class="body">
+<div class="tip">字庫 every / take / old / by / after，take 是干擾項（官方沒有用到）</div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="practice2-r0-item"><div class="label">唸 1</div>
+<div class="sentence">I eat an apple every day to keep myself healthy.</div>
+<button class="btn" onclick="demoRead('practice2-r0')">🔊 示範</button>
+<button class="btn ok" id="practice2-r0-start" onclick="startRead('practice2-r0')">開始唸</button>
+<button class="btn warn" id="practice2-r0-stop" disabled>停止</button>
+<div class="heard" id="practice2-r0-out"></div><div class="result" id="practice2-r0-res"></div></div>
+<div class="item" id="practice2-r1-item"><div class="label">唸 2</div>
+<div class="sentence">One day, our neighbor came by the house.</div>
+<button class="btn" onclick="demoRead('practice2-r1')">🔊 示範</button>
+<button class="btn ok" id="practice2-r1-start" onclick="startRead('practice2-r1')">開始唸</button>
+<button class="btn warn" id="practice2-r1-stop" disabled>停止</button>
+<div class="heard" id="practice2-r1-out"></div><div class="result" id="practice2-r1-res"></div></div>
+<div class="item" id="practice2-r2-item"><div class="label">唸 3</div>
+<div class="sentence">Mom said we can go to the park after we finish our homework.</div>
+<button class="btn" onclick="demoRead('practice2-r2')">🔊 示範</button>
+<button class="btn ok" id="practice2-r2-start" onclick="startRead('practice2-r2')">開始唸</button>
+<button class="btn warn" id="practice2-r2-stop" disabled>停止</button>
+<div class="heard" id="practice2-r2-out"></div><div class="result" id="practice2-r2-res"></div></div>
+<div class="item" id="practice2-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Grandpa is eighty five years old, so he cannot walk very fast.</div>
+<button class="btn" onclick="demoRead('practice2-r3')">🔊 示範</button>
+<button class="btn ok" id="practice2-r3-start" onclick="startRead('practice2-r3')">開始唸</button>
+<button class="btn warn" id="practice2-r3-stop" disabled>停止</button>
+<div class="heard" id="practice2-r3-out"></div><div class="result" id="practice2-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="practice2-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">I eat an apple ______ day to keep myself healthy.</div>
+<div class="opts" id="practice2-p0-opts">
+<button class="opt" onclick="pick('practice2-p0',0,this)">every</button>
+<button class="opt" onclick="pick('practice2-p0',1,this)">take</button>
+<button class="opt" onclick="pick('practice2-p0',2,this)">old</button>
+<button class="opt" onclick="pick('practice2-p0',3,this)">by</button>
+<button class="opt" onclick="pick('practice2-p0',4,this)">after</button>
+</div>
+<div class="result" id="practice2-p0-res"></div>
+<div class="sayzone" id="practice2-p0-sayzone" style="display:none"><div class="lead" id="practice2-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="practice2-p0-target"></div><button class="btn" id="practice2-p0-demo">🔊 示範</button><button class="btn ok" id="practice2-p0-say-start" onclick="startSay('practice2-p0')">開始唸</button><button class="btn warn" id="practice2-p0-say-stop" disabled>停止</button><div class="heard" id="practice2-p0-say-out"></div><div class="result" id="practice2-p0-say-res"></div></div>
+</div>
+<div class="item" id="practice2-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">One day, our neighbor came ______ the house.</div>
+<div class="opts" id="practice2-p1-opts">
+<button class="opt" onclick="pick('practice2-p1',0,this)">every</button>
+<button class="opt" onclick="pick('practice2-p1',1,this)">take</button>
+<button class="opt" onclick="pick('practice2-p1',2,this)">old</button>
+<button class="opt" onclick="pick('practice2-p1',3,this)">by</button>
+<button class="opt" onclick="pick('practice2-p1',4,this)">after</button>
+</div>
+<div class="result" id="practice2-p1-res"></div>
+<div class="sayzone" id="practice2-p1-sayzone" style="display:none"><div class="lead" id="practice2-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="practice2-p1-target"></div><button class="btn" id="practice2-p1-demo">🔊 示範</button><button class="btn ok" id="practice2-p1-say-start" onclick="startSay('practice2-p1')">開始唸</button><button class="btn warn" id="practice2-p1-say-stop" disabled>停止</button><div class="heard" id="practice2-p1-say-out"></div><div class="result" id="practice2-p1-say-res"></div></div>
+</div>
+<div class="item" id="practice2-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">Mom said we can go to the park ______ we finish our homework.</div>
+<div class="opts" id="practice2-p2-opts">
+<button class="opt" onclick="pick('practice2-p2',0,this)">every</button>
+<button class="opt" onclick="pick('practice2-p2',1,this)">take</button>
+<button class="opt" onclick="pick('practice2-p2',2,this)">old</button>
+<button class="opt" onclick="pick('practice2-p2',3,this)">by</button>
+<button class="opt" onclick="pick('practice2-p2',4,this)">after</button>
+</div>
+<div class="result" id="practice2-p2-res"></div>
+<div class="sayzone" id="practice2-p2-sayzone" style="display:none"><div class="lead" id="practice2-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="practice2-p2-target"></div><button class="btn" id="practice2-p2-demo">🔊 示範</button><button class="btn ok" id="practice2-p2-say-start" onclick="startSay('practice2-p2')">開始唸</button><button class="btn warn" id="practice2-p2-say-stop" disabled>停止</button><div class="heard" id="practice2-p2-say-out"></div><div class="result" id="practice2-p2-say-res"></div></div>
+</div>
+<div class="item" id="practice2-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">Grandpa is 85 years ______, so he cannot walk very fast.</div>
+<div class="opts" id="practice2-p3-opts">
+<button class="opt" onclick="pick('practice2-p3',0,this)">every</button>
+<button class="opt" onclick="pick('practice2-p3',1,this)">take</button>
+<button class="opt" onclick="pick('practice2-p3',2,this)">old</button>
+<button class="opt" onclick="pick('practice2-p3',3,this)">by</button>
+<button class="opt" onclick="pick('practice2-p3',4,this)">after</button>
+</div>
+<div class="result" id="practice2-p3-res"></div>
+<div class="sayzone" id="practice2-p3-sayzone" style="display:none"><div class="lead" id="practice2-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="practice2-p3-target"></div><button class="btn" id="practice2-p3-demo">🔊 示範</button><button class="btn ok" id="practice2-p3-say-start" onclick="startSay('practice2-p3')">開始唸</button><button class="btn warn" id="practice2-p3-say-stop" disabled>停止</button><div class="heard" id="practice2-p3-say-out"></div><div class="result" id="practice2-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 13 / 14　What did we learn today?</span><span class="pg">講義 p15</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="review2-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Do you like playing basketball?</div>
+<button class="btn" onclick="demoRead('review2-r0')">🔊 示範</button>
+<button class="btn ok" id="review2-r0-start" onclick="startRead('review2-r0')">開始唸</button>
+<button class="btn warn" id="review2-r0-stop" disabled>停止</button>
+<div class="heard" id="review2-r0-out"></div><div class="result" id="review2-r0-res"></div></div>
+<div class="item" id="review2-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Yes, I like playing basketball.</div>
+<button class="btn" onclick="demoRead('review2-r1')">🔊 示範</button>
+<button class="btn ok" id="review2-r1-start" onclick="startRead('review2-r1')">開始唸</button>
+<button class="btn warn" id="review2-r1-stop" disabled>停止</button>
+<div class="heard" id="review2-r1-out"></div><div class="result" id="review2-r1-res"></div></div>
+<div class="item" id="review2-r2-item"><div class="label">唸 3</div>
+<div class="sentence">What are your hobbies?</div>
+<button class="btn" onclick="demoRead('review2-r2')">🔊 示範</button>
+<button class="btn ok" id="review2-r2-start" onclick="startRead('review2-r2')">開始唸</button>
+<button class="btn warn" id="review2-r2-stop" disabled>停止</button>
+<div class="heard" id="review2-r2-out"></div><div class="result" id="review2-r2-res"></div></div>
+<div class="item" id="review2-r3-item"><div class="label">唸 4</div>
+<div class="sentence">My hobbies are knitting and drawing.</div>
+<button class="btn" onclick="demoRead('review2-r3')">🔊 示範</button>
+<button class="btn ok" id="review2-r3-start" onclick="startRead('review2-r3')">開始唸</button>
+<button class="btn warn" id="review2-r3-stop" disabled>停止</button>
+<div class="heard" id="review2-r3-out"></div><div class="result" id="review2-r3-res"></div></div>
+<div class="item" id="review2-r4-item"><div class="label">唸 5</div>
+<div class="sentence">What is your favorite hobby?</div>
+<button class="btn" onclick="demoRead('review2-r4')">🔊 示範</button>
+<button class="btn ok" id="review2-r4-start" onclick="startRead('review2-r4')">開始唸</button>
+<button class="btn warn" id="review2-r4-stop" disabled>停止</button>
+<div class="heard" id="review2-r4-out"></div><div class="result" id="review2-r4-res"></div></div>
+<div class="item" id="review2-r5-item"><div class="label">唸 6</div>
+<div class="sentence">My favorite hobby is playing chess.</div>
+<button class="btn" onclick="demoRead('review2-r5')">🔊 示範</button>
+<button class="btn ok" id="review2-r5-start" onclick="startRead('review2-r5')">開始唸</button>
+<button class="btn warn" id="review2-r5-stop" disabled>停止</button>
+<div class="heard" id="review2-r5-out"></div><div class="result" id="review2-r5-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="review2-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Do you like playing basketball?</div>
+<div class="opts" id="review2-p0-opts">
+<button class="opt" onclick="pick('review2-p0',0,this)">Yes, I like playing basketball.</button>
+<button class="opt" onclick="pick('review2-p0',1,this)">My favorite hobby is playing chess.</button>
+<button class="opt" onclick="pick('review2-p0',2,this)">My hobbies are knitting and drawing.</button>
+</div>
+<div class="result" id="review2-p0-res"></div>
+<div class="sayzone" id="review2-p0-sayzone" style="display:none"><div class="lead" id="review2-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="review2-p0-target"></div><button class="btn" id="review2-p0-demo">🔊 示範</button><button class="btn ok" id="review2-p0-say-start" onclick="startSay('review2-p0')">開始唸</button><button class="btn warn" id="review2-p0-say-stop" disabled>停止</button><div class="heard" id="review2-p0-say-out"></div><div class="result" id="review2-p0-say-res"></div></div>
+</div>
+<div class="item" id="review2-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">What are your hobbies?</div>
+<div class="opts" id="review2-p1-opts">
+<button class="opt" onclick="pick('review2-p1',0,this)">Yes, I like playing basketball.</button>
+<button class="opt" onclick="pick('review2-p1',1,this)">My favorite hobby is playing chess.</button>
+<button class="opt" onclick="pick('review2-p1',2,this)">My hobbies are knitting and drawing.</button>
+</div>
+<div class="result" id="review2-p1-res"></div>
+<div class="sayzone" id="review2-p1-sayzone" style="display:none"><div class="lead" id="review2-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="review2-p1-target"></div><button class="btn" id="review2-p1-demo">🔊 示範</button><button class="btn ok" id="review2-p1-say-start" onclick="startSay('review2-p1')">開始唸</button><button class="btn warn" id="review2-p1-say-stop" disabled>停止</button><div class="heard" id="review2-p1-say-out"></div><div class="result" id="review2-p1-say-res"></div></div>
+</div>
+<div class="item" id="review2-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">What is your favorite hobby?</div>
+<div class="opts" id="review2-p2-opts">
+<button class="opt" onclick="pick('review2-p2',0,this)">Yes, I like playing basketball.</button>
+<button class="opt" onclick="pick('review2-p2',1,this)">My favorite hobby is playing chess.</button>
+<button class="opt" onclick="pick('review2-p2',2,this)">My hobbies are knitting and drawing.</button>
+</div>
+<div class="result" id="review2-p2-res"></div>
+<div class="sayzone" id="review2-p2-sayzone" style="display:none"><div class="lead" id="review2-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="review2-p2-target"></div><button class="btn" id="review2-p2-demo">🔊 示範</button><button class="btn ok" id="review2-p2-say-start" onclick="startSay('review2-p2')">開始唸</button><button class="btn warn" id="review2-p2-say-stop" disabled>停止</button><div class="heard" id="review2-p2-say-out"></div><div class="result" id="review2-p2-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 14 / 14　Free Talk</span><span class="pg">講義 p16</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="talk2-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What are your hobbies?</div>
+<button class="btn" onclick="demoRead('talk2-r0')">🔊 示範</button>
+<button class="btn ok" id="talk2-r0-start" onclick="startRead('talk2-r0')">開始唸</button>
+<button class="btn warn" id="talk2-r0-stop" disabled>停止</button>
+<div class="heard" id="talk2-r0-out"></div><div class="result" id="talk2-r0-res"></div></div>
+<div class="item" id="talk2-r1-item"><div class="label">唸 2</div>
+<div class="sentence">What is your favorite hobby?</div>
+<button class="btn" onclick="demoRead('talk2-r1')">🔊 示範</button>
+<button class="btn ok" id="talk2-r1-start" onclick="startRead('talk2-r1')">開始唸</button>
+<button class="btn warn" id="talk2-r1-stop" disabled>停止</button>
+<div class="heard" id="talk2-r1-out"></div><div class="result" id="talk2-r1-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="talk2-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">What are your hobbies? What is your favorite hobby?</div>
+<button class="btn ok" id="talk2-p0-start" onclick="startTalk('talk2-p0')">開始說</button>
+<button class="btn warn" id="talk2-p0-stop" disabled>停止</button>
+<div class="heard" id="talk2-p0-out"></div>
+<div class="result" id="talk2-p0-res"></div>
+<div class="sayzone" id="talk2-p0-sayzone" style="display:none"><div class="lead" id="talk2-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="talk2-p0-target"></div><button class="btn" id="talk2-p0-demo">🔊 示範</button><button class="btn ok" id="talk2-p0-say-start" onclick="startSay('talk2-p0')">開始唸</button><button class="btn warn" id="talk2-p0-say-stop" disabled>停止</button><div class="heard" id="talk2-p0-say-out"></div><div class="result" id="talk2-p0-say-res"></div></div>
+</div>
+</div></div>
+</div>
+<div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button></div>
+<div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
+const DATA={"lesson": "LV4-37", "child": "Bobo", "title": "Hobbies — Indoor Hobbies", "subtitle": "講義 14 個區塊全覆蓋：每一區都要唸過，每一題答完都要唸出整句", "storage": "oikid-bobo-lv4-37-pre-v2", "intro": "這一課講義有 14 個小區塊。每個區塊都是：先認字 → 逐句唸過 → 做講義上的原題。每一題答對之後還要把正確的整句唸出來才算過，猜對也要唸。", "vocabAll": [{"w": "favorite", "zh": "最喜歡的；最愛的"}, {"w": "stamp", "zh": "郵票"}, {"w": "chess", "zh": "西洋棋"}, {"w": "Chinese chess", "zh": "象棋"}, {"w": "checkers", "zh": "跳棋"}, {"w": "hockey", "zh": "曲棍球"}, {"w": "knitting", "zh": "編織"}, {"w": "sitting", "zh": "坐著"}, {"w": "swimming", "zh": "游泳"}, {"w": "running", "zh": "跑步"}], "blocks": [{"id": "talk1", "name": "Let's Talk", "page": "p2", "read": ["What are your hobbies?", "My hobbies are playing the piano, drawing and reading."], "words": [], "practice": [{"kind": "speak", "q": "What are your hobbies? Tell me at least two things you like doing.", "keywords": ["hobbies", "hobby", "playing", "reading", "drawing", "swimming", "cooking", "chess", "soccer", "piano", "violin", "badminton"], "minHits": 2, "model": "My hobbies are playing the piano, drawing and reading."}]}, {"id": "favorite", "name": "What's your favorite hobby?", "page": "p3", "note": "favorite = the thing you like the most", "read": ["What's your favorite hobby?", "I like reading, cooking and playing guitar.", "My favorite hobby is playing the guitar.", "My favorite hobby is playing basketball.", "My favorite hobby is collecting stamps."], "words": [{"w": "favorite", "zh": "最喜歡的；最愛的"}, {"w": "stamp", "zh": "郵票"}], "practice": [{"kind": "fill", "q": "My favorite hobby is collecting ______.", "answer": "stamps", "options": ["stamps", "shoes", "cars", "hats"], "say": "My favorite hobby is collecting stamps."}]}, {"id": "boardgames", "name": "Board Games", "page": "p4–p5", "read": ["The children are playing chess.", "They are not playing Chinese chess.", "Chess is a board game for two players.", "Chinese children like playing Chinese chess.", "Checkers is a board game played by two players.", "Chinese checkers can be played by two, three, four, or six people.", "My brother and I like to play checkers on the weekend."], "words": [{"w": "chess", "zh": "西洋棋"}, {"w": "Chinese chess", "zh": "象棋"}, {"w": "checkers", "zh": "跳棋"}], "practice": [{"kind": "fill", "q": "______ is a board game for two players.", "answer": "Chess", "options": ["Chess", "Hockey", "Stamps", "Checkers"], "say": "Chess is a board game for two players."}, {"kind": "fill", "q": "Chinese children like playing ______.", "answer": "Chinese chess", "options": ["Chinese chess", "Chinese checkers", "board games", "checkers"], "say": "Chinese children like playing Chinese chess."}]}, {"id": "likedislike", "name": "Like and Dislikes", "page": "p6", "read": ["Do you like hockey?", "Yes, I like hockey.", "No, I don't like hockey."], "words": [{"w": "hockey", "zh": "曲棍球"}], "practice": [{"kind": "fill", "q": "Do you like ______? Yes, I like hockey.", "answer": "hockey", "options": ["hockey", "chess", "knitting", "drawing"], "say": "Do you like hockey? Yes, I like hockey."}]}, {"id": "story1", "name": "Learning Chess and Checkers", "page": "p7", "read": ["Judy was bored on a rainy day.", "So, she invited her friends Gary and Felix to play games!", "First, Gary taught Judy how to play chess.", "Don't let me take your king! said Gary.", "The queen is a very important piece, said Felix."], "words": [], "practice": [{"kind": "fill", "q": "First, Gary taught Judy how to play ______.", "answer": "chess", "options": ["chess", "cards", "hockey", "stamps"], "say": "First, Gary taught Judy how to play chess."}]}, {"id": "story2", "name": "Learning Chinese Chess", "page": "p8", "read": ["Next, Felix taught Judy how to play Chinese chess.", "There is a river on the board! said Judy.", "This piece can jump over the others, and this piece is a cannon! said Felix.", "Then Judy taught Felix and Gary how to play Chinese checkers.", "Try to get all of your pieces home! said Judy."], "words": [], "practice": [{"kind": "fill", "q": "Then Judy taught Felix and Gary how to play ______.", "answer": "Chinese checkers", "options": ["Chinese checkers", "Chinese chess", "a board game", "a card game"], "say": "Then Judy taught Felix and Gary how to play Chinese checkers."}]}, {"id": "story3", "name": "Learning Checkers", "page": "p9", "read": ["Last, Gary taught Felix and Judy how to play checkers.", "Playing checkers is so much fun! said Felix and Judy together."], "words": [], "practice": [{"kind": "fill", "q": "Last, Gary taught Felix and Judy how to play ______.", "answer": "checkers", "options": ["checkers", "chess", "Chinese chess", "Chinese checkers"], "say": "Last, Gary taught Felix and Judy how to play checkers."}]}, {"id": "readreview", "name": "Read and Review", "page": "p10", "note": "官方順序：chess → Chinese chess → Chinese checkers → checkers", "read": ["What game did Judy, Gary, and Felix play first?"], "words": [], "practice": [{"kind": "fill", "q": "first: ______", "answer": "chess", "options": ["chess", "Chinese chess", "Chinese checkers", "checkers"], "say": "First, they played chess."}, {"kind": "fill", "q": "second: ______", "answer": "Chinese chess", "options": ["chess", "Chinese chess", "Chinese checkers", "checkers"], "say": "Second, they played Chinese chess."}, {"kind": "fill", "q": "third: ______", "answer": "Chinese checkers", "options": ["chess", "Chinese chess", "Chinese checkers", "checkers"], "say": "Third, they played Chinese checkers."}, {"kind": "fill", "q": "last: ______", "answer": "checkers", "options": ["chess", "Chinese chess", "Chinese checkers", "checkers"], "say": "Last, they played checkers."}]}, {"id": "grammar", "name": "Grammar Corner", "page": "p11", "note": "動詞加 ing：一般直接加；子音+母音+子音結尾要重複最後一個子音再加 ing。", "read": ["Many verbs in the present progressive end with the letters ing.", "Double the last consonant and add ing when the verb ends in consonant, vowel, consonant.", "Drink and ing makes drinking.", "Walk and ing makes walking.", "Jog and ing makes jogging.", "Knit and ing makes knitting."], "words": [], "practice": [{"kind": "fill", "q": "walk + ing = ______", "answer": "walking", "options": ["walking", "walkking", "walked", "walks"], "say": "Walk plus ing makes walking."}, {"kind": "fill", "q": "jog + ing = ______", "answer": "jogging", "options": ["jogging", "joging", "jogged", "jogs"], "say": "Jog plus ing makes jogging. We double the g."}, {"kind": "fill", "q": "drink + ing = ______", "answer": "drinking", "options": ["drinking", "drinkking", "drank", "drinks"], "say": "Drink plus ing makes drinking."}]}, {"id": "spellwords", "name": "Spell the Words", "page": "p12", "read": ["Knit and ing makes knitting.", "She is knitting a scarf.", "Sit and ing makes sitting.", "The baby is sitting in a chair.", "Swim and ing makes swimming.", "The girl is swimming in the pool.", "Run and ing makes running.", "The man is running down the street."], "words": [{"w": "knitting", "zh": "編織"}, {"w": "sitting", "zh": "坐著"}, {"w": "swimming", "zh": "游泳"}, {"w": "running", "zh": "跑步"}], "practice": [{"kind": "fill", "q": "knit + ing = ______", "answer": "knitting", "options": ["knitting", "knitted", "knits", "knitng"], "say": "Knit plus ing makes knitting. She is knitting a scarf."}, {"kind": "fill", "q": "sit + ing = ______", "answer": "sitting", "options": ["sitting", "sited", "sits", "siting"], "say": "Sit plus ing makes sitting. The baby is sitting in a chair."}, {"kind": "fill", "q": "swim + ing = ______", "answer": "swimming", "options": ["swimming", "swiming", "swam", "swims"], "say": "Swim plus ing makes swimming. The girl is swimming in the pool."}, {"kind": "fill", "q": "run + ing = ______", "answer": "running", "options": ["running", "runing", "ran", "runs"], "say": "Run plus ing makes running. The man is running down the street."}]}, {"id": "letspractice", "name": "Let's Practice", "page": "p13", "read": ["What are they doing?"], "words": [], "practice": [{"kind": "fill", "q": "Grandma is ______ a scarf.", "answer": "knitting", "options": ["knitting", "sitting", "running", "swimming"], "say": "Grandma is knitting a scarf."}, {"kind": "fill", "q": "David is ______ television.", "answer": "watching", "options": ["watching", "knitting", "running", "swimming"], "say": "David is watching television."}, {"kind": "fill", "q": "He is ______ with his mom.", "answer": "playing", "options": ["playing", "knitting", "sitting", "watching"], "say": "He is playing with his mom."}]}, {"id": "practice2", "name": "Practice", "page": "p14", "note": "字庫 every / take / old / by / after，take 是干擾項（官方沒有用到）", "read": ["I eat an apple every day to keep myself healthy.", "One day, our neighbor came by the house.", "Mom said we can go to the park after we finish our homework.", "Grandpa is eighty five years old, so he cannot walk very fast."], "words": [], "practice": [{"kind": "fill", "q": "I eat an apple ______ day to keep myself healthy.", "answer": "every", "options": ["every", "take", "old", "by", "after"], "say": "I eat an apple every day to keep myself healthy."}, {"kind": "fill", "q": "One day, our neighbor came ______ the house.", "answer": "by", "options": ["every", "take", "old", "by", "after"], "say": "One day, our neighbor came by the house."}, {"kind": "fill", "q": "Mom said we can go to the park ______ we finish our homework.", "answer": "after", "options": ["every", "take", "old", "by", "after"], "say": "Mom said we can go to the park after we finish our homework."}, {"kind": "fill", "q": "Grandpa is 85 years ______, so he cannot walk very fast.", "answer": "old", "options": ["every", "take", "old", "by", "after"], "say": "Grandpa is eighty five years old, so he cannot walk very fast."}]}, {"id": "review2", "name": "What did we learn today?", "page": "p15", "read": ["Do you like playing basketball?", "Yes, I like playing basketball.", "What are your hobbies?", "My hobbies are knitting and drawing.", "What is your favorite hobby?", "My favorite hobby is playing chess."], "words": [], "practice": [{"kind": "fill", "q": "Do you like playing basketball?", "answer": "Yes, I like playing basketball.", "options": ["Yes, I like playing basketball.", "My favorite hobby is playing chess.", "My hobbies are knitting and drawing."], "say": "Yes, I like playing basketball."}, {"kind": "fill", "q": "What are your hobbies?", "answer": "My hobbies are knitting and drawing.", "options": ["Yes, I like playing basketball.", "My favorite hobby is playing chess.", "My hobbies are knitting and drawing."], "say": "My hobbies are knitting and drawing."}, {"kind": "fill", "q": "What is your favorite hobby?", "answer": "My favorite hobby is playing chess.", "options": ["Yes, I like playing basketball.", "My favorite hobby is playing chess.", "My hobbies are knitting and drawing."], "say": "My favorite hobby is playing chess."}]}, {"id": "talk2", "name": "Free Talk", "page": "p16", "read": ["What are your hobbies?", "What is your favorite hobby?"], "words": [], "practice": [{"kind": "speak", "q": "What are your hobbies? What is your favorite hobby?", "keywords": ["hobby", "hobbies", "favorite", "playing", "chess", "hockey", "knitting", "drawing", "stamps", "swimming"], "minHits": 2, "model": "My hobbies are playing chess, knitting and swimming. My favorite hobby is playing chess."}]}]};
+const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
+ won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
+ there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
+ by:'by',buy:'by',bye:'by',see:'see',sea:'see',be:'be',bee:'be',right:'right',write:'right',
+ son:'son',sun:'son',meat:'meat',meet:'meat',week:'week',weak:'weak',wait:'wait',weight:'wait',
+ pair:'pair',pear:'pair',plane:'plane',plain:'plain',road:'road',rode:'road',sale:'sale',sail:'sale',
+ tail:'tail',tale:'tale',threw:'threw',through:'threw',wood:'wood',would:'wood',
+ flour:'flour',flower:'flour',blue:'blue',blew:'blue',night:'night',knight:'night',
+ hi:'hi',high:'hi',mail:'mail',male:'mail',eye:'i',i:'i',red:'red',read:'red'};
+const NUM1={zero:0,oh:0,o:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9};
+const NUM2={ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19};
+const NUM3={twenty:20,thirty:30,forty:40,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+const SAY={for:'four',to:'two',too:'two',ate:'eight',won:'one'};
+function numCanon(str){
+  let words=String(str||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+  words=words.map(w=>HOMO[w]!==undefined?HOMO[w]:w);        // 同音字先收斂
+  const out=[];let i=0;
+  while(i<words.length){
+    const w=words[i];let v=null;
+    if(/^\d+$/.test(w)){out.push(w);i++;continue}            // 已是數字原樣留著，否則 0928 開頭的 0 會被吃掉
+    if(NUM3[w]!==undefined){v=NUM3[w];if(NUM1[words[i+1]]>0){v+=NUM1[words[i+1]];i++}}
+    else if(NUM2[w]!==undefined)v=NUM2[w];
+    else if(NUM1[w]!==undefined)v=NUM1[w];
+    if(v===null){out.push(w);i++;continue}
+    while(words[i+1]==='hundred'||words[i+1]==='thousand'){
+      v=v*(words[i+1]==='hundred'?100:1000);i++;
+      if(words[i+1]==='and')i++;
+      const nx=words[i+1];let add=null;
+      if(nx!==undefined){
+        if(NUM3[nx]!==undefined){add=NUM3[nx];if(NUM1[words[i+2]]>0){add+=NUM1[words[i+2]];i++}}
+        else if(NUM2[nx]!==undefined)add=NUM2[nx];
+        else if(NUM1[nx]>0)add=NUM1[nx];
+        if(add!==null){v+=add;i++}
+      }
+    }
+    out.push(String(v));i++;
+  }
+  // one o one → 1 0 1 → 101。只合併連續 3 位以上，否則 "two to" 會被誤併成 22
+  const merged=[];let run=[];
+  const flush=()=>{if(run.length>=3)merged.push(run.join(''));else run.forEach(x=>merged.push(x));run=[]};
+  out.forEach(t=>{if(/^\d$/.test(t))run.push(t);else{flush();merged.push(t)}});
+  flush();
+  return merged;
+};
+function norm(s,expandDigits=false){return numCanon(s).join(' ')};
+function sim(a,b){if(a===b)return true;if(Math.abs(a.length-b.length)>2)return false;let d=Math.abs(a.length-b.length);for(let i=0;i<Math.min(a.length,b.length);i++)if(a[i]!==b[i])d++;return d<=1};
+function alike(a,b){return sim(a,b)||SAY[a]===b||SAY[b]===a};
+function pct(ref,got){const rw=norm(ref).split(' ').filter(Boolean),gw=norm(got,true).split(' ').filter(Boolean);let h=0;rw.forEach(w=>{if(gw.some(g=>sim(w,g)))h++});return rw.length?Math.round(h/rw.length*100):0};
+function keyHit(k,g,gw){const nk=norm(k,true);if(g.includes(nk))return true;const kw=nk.split(' ').filter(Boolean);return kw.length&&kw.every(w=>gw.some(x=>alike(w,x)))};
+function hits(keys,got){const g=norm(got,true),gw=g.split(' ').filter(Boolean);return (keys||[]).filter(k=>keyHit(k,g,gw)).length};
+function SR(){return window.SpeechRecognition||window.webkitSpeechRecognition};
+function rec(id,cb){const C=SR(),out=document.getElementById(id+'-out'),start=document.getElementById(id+'-start'),stop=document.getElementById(id+'-stop');if(!C){out.textContent='此瀏覽器不支援語音辨識。';return}let text='',stopped=false;const r=new C();r.lang='en-US';r.continuous=true;r.interimResults=false;r.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)text+=e.results[i][0].transcript+' '};r.onend=()=>{if(!stopped){setTimeout(()=>{try{r.start()}catch(e){}},120);return}if(start)start.disabled=false;if(stop)stop.disabled=true;cb(text.trim())};if(start)start.disabled=true;if(stop){stop.disabled=false;stop.onclick=()=>{stopped=true;try{r.stop()}catch(e){}setTimeout(()=>{try{r.abort()}catch(e){}},1200)}}out.textContent='Listening...';try{r.start()}catch(e){out.textContent='請再按一次。'}};
+function speak(t,r=.82){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r;window.speechSynthesis.speak(u)};
+
+const passed=new Set(), attempts={};
+function unit(x){return String(x).replace(/[^a-z0-9_-]/gi,'_')}
+function el(id){return document.getElementById(id)}
+const WORDS={};
+DATA.blocks.forEach(b=>(b.words||[]).forEach((w,wi)=>{WORDS[b.id+'-w'+wi]=w.w}));
+function total(){let n=Object.keys(WORDS).length;
+  DATA.blocks.forEach(b=>{n+=(b.read||[]).length+(b.practice||[]).length});return n}
+function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+  el('prog').textContent='進度 '+passed.size+' / '+t+'　（'+DATA.blocks.length+' 個區塊）'}
+function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
+  if(passed.size>=total())finish()}
+
+/* --- 示範發音：一律用索引取字串，不把文字塞進 onclick --- */
+function demoWord(wid){speak(WORDS[wid]);
+  const b=el(wid+'-start');if(b&&!passed.has(wid))b.disabled=false;
+  const r=el(wid+'-res');if(r&&!r.textContent)r.textContent='聽過了，現在按「開始唸」。'}
+function demoRead(rid){speak(findRead(rid))}
+
+/* --- 單字：聽過才能唸，唸對才算過 --- */
+/* 單字要嚴格比對。引擎的 sim() 容許 1 個字母誤差，整句沒差，
+   但單字會讓 sent 判成 send、word 判成 work，等於白練。 */
+function wordOk(want,got){const a=norm(want),g=norm(got,true).split(' ').filter(Boolean);
+  return g.includes(a)}
+function startWord(wid){const w=WORDS[wid];
+  rec(wid,t=>{attempts[wid]=(attempts[wid]||0)+1;
+    el(wid+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const res=el(wid+'-res');
+    if(wordOk(w,t)){res.className='result oktext';res.textContent='唸對了。';
+      el(wid+'-item').classList.add('done');el(wid+'-start').disabled=true;mark(wid)}
+    else{res.className='result failtext';
+      res.textContent='聽起來不是 '+w+'。再按一次「聽」，然後把整個字唸清楚。'}})}
+
+/* --- 逐句唸 --- */
+function findRead(id){const m=id.match(/^(.+)-r(\d+)$/);const b=DATA.blocks.find(x=>x.id===m[1]);return b.read[+m[2]]}
+function startRead(id){rec(id,t=>{const ref=findRead(id);attempts[id]=(attempts[id]||0)+1;
+  el(id+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+  const s=pct(ref,t),res=el(id+'-res');
+  if(s>=85){res.className='result oktext';res.textContent='通過 '+s+'%';el(id+'-item').classList.add('done');mark(id)}
+  else{res.className='result failtext';res.textContent='只有 '+s+'%，整句再唸一次。'}})}
+
+/* --- 練習題 ---
+   規則：答對 → 唸整句才算過；答錯 → 先唸正確整句，唸過才解鎖重做。
+   猜對也要唸，所以亂猜省不了時間。 */
+const state={};
+function findP(pid){const m=pid.match(/^(.+)-p(\d+)$/);const b=DATA.blocks.find(x=>x.id===m[1]);return b.practice[+m[2]]}
+function openSay(pid,lead){const p=findP(pid),z=el(pid+'-sayzone');
+  el(pid+'-target').textContent=p.say;el(pid+'-lead').textContent=lead;
+  el(pid+'-demo').onclick=()=>speak(p.say);
+  z.style.display='block';z.className='sayzone';
+  el(pid+'-say-res').textContent='';el(pid+'-say-out').textContent='';
+  el(pid+'-say-start').disabled=false}
+function startSay(pid){const p=findP(pid);
+  rec(pid+'-say',t=>{const k=pid+'-say';attempts[k]=(attempts[k]||0)+1;
+    el(pid+'-say-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const s=pct(p.say,t),res=el(pid+'-say-res');
+    if(s<85){res.className='result failtext';res.textContent='只有 '+s+'%，整句再唸一次。';return}
+    res.className='result oktext';res.textContent='唸得好 '+s+'%';
+    el(pid+'-sayzone').className='sayzone pass';
+    el(pid+'-say-start').disabled=true;
+    if((state[pid]||{}).answered){el(pid+'-item').classList.add('done');mark(pid)}
+    else{res.textContent='唸得好 '+s+'%。現在重做這一題。';setTimeout(()=>retry(pid),900)}})}
+function retry(pid){const p=findP(pid),box=el(pid+'-opts');
+  el(pid+'-sayzone').style.display='none';el(pid+'-res').textContent='';
+  if(box){box.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});
+    shuffleOpts(box)}
+  const inp=el(pid+'-in');if(inp){inp.disabled=false;inp.value=''}
+  const st=el(pid+'-start');if(st)st.disabled=false}
+function shuffleOpts(box){const bs=[].slice.call(box.children);
+  for(let i=bs.length-1;i>0;i--){const r=Math.floor(Math.random()*(i+1));const t=bs[i];bs[i]=bs[r];bs[r]=t}
+  bs.forEach(b=>box.appendChild(b))}
+function pick(pid,oi,btn){const p=findP(pid),box=el(pid+'-opts'),res=el(pid+'-res');
+  const opts=p.options||['True','False'];
+  attempts[pid]=(attempts[pid]||0)+1;
+  const ok=String(opts[oi]).toLowerCase()===String(p.answer).toLowerCase();
+  box.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  state[pid]={answered:ok};
+  if(ok){res.className='result oktext';res.textContent='答對了。';
+    openSay(pid,'答對了，把整句唸出來才算過：')}
+  else{res.className='result failtext';res.textContent='答錯了。';
+    openSay(pid,'先把正確的整句唸一次，唸過才能重做：')}}
+function checkNum(pid){const p=findP(pid),v=(el(pid+'-in').value||'').trim(),res=el(pid+'-res');
+  attempts[pid]=(attempts[pid]||0)+1;
+  const ok=v.replace(/[^0-9.]/g,'')===String(p.answer);
+  state[pid]={answered:ok};
+  el(pid+'-in').disabled=true;
+  if(ok){res.className='result oktext';res.textContent='答對了。';
+    openSay(pid,'答對了，把整句唸出來才算過：')}
+  else{res.className='result failtext';res.textContent='算錯了。';
+    openSay(pid,'先把正確的整句唸一次，唸過才能重算：')}}
+
+function startTalk(pid){const p=findP(pid);if(!p.say)p.say=p.model;
+  rec(pid,t=>{attempts[pid]=(attempts[pid]||0)+1;
+    el(pid+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const need=p.minHits||2,n=hits(p.keywords,t);
+    const words=norm(t,true).split(' ').filter(Boolean).length;
+    const res=el(pid+'-res');
+    if(n>=need&&words>=10){state[pid]={answered:true};res.className='result oktext';
+      res.textContent='說得好（命中 '+n+' 個關鍵字）。';
+      el(pid+'-start').disabled=true;
+      openSay(pid,'最後把參考句唸一次就過關：')}
+    else{res.className='result failtext';
+      res.textContent='再說完整一點（命中 '+n+'/'+need+' 個關鍵字，說了 '+words+' 個字，至少要 10 個）。'}})}
+
+/* --- 存檔 / 報告 --- */
+function save(silent){try{localStorage.setItem(DATA.storage,JSON.stringify({
+  passed:[...passed],attempts,at:new Date().toISOString()}))}catch(e){}
+  if(!silent)alert('已存檔。')}
+function load(){try{const d=JSON.parse(localStorage.getItem(DATA.storage)||'{}');
+  (d.passed||[]).forEach(x=>passed.add(x));Object.assign(attempts,d.attempts||{});
+  passed.forEach(k=>{const it=el(k+'-item');if(it)it.classList.add('done');
+    const st=el(k+'-start');if(st)st.disabled=true})}catch(e){}
+  prog()}
+function weakList(){return Object.keys(attempts).filter(k=>attempts[k]>1).sort()
+  .map(k=>k+'：'+attempts[k]+' 次')}
+function report(auto){const w=weakList();
+  el('report').innerHTML='<p><strong>'+DATA.child+'　'+DATA.lesson+' 預習</strong></p>'
+    +'<p>完成 '+passed.size+' / '+total()+'</p>'
+    +'<p>總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次</p>'
+    +(w.length?'<p><strong>做超過一次的（要注意）：</strong></p><ul><li>'+w.join('</li><li>')+'</li></ul>':'<p>每一題都一次過。</p>');
+  el('modal').classList.add('show');
+  if(auto)tg(DATA.child+' '+DATA.lesson+' 預習完成。\n完成 '+passed.size+'/'+total()
+    +'\n總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次'
+    +(w.length?'\n卡關的：\n'+w.join('\n'):'\n每題一次過。'))}
+function finish(){report(true)}
+const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
+async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
+load();
+
+</script><script>
+/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="robots" content="noindex, nofollow">
+<title>OiKID LV4 課程</title>
+<style>
+  :root {
+    --bg: #F0F4F8; --card: #ffffff; --text: #2F3E46; --muted: #7b8a94;
+    --preview: #4ECDC4; --preview-d: #369a93;
+    --review: #FF6B6B; --review-d: #d95050;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    /* 不要把 -apple-system 放在最前面：在 WKWebView 裡它會讓中文接不到
+       後備字型，整片變成豆腐方框（2026-08-11 實測）。中文字型排前面最保險。 */
+    font-family: "PingFang TC", "Heiti TC", sans-serif;
+    padding: max(16px, env(safe-area-inset-top)) 16px
+             max(24px, env(safe-area-inset-bottom)) 16px;
+  }
+  header { text-align: center; margin: 8px 0 20px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 0.85rem; }
+  ul { list-style: none; margin: 0 auto; padding: 0; max-width: 560px; }
+  .lesson {
+    background: var(--card); border-radius: 18px; padding: 14px 16px;
+    margin-bottom: 12px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  }
+  .meta { display: flex; flex-direction: column; min-width: 0; flex: 1 1 160px; }
+  .num { font-weight: 700; font-size: 1.05rem; }
+  .topic { color: var(--muted); font-size: .85rem; overflow-wrap: anywhere; }
+  .links { display: flex; gap: 8px; flex-shrink: 0; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 74px; min-height: 46px; padding: 0 14px;
+    border-radius: 14px; font-size: 1rem; font-weight: 600;
+    text-decoration: none; color: #fff;
+  }
+  .btn.preview { background: var(--preview); box-shadow: 0 3px 0 var(--preview-d); }
+  .btn.review  { background: var(--review);  box-shadow: 0 3px 0 var(--review-d); }
+  .btn:active { transform: translateY(2px); box-shadow: none; }
+  .btn.missing { background: #e3e8ec; color: #a9b4bb; box-shadow: none; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>OiKID LV4</h1>
+  <div class="sub">共 19 課．最新的排在最上面</div>
+</header>
+<ul>
+<li class="lesson"><div class="meta"><span class="num">LV4-55</span><span class="topic">My City: My Neighborhood</span></div><div class="links"><a class="btn preview" href="lv4-55.html">預習</a><a class="btn review" href="lv4-55-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-54</span><span class="topic">My City: My Neighborhood</span></div><div class="links"><a class="btn preview" href="lv4-54.html">預習</a><a class="btn review" href="lv4-54-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-53</span><span class="topic">My City — My Neighborhood</span></div><div class="links"><a class="btn preview" href="lv4-53.html">預習</a><a class="btn review" href="lv4-53-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-52</span><span class="topic">My City: My Neighborhood</span></div><div class="links"><a class="btn preview" href="lv4-52.html">預習</a><a class="btn review" href="lv4-52-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-51</span><span class="topic">My City: Taipei, the Capital</span></div><div class="links"><a class="btn preview" href="lv4-51.html">預習</a><a class="btn review" href="lv4-51-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-50</span><span class="topic">My City: Taipei, the Capital</span></div><div class="links"><a class="btn preview" href="lv4-50.html">預習</a><a class="btn review" href="lv4-50-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-49</span><span class="topic">My City: Taipei, the Capital</span></div><div class="links"><a class="btn preview" href="lv4-49.html">預習</a><a class="btn review" href="lv4-49-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-48</span><span class="topic">My City: Taipei, the Capital</span></div><div class="links"><a class="btn preview" href="lv4-48.html">預習</a><a class="btn review" href="lv4-48-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-47</span><span class="topic">My City</span></div><div class="links"><a class="btn preview" href="lv4-47.html">預習</a><a class="btn review" href="lv4-47-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-46</span><span class="topic">Grammar and Math</span></div><div class="links"><a class="btn preview" href="lv4-46.html">預習</a><a class="btn review" href="lv4-46-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-45</span><span class="topic">Sight Words Travel and Hobby</span></div><div class="links"><a class="btn preview" href="lv4-45.html">預習</a><a class="btn review" href="lv4-45-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-44</span><span class="topic">Outdoor Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-44.html">預習</a><a class="btn review" href="lv4-44-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-43</span><span class="topic">Outdoor Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-43.html">預習</a><a class="btn review" href="lv4-43-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-42</span><span class="topic">Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-42.html">預習</a><a class="btn review" href="lv4-42-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-41</span><span class="topic">Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-41.html">預習</a><a class="btn review" href="lv4-41-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-40</span><span class="topic">Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-40.html">預習</a><a class="btn review" href="lv4-40-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-39</span><span class="topic">Hobbies — Indoor Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-39.html">預習</a><a class="btn review" href="lv4-39-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-38</span><span class="topic">Hobbies — Indoor Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-38.html">預習</a><a class="btn review" href="lv4-38-review.html">複習</a></div></li>
+<li class="lesson"><div class="meta"><span class="num">LV4-37</span><span class="topic">Hobbies — Indoor Hobbies</span></div><div class="links"><a class="btn preview" href="lv4-37.html">預習</a><a class="btn review" href="lv4-37-review.html">複習</a></div></li>
+</ul>
+<footer>這頁由 gen_oikid_index.py 產生，不要手改</footer>
+</body>
+</html>

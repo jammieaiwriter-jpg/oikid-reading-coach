@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LV4-41 複習卷 | OiKID</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f7fb;color:#333;padding-bottom:60px;}
+
+.hero{background:linear-gradient(135deg deg,#4ec9e1,#2196a8);background:linear-gradient(135deg,#e07b3a,#f4873a);color:#fff;text-align:center;padding:24px 20px 18px;}
+.hero .badge{display:inline-block;background:#2aabbb;color:#fff;font-size:.8rem;font-weight:700;padding:3px 14px;border-radius:20px;margin-bottom:8px;}
+.hero h1{font-size:1.6rem;font-weight:800;}
+.hero h2{font-size:.95rem;opacity:.92;margin-top:4px;}
+
+.section{max-width:820px;margin:18px auto 0;background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08);overflow:hidden;}
+.sec-head{display:flex;align-items:center;gap:8px;padding:13px 20px;font-size:1.05rem;font-weight:700;color:#fff;}
+.sec-head.orange{background:#f4873a;}
+.sec-head.teal{background:#2aabbb;}
+.sec-head.purple{background:#7b3fc4;}
+.sec-head.green{background:#27ae60;}
+.sec-body{padding:18px 20px;}
+
+/* ── VOCAB ── */
+.vocab-grid{display:flex;flex-direction:column;gap:16px;}
+.vocab-row{background:#f8fafb;border:1.5px solid #ddf0f5;border-radius:12px;padding:14px 16px;}
+.vocab-word-zh{font-size:.85rem;color:#888;margin-bottom:8px;}
+.vocab-word-zh strong{color:#333;font-size:1rem;}
+.letter-boxes{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.letter-box{
+  width:36px;height:40px;
+  border:2px solid #b8e8f0;border-radius:8px;
+  font-size:1.1rem;font-weight:700;text-align:center;
+  background:#fff;color:#333;
+  -webkit-text-security:none;
+  autocomplete:off;
+  transition:border .15s;
+  /* 防止手機智慧鍵盤 */
+  -webkit-user-modify:read-write-plaintext-only;
+}
+.letter-box:focus{outline:none;border-color:#2aabbb;box-shadow:0 0 0 3px rgba(42,171,187,.15);}
+.letter-box.correct{border-color:#27ae60;background:#eafaf1;color:#27ae60;}
+.letter-box.wrong{border-color:#e74c3c;background:#fdf2f2;color:#e74c3c;}
+.letter-box.hint{border-color:#e6a817;background:#fffbe6;color:#e6a817;}
+.vocab-dash{font-size:1.1rem;color:#aaa;padding:0 2px;}
+
+.vocab-check-row{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.btn-check{background:#2aabbb;color:#fff;border:none;border-radius:20px;padding:7px 18px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-check:hover{background:#229aaa;}
+.btn-hint{background:#f0f0f0;color:#666;border:none;border-radius:20px;padding:7px 14px;font-size:.85rem;cursor:pointer;}
+.btn-hint:hover{background:#e0e0e0;}
+.vocab-fb{font-size:.88rem;font-weight:600;min-height:18px;}
+.vocab-fb.ok{color:#27ae60;}
+.vocab-fb.err{color:#e74c3c;}
+
+.vocab-section-score{background:#f8f2ff;border-radius:12px;padding:12px 16px;margin-top:14px;text-align:center;display:none;}
+.vocab-section-score.show{display:block;}
+
+/* ── SENTENCE ── */
+.sent-list{display:flex;flex-direction:column;gap:14px;}
+.sent-block{background:#f8fafb;border:1.5px solid #ddf0f5;border-radius:12px;padding:14px 16px;}
+.sent-text{font-size:1rem;line-height:1.7;color:#333;margin-bottom:10px;}
+.sent-text .sent-num{font-weight:700;color:#2aabbb;margin-right:4px;}
+.result-display{background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px 12px;font-size:.92rem;line-height:2;min-height:38px;margin-bottom:8px;}
+.result-display span{display:inline-block;margin:1px 3px;padding:1px 5px;border-radius:5px;}
+.result-display .placeholder{color:#bbb;font-style:italic;font-size:.85rem;background:none;padding:0;}
+.w-ok{color:#27ae60;background:#eafaf1;}
+.w-err{color:#e74c3c;background:#fdf2f2;text-decoration:underline wavy #e74c3c;}
+.w-neutral{color:#555;background:#f4f4f4;}
+.rec-status{font-size:.82rem;color:#e74c3c;font-weight:600;margin-bottom:7px;min-height:18px;}
+.rec-dot{display:inline-block;width:9px;height:9px;background:#e74c3c;border-radius:50%;margin-right:5px;animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.assess-fb{font-size:.9rem;font-weight:700;min-height:18px;margin-bottom:7px;}
+.assess-fb.pass{color:#27ae60;}
+.assess-fb.fail{color:#e74c3c;}
+.assess-fb.perfect{color:#e67e22;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-speak{background:#2aabbb;color:#fff;border:none;border-radius:20px;padding:8px 20px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-speak:disabled{background:#aaa;cursor:not-allowed;}
+.btn-stop{background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 18px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-stop:disabled{background:#ccc;color:#999;cursor:not-allowed;}
+.btn-tts{background:#f0f9fb;border:1.5px solid #b8e8f0;border-radius:20px;padding:7px 14px;font-size:.85rem;color:#2aabbb;cursor:pointer;font-weight:600;}
+.btn-tts:hover{background:#ddf5fa;}
+.score-pill{display:none;margin-top:8px;border-radius:10px;padding:8px 16px;font-size:.9rem;font-weight:700;text-align:center;}
+.score-pill.perfect{background:linear-gradient(135deg,#f6d365,#fda085);color:#fff;}
+.score-pill.pass{background:linear-gradient(135deg,#43c98e,#2aabbb);color:#fff;}
+.score-pill.fail{background:#ffeaea;color:#c0392b;border:1.5px solid #f5c6c6;}
+
+/* ── FILL IN THE BLANK ── */
+.fitb-list{display:flex;flex-direction:column;gap:16px;}
+.fitb-block{background:#f8fafb;border:1.5px solid #ddf0f5;border-radius:12px;padding:14px 16px;}
+.fitb-sentence{font-size:.97rem;line-height:1.8;color:#333;margin-bottom:10px;}
+.fitb-options{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.opt-btn{background:#fff;border:2px solid #ddd;border-radius:20px;padding:6px 16px;font-size:.88rem;cursor:pointer;font-weight:600;transition:all .15s;}
+.opt-btn:hover{border-color:#2aabbb;color:#2aabbb;}
+.opt-btn.selected{border-color:#2aabbb;background:#e6f7fb;color:#2aabbb;}
+.opt-btn.correct{border-color:#27ae60;background:#eafaf1;color:#27ae60;}
+.opt-btn.wrong{border-color:#e74c3c;background:#fdf2f2;color:#e74c3c;}
+.fitb-fb{font-size:.88rem;font-weight:600;min-height:18px;}
+.fitb-fb.ok{color:#27ae60;}
+.fitb-fb.err{color:#e74c3c;}
+.fitb-check{background:#2aabbb;color:#fff;border:none;border-radius:20px;padding:7px 18px;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:6px;}
+.fitb-check:hover{background:#229aaa;}
+
+/* ── CONVERSATION ── */
+.conv-list{display:flex;flex-direction:column;gap:16px;}
+.conv-block{background:#f8fafb;border:1.5px solid #ddf0f5;border-radius:12px;padding:14px 16px;}
+.conv-q{font-size:.95rem;font-weight:700;color:#7b3fc4;margin-bottom:4px;}
+.conv-q-text{font-size:.97rem;color:#333;line-height:1.6;margin-bottom:10px;}
+.conv-hint{font-size:.82rem;color:#888;margin-bottom:8px;}
+.conv-model{font-size:.85rem;color:#27ae60;font-weight:600;margin-bottom:8px;display:none;}
+.conv-model.show{display:block;}
+
+/* ── SUMMARY ── */
+.summary{max-width:820px;margin:18px auto 0;background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08);padding:20px;text-align:center;display:none;}
+.summary.show{display:block;}
+.summary h2{font-size:1.3rem;font-weight:800;color:#2aabbb;margin-bottom:8px;}
+.summary p{color:#555;font-size:.95rem;}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.25rem;}
+  .letter-box{width:30px;height:36px;font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">LV4-41 複習卷</div>
+  <h1>Hobbies</h1>
+  <h2>Outdoor Hobbies — Review Practice</h2>
+</div>
+
+<!-- ══ SECTION 1: VOCABULARY ══ -->
+<div class="section">
+  <div class="sec-head orange">📝 Vocabulary — 單字拼字練習</div>
+  <div class="sec-body">
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <div class="vocab-section-score" id="vocab-total-score"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: SENTENCE ══ -->
+<div class="section">
+  <div class="sec-head teal">🎙 Sentence — 句子口說驗收</div>
+  <div class="sec-body">
+    <div class="sent-list" id="sent-list"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: FILL IN THE BLANK ══ -->
+<div class="section">
+  <div class="sec-head purple">✏️ Fill in the Blank — 填空選字</div>
+  <div class="sec-body">
+    <div class="fitb-list" id="fitb-list"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 4: CONVERSATION ══ -->
+<div class="section">
+  <div class="sec-head green">💬 Conversation — 問答口說</div>
+  <div class="sec-body">
+    <div class="conv-list" id="conv-list"></div>
+  </div>
+</div>
+
+<!-- ══ SUMMARY ══ -->
+<div class="summary" id="summary">
+  <h2>🎉 全部完成！太棒了！</h2>
+  <p>LV4-41 複習卷所有項目完成！繼續保持！👏</p>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+const VOCAB = [
+  {word:'jog',      zh:'慢跑', pos:'v.'},
+  {word:'walk',     zh:'走路', pos:'v.'},
+  {word:'hike',     zh:'健行', pos:'v.'},
+  {word:'climbing', zh:'攀爬', pos:'n.'},
+  {word:'rock',     zh:'岩石', pos:'n.'},
+  {word:'leftover', zh:'剩下的', pos:'adj.'},
+];
+
+const SENTENCES = [
+  'Walking is a good way to keep yourself healthy and it is a very popular outdoor activity.',
+  'Today, our teacher took the entire class hiking.',
+  'Walking, jogging, and running are some exercises that people do every day.',
+];
+
+const FITB = [
+  {
+    before:'My sisters enjoy',
+    blank:'hiking',
+    after:'with each other on the weekends.',
+    options:['hiking','jogging','walking','climbing'],
+  },
+  {
+    before:'There are families that',
+    blank:'jog',
+    after:'together.',
+    options:['hike','jog','walk','rock'],
+  },
+  {
+    before:'She gets up very early and',
+    blank:'walks',
+    after:'in the park every morning.',
+    options:['hikes','jogs','walks','runs'],
+  },
+  {
+    before:'Rock',
+    blank:'climbing',
+    after:'can be done inside or outside!',
+    options:['climbing','hiking','walking','jogging'],
+  },
+  {
+    before:'Odd numbers always have a',
+    blank:'leftover',
+    after:'with no partner.',
+    options:['leftover','rock','hike','walk'],
+  },
+];
+
+const CONV = [
+  {
+    q:'What are some outdoor hobbies that people do every day?',
+    hint:'想想課文裡提到哪些人每天都在做的戶外活動？（walk / jog / run…）',
+    keywords:['walk','jog','run','hike','climb','outdoor','hobby','hobbies','exercise','every','day'],
+  },
+  {
+    q:'What are some indoor hobbies you do with your family?',
+    hint:'想想你跟家人在家裡一起做什麼？用 "My indoor hobbies are…" 開頭說說看。',
+    keywords:['indoor','hobby','hobbies','family','watch','tv','read','cook','game','play','chess','card','together'],
+  },
+  {
+    q:'What are some outdoor hobbies you do with your family?',
+    hint:'你們家喜歡一起去哪裡、做什麼？用 "My outdoor hobbies are…" 開頭說說看。',
+    keywords:['outdoor','walk','jog','hike','climb','rock','soccer','bike','swim','hobby','hobbies','family','together'],
+  },
+];
+
+// Telegram
+/* 通知走 Cloudflare Worker 中繼；token 與 chat id 留在 Worker secrets，不落前端 */
+const NOTIFY_ENDPOINT=window.OIKID_NOTIFY_ENDPOINT||'https://bobo-math-notify.bobo-math-grader.workers.dev';
+
+
+function sendTelegram(msg){
+  fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:msg,to:(DATA&&DATA.child==='Bobo')?'bobo':'default'})}).catch(e=>console.warn('TG',e));
+}
+
+const completed=new Set();
+function checkAllDone(){
+  // vocab (6) + sentences (3) + fitb (5) + conv (3) = 17
+  if(completed.size>=17){
+    document.getElementById('summary').classList.add('show');
+    sendTelegram('🎉 太棒了！LV4-41 複習卷全部完成！\n單字拼字、句子口說、填空、問答全部過關！👏');
+  }
+}
+
+// ═══════════════════════════════════
+// TTS
+// ═══════════════════════════════════
+function speak(text){
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ═══════════════════════════════════
+// SECTION 1 — VOCABULARY SPELLING
+// ═══════════════════════════════════
+function buildVocab(){
+  const grid=document.getElementById('vocab-grid');
+  VOCAB.forEach((v,i)=>{
+    const row=document.createElement('div');
+    row.className='vocab-row';
+
+    // Label
+    const label=document.createElement('div');
+    label.className='vocab-word-zh';
+    label.innerHTML=`<strong>${i+1}. ${v.zh}</strong> <span style="color:#2aabbb;font-size:.8rem">${v.pos}</span>
+      <button class="btn-tts" onclick="speak('${v.word}')" style="margin-left:8px">🔊 聽發音</button>`;
+    row.appendChild(label);
+
+    // Letter boxes
+    const boxRow=document.createElement('div');
+    boxRow.className='letter-boxes';
+    boxRow.id=`boxes-${i}`;
+
+    v.word.split('').forEach((ch,ci)=>{
+      const inp=document.createElement('input');
+      inp.type='text';
+      inp.maxLength=1;
+      inp.className='letter-box';
+      inp.dataset.answer=ch.toLowerCase();
+      inp.dataset.idx=ci;
+      inp.dataset.vocabIdx=i;
+      inp.id=`box-${i}-${ci}`;
+      // 禁止手機智慧鍵盤
+      inp.setAttribute('autocomplete','off');
+      inp.setAttribute('autocorrect','off');
+      inp.setAttribute('autocapitalize','off');
+      inp.setAttribute('spellcheck','false');
+      inp.setAttribute('inputmode','text');
+      // Auto-advance
+      inp.addEventListener('input',e=>{
+        const val=e.target.value.replace(/[^a-zA-Z]/g,'');
+        e.target.value=val.slice(-1).toLowerCase();
+        if(val){
+          const next=document.getElementById(`box-${i}-${ci+1}`);
+          if(next) next.focus();
+        }
+      });
+      inp.addEventListener('keydown',e=>{
+        if(e.key==='Backspace'&&!e.target.value){
+          const prev=document.getElementById(`box-${i}-${ci-1}`);
+          if(prev){prev.value='';prev.focus();}
+        }
+      });
+      boxRow.appendChild(inp);
+    });
+    row.appendChild(boxRow);
+
+    // Buttons + feedback
+    const checkRow=document.createElement('div');
+    checkRow.className='vocab-check-row';
+    checkRow.innerHTML=`
+      <button class="btn-check" onclick="checkVocab(${i})">✓ 確認</button>
+      <span class="vocab-fb" id="vfb-${i}"></span>
+    `;
+    row.appendChild(checkRow);
+    grid.appendChild(row);
+  });
+}
+
+function checkVocab(i){
+  const v=VOCAB[i];
+  const boxes=document.querySelectorAll(`#boxes-${i} .letter-box`);
+  let allOk=true;
+  boxes.forEach((b,ci)=>{
+    const typed=(b.value||'').toLowerCase();
+    const ans=v.word[ci].toLowerCase();
+    b.classList.remove('correct','wrong','hint');
+    if(typed===ans){ b.classList.add('correct'); }
+    else{ b.classList.add('wrong'); allOk=false; }
+  });
+  const fb=document.getElementById(`vfb-${i}`);
+  if(allOk){
+    fb.textContent='✅ 正確！太棒了！';
+    fb.className='vocab-fb ok';
+    completed.add('vocab'+i);
+    checkAllDone();
+  } else {
+    fb.textContent='❌ 有錯誤，再試試！';
+    fb.className='vocab-fb err';
+  }
+}
+
+function hintVocab(i){
+  const v=VOCAB[i];
+  const boxes=document.querySelectorAll(`#boxes-${i} .letter-box`);
+  // Show first unfilled or wrong letter
+  let shown=false;
+  boxes.forEach((b,ci)=>{
+    if(!shown && (b.value||'').toLowerCase()!==v.word[ci].toLowerCase()){
+      b.value=v.word[ci];
+      b.classList.remove('correct','wrong');
+      b.classList.add('hint');
+      shown=true;
+    }
+  });
+}
+
+// ═══════════════════════════════════
+// SECTION 2 — SENTENCES
+// ═══════════════════════════════════
+function buildSentences(){
+  const list=document.getElementById('sent-list');
+  SENTENCES.forEach((s,i)=>{
+    const block=document.createElement('div');
+    block.className='sent-block';
+    block.innerHTML=`
+      <div class="sent-text"><span class="sent-num">${i+1}.</span>${s}</div>
+      <button class="btn-tts" onclick="speak(SENTENCES[${i}])" style="margin-bottom:8px">🔊 聽示範</button>
+      <div class="result-display" id="sres-${i}"><span class="placeholder">按下 Start Speaking 開始口說…</span></div>
+      <div class="rec-status" id="srec-${i}"></div>
+      <div class="assess-fb" id="sfb-${i}"></div>
+      <div class="btn-row">
+        <button class="btn-speak" id="sstart-${i}" onclick="startSent(${i})">🎤 Start Speaking</button>
+        <button class="btn-stop" id="sstop-${i}" onclick="stopSent(${i})" disabled>⏹ Stop</button>
+      </div>
+      <div class="score-pill" id="spill-${i}"></div>
+    `;
+    list.appendChild(block);
+  });
+}
+
+const sentState=SENTENCES.map(()=>({rec:null,stopped:false,transcript:''}));
+
+function norm(s){return s.toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();}
+function similar(a,b){
+  if(a===b)return true;
+  if(Math.abs(a.length-b.length)>2)return false;
+  let diff=0;
+  const len=Math.max(a.length,b.length);
+  for(let i=0;i<len;i++){if(a[i]!==b[i])diff++;}
+  return diff<=1;
+}
+function compareHTML(spoken,target){
+  const sw=norm(spoken).split(/\s+/).filter(Boolean);
+  const tw=target.split(/\s+/);
+  const usedIdx=new Set();
+  const matched=new Array(tw.length).fill(false);
+  tw.forEach((w,ti)=>{
+    const n=norm(w);
+    const si0=Math.max(0,ti-5), si1=Math.min(sw.length-1,ti+8);
+    for(let si=si0;si<=si1;si++){
+      if(usedIdx.has(si))continue;
+      if(similar(sw[si],n)){matched[ti]=true;usedIdx.add(si);break;}
+    }
+  });
+  let html='', correct=0;
+  tw.forEach((w,ti)=>{
+    if(matched[ti]){html+=`<span class="w-ok">${w}</span> `;correct++;}
+    else{html+=`<span class="w-err">${w}</span> `;}
+  });
+  return{html:html.trim(),correct,total:tw.length};
+}
+
+function showScore(pct,correct,total,pill,fb,unitKey){
+  fb.textContent=`結果：${correct}/${total} 字正確（${pct}%）`;
+  pill.style.display='block';
+  if(pct===100){
+    fb.className='assess-fb perfect';
+    pill.className='score-pill perfect';
+    pill.textContent='🏆 滿分！完美！';
+    completed.add(unitKey); checkAllDone();
+  } else if(pct>=90){
+    fb.className='assess-fb pass';
+    pill.className='score-pill pass';
+    pill.textContent=`✅ ${pct}% — 合格！很棒！`;
+    completed.add(unitKey); checkAllDone();
+  } else {
+    fb.className='assess-fb fail';
+    pill.className='score-pill fail';
+    pill.textContent=`💪 ${pct}% — 繼續加油！（合格需90分）`;
+  }
+}
+
+function makeSR(){return new (window.SpeechRecognition||window.webkitSpeechRecognition)();}
+
+function startSent(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  if(sentState[i].rec){sentState[i].rec.onend=null;sentState[i].rec.onerror=null;try{sentState[i].rec.abort();}catch(e){}}
+  sentState[i].stopped=false; sentState[i].transcript='';
+
+  const startBtn=document.getElementById(`sstart-${i}`);
+  const stopBtn=document.getElementById(`sstop-${i}`);
+  const fb=document.getElementById(`sfb-${i}`);
+  const resEl=document.getElementById(`sres-${i}`);
+  const pill=document.getElementById(`spill-${i}`);
+  const recStatus=document.getElementById(`srec-${i}`);
+
+  startBtn.disabled=true; stopBtn.disabled=false;
+  fb.textContent=''; fb.className='assess-fb';
+  pill.style.display='none';
+  resEl.innerHTML='<span class="placeholder">錄音中…</span>';
+  recStatus.innerHTML='<span class="rec-dot"></span>錄音中… 說完請按 Stop';
+
+  function launchRec(){
+    if(sentState[i].stopped)return;
+    const rec=makeSR();
+    sentState[i].rec=rec;
+    rec.lang='en-US'; rec.continuous=true; rec.interimResults=false;
+    rec.onresult=e=>{
+      for(let r=e.resultIndex;r<e.results.length;r++){
+        if(e.results[r].isFinal) sentState[i].transcript+=e.results[r][0].transcript+' ';
+      }
+    };
+    rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+    rec.onend=()=>{
+      if(!sentState[i].stopped){setTimeout(launchRec,100);return;}
+      recStatus.textContent='';
+      startBtn.disabled=false; stopBtn.disabled=true;
+      const t=sentState[i].transcript.trim();
+      if(!t){resEl.innerHTML='<span class="placeholder">沒有偵測到聲音，再試試！</span>';return;}
+      const{html,correct,total}=compareHTML(t,SENTENCES[i]);
+      resEl.innerHTML=html;
+      const pct=Math.round(correct/total*100);
+      showScore(pct,correct,total,pill,fb,'sent'+i);
+    };
+    try{rec.start();}catch(e){}
+  }
+  launchRec();
+}
+
+function stopSent(i){
+  sentState[i].stopped=true;
+  document.getElementById(`sstop-${i}`).disabled=true;
+  if(sentState[i].rec){
+    try{sentState[i].rec.stop();}catch(e){}
+    setTimeout(()=>{if(sentState[i].rec){try{sentState[i].rec.abort();}catch(e){} sentState[i].rec=null;}},1200);
+  }
+}
+
+// ═══════════════════════════════════
+// SECTION 3 — FILL IN THE BLANK
+// ═══════════════════════════════════
+const fitbState=FITB.map(()=>({selected:null,done:false}));
+
+function buildFitb(){
+  const list=document.getElementById('fitb-list');
+  FITB.forEach((q,i)=>{
+    const block=document.createElement('div');
+    block.className='fitb-block';
+
+    // Sentence display
+    const sent=document.createElement('div');
+    sent.className='fitb-sentence';
+    sent.id=`fitb-sent-${i}`;
+    sent.innerHTML=`${i+1}. ${q.before} <span id="fitb-blank-${i}" style="border-bottom:2px solid #aaa;min-width:60px;display:inline-block;text-align:center;color:#aaa;padding:0 6px;">______</span> ${q.after}`;
+    block.appendChild(sent);
+
+    // Options
+    const opts=document.createElement('div');
+    opts.className='fitb-options';
+    // Shuffle options
+    const shuffled=[...q.options].sort(()=>Math.random()-.5);
+    shuffled.forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='opt-btn';
+      btn.textContent=opt;
+      btn.onclick=()=>{
+        if(fitbState[i].done)return;
+        fitbState[i].selected=opt;
+        opts.querySelectorAll('.opt-btn').forEach(b=>{
+          b.classList.remove('selected');
+        });
+        btn.classList.add('selected');
+        document.getElementById(`fitb-blank-${i}`).textContent=opt;
+        document.getElementById(`fitb-blank-${i}`).style.color='#2aabbb';
+      };
+      opts.appendChild(btn);
+    });
+    block.appendChild(opts);
+
+    // Check button + feedback
+    const checkRow=document.createElement('div');
+    checkRow.innerHTML=`
+      <button class="fitb-check" onclick="checkFitb(${i})">✓ 確認答案</button>
+      <div class="fitb-fb" id="fitb-fb-${i}"></div>
+    `;
+    block.appendChild(checkRow);
+    list.appendChild(block);
+  });
+}
+
+function checkFitb(i){
+  if(fitbState[i].done)return;
+  const q=FITB[i];
+  const sel=fitbState[i].selected;
+  if(!sel){
+    document.getElementById(`fitb-fb-${i}`).textContent='請先選一個答案！';
+    document.getElementById(`fitb-fb-${i}`).className='fitb-fb err';
+    return;
+  }
+  const fb=document.getElementById(`fitb-fb-${i}`);
+  const blank=document.getElementById(`fitb-blank-${i}`);
+  if(sel.toLowerCase()===q.blank.toLowerCase()){
+    fb.textContent='✅ 正確！';
+    fb.className='fitb-fb ok';
+    blank.style.color='#27ae60';
+    blank.style.borderColor='#27ae60';
+    fitbState[i].done=true;
+    completed.add('fitb'+i); checkAllDone();
+    // Mark selected btn
+    document.querySelectorAll(`#fitb-list .fitb-block:nth-child(${i+1}) .opt-btn`).forEach(b=>{
+      if(b.textContent===sel) b.classList.add('correct');
+    });
+  } else {
+    fb.textContent=`❌ 不對，再想想！(選了: ${sel})`;
+    fb.className='fitb-fb err';
+    blank.style.color='#e74c3c';
+    blank.style.borderColor='#e74c3c';
+    // Mark wrong
+    document.querySelectorAll(`#fitb-list .fitb-block:nth-child(${i+1}) .opt-btn`).forEach(b=>{
+      if(b.textContent===sel){b.classList.remove('selected');b.classList.add('wrong');}
+    });
+    fitbState[i].selected=null;
+    blank.textContent='______';
+    blank.style.color='#aaa';
+    blank.style.borderColor='#aaa';
+  }
+}
+
+// ═══════════════════════════════════
+// SECTION 4 — CONVERSATION
+// ═══════════════════════════════════
+const convState=CONV.map(()=>({rec:null,stopped:false,transcript:''}));
+
+function buildConv(){
+  const list=document.getElementById('conv-list');
+  CONV.forEach((c,i)=>{
+    const block=document.createElement('div');
+    block.className='conv-block';
+    block.innerHTML=`
+      <div class="conv-q">問答 (${['一','二','三'][i]}) — Question</div>
+      <div class="conv-q-text">${c.q}</div>
+      <button class="btn-tts" onclick="speak('${c.q.replace(/'/g,"\\'")}'); " style="margin-bottom:8px">🔊 聽題目</button>
+      <div class="conv-hint">用英文口說回答，說完按 Stop</div>
+      <div class="result-display" id="cres-${i}"><span class="placeholder">按下 Start Speaking 開始口說回答…</span></div>
+      <div class="rec-status" id="crec-${i}"></div>
+      <div class="assess-fb" id="cfb-${i}"></div>
+      <div class="btn-row" style="margin-bottom:8px">
+        <button class="btn-speak" id="cstart-${i}" onclick="startConv(${i})">🎤 Start Speaking</button>
+        <button class="btn-stop" id="cstop-${i}" onclick="stopConv(${i})" disabled>⏹ Stop</button>
+      </div>
+      <div class="conv-model" id="cmodel-${i}">🧩 提示：${c.hint}</div>
+      <button class="btn-hint" onclick="toggleModel(${i})" id="cmodelBtn-${i}">💡 我需要提示</button>
+    `;
+    list.appendChild(block);
+  });
+}
+
+function toggleModel(i){
+  const el=document.getElementById(`cmodel-${i}`);
+  const btn=document.getElementById(`cmodelBtn-${i}`);
+  if(el.classList.contains('show')){
+    el.classList.remove('show');
+    btn.textContent='💡 我需要提示';
+  } else {
+    el.classList.add('show');
+    btn.textContent='🙈 收起提示';
+  }
+}
+
+function startConv(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  if(convState[i].rec){convState[i].rec.onend=null;convState[i].rec.onerror=null;try{convState[i].rec.abort();}catch(e){}}
+  convState[i].stopped=false; convState[i].transcript='';
+
+  const startBtn=document.getElementById(`cstart-${i}`);
+  const stopBtn=document.getElementById(`cstop-${i}`);
+  const fb=document.getElementById(`cfb-${i}`);
+  const resEl=document.getElementById(`cres-${i}`);
+  const recStatus=document.getElementById(`crec-${i}`);
+
+  startBtn.disabled=true; stopBtn.disabled=false;
+  fb.textContent=''; fb.className='assess-fb';
+  resEl.innerHTML='<span class="placeholder">錄音中…</span>';
+  recStatus.innerHTML='<span class="rec-dot"></span>錄音中… 說完請按 Stop';
+
+  function launchConvRec(){
+    if(convState[i].stopped)return;
+    const rec=makeSR();
+    convState[i].rec=rec;
+    rec.lang='en-US'; rec.continuous=true; rec.interimResults=false;
+    rec.onresult=e=>{
+      for(let r=e.resultIndex;r<e.results.length;r++){
+        if(e.results[r].isFinal) convState[i].transcript+=e.results[r][0].transcript+' ';
+      }
+    };
+    rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+    rec.onend=()=>{
+      if(!convState[i].stopped){setTimeout(launchConvRec,100);return;}
+      recStatus.textContent='';
+      startBtn.disabled=false; stopBtn.disabled=true;
+      const t=convState[i].transcript.trim();
+      if(!t){
+        resEl.innerHTML='<span class="placeholder">沒有偵測到聲音，再試試！</span>';
+        return;
+      }
+      // For conversation, any spoken response ≥3 words counts as attempted
+      const words=norm(t).split(/\s+/).filter(Boolean);
+      resEl.textContent=`"${t}"`;
+      const kws=CONV[i].keywords||[];
+      const hitKeyword=kws.some(k=>words.some(w=>w.startsWith(k.toLowerCase())));
+      if(words.length>=4 && hitKeyword){
+        fb.textContent='✅ 很好！答到重點了！'; fb.className='assess-fb pass';
+        completed.add('conv'+i); checkAllDone();
+      } else if(words.length<4){
+        fb.textContent='💪 請說完整句子，多說幾個字！'; fb.className='assess-fb fail';
+      } else {
+        fb.textContent='💪 試試說出跟題目相關的單字！（看提示）'; fb.className='assess-fb fail';
+      }
+    };
+    try{rec.start();}catch(e){}
+  }
+  launchConvRec();
+}
+
+function stopConv(i){
+  convState[i].stopped=true;
+  document.getElementById(`cstop-${i}`).disabled=true;
+  if(convState[i].rec){
+    try{convState[i].rec.stop();}catch(e){}
+    setTimeout(()=>{if(convState[i].rec){try{convState[i].rec.abort();}catch(e){} convState[i].rec=null;}},1200);
+  }
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+buildVocab();
+buildSentences();
+buildFitb();
+buildConv();
+</script>
+<script>
+/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body>
+</html>

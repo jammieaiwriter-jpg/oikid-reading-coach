@@ -1,0 +1,1160 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LV4-55 預習 — My City — My Neighborhood</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 120px}
+.hero{background:#155e75;color:#fff;border-radius:10px;padding:22px 20px;margin-bottom:14px}
+.hero h1{font-size:1.6rem;margin:8px 0 4px}.hero h2{font-size:1rem;margin:0;color:#d9f5fb;font-weight:600}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 11px;font-weight:850;font-size:.8rem}
+.intro{font-size:.94rem;line-height:1.65;color:#e6f6fb;margin-top:10px}
+.progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
+.bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
+.note{font-size:.92rem;color:#52606d;line-height:1.6}
+.hero .note{color:#d9f5fb}
+.section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
+.head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.head .pg{font-size:.76rem;font-weight:800;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 9px}
+.body{padding:14px 16px}
+.sub{font-size:.78rem;font-weight:900;color:#0f7c90;letter-spacing:.05em;margin:14px 0 6px;text-transform:uppercase}
+.sub:first-child{margin-top:0}
+.tip{background:#f0f9ff;border-left:4px solid #0f7c90;padding:8px 11px;border-radius:6px;font-size:.9rem;color:#31556b;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid #bcccdc;background:#fff;border-radius:999px;padding:7px 13px;font-weight:800;cursor:pointer;font-size:.95rem}
+.chip.seen{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.chip .zh{color:#627d98;font-weight:700;font-size:.85rem;margin-left:6px}
+.chip.seen .zh{color:#2f9e44}
+.item{border:1px solid #d9e2ec;background:#fbfdff;border-radius:8px;padding:12px;margin:9px 0}
+.item.done{border-color:#2f9e44;background:#f4fdf7}
+.label{font-size:.74rem;color:#627d98;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.sentence{line-height:1.55;margin:6px 0 8px;font-size:1.02rem}
+.btn{border:0;border-radius:7px;padding:9px 13px;font-weight:850;cursor:pointer;background:#0f7c90;color:#fff;margin:3px 3px 3px 0;font-size:.92rem}
+.btn.ok{background:#1f7a4d}.btn.warn{background:#c65f1a}.btn.alt{background:#52606d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.opt{border:1px solid #bcccdc;background:#fff;border-radius:7px;padding:9px 14px;font-weight:800;cursor:pointer;font-size:.98rem}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.opt.wrong{background:#fff0f0;border-color:#e03131;color:#c92a2a}
+.opt:disabled{cursor:not-allowed}
+.answer-input{border:2px solid #bcccdc;border-radius:7px;padding:9px 11px;font-size:1.05rem;font-weight:800;width:130px}
+.result{font-size:.92rem;margin-top:7px;line-height:1.5}
+.oktext{color:#17623a;font-weight:850}.failtext{color:#c92a2a;font-weight:850}
+.heard{font-size:.86rem;color:#627d98;margin-top:5px;font-style:italic}
+.sayzone{margin-top:9px;padding:10px 11px;border-radius:8px;background:#fff8f1;border-left:4px solid #c65f1a}
+.sayzone.pass{background:#f4fdf7;border-left-color:#2f9e44}
+.sayzone .lead{font-size:.82rem;font-weight:900;color:#a4470f;margin-bottom:5px}
+.sayzone.pass .lead{color:#17623a}
+.target{font-size:1rem;font-weight:800;line-height:1.5;margin-bottom:7px}
+.modal{position:fixed;inset:0;background:rgba(15,30,45,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.show{display:flex}
+.modal .box{background:#fff;border-radius:12px;padding:20px;max-width:640px;width:100%;max-height:80vh;overflow:auto}
+.footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #d9e2ec;padding:9px 14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+</style></head><body><div class="wrap">
+<div class="hero">
+<span class="badge">LV4-55　預習</span>
+<h1>My City — My Neighborhood</h1>
+<h2>講義 14 個區塊全覆蓋：每一區都要唸過，每一題答完都要唸出整句</h2>
+<div class="intro">這一課講義有 14 個小區塊。每個區塊都是：先認字 → 逐句唸過 → 做講義上的原題。每一題答對之後還要把正確的整句唸出來才算過，猜對也要唸。</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="note" id="prog"></div>
+</div>
+<div class="section"><div class="head"><span>區塊 1 / 14　It&#x27;s your Birthday</span><span class="pg">講義 p2</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="birthday-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Your teacher wants to buy you a cake.</div>
+<button class="btn" onclick="demoRead('birthday-r0')">🔊 示範</button>
+<button class="btn ok" id="birthday-r0-start" onclick="startRead('birthday-r0')">開始唸</button>
+<button class="btn warn" id="birthday-r0-stop" disabled>停止</button>
+<div class="heard" id="birthday-r0-out"></div><div class="result" id="birthday-r0-res"></div></div>
+<div class="item" id="birthday-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Which one do you want?</div>
+<button class="btn" onclick="demoRead('birthday-r1')">🔊 示範</button>
+<button class="btn ok" id="birthday-r1-start" onclick="startRead('birthday-r1')">開始唸</button>
+<button class="btn warn" id="birthday-r1-stop" disabled>停止</button>
+<div class="heard" id="birthday-r1-out"></div><div class="result" id="birthday-r1-res"></div></div>
+<div class="item" id="birthday-r2-item"><div class="label">唸 3</div>
+<div class="sentence">Why do you want that cake?</div>
+<button class="btn" onclick="demoRead('birthday-r2')">🔊 示範</button>
+<button class="btn ok" id="birthday-r2-start" onclick="startRead('birthday-r2')">開始唸</button>
+<button class="btn warn" id="birthday-r2-stop" disabled>停止</button>
+<div class="heard" id="birthday-r2-out"></div><div class="result" id="birthday-r2-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="birthday-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">Which cake do you want? Why do you want that cake?</div>
+<button class="btn ok" id="birthday-p0-start" onclick="startTalk('birthday-p0')">開始說</button>
+<button class="btn warn" id="birthday-p0-stop" disabled>停止</button>
+<div class="heard" id="birthday-p0-out"></div>
+<div class="result" id="birthday-p0-res"></div>
+<div class="sayzone" id="birthday-p0-sayzone" style="display:none"><div class="lead" id="birthday-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="birthday-p0-target"></div><button class="btn" id="birthday-p0-demo">🔊 示範</button><button class="btn ok" id="birthday-p0-say-start" onclick="startSay('birthday-p0')">開始唸</button><button class="btn warn" id="birthday-p0-say-stop" disabled>停止</button><div class="heard" id="birthday-p0-say-out"></div><div class="result" id="birthday-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 2 / 14　Fill in the Blanks</span><span class="pg">講義 p3</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="cloze1-r0-item"><div class="label">唸 1</div>
+<div class="sentence">A mall is a large building that has a lot of stores and restaurants.</div>
+<button class="btn" onclick="demoRead('cloze1-r0')">🔊 示範</button>
+<button class="btn ok" id="cloze1-r0-start" onclick="startRead('cloze1-r0')">開始唸</button>
+<button class="btn warn" id="cloze1-r0-stop" disabled>停止</button>
+<div class="heard" id="cloze1-r0-out"></div><div class="result" id="cloze1-r0-res"></div></div>
+<div class="item" id="cloze1-r1-item"><div class="label">唸 2</div>
+<div class="sentence">You can buy snacks, drinks, and newspapers in a store.</div>
+<button class="btn" onclick="demoRead('cloze1-r1')">🔊 示範</button>
+<button class="btn ok" id="cloze1-r1-start" onclick="startRead('cloze1-r1')">開始唸</button>
+<button class="btn warn" id="cloze1-r1-stop" disabled>停止</button>
+<div class="heard" id="cloze1-r1-out"></div><div class="result" id="cloze1-r1-res"></div></div>
+<div class="item" id="cloze1-r2-item"><div class="label">唸 3</div>
+<div class="sentence">A bank is where most people save their money.</div>
+<button class="btn" onclick="demoRead('cloze1-r2')">🔊 示範</button>
+<button class="btn ok" id="cloze1-r2-start" onclick="startRead('cloze1-r2')">開始唸</button>
+<button class="btn warn" id="cloze1-r2-stop" disabled>停止</button>
+<div class="heard" id="cloze1-r2-out"></div><div class="result" id="cloze1-r2-res"></div></div>
+<div class="item" id="cloze1-r3-item"><div class="label">唸 4</div>
+<div class="sentence">A market is a place where people buy and sell goods.</div>
+<button class="btn" onclick="demoRead('cloze1-r3')">🔊 示範</button>
+<button class="btn ok" id="cloze1-r3-start" onclick="startRead('cloze1-r3')">開始唸</button>
+<button class="btn warn" id="cloze1-r3-stop" disabled>停止</button>
+<div class="heard" id="cloze1-r3-out"></div><div class="result" id="cloze1-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="cloze1-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">A ______ is a large building that has a lot of stores and restaurants.</div>
+<div class="opts" id="cloze1-p0-opts">
+<button class="opt" onclick="pick('cloze1-p0',0,this)">market</button>
+<button class="opt" onclick="pick('cloze1-p0',1,this)">store</button>
+<button class="opt" onclick="pick('cloze1-p0',2,this)">bank</button>
+<button class="opt" onclick="pick('cloze1-p0',3,this)">mall</button>
+</div>
+<div class="result" id="cloze1-p0-res"></div>
+<div class="sayzone" id="cloze1-p0-sayzone" style="display:none"><div class="lead" id="cloze1-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="cloze1-p0-target"></div><button class="btn" id="cloze1-p0-demo">🔊 示範</button><button class="btn ok" id="cloze1-p0-say-start" onclick="startSay('cloze1-p0')">開始唸</button><button class="btn warn" id="cloze1-p0-say-stop" disabled>停止</button><div class="heard" id="cloze1-p0-say-out"></div><div class="result" id="cloze1-p0-say-res"></div></div>
+</div>
+<div class="item" id="cloze1-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">You can buy snacks, drinks, and newspapers in a ______.</div>
+<div class="opts" id="cloze1-p1-opts">
+<button class="opt" onclick="pick('cloze1-p1',0,this)">market</button>
+<button class="opt" onclick="pick('cloze1-p1',1,this)">store</button>
+<button class="opt" onclick="pick('cloze1-p1',2,this)">bank</button>
+<button class="opt" onclick="pick('cloze1-p1',3,this)">mall</button>
+</div>
+<div class="result" id="cloze1-p1-res"></div>
+<div class="sayzone" id="cloze1-p1-sayzone" style="display:none"><div class="lead" id="cloze1-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="cloze1-p1-target"></div><button class="btn" id="cloze1-p1-demo">🔊 示範</button><button class="btn ok" id="cloze1-p1-say-start" onclick="startSay('cloze1-p1')">開始唸</button><button class="btn warn" id="cloze1-p1-say-stop" disabled>停止</button><div class="heard" id="cloze1-p1-say-out"></div><div class="result" id="cloze1-p1-say-res"></div></div>
+</div>
+<div class="item" id="cloze1-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">A ______ is where most people save their money.</div>
+<div class="opts" id="cloze1-p2-opts">
+<button class="opt" onclick="pick('cloze1-p2',0,this)">market</button>
+<button class="opt" onclick="pick('cloze1-p2',1,this)">store</button>
+<button class="opt" onclick="pick('cloze1-p2',2,this)">bank</button>
+<button class="opt" onclick="pick('cloze1-p2',3,this)">mall</button>
+</div>
+<div class="result" id="cloze1-p2-res"></div>
+<div class="sayzone" id="cloze1-p2-sayzone" style="display:none"><div class="lead" id="cloze1-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="cloze1-p2-target"></div><button class="btn" id="cloze1-p2-demo">🔊 示範</button><button class="btn ok" id="cloze1-p2-say-start" onclick="startSay('cloze1-p2')">開始唸</button><button class="btn warn" id="cloze1-p2-say-stop" disabled>停止</button><div class="heard" id="cloze1-p2-say-out"></div><div class="result" id="cloze1-p2-say-res"></div></div>
+</div>
+<div class="item" id="cloze1-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">A ______ is a place where people buy and sell goods.</div>
+<div class="opts" id="cloze1-p3-opts">
+<button class="opt" onclick="pick('cloze1-p3',0,this)">market</button>
+<button class="opt" onclick="pick('cloze1-p3',1,this)">store</button>
+<button class="opt" onclick="pick('cloze1-p3',2,this)">bank</button>
+<button class="opt" onclick="pick('cloze1-p3',3,this)">mall</button>
+</div>
+<div class="result" id="cloze1-p3-res"></div>
+<div class="sayzone" id="cloze1-p3-sayzone" style="display:none"><div class="lead" id="cloze1-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="cloze1-p3-target"></div><button class="btn" id="cloze1-p3-demo">🔊 示範</button><button class="btn ok" id="cloze1-p3-say-start" onclick="startSay('cloze1-p3')">開始唸</button><button class="btn warn" id="cloze1-p3-say-stop" disabled>停止</button><div class="heard" id="cloze1-p3-say-out"></div><div class="result" id="cloze1-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 3 / 14　Grammar Review</span><span class="pg">講義 p4–p5</span></div><div class="body">
+<div class="tip">連接詞 but / so / or / and</div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="grammarreview-r0-item"><div class="label">唸 1</div>
+<div class="sentence">We went to the mall, but it was already closed.</div>
+<button class="btn" onclick="demoRead('grammarreview-r0')">🔊 示範</button>
+<button class="btn ok" id="grammarreview-r0-start" onclick="startRead('grammarreview-r0')">開始唸</button>
+<button class="btn warn" id="grammarreview-r0-stop" disabled>停止</button>
+<div class="heard" id="grammarreview-r0-out"></div><div class="result" id="grammarreview-r0-res"></div></div>
+<div class="item" id="grammarreview-r1-item"><div class="label">唸 2</div>
+<div class="sentence">I was very tired, so I slept until 10 o&#x27;clock.</div>
+<button class="btn" onclick="demoRead('grammarreview-r1')">🔊 示範</button>
+<button class="btn ok" id="grammarreview-r1-start" onclick="startRead('grammarreview-r1')">開始唸</button>
+<button class="btn warn" id="grammarreview-r1-stop" disabled>停止</button>
+<div class="heard" id="grammarreview-r1-out"></div><div class="result" id="grammarreview-r1-res"></div></div>
+<div class="item" id="grammarreview-r2-item"><div class="label">唸 3</div>
+<div class="sentence">We can buy some fruits from the market or the store.</div>
+<button class="btn" onclick="demoRead('grammarreview-r2')">🔊 示範</button>
+<button class="btn ok" id="grammarreview-r2-start" onclick="startRead('grammarreview-r2')">開始唸</button>
+<button class="btn warn" id="grammarreview-r2-stop" disabled>停止</button>
+<div class="heard" id="grammarreview-r2-out"></div><div class="result" id="grammarreview-r2-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="grammarreview-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">He went to the store, ______ he didn&#x27;t buy anything.</div>
+<div class="opts" id="grammarreview-p0-opts">
+<button class="opt" onclick="pick('grammarreview-p0',0,this)">and</button>
+<button class="opt" onclick="pick('grammarreview-p0',1,this)">so</button>
+<button class="opt" onclick="pick('grammarreview-p0',2,this)">or</button>
+<button class="opt" onclick="pick('grammarreview-p0',3,this)">but</button>
+</div>
+<div class="result" id="grammarreview-p0-res"></div>
+<div class="sayzone" id="grammarreview-p0-sayzone" style="display:none"><div class="lead" id="grammarreview-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammarreview-p0-target"></div><button class="btn" id="grammarreview-p0-demo">🔊 示範</button><button class="btn ok" id="grammarreview-p0-say-start" onclick="startSay('grammarreview-p0')">開始唸</button><button class="btn warn" id="grammarreview-p0-say-stop" disabled>停止</button><div class="heard" id="grammarreview-p0-say-out"></div><div class="result" id="grammarreview-p0-say-res"></div></div>
+</div>
+<div class="item" id="grammarreview-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">Would you like to have cake ______ cookies?</div>
+<div class="opts" id="grammarreview-p1-opts">
+<button class="opt" onclick="pick('grammarreview-p1',0,this)">and</button>
+<button class="opt" onclick="pick('grammarreview-p1',1,this)">so</button>
+<button class="opt" onclick="pick('grammarreview-p1',2,this)">or</button>
+<button class="opt" onclick="pick('grammarreview-p1',3,this)">but</button>
+</div>
+<div class="result" id="grammarreview-p1-res"></div>
+<div class="sayzone" id="grammarreview-p1-sayzone" style="display:none"><div class="lead" id="grammarreview-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammarreview-p1-target"></div><button class="btn" id="grammarreview-p1-demo">🔊 示範</button><button class="btn ok" id="grammarreview-p1-say-start" onclick="startSay('grammarreview-p1')">開始唸</button><button class="btn warn" id="grammarreview-p1-say-stop" disabled>停止</button><div class="heard" id="grammarreview-p1-say-out"></div><div class="result" id="grammarreview-p1-say-res"></div></div>
+</div>
+<div class="item" id="grammarreview-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">You are sick, ______ you should go to the hospital now!</div>
+<div class="opts" id="grammarreview-p2-opts">
+<button class="opt" onclick="pick('grammarreview-p2',0,this)">and</button>
+<button class="opt" onclick="pick('grammarreview-p2',1,this)">so</button>
+<button class="opt" onclick="pick('grammarreview-p2',2,this)">or</button>
+<button class="opt" onclick="pick('grammarreview-p2',3,this)">but</button>
+</div>
+<div class="result" id="grammarreview-p2-res"></div>
+<div class="sayzone" id="grammarreview-p2-sayzone" style="display:none"><div class="lead" id="grammarreview-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammarreview-p2-target"></div><button class="btn" id="grammarreview-p2-demo">🔊 示範</button><button class="btn ok" id="grammarreview-p2-say-start" onclick="startSay('grammarreview-p2')">開始唸</button><button class="btn warn" id="grammarreview-p2-say-stop" disabled>停止</button><div class="heard" id="grammarreview-p2-say-out"></div><div class="result" id="grammarreview-p2-say-res"></div></div>
+</div>
+<div class="item" id="grammarreview-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">My mom didn&#x27;t want me to go, ______ I went anyway.</div>
+<div class="opts" id="grammarreview-p3-opts">
+<button class="opt" onclick="pick('grammarreview-p3',0,this)">and</button>
+<button class="opt" onclick="pick('grammarreview-p3',1,this)">so</button>
+<button class="opt" onclick="pick('grammarreview-p3',2,this)">or</button>
+<button class="opt" onclick="pick('grammarreview-p3',3,this)">but</button>
+</div>
+<div class="result" id="grammarreview-p3-res"></div>
+<div class="sayzone" id="grammarreview-p3-sayzone" style="display:none"><div class="lead" id="grammarreview-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammarreview-p3-target"></div><button class="btn" id="grammarreview-p3-demo">🔊 示範</button><button class="btn ok" id="grammarreview-p3-say-start" onclick="startSay('grammarreview-p3')">開始唸</button><button class="btn warn" id="grammarreview-p3-say-stop" disabled>停止</button><div class="heard" id="grammarreview-p3-say-out"></div><div class="result" id="grammarreview-p3-say-res"></div></div>
+</div>
+<div class="item" id="grammarreview-p4-item"><div class="label">第 5 題</div>
+<div class="sentence">The library has lots of books ______ no comic books.</div>
+<div class="opts" id="grammarreview-p4-opts">
+<button class="opt" onclick="pick('grammarreview-p4',0,this)">and</button>
+<button class="opt" onclick="pick('grammarreview-p4',1,this)">so</button>
+<button class="opt" onclick="pick('grammarreview-p4',2,this)">or</button>
+<button class="opt" onclick="pick('grammarreview-p4',3,this)">but</button>
+</div>
+<div class="result" id="grammarreview-p4-res"></div>
+<div class="sayzone" id="grammarreview-p4-sayzone" style="display:none"><div class="lead" id="grammarreview-p4-lead">答對了，把整句唸出來才算過：</div><div class="target" id="grammarreview-p4-target"></div><button class="btn" id="grammarreview-p4-demo">🔊 示範</button><button class="btn ok" id="grammarreview-p4-say-start" onclick="startSay('grammarreview-p4')">開始唸</button><button class="btn warn" id="grammarreview-p4-say-stop" disabled>停止</button><div class="heard" id="grammarreview-p4-say-out"></div><div class="result" id="grammarreview-p4-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 4 / 14　Serve</span><span class="pg">講義 p6</span></div><div class="body">
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="serve-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>waitress</strong>　<span class="note">女服務生</span></div>
+<button class="btn" onclick="demoWord('serve-w0')">🔊 聽</button>
+<button class="btn ok" id="serve-w0-start" onclick="startWord('serve-w0')" disabled>開始唸</button>
+<button class="btn warn" id="serve-w0-stop" disabled>停止</button>
+<div class="heard" id="serve-w0-out"></div><div class="result" id="serve-w0-res"></div></div>
+<div class="item" id="serve-w1-item"><div class="label">單字</div>
+<div class="sentence"><strong>waiter</strong>　<span class="note">男服務生</span></div>
+<button class="btn" onclick="demoWord('serve-w1')">🔊 聽</button>
+<button class="btn ok" id="serve-w1-start" onclick="startWord('serve-w1')" disabled>開始唸</button>
+<button class="btn warn" id="serve-w1-stop" disabled>停止</button>
+<div class="heard" id="serve-w1-out"></div><div class="result" id="serve-w1-res"></div></div>
+<div class="item" id="serve-w2-item"><div class="label">單字</div>
+<div class="sentence"><strong>serve</strong>　<span class="note">服務；上菜</span></div>
+<button class="btn" onclick="demoWord('serve-w2')">🔊 聽</button>
+<button class="btn ok" id="serve-w2-start" onclick="startWord('serve-w2')" disabled>開始唸</button>
+<button class="btn warn" id="serve-w2-stop" disabled>停止</button>
+<div class="heard" id="serve-w2-out"></div><div class="result" id="serve-w2-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="serve-r0-item"><div class="label">唸 1</div>
+<div class="sentence">This waitress serves food at the restaurant.</div>
+<button class="btn" onclick="demoRead('serve-r0')">🔊 示範</button>
+<button class="btn ok" id="serve-r0-start" onclick="startRead('serve-r0')">開始唸</button>
+<button class="btn warn" id="serve-r0-stop" disabled>停止</button>
+<div class="heard" id="serve-r0-out"></div><div class="result" id="serve-r0-res"></div></div>
+<div class="item" id="serve-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Waiters and waitresses not only serve food, but also bring people what they need.</div>
+<button class="btn" onclick="demoRead('serve-r1')">🔊 示範</button>
+<button class="btn ok" id="serve-r1-start" onclick="startRead('serve-r1')">開始唸</button>
+<button class="btn warn" id="serve-r1-stop" disabled>停止</button>
+<div class="heard" id="serve-r1-out"></div><div class="result" id="serve-r1-res"></div></div>
+<div class="item" id="serve-r2-item"><div class="label">唸 3</div>
+<div class="sentence">We can also call them servers.</div>
+<button class="btn" onclick="demoRead('serve-r2')">🔊 示範</button>
+<button class="btn ok" id="serve-r2-start" onclick="startRead('serve-r2')">開始唸</button>
+<button class="btn warn" id="serve-r2-stop" disabled>停止</button>
+<div class="heard" id="serve-r2-out"></div><div class="result" id="serve-r2-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="serve-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">This waitress ______ food at the restaurant.</div>
+<div class="opts" id="serve-p0-opts">
+<button class="opt" onclick="pick('serve-p0',0,this)">serves</button>
+<button class="opt" onclick="pick('serve-p0',1,this)">buys</button>
+<button class="opt" onclick="pick('serve-p0',2,this)">shops</button>
+<button class="opt" onclick="pick('serve-p0',3,this)">sells</button>
+</div>
+<div class="result" id="serve-p0-res"></div>
+<div class="sayzone" id="serve-p0-sayzone" style="display:none"><div class="lead" id="serve-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="serve-p0-target"></div><button class="btn" id="serve-p0-demo">🔊 示範</button><button class="btn ok" id="serve-p0-say-start" onclick="startSay('serve-p0')">開始唸</button><button class="btn warn" id="serve-p0-say-stop" disabled>停止</button><div class="heard" id="serve-p0-say-out"></div><div class="result" id="serve-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 5 / 14　buy</span><span class="pg">講義 p7</span></div><div class="body">
+<div class="tip">buy = to exchange something with money</div>
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="buy-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>buy</strong>　<span class="note">買</span></div>
+<button class="btn" onclick="demoWord('buy-w0')">🔊 聽</button>
+<button class="btn ok" id="buy-w0-start" onclick="startWord('buy-w0')" disabled>開始唸</button>
+<button class="btn warn" id="buy-w0-stop" disabled>停止</button>
+<div class="heard" id="buy-w0-out"></div><div class="result" id="buy-w0-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="buy-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Buy means to exchange something with money.</div>
+<button class="btn" onclick="demoRead('buy-r0')">🔊 示範</button>
+<button class="btn ok" id="buy-r0-start" onclick="startRead('buy-r0')">開始唸</button>
+<button class="btn warn" id="buy-r0-stop" disabled>停止</button>
+<div class="heard" id="buy-r0-out"></div><div class="result" id="buy-r0-res"></div></div>
+<div class="item" id="buy-r1-item"><div class="label">唸 2</div>
+<div class="sentence">My mom and I buy fruits and vegetables from the market in our neighborhood.</div>
+<button class="btn" onclick="demoRead('buy-r1')">🔊 示範</button>
+<button class="btn ok" id="buy-r1-start" onclick="startRead('buy-r1')">開始唸</button>
+<button class="btn warn" id="buy-r1-stop" disabled>停止</button>
+<div class="heard" id="buy-r1-out"></div><div class="result" id="buy-r1-res"></div></div>
+<div class="item" id="buy-r2-item"><div class="label">唸 3</div>
+<div class="sentence">We buy clothes and shoes at the mall.</div>
+<button class="btn" onclick="demoRead('buy-r2')">🔊 示範</button>
+<button class="btn ok" id="buy-r2-start" onclick="startRead('buy-r2')">開始唸</button>
+<button class="btn warn" id="buy-r2-stop" disabled>停止</button>
+<div class="heard" id="buy-r2-out"></div><div class="result" id="buy-r2-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="buy-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">We ______ clothes and shoes at the mall.</div>
+<div class="opts" id="buy-p0-opts">
+<button class="opt" onclick="pick('buy-p0',0,this)">buy</button>
+<button class="opt" onclick="pick('buy-p0',1,this)">sell</button>
+<button class="opt" onclick="pick('buy-p0',2,this)">serve</button>
+<button class="opt" onclick="pick('buy-p0',3,this)">shop</button>
+</div>
+<div class="result" id="buy-p0-res"></div>
+<div class="sayzone" id="buy-p0-sayzone" style="display:none"><div class="lead" id="buy-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="buy-p0-target"></div><button class="btn" id="buy-p0-demo">🔊 示範</button><button class="btn ok" id="buy-p0-say-start" onclick="startSay('buy-p0')">開始唸</button><button class="btn warn" id="buy-p0-say-stop" disabled>停止</button><div class="heard" id="buy-p0-say-out"></div><div class="result" id="buy-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 6 / 14　shop</span><span class="pg">講義 p8</span></div><div class="body">
+<div class="tip">shop = to look around for things you want to buy</div>
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="shop-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>shop</strong>　<span class="note">逛（街）</span></div>
+<button class="btn" onclick="demoWord('shop-w0')">🔊 聽</button>
+<button class="btn ok" id="shop-w0-start" onclick="startWord('shop-w0')" disabled>開始唸</button>
+<button class="btn warn" id="shop-w0-stop" disabled>停止</button>
+<div class="heard" id="shop-w0-out"></div><div class="result" id="shop-w0-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="shop-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Shop means to look around for things you want to buy.</div>
+<button class="btn" onclick="demoRead('shop-r0')">🔊 示範</button>
+<button class="btn ok" id="shop-r0-start" onclick="startRead('shop-r0')">開始唸</button>
+<button class="btn warn" id="shop-r0-stop" disabled>停止</button>
+<div class="heard" id="shop-r0-out"></div><div class="result" id="shop-r0-res"></div></div>
+<div class="item" id="shop-r1-item"><div class="label">唸 2</div>
+<div class="sentence">My friends and I shop a lot.</div>
+<button class="btn" onclick="demoRead('shop-r1')">🔊 示範</button>
+<button class="btn ok" id="shop-r1-start" onclick="startRead('shop-r1')">開始唸</button>
+<button class="btn warn" id="shop-r1-stop" disabled>停止</button>
+<div class="heard" id="shop-r1-out"></div><div class="result" id="shop-r1-res"></div></div>
+<div class="item" id="shop-r2-item"><div class="label">唸 3</div>
+<div class="sentence">We shop when we have nothing to do.</div>
+<button class="btn" onclick="demoRead('shop-r2')">🔊 示範</button>
+<button class="btn ok" id="shop-r2-start" onclick="startRead('shop-r2')">開始唸</button>
+<button class="btn warn" id="shop-r2-stop" disabled>停止</button>
+<div class="heard" id="shop-r2-out"></div><div class="result" id="shop-r2-res"></div></div>
+<div class="item" id="shop-r3-item"><div class="label">唸 4</div>
+<div class="sentence">We can go to the shopping mall and shop without buying anything.</div>
+<button class="btn" onclick="demoRead('shop-r3')">🔊 示範</button>
+<button class="btn ok" id="shop-r3-start" onclick="startRead('shop-r3')">開始唸</button>
+<button class="btn warn" id="shop-r3-stop" disabled>停止</button>
+<div class="heard" id="shop-r3-out"></div><div class="result" id="shop-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="shop-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">We ______ when we have nothing to do.</div>
+<div class="opts" id="shop-p0-opts">
+<button class="opt" onclick="pick('shop-p0',0,this)">shop</button>
+<button class="opt" onclick="pick('shop-p0',1,this)">buy</button>
+<button class="opt" onclick="pick('shop-p0',2,this)">sell</button>
+<button class="opt" onclick="pick('shop-p0',3,this)">serve</button>
+</div>
+<div class="result" id="shop-p0-res"></div>
+<div class="sayzone" id="shop-p0-sayzone" style="display:none"><div class="lead" id="shop-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="shop-p0-target"></div><button class="btn" id="shop-p0-demo">🔊 示範</button><button class="btn ok" id="shop-p0-say-start" onclick="startSay('shop-p0')">開始唸</button><button class="btn warn" id="shop-p0-say-stop" disabled>停止</button><div class="heard" id="shop-p0-say-out"></div><div class="result" id="shop-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 7 / 14　sell</span><span class="pg">講義 p9</span></div><div class="body">
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="sell-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>sell</strong>　<span class="note">賣</span></div>
+<button class="btn" onclick="demoWord('sell-w0')">🔊 聽</button>
+<button class="btn ok" id="sell-w0-start" onclick="startWord('sell-w0')" disabled>開始唸</button>
+<button class="btn warn" id="sell-w0-stop" disabled>停止</button>
+<div class="heard" id="sell-w0-out"></div><div class="result" id="sell-w0-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="sell-r0-item"><div class="label">唸 1</div>
+<div class="sentence">This is Kelly.</div>
+<button class="btn" onclick="demoRead('sell-r0')">🔊 示範</button>
+<button class="btn ok" id="sell-r0-start" onclick="startRead('sell-r0')">開始唸</button>
+<button class="btn warn" id="sell-r0-stop" disabled>停止</button>
+<div class="heard" id="sell-r0-out"></div><div class="result" id="sell-r0-res"></div></div>
+<div class="item" id="sell-r1-item"><div class="label">唸 2</div>
+<div class="sentence">She sells fruits and vegetables at the market.</div>
+<button class="btn" onclick="demoRead('sell-r1')">🔊 示範</button>
+<button class="btn ok" id="sell-r1-start" onclick="startRead('sell-r1')">開始唸</button>
+<button class="btn warn" id="sell-r1-stop" disabled>停止</button>
+<div class="heard" id="sell-r1-out"></div><div class="result" id="sell-r1-res"></div></div>
+<div class="item" id="sell-r2-item"><div class="label">唸 3</div>
+<div class="sentence">All the fruits and vegetables are from her farms.</div>
+<button class="btn" onclick="demoRead('sell-r2')">🔊 示範</button>
+<button class="btn ok" id="sell-r2-start" onclick="startRead('sell-r2')">開始唸</button>
+<button class="btn warn" id="sell-r2-stop" disabled>停止</button>
+<div class="heard" id="sell-r2-out"></div><div class="result" id="sell-r2-res"></div></div>
+<div class="item" id="sell-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Many people sell things at the market in my neighborhood.</div>
+<button class="btn" onclick="demoRead('sell-r3')">🔊 示範</button>
+<button class="btn ok" id="sell-r3-start" onclick="startRead('sell-r3')">開始唸</button>
+<button class="btn warn" id="sell-r3-stop" disabled>停止</button>
+<div class="heard" id="sell-r3-out"></div><div class="result" id="sell-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="sell-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">She ______ fruits and vegetables at the market.</div>
+<div class="opts" id="sell-p0-opts">
+<button class="opt" onclick="pick('sell-p0',0,this)">sells</button>
+<button class="opt" onclick="pick('sell-p0',1,this)">buys</button>
+<button class="opt" onclick="pick('sell-p0',2,this)">shops</button>
+<button class="opt" onclick="pick('sell-p0',3,this)">serves</button>
+</div>
+<div class="result" id="sell-p0-res"></div>
+<div class="sayzone" id="sell-p0-sayzone" style="display:none"><div class="lead" id="sell-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="sell-p0-target"></div><button class="btn" id="sell-p0-demo">🔊 示範</button><button class="btn ok" id="sell-p0-say-start" onclick="startSay('sell-p0')">開始唸</button><button class="btn warn" id="sell-p0-say-stop" disabled>停止</button><div class="heard" id="sell-p0-say-out"></div><div class="result" id="sell-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 8 / 14　Verbs</span><span class="pg">講義 p10</span></div><div class="body">
+<div class="tip">第三人稱單數要加 s</div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="verbs-r0-item"><div class="label">唸 1</div>
+<div class="sentence">I shop. She shops.</div>
+<button class="btn" onclick="demoRead('verbs-r0')">🔊 示範</button>
+<button class="btn ok" id="verbs-r0-start" onclick="startRead('verbs-r0')">開始唸</button>
+<button class="btn warn" id="verbs-r0-stop" disabled>停止</button>
+<div class="heard" id="verbs-r0-out"></div><div class="result" id="verbs-r0-res"></div></div>
+<div class="item" id="verbs-r1-item"><div class="label">唸 2</div>
+<div class="sentence">I buy. He buys.</div>
+<button class="btn" onclick="demoRead('verbs-r1')">🔊 示範</button>
+<button class="btn ok" id="verbs-r1-start" onclick="startRead('verbs-r1')">開始唸</button>
+<button class="btn warn" id="verbs-r1-stop" disabled>停止</button>
+<div class="heard" id="verbs-r1-out"></div><div class="result" id="verbs-r1-res"></div></div>
+<div class="item" id="verbs-r2-item"><div class="label">唸 3</div>
+<div class="sentence">I serve. She serves.</div>
+<button class="btn" onclick="demoRead('verbs-r2')">🔊 示範</button>
+<button class="btn ok" id="verbs-r2-start" onclick="startRead('verbs-r2')">開始唸</button>
+<button class="btn warn" id="verbs-r2-stop" disabled>停止</button>
+<div class="heard" id="verbs-r2-out"></div><div class="result" id="verbs-r2-res"></div></div>
+<div class="item" id="verbs-r3-item"><div class="label">唸 4</div>
+<div class="sentence">I sell. He sells.</div>
+<button class="btn" onclick="demoRead('verbs-r3')">🔊 示範</button>
+<button class="btn ok" id="verbs-r3-start" onclick="startRead('verbs-r3')">開始唸</button>
+<button class="btn warn" id="verbs-r3-stop" disabled>停止</button>
+<div class="heard" id="verbs-r3-out"></div><div class="result" id="verbs-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="verbs-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">He ______ at the mall every weekend. (shop)</div>
+<div class="opts" id="verbs-p0-opts">
+<button class="opt" onclick="pick('verbs-p0',0,this)">shops</button>
+<button class="opt" onclick="pick('verbs-p0',1,this)">shop</button>
+<button class="opt" onclick="pick('verbs-p0',2,this)">shopping</button>
+<button class="opt" onclick="pick('verbs-p0',3,this)">shopped</button>
+</div>
+<div class="result" id="verbs-p0-res"></div>
+<div class="sayzone" id="verbs-p0-sayzone" style="display:none"><div class="lead" id="verbs-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="verbs-p0-target"></div><button class="btn" id="verbs-p0-demo">🔊 示範</button><button class="btn ok" id="verbs-p0-say-start" onclick="startSay('verbs-p0')">開始唸</button><button class="btn warn" id="verbs-p0-say-stop" disabled>停止</button><div class="heard" id="verbs-p0-say-out"></div><div class="result" id="verbs-p0-say-res"></div></div>
+</div>
+<div class="item" id="verbs-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">She ______ fruits at the market. (buy)</div>
+<div class="opts" id="verbs-p1-opts">
+<button class="opt" onclick="pick('verbs-p1',0,this)">buys</button>
+<button class="opt" onclick="pick('verbs-p1',1,this)">buy</button>
+<button class="opt" onclick="pick('verbs-p1',2,this)">buying</button>
+<button class="opt" onclick="pick('verbs-p1',3,this)">bought</button>
+</div>
+<div class="result" id="verbs-p1-res"></div>
+<div class="sayzone" id="verbs-p1-sayzone" style="display:none"><div class="lead" id="verbs-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="verbs-p1-target"></div><button class="btn" id="verbs-p1-demo">🔊 示範</button><button class="btn ok" id="verbs-p1-say-start" onclick="startSay('verbs-p1')">開始唸</button><button class="btn warn" id="verbs-p1-say-stop" disabled>停止</button><div class="heard" id="verbs-p1-say-out"></div><div class="result" id="verbs-p1-say-res"></div></div>
+</div>
+<div class="item" id="verbs-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">He ______ food at the restaurant. (serve)</div>
+<div class="opts" id="verbs-p2-opts">
+<button class="opt" onclick="pick('verbs-p2',0,this)">serves</button>
+<button class="opt" onclick="pick('verbs-p2',1,this)">serve</button>
+<button class="opt" onclick="pick('verbs-p2',2,this)">serving</button>
+<button class="opt" onclick="pick('verbs-p2',3,this)">served</button>
+</div>
+<div class="result" id="verbs-p2-res"></div>
+<div class="sayzone" id="verbs-p2-sayzone" style="display:none"><div class="lead" id="verbs-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="verbs-p2-target"></div><button class="btn" id="verbs-p2-demo">🔊 示範</button><button class="btn ok" id="verbs-p2-say-start" onclick="startSay('verbs-p2')">開始唸</button><button class="btn warn" id="verbs-p2-say-stop" disabled>停止</button><div class="heard" id="verbs-p2-say-out"></div><div class="result" id="verbs-p2-say-res"></div></div>
+</div>
+<div class="item" id="verbs-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">She ______ vegetables at the market. (sell)</div>
+<div class="opts" id="verbs-p3-opts">
+<button class="opt" onclick="pick('verbs-p3',0,this)">sells</button>
+<button class="opt" onclick="pick('verbs-p3',1,this)">sell</button>
+<button class="opt" onclick="pick('verbs-p3',2,this)">selling</button>
+<button class="opt" onclick="pick('verbs-p3',3,this)">sold</button>
+</div>
+<div class="result" id="verbs-p3-res"></div>
+<div class="sayzone" id="verbs-p3-sayzone" style="display:none"><div class="lead" id="verbs-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="verbs-p3-target"></div><button class="btn" id="verbs-p3-demo">🔊 示範</button><button class="btn ok" id="verbs-p3-say-start" onclick="startSay('verbs-p3')">開始唸</button><button class="btn warn" id="verbs-p3-say-stop" disabled>停止</button><div class="heard" id="verbs-p3-say-out"></div><div class="result" id="verbs-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 9 / 14　What do they do?</span><span class="pg">講義 p11</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="whatdo-r0-item"><div class="label">唸 1</div>
+<div class="sentence">What do they do?</div>
+<button class="btn" onclick="demoRead('whatdo-r0')">🔊 示範</button>
+<button class="btn ok" id="whatdo-r0-start" onclick="startRead('whatdo-r0')">開始唸</button>
+<button class="btn warn" id="whatdo-r0-stop" disabled>停止</button>
+<div class="heard" id="whatdo-r0-out"></div><div class="result" id="whatdo-r0-res"></div></div>
+<div class="item" id="whatdo-r1-item"><div class="label">唸 2</div>
+<div class="sentence">The woman arranges flowers to sell.</div>
+<button class="btn" onclick="demoRead('whatdo-r1')">🔊 示範</button>
+<button class="btn ok" id="whatdo-r1-start" onclick="startRead('whatdo-r1')">開始唸</button>
+<button class="btn warn" id="whatdo-r1-stop" disabled>停止</button>
+<div class="heard" id="whatdo-r1-out"></div><div class="result" id="whatdo-r1-res"></div></div>
+<div class="item" id="whatdo-r2-item"><div class="label">唸 3</div>
+<div class="sentence">The waiter serves drinks.</div>
+<button class="btn" onclick="demoRead('whatdo-r2')">🔊 示範</button>
+<button class="btn ok" id="whatdo-r2-start" onclick="startRead('whatdo-r2')">開始唸</button>
+<button class="btn warn" id="whatdo-r2-stop" disabled>停止</button>
+<div class="heard" id="whatdo-r2-out"></div><div class="result" id="whatdo-r2-res"></div></div>
+<div class="item" id="whatdo-r3-item"><div class="label">唸 4</div>
+<div class="sentence">The friends shop together at the mall.</div>
+<button class="btn" onclick="demoRead('whatdo-r3')">🔊 示範</button>
+<button class="btn ok" id="whatdo-r3-start" onclick="startRead('whatdo-r3')">開始唸</button>
+<button class="btn warn" id="whatdo-r3-stop" disabled>停止</button>
+<div class="heard" id="whatdo-r3-out"></div><div class="result" id="whatdo-r3-res"></div></div>
+<div class="item" id="whatdo-r4-item"><div class="label">唸 5</div>
+<div class="sentence">The cashier sells things at the store.</div>
+<button class="btn" onclick="demoRead('whatdo-r4')">🔊 示範</button>
+<button class="btn ok" id="whatdo-r4-start" onclick="startRead('whatdo-r4')">開始唸</button>
+<button class="btn warn" id="whatdo-r4-stop" disabled>停止</button>
+<div class="heard" id="whatdo-r4-out"></div><div class="result" id="whatdo-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="whatdo-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">The woman arranges flowers to ______.</div>
+<div class="opts" id="whatdo-p0-opts">
+<button class="opt" onclick="pick('whatdo-p0',0,this)">sell</button>
+<button class="opt" onclick="pick('whatdo-p0',1,this)">buy</button>
+<button class="opt" onclick="pick('whatdo-p0',2,this)">serve</button>
+<button class="opt" onclick="pick('whatdo-p0',3,this)">shop</button>
+</div>
+<div class="result" id="whatdo-p0-res"></div>
+<div class="sayzone" id="whatdo-p0-sayzone" style="display:none"><div class="lead" id="whatdo-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="whatdo-p0-target"></div><button class="btn" id="whatdo-p0-demo">🔊 示範</button><button class="btn ok" id="whatdo-p0-say-start" onclick="startSay('whatdo-p0')">開始唸</button><button class="btn warn" id="whatdo-p0-say-stop" disabled>停止</button><div class="heard" id="whatdo-p0-say-out"></div><div class="result" id="whatdo-p0-say-res"></div></div>
+</div>
+<div class="item" id="whatdo-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">The waiter ______ drinks.</div>
+<div class="opts" id="whatdo-p1-opts">
+<button class="opt" onclick="pick('whatdo-p1',0,this)">serves</button>
+<button class="opt" onclick="pick('whatdo-p1',1,this)">buys</button>
+<button class="opt" onclick="pick('whatdo-p1',2,this)">sells</button>
+<button class="opt" onclick="pick('whatdo-p1',3,this)">shops</button>
+</div>
+<div class="result" id="whatdo-p1-res"></div>
+<div class="sayzone" id="whatdo-p1-sayzone" style="display:none"><div class="lead" id="whatdo-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="whatdo-p1-target"></div><button class="btn" id="whatdo-p1-demo">🔊 示範</button><button class="btn ok" id="whatdo-p1-say-start" onclick="startSay('whatdo-p1')">開始唸</button><button class="btn warn" id="whatdo-p1-say-stop" disabled>停止</button><div class="heard" id="whatdo-p1-say-out"></div><div class="result" id="whatdo-p1-say-res"></div></div>
+</div>
+<div class="item" id="whatdo-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">The friends ______ together at the mall.</div>
+<div class="opts" id="whatdo-p2-opts">
+<button class="opt" onclick="pick('whatdo-p2',0,this)">shop</button>
+<button class="opt" onclick="pick('whatdo-p2',1,this)">sell</button>
+<button class="opt" onclick="pick('whatdo-p2',2,this)">serve</button>
+<button class="opt" onclick="pick('whatdo-p2',3,this)">buy</button>
+</div>
+<div class="result" id="whatdo-p2-res"></div>
+<div class="sayzone" id="whatdo-p2-sayzone" style="display:none"><div class="lead" id="whatdo-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="whatdo-p2-target"></div><button class="btn" id="whatdo-p2-demo">🔊 示範</button><button class="btn ok" id="whatdo-p2-say-start" onclick="startSay('whatdo-p2')">開始唸</button><button class="btn warn" id="whatdo-p2-say-stop" disabled>停止</button><div class="heard" id="whatdo-p2-say-out"></div><div class="result" id="whatdo-p2-say-res"></div></div>
+</div>
+<div class="item" id="whatdo-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">The cashier ______ things at the store.</div>
+<div class="opts" id="whatdo-p3-opts">
+<button class="opt" onclick="pick('whatdo-p3',0,this)">sells</button>
+<button class="opt" onclick="pick('whatdo-p3',1,this)">buys</button>
+<button class="opt" onclick="pick('whatdo-p3',2,this)">shops</button>
+<button class="opt" onclick="pick('whatdo-p3',3,this)">serves</button>
+</div>
+<div class="result" id="whatdo-p3-res"></div>
+<div class="sayzone" id="whatdo-p3-sayzone" style="display:none"><div class="lead" id="whatdo-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="whatdo-p3-target"></div><button class="btn" id="whatdo-p3-demo">🔊 示範</button><button class="btn ok" id="whatdo-p3-say-start" onclick="startSay('whatdo-p3')">開始唸</button><button class="btn warn" id="whatdo-p3-say-stop" disabled>停止</button><div class="heard" id="whatdo-p3-say-out"></div><div class="result" id="whatdo-p3-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 10 / 14　Let&#x27;s read</span><span class="pg">講義 p12</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="letsread-r0-item"><div class="label">唸 1</div>
+<div class="sentence">At the shore, oh, for sure!</div>
+<button class="btn" onclick="demoRead('letsread-r0')">🔊 示範</button>
+<button class="btn ok" id="letsread-r0-start" onclick="startRead('letsread-r0')">開始唸</button>
+<button class="btn warn" id="letsread-r0-stop" disabled>停止</button>
+<div class="heard" id="letsread-r0-out"></div><div class="result" id="letsread-r0-res"></div></div>
+<div class="item" id="letsread-r1-item"><div class="label">唸 2</div>
+<div class="sentence">When I&#x27;m bored, I walk to the shore.</div>
+<button class="btn" onclick="demoRead('letsread-r1')">🔊 示範</button>
+<button class="btn ok" id="letsread-r1-start" onclick="startRead('letsread-r1')">開始唸</button>
+<button class="btn warn" id="letsread-r1-stop" disabled>停止</button>
+<div class="heard" id="letsread-r1-out"></div><div class="result" id="letsread-r1-res"></div></div>
+<div class="item" id="letsread-r2-item"><div class="label">唸 3</div>
+<div class="sentence">If you feel sore, don&#x27;t go to the stores!</div>
+<button class="btn" onclick="demoRead('letsread-r2')">🔊 示範</button>
+<button class="btn ok" id="letsread-r2-start" onclick="startRead('letsread-r2')">開始唸</button>
+<button class="btn warn" id="letsread-r2-stop" disabled>停止</button>
+<div class="heard" id="letsread-r2-out"></div><div class="result" id="letsread-r2-res"></div></div>
+<div class="item" id="letsread-r3-item"><div class="label">唸 4</div>
+<div class="sentence">Try the water at the shore, as pretty as a picture.</div>
+<button class="btn" onclick="demoRead('letsread-r3')">🔊 示範</button>
+<button class="btn ok" id="letsread-r3-start" onclick="startRead('letsread-r3')">開始唸</button>
+<button class="btn warn" id="letsread-r3-stop" disabled>停止</button>
+<div class="heard" id="letsread-r3-out"></div><div class="result" id="letsread-r3-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="letsread-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">When I&#x27;m bored, I walk to the ______.</div>
+<div class="opts" id="letsread-p0-opts">
+<button class="opt" onclick="pick('letsread-p0',0,this)">shore</button>
+<button class="opt" onclick="pick('letsread-p0',1,this)">store</button>
+<button class="opt" onclick="pick('letsread-p0',2,this)">stores</button>
+<button class="opt" onclick="pick('letsread-p0',3,this)">shop</button>
+</div>
+<div class="result" id="letsread-p0-res"></div>
+<div class="sayzone" id="letsread-p0-sayzone" style="display:none"><div class="lead" id="letsread-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="letsread-p0-target"></div><button class="btn" id="letsread-p0-demo">🔊 示範</button><button class="btn ok" id="letsread-p0-say-start" onclick="startSay('letsread-p0')">開始唸</button><button class="btn warn" id="letsread-p0-say-stop" disabled>停止</button><div class="heard" id="letsread-p0-say-out"></div><div class="result" id="letsread-p0-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 11 / 14　Word Problems</span><span class="pg">講義 p13</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="wordproblems-r0-item"><div class="label">唸 1</div>
+<div class="sentence">If 12 months is 1 year and 10 years is 1 decade,</div>
+<button class="btn" onclick="demoRead('wordproblems-r0')">🔊 示範</button>
+<button class="btn ok" id="wordproblems-r0-start" onclick="startRead('wordproblems-r0')">開始唸</button>
+<button class="btn warn" id="wordproblems-r0-stop" disabled>停止</button>
+<div class="heard" id="wordproblems-r0-out"></div><div class="result" id="wordproblems-r0-res"></div></div>
+<div class="item" id="wordproblems-r1-item"><div class="label">唸 2</div>
+<div class="sentence">how many months are there in 1 decade?</div>
+<button class="btn" onclick="demoRead('wordproblems-r1')">🔊 示範</button>
+<button class="btn ok" id="wordproblems-r1-start" onclick="startRead('wordproblems-r1')">開始唸</button>
+<button class="btn warn" id="wordproblems-r1-stop" disabled>停止</button>
+<div class="heard" id="wordproblems-r1-out"></div><div class="result" id="wordproblems-r1-res"></div></div>
+<div class="item" id="wordproblems-r2-item"><div class="label">唸 3</div>
+<div class="sentence">If 10 decades is 1 century, how many years are there in a century?</div>
+<button class="btn" onclick="demoRead('wordproblems-r2')">🔊 示範</button>
+<button class="btn ok" id="wordproblems-r2-start" onclick="startRead('wordproblems-r2')">開始唸</button>
+<button class="btn warn" id="wordproblems-r2-stop" disabled>停止</button>
+<div class="heard" id="wordproblems-r2-out"></div><div class="result" id="wordproblems-r2-res"></div></div>
+<div class="item" id="wordproblems-r3-item"><div class="label">唸 4</div>
+<div class="sentence">I have used the same car for the last 3 decades.</div>
+<button class="btn" onclick="demoRead('wordproblems-r3')">🔊 示範</button>
+<button class="btn ok" id="wordproblems-r3-start" onclick="startRead('wordproblems-r3')">開始唸</button>
+<button class="btn warn" id="wordproblems-r3-stop" disabled>停止</button>
+<div class="heard" id="wordproblems-r3-out"></div><div class="result" id="wordproblems-r3-res"></div></div>
+<div class="item" id="wordproblems-r4-item"><div class="label">唸 5</div>
+<div class="sentence">How many months is the car being used?</div>
+<button class="btn" onclick="demoRead('wordproblems-r4')">🔊 示範</button>
+<button class="btn ok" id="wordproblems-r4-start" onclick="startRead('wordproblems-r4')">開始唸</button>
+<button class="btn warn" id="wordproblems-r4-stop" disabled>停止</button>
+<div class="heard" id="wordproblems-r4-out"></div><div class="result" id="wordproblems-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="wordproblems-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">12 × 10 = ______（1 decade 有幾個月？）</div>
+<input class="answer-input" id="wordproblems-p0-in" inputmode="numeric" autocomplete="off">
+<button class="btn" onclick="checkNum('wordproblems-p0')">檢查</button>
+<div class="result" id="wordproblems-p0-res"></div>
+<div class="sayzone" id="wordproblems-p0-sayzone" style="display:none"><div class="lead" id="wordproblems-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="wordproblems-p0-target"></div><button class="btn" id="wordproblems-p0-demo">🔊 示範</button><button class="btn ok" id="wordproblems-p0-say-start" onclick="startSay('wordproblems-p0')">開始唸</button><button class="btn warn" id="wordproblems-p0-say-stop" disabled>停止</button><div class="heard" id="wordproblems-p0-say-out"></div><div class="result" id="wordproblems-p0-say-res"></div></div>
+</div>
+<div class="item" id="wordproblems-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">10 × 10 = ______（1 century 有幾年？）</div>
+<input class="answer-input" id="wordproblems-p1-in" inputmode="numeric" autocomplete="off">
+<button class="btn" onclick="checkNum('wordproblems-p1')">檢查</button>
+<div class="result" id="wordproblems-p1-res"></div>
+<div class="sayzone" id="wordproblems-p1-sayzone" style="display:none"><div class="lead" id="wordproblems-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="wordproblems-p1-target"></div><button class="btn" id="wordproblems-p1-demo">🔊 示範</button><button class="btn ok" id="wordproblems-p1-say-start" onclick="startSay('wordproblems-p1')">開始唸</button><button class="btn warn" id="wordproblems-p1-say-stop" disabled>停止</button><div class="heard" id="wordproblems-p1-say-out"></div><div class="result" id="wordproblems-p1-say-res"></div></div>
+</div>
+<div class="item" id="wordproblems-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">3 decades = 3 × 10 × 12 = ______ 個月</div>
+<input class="answer-input" id="wordproblems-p2-in" inputmode="numeric" autocomplete="off">
+<button class="btn" onclick="checkNum('wordproblems-p2')">檢查</button>
+<div class="result" id="wordproblems-p2-res"></div>
+<div class="sayzone" id="wordproblems-p2-sayzone" style="display:none"><div class="lead" id="wordproblems-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="wordproblems-p2-target"></div><button class="btn" id="wordproblems-p2-demo">🔊 示範</button><button class="btn ok" id="wordproblems-p2-say-start" onclick="startSay('wordproblems-p2')">開始唸</button><button class="btn warn" id="wordproblems-p2-say-stop" disabled>停止</button><div class="heard" id="wordproblems-p2-say-out"></div><div class="result" id="wordproblems-p2-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 12 / 14　Memory Game</span><span class="pg">講義 p14</span></div><div class="body">
+<div class="tip">sight words：during / could / then / when / were / as</div>
+<div class="sub">認字（先聽，再唸對才算過）</div>
+<div class="item" id="memory-w0-item"><div class="label">單字</div>
+<div class="sentence"><strong>during</strong>　<span class="note">在…期間</span></div>
+<button class="btn" onclick="demoWord('memory-w0')">🔊 聽</button>
+<button class="btn ok" id="memory-w0-start" onclick="startWord('memory-w0')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w0-stop" disabled>停止</button>
+<div class="heard" id="memory-w0-out"></div><div class="result" id="memory-w0-res"></div></div>
+<div class="item" id="memory-w1-item"><div class="label">單字</div>
+<div class="sentence"><strong>could</strong>　<span class="note">能夠（過去／禮貌）</span></div>
+<button class="btn" onclick="demoWord('memory-w1')">🔊 聽</button>
+<button class="btn ok" id="memory-w1-start" onclick="startWord('memory-w1')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w1-stop" disabled>停止</button>
+<div class="heard" id="memory-w1-out"></div><div class="result" id="memory-w1-res"></div></div>
+<div class="item" id="memory-w2-item"><div class="label">單字</div>
+<div class="sentence"><strong>then</strong>　<span class="note">然後</span></div>
+<button class="btn" onclick="demoWord('memory-w2')">🔊 聽</button>
+<button class="btn ok" id="memory-w2-start" onclick="startWord('memory-w2')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w2-stop" disabled>停止</button>
+<div class="heard" id="memory-w2-out"></div><div class="result" id="memory-w2-res"></div></div>
+<div class="item" id="memory-w3-item"><div class="label">單字</div>
+<div class="sentence"><strong>when</strong>　<span class="note">當…的時候</span></div>
+<button class="btn" onclick="demoWord('memory-w3')">🔊 聽</button>
+<button class="btn ok" id="memory-w3-start" onclick="startWord('memory-w3')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w3-stop" disabled>停止</button>
+<div class="heard" id="memory-w3-out"></div><div class="result" id="memory-w3-res"></div></div>
+<div class="item" id="memory-w4-item"><div class="label">單字</div>
+<div class="sentence"><strong>were</strong>　<span class="note">是（過去式）</span></div>
+<button class="btn" onclick="demoWord('memory-w4')">🔊 聽</button>
+<button class="btn ok" id="memory-w4-start" onclick="startWord('memory-w4')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w4-stop" disabled>停止</button>
+<div class="heard" id="memory-w4-out"></div><div class="result" id="memory-w4-res"></div></div>
+<div class="item" id="memory-w5-item"><div class="label">單字</div>
+<div class="sentence"><strong>as</strong>　<span class="note">像；一樣</span></div>
+<button class="btn" onclick="demoWord('memory-w5')">🔊 聽</button>
+<button class="btn ok" id="memory-w5-start" onclick="startWord('memory-w5')" disabled>開始唸</button>
+<button class="btn warn" id="memory-w5-stop" disabled>停止</button>
+<div class="heard" id="memory-w5-out"></div><div class="result" id="memory-w5-res"></div></div>
+<div class="sub">逐句唸過</div>
+<div class="item" id="memory-r0-item"><div class="label">唸 1</div>
+<div class="sentence">During the show, she felt happy.</div>
+<button class="btn" onclick="demoRead('memory-r0')">🔊 示範</button>
+<button class="btn ok" id="memory-r0-start" onclick="startRead('memory-r0')">開始唸</button>
+<button class="btn warn" id="memory-r0-stop" disabled>停止</button>
+<div class="heard" id="memory-r0-out"></div><div class="result" id="memory-r0-res"></div></div>
+<div class="item" id="memory-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Could you help me?</div>
+<button class="btn" onclick="demoRead('memory-r1')">🔊 示範</button>
+<button class="btn ok" id="memory-r1-start" onclick="startRead('memory-r1')">開始唸</button>
+<button class="btn warn" id="memory-r1-stop" disabled>停止</button>
+<div class="heard" id="memory-r1-out"></div><div class="result" id="memory-r1-res"></div></div>
+<div class="item" id="memory-r2-item"><div class="label">唸 3</div>
+<div class="sentence">I ate dinner, then I went to bed.</div>
+<button class="btn" onclick="demoRead('memory-r2')">🔊 示範</button>
+<button class="btn ok" id="memory-r2-start" onclick="startRead('memory-r2')">開始唸</button>
+<button class="btn warn" id="memory-r2-stop" disabled>停止</button>
+<div class="heard" id="memory-r2-out"></div><div class="result" id="memory-r2-res"></div></div>
+<div class="item" id="memory-r3-item"><div class="label">唸 4</div>
+<div class="sentence">When it rains, I stay home.</div>
+<button class="btn" onclick="demoRead('memory-r3')">🔊 示範</button>
+<button class="btn ok" id="memory-r3-start" onclick="startRead('memory-r3')">開始唸</button>
+<button class="btn warn" id="memory-r3-stop" disabled>停止</button>
+<div class="heard" id="memory-r3-out"></div><div class="result" id="memory-r3-res"></div></div>
+<div class="item" id="memory-r4-item"><div class="label">唸 5</div>
+<div class="sentence">They were happy.</div>
+<button class="btn" onclick="demoRead('memory-r4')">🔊 示範</button>
+<button class="btn ok" id="memory-r4-start" onclick="startRead('memory-r4')">開始唸</button>
+<button class="btn warn" id="memory-r4-stop" disabled>停止</button>
+<div class="heard" id="memory-r4-out"></div><div class="result" id="memory-r4-res"></div></div>
+<div class="item" id="memory-r5-item"><div class="label">唸 6</div>
+<div class="sentence">She is as tall as her mom.</div>
+<button class="btn" onclick="demoRead('memory-r5')">🔊 示範</button>
+<button class="btn ok" id="memory-r5-start" onclick="startRead('memory-r5')">開始唸</button>
+<button class="btn warn" id="memory-r5-stop" disabled>停止</button>
+<div class="heard" id="memory-r5-out"></div><div class="result" id="memory-r5-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="memory-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">______ the show, she felt happy.</div>
+<div class="opts" id="memory-p0-opts">
+<button class="opt" onclick="pick('memory-p0',0,this)">During</button>
+<button class="opt" onclick="pick('memory-p0',1,this)">could</button>
+<button class="opt" onclick="pick('memory-p0',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p0',3,this)">when</button>
+<button class="opt" onclick="pick('memory-p0',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p0',5,this)">as</button>
+</div>
+<div class="result" id="memory-p0-res"></div>
+<div class="sayzone" id="memory-p0-sayzone" style="display:none"><div class="lead" id="memory-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p0-target"></div><button class="btn" id="memory-p0-demo">🔊 示範</button><button class="btn ok" id="memory-p0-say-start" onclick="startSay('memory-p0')">開始唸</button><button class="btn warn" id="memory-p0-say-stop" disabled>停止</button><div class="heard" id="memory-p0-say-out"></div><div class="result" id="memory-p0-say-res"></div></div>
+</div>
+<div class="item" id="memory-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">______ you help me?</div>
+<div class="opts" id="memory-p1-opts">
+<button class="opt" onclick="pick('memory-p1',0,this)">during</button>
+<button class="opt" onclick="pick('memory-p1',1,this)">Could</button>
+<button class="opt" onclick="pick('memory-p1',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p1',3,this)">when</button>
+<button class="opt" onclick="pick('memory-p1',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p1',5,this)">as</button>
+</div>
+<div class="result" id="memory-p1-res"></div>
+<div class="sayzone" id="memory-p1-sayzone" style="display:none"><div class="lead" id="memory-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p1-target"></div><button class="btn" id="memory-p1-demo">🔊 示範</button><button class="btn ok" id="memory-p1-say-start" onclick="startSay('memory-p1')">開始唸</button><button class="btn warn" id="memory-p1-say-stop" disabled>停止</button><div class="heard" id="memory-p1-say-out"></div><div class="result" id="memory-p1-say-res"></div></div>
+</div>
+<div class="item" id="memory-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">I ate dinner, ______ I went to bed.</div>
+<div class="opts" id="memory-p2-opts">
+<button class="opt" onclick="pick('memory-p2',0,this)">during</button>
+<button class="opt" onclick="pick('memory-p2',1,this)">could</button>
+<button class="opt" onclick="pick('memory-p2',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p2',3,this)">when</button>
+<button class="opt" onclick="pick('memory-p2',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p2',5,this)">as</button>
+</div>
+<div class="result" id="memory-p2-res"></div>
+<div class="sayzone" id="memory-p2-sayzone" style="display:none"><div class="lead" id="memory-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p2-target"></div><button class="btn" id="memory-p2-demo">🔊 示範</button><button class="btn ok" id="memory-p2-say-start" onclick="startSay('memory-p2')">開始唸</button><button class="btn warn" id="memory-p2-say-stop" disabled>停止</button><div class="heard" id="memory-p2-say-out"></div><div class="result" id="memory-p2-say-res"></div></div>
+</div>
+<div class="item" id="memory-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">______ it rains, I stay home.</div>
+<div class="opts" id="memory-p3-opts">
+<button class="opt" onclick="pick('memory-p3',0,this)">during</button>
+<button class="opt" onclick="pick('memory-p3',1,this)">could</button>
+<button class="opt" onclick="pick('memory-p3',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p3',3,this)">When</button>
+<button class="opt" onclick="pick('memory-p3',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p3',5,this)">as</button>
+</div>
+<div class="result" id="memory-p3-res"></div>
+<div class="sayzone" id="memory-p3-sayzone" style="display:none"><div class="lead" id="memory-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p3-target"></div><button class="btn" id="memory-p3-demo">🔊 示範</button><button class="btn ok" id="memory-p3-say-start" onclick="startSay('memory-p3')">開始唸</button><button class="btn warn" id="memory-p3-say-stop" disabled>停止</button><div class="heard" id="memory-p3-say-out"></div><div class="result" id="memory-p3-say-res"></div></div>
+</div>
+<div class="item" id="memory-p4-item"><div class="label">第 5 題</div>
+<div class="sentence">They ______ happy.</div>
+<div class="opts" id="memory-p4-opts">
+<button class="opt" onclick="pick('memory-p4',0,this)">during</button>
+<button class="opt" onclick="pick('memory-p4',1,this)">could</button>
+<button class="opt" onclick="pick('memory-p4',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p4',3,this)">when</button>
+<button class="opt" onclick="pick('memory-p4',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p4',5,this)">as</button>
+</div>
+<div class="result" id="memory-p4-res"></div>
+<div class="sayzone" id="memory-p4-sayzone" style="display:none"><div class="lead" id="memory-p4-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p4-target"></div><button class="btn" id="memory-p4-demo">🔊 示範</button><button class="btn ok" id="memory-p4-say-start" onclick="startSay('memory-p4')">開始唸</button><button class="btn warn" id="memory-p4-say-stop" disabled>停止</button><div class="heard" id="memory-p4-say-out"></div><div class="result" id="memory-p4-say-res"></div></div>
+</div>
+<div class="item" id="memory-p5-item"><div class="label">第 6 題</div>
+<div class="sentence">She is ______ tall as her mom.</div>
+<div class="opts" id="memory-p5-opts">
+<button class="opt" onclick="pick('memory-p5',0,this)">during</button>
+<button class="opt" onclick="pick('memory-p5',1,this)">could</button>
+<button class="opt" onclick="pick('memory-p5',2,this)">then</button>
+<button class="opt" onclick="pick('memory-p5',3,this)">when</button>
+<button class="opt" onclick="pick('memory-p5',4,this)">were</button>
+<button class="opt" onclick="pick('memory-p5',5,this)">as</button>
+</div>
+<div class="result" id="memory-p5-res"></div>
+<div class="sayzone" id="memory-p5-sayzone" style="display:none"><div class="lead" id="memory-p5-lead">答對了，把整句唸出來才算過：</div><div class="target" id="memory-p5-target"></div><button class="btn" id="memory-p5-demo">🔊 示範</button><button class="btn ok" id="memory-p5-say-start" onclick="startSay('memory-p5')">開始唸</button><button class="btn warn" id="memory-p5-say-stop" disabled>停止</button><div class="heard" id="memory-p5-say-out"></div><div class="result" id="memory-p5-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 13 / 14　Rearrange Sentences</span><span class="pg">講義 p15</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="rearrange-r0-item"><div class="label">唸 1</div>
+<div class="sentence">Could you show me?</div>
+<button class="btn" onclick="demoRead('rearrange-r0')">🔊 示範</button>
+<button class="btn ok" id="rearrange-r0-start" onclick="startRead('rearrange-r0')">開始唸</button>
+<button class="btn warn" id="rearrange-r0-stop" disabled>停止</button>
+<div class="heard" id="rearrange-r0-out"></div><div class="result" id="rearrange-r0-res"></div></div>
+<div class="item" id="rearrange-r1-item"><div class="label">唸 2</div>
+<div class="sentence">Wash your hands and then sit down.</div>
+<button class="btn" onclick="demoRead('rearrange-r1')">🔊 示範</button>
+<button class="btn ok" id="rearrange-r1-start" onclick="startRead('rearrange-r1')">開始唸</button>
+<button class="btn warn" id="rearrange-r1-stop" disabled>停止</button>
+<div class="heard" id="rearrange-r1-out"></div><div class="result" id="rearrange-r1-res"></div></div>
+<div class="item" id="rearrange-r2-item"><div class="label">唸 3</div>
+<div class="sentence">She fell during the show.</div>
+<button class="btn" onclick="demoRead('rearrange-r2')">🔊 示範</button>
+<button class="btn ok" id="rearrange-r2-start" onclick="startRead('rearrange-r2')">開始唸</button>
+<button class="btn warn" id="rearrange-r2-stop" disabled>停止</button>
+<div class="heard" id="rearrange-r2-out"></div><div class="result" id="rearrange-r2-res"></div></div>
+<div class="item" id="rearrange-r3-item"><div class="label">唸 4</div>
+<div class="sentence">She is as beautiful as you.</div>
+<button class="btn" onclick="demoRead('rearrange-r3')">🔊 示範</button>
+<button class="btn ok" id="rearrange-r3-start" onclick="startRead('rearrange-r3')">開始唸</button>
+<button class="btn warn" id="rearrange-r3-stop" disabled>停止</button>
+<div class="heard" id="rearrange-r3-out"></div><div class="result" id="rearrange-r3-res"></div></div>
+<div class="item" id="rearrange-r4-item"><div class="label">唸 5</div>
+<div class="sentence">These were mine.</div>
+<button class="btn" onclick="demoRead('rearrange-r4')">🔊 示範</button>
+<button class="btn ok" id="rearrange-r4-start" onclick="startRead('rearrange-r4')">開始唸</button>
+<button class="btn warn" id="rearrange-r4-stop" disabled>停止</button>
+<div class="heard" id="rearrange-r4-out"></div><div class="result" id="rearrange-r4-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="rearrange-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">me? show you Could</div>
+<div class="opts" id="rearrange-p0-opts">
+<button class="opt" onclick="pick('rearrange-p0',0,this)">Could you show me?</button>
+<button class="opt" onclick="pick('rearrange-p0',1,this)">Wash your hands and then sit down.</button>
+<button class="opt" onclick="pick('rearrange-p0',2,this)">She fell during the show.</button>
+<button class="opt" onclick="pick('rearrange-p0',3,this)">She is as beautiful as you.</button>
+<button class="opt" onclick="pick('rearrange-p0',4,this)">These were mine.</button>
+</div>
+<div class="result" id="rearrange-p0-res"></div>
+<div class="sayzone" id="rearrange-p0-sayzone" style="display:none"><div class="lead" id="rearrange-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="rearrange-p0-target"></div><button class="btn" id="rearrange-p0-demo">🔊 示範</button><button class="btn ok" id="rearrange-p0-say-start" onclick="startSay('rearrange-p0')">開始唸</button><button class="btn warn" id="rearrange-p0-say-stop" disabled>停止</button><div class="heard" id="rearrange-p0-say-out"></div><div class="result" id="rearrange-p0-say-res"></div></div>
+</div>
+<div class="item" id="rearrange-p1-item"><div class="label">第 2 題</div>
+<div class="sentence">Wash down. hands your and then sit</div>
+<div class="opts" id="rearrange-p1-opts">
+<button class="opt" onclick="pick('rearrange-p1',0,this)">Could you show me?</button>
+<button class="opt" onclick="pick('rearrange-p1',1,this)">Wash your hands and then sit down.</button>
+<button class="opt" onclick="pick('rearrange-p1',2,this)">She fell during the show.</button>
+<button class="opt" onclick="pick('rearrange-p1',3,this)">She is as beautiful as you.</button>
+<button class="opt" onclick="pick('rearrange-p1',4,this)">These were mine.</button>
+</div>
+<div class="result" id="rearrange-p1-res"></div>
+<div class="sayzone" id="rearrange-p1-sayzone" style="display:none"><div class="lead" id="rearrange-p1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="rearrange-p1-target"></div><button class="btn" id="rearrange-p1-demo">🔊 示範</button><button class="btn ok" id="rearrange-p1-say-start" onclick="startSay('rearrange-p1')">開始唸</button><button class="btn warn" id="rearrange-p1-say-stop" disabled>停止</button><div class="heard" id="rearrange-p1-say-out"></div><div class="result" id="rearrange-p1-say-res"></div></div>
+</div>
+<div class="item" id="rearrange-p2-item"><div class="label">第 3 題</div>
+<div class="sentence">She during the show. fell</div>
+<div class="opts" id="rearrange-p2-opts">
+<button class="opt" onclick="pick('rearrange-p2',0,this)">Could you show me?</button>
+<button class="opt" onclick="pick('rearrange-p2',1,this)">Wash your hands and then sit down.</button>
+<button class="opt" onclick="pick('rearrange-p2',2,this)">She fell during the show.</button>
+<button class="opt" onclick="pick('rearrange-p2',3,this)">She is as beautiful as you.</button>
+<button class="opt" onclick="pick('rearrange-p2',4,this)">These were mine.</button>
+</div>
+<div class="result" id="rearrange-p2-res"></div>
+<div class="sayzone" id="rearrange-p2-sayzone" style="display:none"><div class="lead" id="rearrange-p2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="rearrange-p2-target"></div><button class="btn" id="rearrange-p2-demo">🔊 示範</button><button class="btn ok" id="rearrange-p2-say-start" onclick="startSay('rearrange-p2')">開始唸</button><button class="btn warn" id="rearrange-p2-say-stop" disabled>停止</button><div class="heard" id="rearrange-p2-say-out"></div><div class="result" id="rearrange-p2-say-res"></div></div>
+</div>
+<div class="item" id="rearrange-p3-item"><div class="label">第 4 題</div>
+<div class="sentence">is She as beautiful you. as</div>
+<div class="opts" id="rearrange-p3-opts">
+<button class="opt" onclick="pick('rearrange-p3',0,this)">Could you show me?</button>
+<button class="opt" onclick="pick('rearrange-p3',1,this)">Wash your hands and then sit down.</button>
+<button class="opt" onclick="pick('rearrange-p3',2,this)">She fell during the show.</button>
+<button class="opt" onclick="pick('rearrange-p3',3,this)">She is as beautiful as you.</button>
+<button class="opt" onclick="pick('rearrange-p3',4,this)">These were mine.</button>
+</div>
+<div class="result" id="rearrange-p3-res"></div>
+<div class="sayzone" id="rearrange-p3-sayzone" style="display:none"><div class="lead" id="rearrange-p3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="rearrange-p3-target"></div><button class="btn" id="rearrange-p3-demo">🔊 示範</button><button class="btn ok" id="rearrange-p3-say-start" onclick="startSay('rearrange-p3')">開始唸</button><button class="btn warn" id="rearrange-p3-say-stop" disabled>停止</button><div class="heard" id="rearrange-p3-say-out"></div><div class="result" id="rearrange-p3-say-res"></div></div>
+</div>
+<div class="item" id="rearrange-p4-item"><div class="label">第 5 題</div>
+<div class="sentence">These mine. were</div>
+<div class="opts" id="rearrange-p4-opts">
+<button class="opt" onclick="pick('rearrange-p4',0,this)">Could you show me?</button>
+<button class="opt" onclick="pick('rearrange-p4',1,this)">Wash your hands and then sit down.</button>
+<button class="opt" onclick="pick('rearrange-p4',2,this)">She fell during the show.</button>
+<button class="opt" onclick="pick('rearrange-p4',3,this)">She is as beautiful as you.</button>
+<button class="opt" onclick="pick('rearrange-p4',4,this)">These were mine.</button>
+</div>
+<div class="result" id="rearrange-p4-res"></div>
+<div class="sayzone" id="rearrange-p4-sayzone" style="display:none"><div class="lead" id="rearrange-p4-lead">答對了，把整句唸出來才算過：</div><div class="target" id="rearrange-p4-target"></div><button class="btn" id="rearrange-p4-demo">🔊 示範</button><button class="btn ok" id="rearrange-p4-say-start" onclick="startSay('rearrange-p4')">開始唸</button><button class="btn warn" id="rearrange-p4-say-stop" disabled>停止</button><div class="heard" id="rearrange-p4-say-out"></div><div class="result" id="rearrange-p4-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>區塊 14 / 14　Shopping Time</span><span class="pg">講義 p16</span></div><div class="body">
+<div class="sub">逐句唸過</div>
+<div class="item" id="shoppingtime-r0-item"><div class="label">唸 1</div>
+<div class="sentence">I will buy...</div>
+<button class="btn" onclick="demoRead('shoppingtime-r0')">🔊 示範</button>
+<button class="btn ok" id="shoppingtime-r0-start" onclick="startRead('shoppingtime-r0')">開始唸</button>
+<button class="btn warn" id="shoppingtime-r0-stop" disabled>停止</button>
+<div class="heard" id="shoppingtime-r0-out"></div><div class="result" id="shoppingtime-r0-res"></div></div>
+<div class="item" id="shoppingtime-r1-item"><div class="label">唸 2</div>
+<div class="sentence">What will you buy at the store?</div>
+<button class="btn" onclick="demoRead('shoppingtime-r1')">🔊 示範</button>
+<button class="btn ok" id="shoppingtime-r1-start" onclick="startRead('shoppingtime-r1')">開始唸</button>
+<button class="btn warn" id="shoppingtime-r1-stop" disabled>停止</button>
+<div class="heard" id="shoppingtime-r1-out"></div><div class="result" id="shoppingtime-r1-res"></div></div>
+<div class="sub">練習（講義原題）</div>
+<div class="item" id="shoppingtime-p0-item"><div class="label">第 1 題</div>
+<div class="sentence">You have 20 seconds. What will you buy at the store?</div>
+<button class="btn ok" id="shoppingtime-p0-start" onclick="startTalk('shoppingtime-p0')">開始說</button>
+<button class="btn warn" id="shoppingtime-p0-stop" disabled>停止</button>
+<div class="heard" id="shoppingtime-p0-out"></div>
+<div class="result" id="shoppingtime-p0-res"></div>
+<div class="sayzone" id="shoppingtime-p0-sayzone" style="display:none"><div class="lead" id="shoppingtime-p0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="shoppingtime-p0-target"></div><button class="btn" id="shoppingtime-p0-demo">🔊 示範</button><button class="btn ok" id="shoppingtime-p0-say-start" onclick="startSay('shoppingtime-p0')">開始唸</button><button class="btn warn" id="shoppingtime-p0-say-stop" disabled>停止</button><div class="heard" id="shoppingtime-p0-say-out"></div><div class="result" id="shoppingtime-p0-say-res"></div></div>
+</div>
+</div></div>
+</div>
+<div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button></div>
+<div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
+const DATA={"lesson": "LV4-55", "child": "Bobo", "title": "My City — My Neighborhood", "subtitle": "講義 14 個區塊全覆蓋：每一區都要唸過，每一題答完都要唸出整句", "storage": "oikid-bobo-lv4-55-pre-v2", "intro": "這一課講義有 14 個小區塊。每個區塊都是：先認字 → 逐句唸過 → 做講義上的原題。每一題答對之後還要把正確的整句唸出來才算過，猜對也要唸。", "vocabAll": [{"w": "waitress", "zh": "女服務生"}, {"w": "waiter", "zh": "男服務生"}, {"w": "serve", "zh": "服務；上菜"}, {"w": "buy", "zh": "買"}, {"w": "shop", "zh": "逛（街）"}, {"w": "sell", "zh": "賣"}, {"w": "during", "zh": "在…期間"}, {"w": "could", "zh": "能夠（過去／禮貌）"}, {"w": "then", "zh": "然後"}, {"w": "when", "zh": "當…的時候"}, {"w": "were", "zh": "是（過去式）"}, {"w": "as", "zh": "像；一樣"}], "blocks": [{"id": "birthday", "name": "It's your Birthday", "page": "p2", "read": ["Your teacher wants to buy you a cake.", "Which one do you want?", "Why do you want that cake?"], "words": [], "practice": [{"kind": "speak", "q": "Which cake do you want? Why do you want that cake?", "keywords": ["cake", "want", "because", "chocolate", "strawberry"], "minHits": 2, "model": "I want the chocolate cake because I love chocolate."}]}, {"id": "cloze1", "name": "Fill in the Blanks", "page": "p3", "read": ["A mall is a large building that has a lot of stores and restaurants.", "You can buy snacks, drinks, and newspapers in a store.", "A bank is where most people save their money.", "A market is a place where people buy and sell goods."], "words": [], "practice": [{"kind": "fill", "q": "A ______ is a large building that has a lot of stores and restaurants.", "answer": "mall", "options": ["market", "store", "bank", "mall"], "say": "A mall is a large building that has a lot of stores and restaurants."}, {"kind": "fill", "q": "You can buy snacks, drinks, and newspapers in a ______.", "answer": "store", "options": ["market", "store", "bank", "mall"], "say": "You can buy snacks, drinks, and newspapers in a store."}, {"kind": "fill", "q": "A ______ is where most people save their money.", "answer": "bank", "options": ["market", "store", "bank", "mall"], "say": "A bank is where most people save their money."}, {"kind": "fill", "q": "A ______ is a place where people buy and sell goods.", "answer": "market", "options": ["market", "store", "bank", "mall"], "say": "A market is a place where people buy and sell goods."}]}, {"id": "grammarreview", "name": "Grammar Review", "page": "p4–p5", "note": "連接詞 but / so / or / and", "read": ["We went to the mall, but it was already closed.", "I was very tired, so I slept until 10 o'clock.", "We can buy some fruits from the market or the store."], "words": [], "practice": [{"kind": "fill", "q": "He went to the store, ______ he didn't buy anything.", "answer": "but", "options": ["and", "so", "or", "but"], "say": "He went to the store, but he didn't buy anything."}, {"kind": "fill", "q": "Would you like to have cake ______ cookies?", "answer": "or", "options": ["and", "so", "or", "but"], "say": "Would you like to have cake or cookies?"}, {"kind": "fill", "q": "You are sick, ______ you should go to the hospital now!", "answer": "so", "options": ["and", "so", "or", "but"], "say": "You are sick, so you should go to the hospital now!"}, {"kind": "fill", "q": "My mom didn't want me to go, ______ I went anyway.", "answer": "but", "options": ["and", "so", "or", "but"], "say": "My mom didn't want me to go, but I went anyway."}, {"kind": "fill", "q": "The library has lots of books ______ no comic books.", "answer": "and", "options": ["and", "so", "or", "but"], "say": "The library has lots of books and no comic books."}]}, {"id": "serve", "name": "Serve", "page": "p6", "read": ["This waitress serves food at the restaurant.", "Waiters and waitresses not only serve food, but also bring people what they need.", "We can also call them servers."], "words": [{"w": "waitress", "zh": "女服務生"}, {"w": "waiter", "zh": "男服務生"}, {"w": "serve", "zh": "服務；上菜"}], "practice": [{"kind": "fill", "q": "This waitress ______ food at the restaurant.", "answer": "serves", "options": ["serves", "buys", "shops", "sells"], "say": "This waitress serves food at the restaurant."}]}, {"id": "buy", "name": "buy", "page": "p7", "note": "buy = to exchange something with money", "read": ["Buy means to exchange something with money.", "My mom and I buy fruits and vegetables from the market in our neighborhood.", "We buy clothes and shoes at the mall."], "words": [{"w": "buy", "zh": "買"}], "practice": [{"kind": "fill", "q": "We ______ clothes and shoes at the mall.", "answer": "buy", "options": ["buy", "sell", "serve", "shop"], "say": "We buy clothes and shoes at the mall."}]}, {"id": "shop", "name": "shop", "page": "p8", "note": "shop = to look around for things you want to buy", "read": ["Shop means to look around for things you want to buy.", "My friends and I shop a lot.", "We shop when we have nothing to do.", "We can go to the shopping mall and shop without buying anything."], "words": [{"w": "shop", "zh": "逛（街）"}], "practice": [{"kind": "fill", "q": "We ______ when we have nothing to do.", "answer": "shop", "options": ["shop", "buy", "sell", "serve"], "say": "We shop when we have nothing to do."}]}, {"id": "sell", "name": "sell", "page": "p9", "read": ["This is Kelly.", "She sells fruits and vegetables at the market.", "All the fruits and vegetables are from her farms.", "Many people sell things at the market in my neighborhood."], "words": [{"w": "sell", "zh": "賣"}], "practice": [{"kind": "fill", "q": "She ______ fruits and vegetables at the market.", "answer": "sells", "options": ["sells", "buys", "shops", "serves"], "say": "She sells fruits and vegetables at the market."}]}, {"id": "verbs", "name": "Verbs", "page": "p10", "note": "第三人稱單數要加 s", "read": ["I shop. She shops.", "I buy. He buys.", "I serve. She serves.", "I sell. He sells."], "words": [], "practice": [{"kind": "fill", "q": "He ______ at the mall every weekend. (shop)", "answer": "shops", "options": ["shops", "shop", "shopping", "shopped"], "say": "He shops at the mall every weekend."}, {"kind": "fill", "q": "She ______ fruits at the market. (buy)", "answer": "buys", "options": ["buys", "buy", "buying", "bought"], "say": "She buys fruits at the market."}, {"kind": "fill", "q": "He ______ food at the restaurant. (serve)", "answer": "serves", "options": ["serves", "serve", "serving", "served"], "say": "He serves food at the restaurant."}, {"kind": "fill", "q": "She ______ vegetables at the market. (sell)", "answer": "sells", "options": ["sells", "sell", "selling", "sold"], "say": "She sells vegetables at the market."}]}, {"id": "whatdo", "name": "What do they do?", "page": "p11", "read": ["What do they do?", "The woman arranges flowers to sell.", "The waiter serves drinks.", "The friends shop together at the mall.", "The cashier sells things at the store."], "words": [], "practice": [{"kind": "fill", "q": "The woman arranges flowers to ______.", "answer": "sell", "options": ["sell", "buy", "serve", "shop"], "say": "The woman arranges flowers to sell."}, {"kind": "fill", "q": "The waiter ______ drinks.", "answer": "serves", "options": ["serves", "buys", "sells", "shops"], "say": "The waiter serves drinks."}, {"kind": "fill", "q": "The friends ______ together at the mall.", "answer": "shop", "options": ["shop", "sell", "serve", "buy"], "say": "The friends shop together at the mall."}, {"kind": "fill", "q": "The cashier ______ things at the store.", "answer": "sells", "options": ["sells", "buys", "shops", "serves"], "say": "The cashier sells things at the store."}]}, {"id": "letsread", "name": "Let's read", "page": "p12", "read": ["At the shore, oh, for sure!", "When I'm bored, I walk to the shore.", "If you feel sore, don't go to the stores!", "Try the water at the shore, as pretty as a picture."], "words": [], "practice": [{"kind": "fill", "q": "When I'm bored, I walk to the ______.", "answer": "shore", "options": ["shore", "store", "stores", "shop"], "say": "When I'm bored, I walk to the shore."}]}, {"id": "wordproblems", "name": "Word Problems", "page": "p13", "read": ["If 12 months is 1 year and 10 years is 1 decade,", "how many months are there in 1 decade?", "If 10 decades is 1 century, how many years are there in a century?", "I have used the same car for the last 3 decades.", "How many months is the car being used?"], "words": [], "practice": [{"kind": "num", "q": "12 × 10 = ______（1 decade 有幾個月？）", "answer": "120", "say": "There are 120 months in 1 decade."}, {"kind": "num", "q": "10 × 10 = ______（1 century 有幾年？）", "answer": "100", "say": "There are 100 years in a century."}, {"kind": "num", "q": "3 decades = 3 × 10 × 12 = ______ 個月", "answer": "360", "say": "I have used the car for 360 months."}]}, {"id": "memory", "name": "Memory Game", "page": "p14", "note": "sight words：during / could / then / when / were / as", "read": ["During the show, she felt happy.", "Could you help me?", "I ate dinner, then I went to bed.", "When it rains, I stay home.", "They were happy.", "She is as tall as her mom."], "words": [{"w": "during", "zh": "在…期間"}, {"w": "could", "zh": "能夠（過去／禮貌）"}, {"w": "then", "zh": "然後"}, {"w": "when", "zh": "當…的時候"}, {"w": "were", "zh": "是（過去式）"}, {"w": "as", "zh": "像；一樣"}], "practice": [{"kind": "fill", "q": "______ the show, she felt happy.", "answer": "During", "options": ["During", "could", "then", "when", "were", "as"], "say": "During the show, she felt happy."}, {"kind": "fill", "q": "______ you help me?", "answer": "Could", "options": ["during", "Could", "then", "when", "were", "as"], "say": "Could you help me?"}, {"kind": "fill", "q": "I ate dinner, ______ I went to bed.", "answer": "then", "options": ["during", "could", "then", "when", "were", "as"], "say": "I ate dinner, then I went to bed."}, {"kind": "fill", "q": "______ it rains, I stay home.", "answer": "When", "options": ["during", "could", "then", "When", "were", "as"], "say": "When it rains, I stay home."}, {"kind": "fill", "q": "They ______ happy.", "answer": "were", "options": ["during", "could", "then", "when", "were", "as"], "say": "They were happy."}, {"kind": "fill", "q": "She is ______ tall as her mom.", "answer": "as", "options": ["during", "could", "then", "when", "were", "as"], "say": "She is as tall as her mom."}]}, {"id": "rearrange", "name": "Rearrange Sentences", "page": "p15", "read": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "words": [], "practice": [{"kind": "fill", "q": "me? show you Could", "answer": "Could you show me?", "options": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "say": "Could you show me?"}, {"kind": "fill", "q": "Wash down. hands your and then sit", "answer": "Wash your hands and then sit down.", "options": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "say": "Wash your hands and then sit down."}, {"kind": "fill", "q": "She during the show. fell", "answer": "She fell during the show.", "options": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "say": "She fell during the show."}, {"kind": "fill", "q": "is She as beautiful you. as", "answer": "She is as beautiful as you.", "options": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "say": "She is as beautiful as you."}, {"kind": "fill", "q": "These mine. were", "answer": "These were mine.", "options": ["Could you show me?", "Wash your hands and then sit down.", "She fell during the show.", "She is as beautiful as you.", "These were mine."], "say": "These were mine."}]}, {"id": "shoppingtime", "name": "Shopping Time", "page": "p16", "read": ["I will buy...", "What will you buy at the store?"], "words": [], "practice": [{"kind": "speak", "q": "You have 20 seconds. What will you buy at the store?", "keywords": ["buy", "will", "fruit", "vegetables", "drink", "snack"], "minHits": 2, "model": "I will buy some apples, milk and bread."}]}]};
+const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
+ won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
+ there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
+ by:'by',buy:'by',bye:'by',see:'see',sea:'see',be:'be',bee:'be',right:'right',write:'right',
+ son:'son',sun:'son',meat:'meat',meet:'meat',week:'week',weak:'weak',wait:'wait',weight:'wait',
+ pair:'pair',pear:'pair',plane:'plane',plain:'plain',road:'road',rode:'road',sale:'sale',sail:'sale',
+ tail:'tail',tale:'tale',threw:'threw',through:'threw',wood:'wood',would:'wood',
+ flour:'flour',flower:'flour',blue:'blue',blew:'blue',night:'night',knight:'night',
+ hi:'hi',high:'hi',mail:'mail',male:'mail',eye:'i',i:'i',red:'red',read:'red'};
+const NUM1={zero:0,oh:0,o:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9};
+const NUM2={ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19};
+const NUM3={twenty:20,thirty:30,forty:40,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+const SAY={for:'four',to:'two',too:'two',ate:'eight',won:'one'};
+function numCanon(str){
+  let words=String(str||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+  words=words.map(w=>HOMO[w]!==undefined?HOMO[w]:w);        // 同音字先收斂
+  const out=[];let i=0;
+  while(i<words.length){
+    const w=words[i];let v=null;
+    if(/^\d+$/.test(w)){out.push(w);i++;continue}            // 已是數字原樣留著，否則 0928 開頭的 0 會被吃掉
+    if(NUM3[w]!==undefined){v=NUM3[w];if(NUM1[words[i+1]]>0){v+=NUM1[words[i+1]];i++}}
+    else if(NUM2[w]!==undefined)v=NUM2[w];
+    else if(NUM1[w]!==undefined)v=NUM1[w];
+    if(v===null){out.push(w);i++;continue}
+    while(words[i+1]==='hundred'||words[i+1]==='thousand'){
+      v=v*(words[i+1]==='hundred'?100:1000);i++;
+      if(words[i+1]==='and')i++;
+      const nx=words[i+1];let add=null;
+      if(nx!==undefined){
+        if(NUM3[nx]!==undefined){add=NUM3[nx];if(NUM1[words[i+2]]>0){add+=NUM1[words[i+2]];i++}}
+        else if(NUM2[nx]!==undefined)add=NUM2[nx];
+        else if(NUM1[nx]>0)add=NUM1[nx];
+        if(add!==null){v+=add;i++}
+      }
+    }
+    out.push(String(v));i++;
+  }
+  // one o one → 1 0 1 → 101。只合併連續 3 位以上，否則 "two to" 會被誤併成 22
+  const merged=[];let run=[];
+  const flush=()=>{if(run.length>=3)merged.push(run.join(''));else run.forEach(x=>merged.push(x));run=[]};
+  out.forEach(t=>{if(/^\d$/.test(t))run.push(t);else{flush();merged.push(t)}});
+  flush();
+  return merged;
+};
+function norm(s,expandDigits=false){return numCanon(s).join(' ')};
+function sim(a,b){if(a===b)return true;if(Math.abs(a.length-b.length)>2)return false;let d=Math.abs(a.length-b.length);for(let i=0;i<Math.min(a.length,b.length);i++)if(a[i]!==b[i])d++;return d<=1};
+function alike(a,b){return sim(a,b)||SAY[a]===b||SAY[b]===a};
+function pct(ref,got){const rw=norm(ref).split(' ').filter(Boolean),gw=norm(got,true).split(' ').filter(Boolean);let h=0;rw.forEach(w=>{if(gw.some(g=>sim(w,g)))h++});return rw.length?Math.round(h/rw.length*100):0};
+function keyHit(k,g,gw){const nk=norm(k,true);if(g.includes(nk))return true;const kw=nk.split(' ').filter(Boolean);return kw.length&&kw.every(w=>gw.some(x=>alike(w,x)))};
+function hits(keys,got){const g=norm(got,true),gw=g.split(' ').filter(Boolean);return (keys||[]).filter(k=>keyHit(k,g,gw)).length};
+function SR(){return window.SpeechRecognition||window.webkitSpeechRecognition};
+function rec(id,cb){const C=SR(),out=document.getElementById(id+'-out'),start=document.getElementById(id+'-start'),stop=document.getElementById(id+'-stop');if(!C){out.textContent='此瀏覽器不支援語音辨識。';return}let text='',stopped=false;const r=new C();r.lang='en-US';r.continuous=true;r.interimResults=false;r.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)text+=e.results[i][0].transcript+' '};r.onend=()=>{if(!stopped){setTimeout(()=>{try{r.start()}catch(e){}},120);return}if(start)start.disabled=false;if(stop)stop.disabled=true;cb(text.trim())};if(start)start.disabled=true;if(stop){stop.disabled=false;stop.onclick=()=>{stopped=true;try{r.stop()}catch(e){}setTimeout(()=>{try{r.abort()}catch(e){}},1200)}}out.textContent='Listening...';try{r.start()}catch(e){out.textContent='請再按一次。'}};
+function speak(t,r=.82){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r;window.speechSynthesis.speak(u)};
+
+const passed=new Set(), attempts={};
+function unit(x){return String(x).replace(/[^a-z0-9_-]/gi,'_')}
+function el(id){return document.getElementById(id)}
+const WORDS={};
+DATA.blocks.forEach(b=>(b.words||[]).forEach((w,wi)=>{WORDS[b.id+'-w'+wi]=w.w}));
+function total(){let n=Object.keys(WORDS).length;
+  DATA.blocks.forEach(b=>{n+=(b.read||[]).length+(b.practice||[]).length});return n}
+function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+  el('prog').textContent='進度 '+passed.size+' / '+t+'　（'+DATA.blocks.length+' 個區塊）'}
+function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
+  if(passed.size>=total())finish()}
+
+/* --- 示範發音：一律用索引取字串，不把文字塞進 onclick --- */
+function demoWord(wid){speak(WORDS[wid]);
+  const b=el(wid+'-start');if(b&&!passed.has(wid))b.disabled=false;
+  const r=el(wid+'-res');if(r&&!r.textContent)r.textContent='聽過了，現在按「開始唸」。'}
+function demoRead(rid){speak(findRead(rid))}
+
+/* --- 單字：聽過才能唸，唸對才算過 --- */
+/* 單字要嚴格比對。引擎的 sim() 容許 1 個字母誤差，整句沒差，
+   但單字會讓 sent 判成 send、word 判成 work，等於白練。 */
+function wordOk(want,got){const a=norm(want),g=norm(got,true).split(' ').filter(Boolean);
+  return g.includes(a)}
+function startWord(wid){const w=WORDS[wid];
+  rec(wid,t=>{attempts[wid]=(attempts[wid]||0)+1;
+    el(wid+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const res=el(wid+'-res');
+    if(wordOk(w,t)){res.className='result oktext';res.textContent='唸對了。';
+      el(wid+'-item').classList.add('done');el(wid+'-start').disabled=true;mark(wid)}
+    else{res.className='result failtext';
+      res.textContent='聽起來不是 '+w+'。再按一次「聽」，然後把整個字唸清楚。'}})}
+
+/* --- 逐句唸 --- */
+function findRead(id){const m=id.match(/^(.+)-r(\d+)$/);const b=DATA.blocks.find(x=>x.id===m[1]);return b.read[+m[2]]}
+function startRead(id){rec(id,t=>{const ref=findRead(id);attempts[id]=(attempts[id]||0)+1;
+  el(id+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+  const s=pct(ref,t),res=el(id+'-res');
+  if(s>=85){res.className='result oktext';res.textContent='通過 '+s+'%';el(id+'-item').classList.add('done');mark(id)}
+  else{res.className='result failtext';res.textContent='只有 '+s+'%，整句再唸一次。'}})}
+
+/* --- 練習題 ---
+   規則：答對 → 唸整句才算過；答錯 → 先唸正確整句，唸過才解鎖重做。
+   猜對也要唸，所以亂猜省不了時間。 */
+const state={};
+function findP(pid){const m=pid.match(/^(.+)-p(\d+)$/);const b=DATA.blocks.find(x=>x.id===m[1]);return b.practice[+m[2]]}
+function openSay(pid,lead){const p=findP(pid),z=el(pid+'-sayzone');
+  el(pid+'-target').textContent=p.say;el(pid+'-lead').textContent=lead;
+  el(pid+'-demo').onclick=()=>speak(p.say);
+  z.style.display='block';z.className='sayzone';
+  el(pid+'-say-res').textContent='';el(pid+'-say-out').textContent='';
+  el(pid+'-say-start').disabled=false}
+function startSay(pid){const p=findP(pid);
+  rec(pid+'-say',t=>{const k=pid+'-say';attempts[k]=(attempts[k]||0)+1;
+    el(pid+'-say-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const s=pct(p.say,t),res=el(pid+'-say-res');
+    if(s<85){res.className='result failtext';res.textContent='只有 '+s+'%，整句再唸一次。';return}
+    res.className='result oktext';res.textContent='唸得好 '+s+'%';
+    el(pid+'-sayzone').className='sayzone pass';
+    el(pid+'-say-start').disabled=true;
+    if((state[pid]||{}).answered){el(pid+'-item').classList.add('done');mark(pid)}
+    else{res.textContent='唸得好 '+s+'%。現在重做這一題。';setTimeout(()=>retry(pid),900)}})}
+function retry(pid){const p=findP(pid),box=el(pid+'-opts');
+  el(pid+'-sayzone').style.display='none';el(pid+'-res').textContent='';
+  if(box){box.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});
+    shuffleOpts(box)}
+  const inp=el(pid+'-in');if(inp){inp.disabled=false;inp.value=''}
+  const st=el(pid+'-start');if(st)st.disabled=false}
+function shuffleOpts(box){const bs=[].slice.call(box.children);
+  for(let i=bs.length-1;i>0;i--){const r=Math.floor(Math.random()*(i+1));const t=bs[i];bs[i]=bs[r];bs[r]=t}
+  bs.forEach(b=>box.appendChild(b))}
+function pick(pid,oi,btn){const p=findP(pid),box=el(pid+'-opts'),res=el(pid+'-res');
+  const opts=p.options||['True','False'];
+  attempts[pid]=(attempts[pid]||0)+1;
+  const ok=String(opts[oi]).toLowerCase()===String(p.answer).toLowerCase();
+  box.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  state[pid]={answered:ok};
+  if(ok){res.className='result oktext';res.textContent='答對了。';
+    openSay(pid,'答對了，把整句唸出來才算過：')}
+  else{res.className='result failtext';res.textContent='答錯了。';
+    openSay(pid,'先把正確的整句唸一次，唸過才能重做：')}}
+function checkNum(pid){const p=findP(pid),v=(el(pid+'-in').value||'').trim(),res=el(pid+'-res');
+  attempts[pid]=(attempts[pid]||0)+1;
+  const ok=v.replace(/[^0-9.]/g,'')===String(p.answer);
+  state[pid]={answered:ok};
+  el(pid+'-in').disabled=true;
+  if(ok){res.className='result oktext';res.textContent='答對了。';
+    openSay(pid,'答對了，把整句唸出來才算過：')}
+  else{res.className='result failtext';res.textContent='算錯了。';
+    openSay(pid,'先把正確的整句唸一次，唸過才能重算：')}}
+
+function startTalk(pid){const p=findP(pid);if(!p.say)p.say=p.model;
+  rec(pid,t=>{attempts[pid]=(attempts[pid]||0)+1;
+    el(pid+'-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const need=p.minHits||2,n=hits(p.keywords,t);
+    const words=norm(t,true).split(' ').filter(Boolean).length;
+    const res=el(pid+'-res');
+    if(n>=need&&words>=10){state[pid]={answered:true};res.className='result oktext';
+      res.textContent='說得好（命中 '+n+' 個關鍵字）。';
+      el(pid+'-start').disabled=true;
+      openSay(pid,'最後把參考句唸一次就過關：')}
+    else{res.className='result failtext';
+      res.textContent='再說完整一點（命中 '+n+'/'+need+' 個關鍵字，說了 '+words+' 個字，至少要 10 個）。'}})}
+
+/* --- 存檔 / 報告 --- */
+function save(silent){try{localStorage.setItem(DATA.storage,JSON.stringify({
+  passed:[...passed],attempts,at:new Date().toISOString()}))}catch(e){}
+  if(!silent)alert('已存檔。')}
+function load(){try{const d=JSON.parse(localStorage.getItem(DATA.storage)||'{}');
+  (d.passed||[]).forEach(x=>passed.add(x));Object.assign(attempts,d.attempts||{});
+  passed.forEach(k=>{const it=el(k+'-item');if(it)it.classList.add('done');
+    const st=el(k+'-start');if(st)st.disabled=true})}catch(e){}
+  prog()}
+function weakList(){return Object.keys(attempts).filter(k=>attempts[k]>1).sort()
+  .map(k=>k+'：'+attempts[k]+' 次')}
+function report(auto){const w=weakList();
+  el('report').innerHTML='<p><strong>'+DATA.child+'　'+DATA.lesson+' 預習</strong></p>'
+    +'<p>完成 '+passed.size+' / '+total()+'</p>'
+    +'<p>總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次</p>'
+    +(w.length?'<p><strong>做超過一次的（要注意）：</strong></p><ul><li>'+w.join('</li><li>')+'</li></ul>':'<p>每一題都一次過。</p>');
+  el('modal').classList.add('show');
+  if(auto)tg(DATA.child+' '+DATA.lesson+' 預習完成。\n完成 '+passed.size+'/'+total()
+    +'\n總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次'
+    +(w.length?'\n卡關的：\n'+w.join('\n'):'\n每題一次過。'))}
+function finish(){report(true)}
+const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
+async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
+load();
+
+</script><script>
+/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body></html>

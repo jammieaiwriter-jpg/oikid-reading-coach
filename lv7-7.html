@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LV7-7 Science – Dinosaurs | OiKID</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef7ee;color:#333;padding-bottom:80px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#4caf7d,#1e7d45);color:#fff;text-align:center;padding:28px 20px 22px;}
+.hero .badge{display:inline-block;background:#ff8c42;color:#fff;font-size:.8rem;font-weight:700;padding:3px 14px;border-radius:20px;margin-bottom:8px;}
+.hero h1{font-size:1.8rem;font-weight:800;}
+.hero h2{font-size:1rem;opacity:.9;margin-top:4px;}
+.hero .topic{display:inline-block;background:rgba(255,255,255,.18);border-radius:12px;padding:6px 18px;margin-top:10px;font-size:.9rem;font-weight:600;}
+
+/* SECTION */
+.section{max-width:820px;margin:20px auto 0;background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.08);overflow:hidden;}
+.sec-head{display:flex;align-items:center;gap:8px;padding:13px 20px;font-size:1.05rem;font-weight:700;color:#fff;}
+.sec-head.green{background:#4caf7d;}
+.sec-head.teal{background:#2aabbb;}
+.sec-head.orange{background:#f4873a;}
+.sec-head.purple{background:#8e44ad;}
+.sec-body{padding:20px;}
+
+/* VOCAB CARD */
+.vocab-grid{display:flex;flex-direction:column;gap:12px;}
+.vocab-card{background:#f4fbf6;border:1.5px solid #c8ecd5;border-radius:14px;padding:14px 18px;}
+.vocab-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.vocab-word{font-size:1.3rem;font-weight:800;color:#1e7d45;}
+.vocab-zh{font-size:.9rem;color:#e07b3a;font-weight:700;}
+.vocab-def{font-size:.88rem;color:#555;margin-bottom:6px;line-height:1.5;}
+.vocab-ex{font-size:.83rem;color:#777;font-style:italic;border-left:3px solid #c8ecd5;padding-left:8px;margin-bottom:10px;}
+.tts-btn{background:#4caf7d;color:#fff;border:none;border-radius:14px;padding:5px 14px;font-size:.82rem;font-weight:700;cursor:pointer;margin-right:6px;}
+.tts-btn:hover{background:#3a9666;}
+
+/* VOCAB ASSESS */
+.vocab-assess-row{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap;}
+.say-btn{background:#2aabbb;color:#fff;border:none;border-radius:14px;padding:7px 16px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.say-btn:disabled{background:#aaa;cursor:not-allowed;}
+.say-stop{background:#e74c3c;color:#fff;border:none;border-radius:14px;padding:7px 14px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.say-stop:disabled{background:#ccc;color:#999;cursor:not-allowed;}
+.vocab-result{font-size:.88rem;font-weight:700;min-width:80px;}
+.vocab-result.ok{color:#27ae60;}
+.vocab-result.err{color:#e74c3c;}
+.vocab-result.waiting{color:#888;}
+
+/* EXAMPLE SENTENCE PRACTICE */
+.ex-practice{margin-top:10px;background:#f0f8ff;border:1.5px dashed #a8d4f0;border-radius:12px;padding:10px 14px;}
+.ex-practice-label{font-size:.72rem;font-weight:700;color:#2980b9;margin-bottom:6px;letter-spacing:.3px;}
+.ex-practice-text{font-size:.85rem;color:#444;font-style:italic;margin-bottom:8px;line-height:1.6;}
+.ex-assess-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ex-say-btn{background:#3498db;color:#fff;border:none;border-radius:12px;padding:6px 14px;font-size:.82rem;font-weight:700;cursor:pointer;}
+.ex-say-btn:disabled{background:#aaa;cursor:not-allowed;}
+.ex-stop-btn{background:#e74c3c;color:#fff;border:none;border-radius:12px;padding:6px 12px;font-size:.82rem;font-weight:700;cursor:pointer;}
+.ex-stop-btn:disabled{background:#ccc;color:#999;cursor:not-allowed;}
+.ex-result{font-size:.82rem;font-weight:700;min-width:70px;}
+.ex-result.ok{color:#27ae60;}
+.ex-result.err{color:#e74c3c;}
+.ex-result.waiting{color:#888;}
+
+/* VOCAB PROGRESS */
+.vocab-progress-bar{height:8px;background:#e8f5e9;border-radius:10px;margin-top:16px;overflow:hidden;}
+.vocab-progress-fill{height:100%;background:linear-gradient(90deg,#4caf7d,#2aabbb);border-radius:10px;transition:width .4s;}
+.vocab-progress-label{text-align:center;font-size:.8rem;color:#4caf7d;font-weight:700;margin-top:6px;}
+
+/* PASSAGE */
+.para-block{margin-bottom:20px;}
+.para-block:last-child{margin-bottom:0;}
+.para-card{background:#f8fefb;border:1.5px solid #c8ecd5;border-radius:14px;padding:16px 18px;margin-bottom:8px;}
+.para-label{font-size:.72rem;font-weight:700;color:#4caf7d;letter-spacing:.5px;margin-bottom:6px;}
+.para-text{font-size:.97rem;line-height:1.9;color:#333;}
+.para-text .blank-word{color:#1e7d45;font-weight:800;background:#d4f5e2;padding:1px 6px;border-radius:4px;}
+
+/* READ ALOUD */
+.read-block{background:#f0f8ff;border:1.5px solid #a8d4f0;border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+.read-label{font-size:.75rem;font-weight:700;color:#2980b9;margin-bottom:8px;letter-spacing:.3px;}
+.word-display{font-size:.93rem;line-height:2;margin-bottom:10px;min-height:42px;}
+.word-display .w-ok{color:#27ae60;background:#eafaf1;display:inline-block;margin:1px 2px;padding:0 4px;border-radius:4px;}
+.word-display .w-err{color:#e74c3c;background:#fdf2f2;display:inline-block;margin:1px 2px;padding:0 4px;border-radius:4px;}
+.word-display .w-neutral{color:#555;background:#f4f4f4;display:inline-block;margin:1px 2px;padding:0 4px;border-radius:4px;}
+.hint-toggle{background:#fff3e0;color:#e07b3a;border:1.5px solid #f0c080;border-radius:10px;padding:5px 14px;font-size:.82rem;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.hint-parts{display:none;gap:8px;flex-direction:column;margin-bottom:10px;}
+.hint-parts.show{display:flex;}
+.hint-part{background:#fffde7;border:1.5px dashed #f5c842;border-radius:10px;padding:10px 14px;}
+.hint-part-label{font-size:.7rem;font-weight:700;color:#c8a000;margin-bottom:4px;}
+.hint-part-text{font-size:.88rem;color:#555;line-height:1.7;margin-bottom:6px;}
+.read-score-bar{height:7px;background:#e0e0e0;border-radius:6px;margin-bottom:6px;overflow:hidden;}
+.read-score-fill{height:100%;border-radius:6px;transition:width .4s;}
+.read-pct{font-size:.8rem;font-weight:700;margin-bottom:8px;}
+
+/* CLOZE */
+.cloze-block{background:#fff8f0;border:1.5px solid #f8d8b0;border-radius:12px;padding:14px 16px;}
+.cloze-label{font-size:.75rem;font-weight:700;color:#e07b3a;margin-bottom:8px;}
+.cloze-sentence{font-size:1rem;line-height:1.8;margin-bottom:10px;color:#333;}
+.cloze-blank{display:inline-block;border-bottom:2.5px solid #e07b3a;min-width:120px;color:#e07b3a;font-weight:700;padding:0 4px;margin:0 2px;}
+.cloze-hint{font-size:.8rem;color:#aaa;margin-bottom:10px;}
+.rec-status{font-size:.85rem;color:#e74c3c;font-weight:600;margin-bottom:8px;min-height:20px;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.rec-dot{display:inline-block;width:9px;height:9px;background:#e74c3c;border-radius:50%;margin-right:5px;animation:pulse .8s infinite;}
+.result-display{background:#fff;border:1px solid #ddd;border-radius:8px;padding:9px 12px;font-size:.93rem;line-height:1.9;min-height:42px;margin-bottom:8px;}
+.result-display span{display:inline-block;margin:1px 3px;padding:1px 5px;border-radius:5px;}
+.w-ok{color:#27ae60;background:#eafaf1;}
+.w-err{color:#e74c3c;background:#fdf2f2;}
+.w-neutral{color:#555;background:#f4f4f4;}
+.placeholder{color:#bbb;font-style:italic;font-size:.88rem;background:none!important;padding:0!important;}
+.assess-info{font-size:.8rem;color:#888;margin-bottom:8px;}
+.assess-feedback{font-size:.95rem;font-weight:700;min-height:20px;margin-bottom:8px;}
+.assess-feedback.pass{color:#27ae60;}
+.assess-feedback.fail{color:#e74c3c;}
+.assess-feedback.perfect{color:#e67e22;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-speak{background:#2aabbb;color:#fff;border:none;border-radius:20px;padding:9px 22px;font-size:.95rem;font-weight:700;cursor:pointer;}
+.btn-speak:disabled{background:#aaa;cursor:not-allowed;}
+.btn-stop{background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:.95rem;font-weight:700;cursor:pointer;}
+.btn-stop:disabled{background:#ccc;color:#999;cursor:not-allowed;}
+.score-pill{display:none;margin-top:10px;border-radius:10px;padding:9px 16px;font-size:.95rem;font-weight:700;text-align:center;}
+.score-pill.perfect{background:linear-gradient(135deg,#f6d365,#fda085);color:#fff;}
+.score-pill.pass{background:linear-gradient(135deg,#43c98e,#2aabbb);color:#fff;}
+.score-pill.fail{background:#ffeaea;color:#c0392b;border:1.5px solid #f5c6c6;}
+.para-pass-badge{display:none;background:linear-gradient(135deg,#43c98e,#4caf7d);color:#fff;border-radius:12px;padding:10px 18px;font-size:.95rem;font-weight:700;text-align:center;margin-top:8px;}
+.para-pass-badge.show{display:block;}
+
+/* CHALLENGE */
+.challenge-box{background:linear-gradient(135deg,#f8f0ff,#e8f7ff);border:2px solid #c8a8f0;border-radius:18px;padding:22px 24px;}
+.challenge-q{font-size:1.15rem;font-weight:800;color:#6c3db5;margin-bottom:6px;}
+.challenge-sub{font-size:.88rem;color:#888;margin-bottom:16px;}
+.score-board{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.score-item{background:#fff;border:1.5px solid #ddd;border-radius:12px;padding:10px 16px;text-align:center;flex:1;min-width:100px;}
+.score-item .s-label{font-size:.72rem;color:#888;margin-bottom:4px;}
+.score-item .s-val{font-size:1.5rem;font-weight:800;color:#6c3db5;}
+.score-item .s-max{font-size:.75rem;color:#aaa;}
+.challenge-feedback{font-size:1rem;font-weight:700;min-height:24px;margin-top:10px;text-align:center;}
+.challenge-feedback.perfect{color:#e67e22;}
+.challenge-feedback.pass{color:#27ae60;}
+.challenge-feedback.fail{color:#e74c3c;}
+.challenge-pill{display:none;margin-top:12px;border-radius:12px;padding:12px 20px;font-size:1rem;font-weight:700;text-align:center;}
+.challenge-pill.perfect{background:linear-gradient(135deg,#f6d365,#fda085);color:#fff;}
+.challenge-pill.pass{background:linear-gradient(135deg,#43c98e,#4caf7d);color:#fff;}
+.challenge-pill.fail{background:#ffeaea;color:#c0392b;border:1.5px solid #f5c6c6;}
+.keyword-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.keyword-tag{background:#f0e8ff;color:#6c3db5;border-radius:10px;padding:3px 10px;font-size:.78rem;font-weight:600;}
+.keyword-tag.hit{background:#4caf7d;color:#fff;}
+
+@media(max-width:600px){.hero h1{font-size:1.4rem;}.btn-speak,.btn-stop{padding:8px 14px;font-size:.85rem;}.score-board{flex-direction:column;}}
+
+/* FLOAT BUTTONS */
+.float-bar{position:fixed;bottom:18px;right:18px;display:flex;flex-direction:column;gap:8px;z-index:999;}
+.float-btn{border:none;border-radius:22px;padding:11px 20px;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);display:flex;align-items:center;gap:6px;}
+.float-save{background:#4caf7d;color:#fff;}
+.float-report{background:#8e44ad;color:#fff;}
+.float-saved-msg{font-size:.75rem;text-align:center;color:#4caf7d;font-weight:700;display:none;}
+
+/* RESUME BANNER */
+.resume-banner{max-width:820px;margin:12px auto 0;background:#fff8e1;border:1.5px solid #f5c842;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:700;color:#c8a000;}
+.resume-banner.hide{display:none;}
+
+/* DONE OVERLAY on card */
+.done-overlay{position:relative;}
+.done-overlay::after{content:'✅ 已完成';position:absolute;top:8px;right:12px;background:#27ae60;color:#fff;font-size:.75rem;font-weight:700;border-radius:10px;padding:2px 10px;}
+
+/* REPORT MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center;}
+.modal-bg.show{display:flex;}
+.modal{background:#fff;border-radius:22px;max-width:560px;width:92%;max-height:85vh;overflow-y:auto;padding:28px 24px;box-shadow:0 8px 40px rgba(0,0,0,.22);}
+.modal-title{font-size:1.3rem;font-weight:800;color:#1e7d45;margin-bottom:4px;}
+.modal-sub{font-size:.85rem;color:#888;margin-bottom:18px;}
+.report-section{margin-bottom:14px;}
+.report-section-title{font-size:.8rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px;padding:4px 10px;border-radius:8px;}
+.rpt-green{background:#e8f8f0;color:#27ae60;}
+.rpt-yellow{background:#fff8e1;color:#c8a000;}
+.rpt-red{background:#ffeaea;color:#c0392b;}
+.report-item{font-size:.88rem;padding:6px 10px;border-radius:8px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+.report-item.ok{background:#f0fbf5;color:#1e7d45;}
+.report-item.warn{background:#fff8e1;color:#c8a000;}
+.report-item.miss{background:#fdf2f2;color:#c0392b;}
+.report-badge{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:8px;}
+.modal-close{width:100%;margin-top:14px;background:#4caf7d;color:#fff;border:none;border-radius:14px;padding:11px;font-size:1rem;font-weight:700;cursor:pointer;}
+.report-time{font-size:.82rem;color:#888;margin-bottom:14px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">LV7-7</div>
+  <h1>Science</h1>
+  <h2>Dinosaurs – Were they warm- or cold-blooded?</h2>
+  <div class="topic">🦕 預習卷 · Pre-study</div>
+</div>
+
+<!-- RESUME BANNER -->
+<div class="resume-banner hide" id="resume-banner">
+  🔄 上次進度已載入！已完成的單元自動標記，直接從未完成的繼續練習。
+</div>
+
+<!-- ① VOCABULARY -->
+<div class="section">
+  <div class="sec-head green">📖 單字區 — 聽示範，再跟著說</div>
+  <div class="sec-body">
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <div class="vocab-progress-bar"><div class="vocab-progress-fill" id="vocab-prog" style="width:0%"></div></div>
+    <div class="vocab-progress-label" id="vocab-prog-label">單字進度：0 / 6</div>
+  </div>
+</div>
+
+<!-- ② PASSAGE + CLOZE -->
+<div class="section">
+  <div class="sec-head teal">📚 分段課文 — 聽懂後說出關鍵字</div>
+  <div class="sec-body" id="passages-container"></div>
+</div>
+
+<!-- ③ CHALLENGE -->
+<div class="section">
+  <div class="sec-head purple">🏆 大挑戰 — 說出你的觀點！</div>
+  <div class="sec-body">
+    <div class="challenge-box">
+      <div class="challenge-q">🦕 Were dinosaurs warm-blooded or cold-blooded?</div>
+      <div class="challenge-sub">說出你的立場，並給出至少一個理由！<br>Say your opinion AND one reason!</div>
+
+      <div style="background:#f4f0ff;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.85rem;color:#6c3db5;">
+        💡 提示：說 <strong>warm-blooded</strong> 或 <strong>cold-blooded</strong>，再說一個理由關鍵字
+      </div>
+
+      <div style="font-size:.78rem;color:#888;margin-bottom:6px;font-weight:600;">偵測到的理由關鍵字：</div>
+      <div class="keyword-tags" id="keyword-tags">
+        <span class="keyword-tag" data-key="metabolic">metabolic</span>
+        <span class="keyword-tag" data-key="temperature">temperature</span>
+        <span class="keyword-tag" data-key="food">food / eat</span>
+        <span class="keyword-tag" data-key="bones">bones</span>
+        <span class="keyword-tag" data-key="movement">movement</span>
+        <span class="keyword-tag" data-key="research">research</span>
+      </div>
+
+      <div class="score-board">
+        <div class="score-item">
+          <div class="s-label">立場</div>
+          <div class="s-val" id="score-stance">0</div>
+          <div class="s-max">/ 10</div>
+        </div>
+        <div class="score-item">
+          <div class="s-label">理由關鍵字</div>
+          <div class="s-val" id="score-reason">0</div>
+          <div class="s-max">/ 20</div>
+        </div>
+        <div class="score-item">
+          <div class="s-label">總分</div>
+          <div class="s-val" id="score-total">0</div>
+          <div class="s-max">/ 30</div>
+        </div>
+      </div>
+
+      <div class="result-display" id="challenge-res"><span class="placeholder">按下 Start Speaking，說出你的答案…</span></div>
+      <div class="rec-status" id="challenge-recstatus"></div>
+      <div class="assess-info">嘗試次數：<span id="challenge-count">0</span></div>
+      <div class="challenge-feedback" id="challenge-fb"></div>
+      <div class="btn-row">
+        <button class="btn-speak" id="challenge-start" onclick="startChallenge()">🎤 Start Speaking</button>
+        <button class="btn-stop" id="challenge-stop" onclick="stopChallenge()" disabled>⏹ Stop</button>
+      </div>
+      <div class="challenge-pill" id="challenge-pill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOAT BUTTONS -->
+<div class="float-bar">
+  <div class="float-saved-msg" id="saved-msg">✅ 進度已儲存！</div>
+  <button class="float-btn float-report" onclick="showReport()">📊 產出報告</button>
+  <button class="float-btn float-save" onclick="saveProgress()">💾 下次再繼續</button>
+</div>
+
+<!-- REPORT MODAL -->
+<div class="modal-bg" id="report-modal">
+  <div class="modal">
+    <div class="modal-title">📊 練習報告</div>
+    <div class="modal-sub" id="report-date"></div>
+    <div class="report-time" id="report-time"></div>
+    <div id="report-body"></div>
+    <button class="modal-close" onclick="closeReport()">關閉</button>
+  </div>
+</div>
+
+<script>
+// ── TTS ──
+function speak(text,rate,onDone){
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=rate||0.82;
+  if(onDone) u.onend=()=>setTimeout(onDone,5000);
+  window.speechSynthesis.speak(u);
+}
+
+// TTS + 5秒後才解鎖錄音按鈕
+// unlockBtnIds: 解鎖的按鈕 id 陣列，lockBtnIds: 播放期間要鎖住的按鈕 id 陣列
+function speakAndLock(text, rate, lockBtnIds, unlockBtnIds){
+  window.speechSynthesis.cancel();
+  // 先鎖住錄音按鈕
+  lockBtnIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.disabled=true;el.dataset.ttsLocked='1';}
+  });
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=rate||0.82;
+  u.onend=()=>{
+    // TTS 結束後倒數5秒解鎖
+    let left=5;
+    unlockBtnIds.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.textContent=el.textContent.replace(/（.*）/,'')+`（等 ${left}s）`;
+    });
+    const timer=setInterval(()=>{
+      left--;
+      unlockBtnIds.forEach(id=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent=el.textContent.replace(/（.*）/,left>0?`（等 ${left}s）`:'');
+      });
+      if(left<=0){
+        clearInterval(timer);
+        unlockBtnIds.forEach(id=>{
+          const el=document.getElementById(id);
+          if(el){el.disabled=false;delete el.dataset.ttsLocked;}
+        });
+      }
+    },1000);
+  };
+  window.speechSynthesis.speak(u);
+}
+
+// ── VOCAB DATA ──
+const VOCAB=[
+  {word:'research',zh:'研究',def:'a detailed study of a subject to discover new information',ex:'Scientists have been carrying out research on dinosaurs for decades.'},
+  {word:'mammal',zh:'哺乳動物',def:'a warm-blooded vertebrate animal',ex:'Humans, dogs, elephants, and dolphins are all mammals.'},
+  {word:'examine',zh:'考核、測試',def:'to investigate and test carefully',ex:'Scientists examine dinosaur bones under a microscope.'},
+  {word:'metabolic rate',zh:'代謝率',def:'the rate at which living organisms convert energy into food',ex:'Dinosaurs had a high metabolic rate, which allowed them to grow faster.'},
+  {word:'movement',zh:'移動',def:'an act of moving from one place to another',ex:'Cold-blooded animals have slower movements than warm-blooded ones.'},
+  {word:'temperature',zh:'溫度',def:'the degree of heat in a place or body',ex:'Human body temperature is usually around 37°C.'}
+];
+
+// Build vocab grid
+const vocabGrid=document.getElementById('vocab-grid');
+const vocabDone=new Array(VOCAB.length).fill(false);
+
+VOCAB.forEach((v,i)=>{
+  const card=document.createElement('div');
+  card.className='vocab-card';
+  card.id=`vcard-${i}`;
+  card.innerHTML=`
+    <div class="vocab-top">
+      <span class="vocab-word">${v.word}</span>
+      <span class="vocab-zh">${v.zh}</span>
+    </div>
+    <div class="vocab-def">📌 ${v.def}</div>
+    <div class="vocab-ex" id="vex-text-${i}">"${v.ex}"</div>
+    <div class="vocab-assess-row">
+      <button class="tts-btn" onclick="speakAndLock('${v.word.replace(/'/g,"\\'")}',0.82,[],['vsay-${i}','exsay-${i}'])">🔊 聽發音</button>
+      <button class="say-btn" id="vsay-${i}" onclick="startVocabSay(${i})">🎤 跟著說</button>
+      <button class="say-stop" id="vstop-${i}" onclick="stopVocabSay(${i})" disabled>⏹</button>
+      <span class="vocab-result waiting" id="vres-${i}">尚未練習</span>
+    </div>
+    <div class="ex-practice">
+      <div class="ex-practice-label">📝 例句練習 — 試著把整句念出來！</div>
+      <div class="ex-practice-text">"${v.ex}"</div>
+      <div class="ex-assess-row">
+        <button class="tts-btn" style="font-size:.78rem;padding:4px 10px;" onclick="speakAndLock('${v.ex.replace(/'/g,"\\'")}',0.75,[],['exsay-${i}'])">🔊 聽例句</button>
+        <button class="ex-say-btn" id="exsay-${i}" onclick="startExSay(${i})">🎤 念例句</button>
+        <button class="ex-stop-btn" id="exstop-${i}" onclick="stopExSay(${i})" disabled>⏹</button>
+        <span class="ex-result waiting" id="exres-${i}">尚未練習</span>
+      </div>
+    </div>
+  `;
+  vocabGrid.appendChild(card);
+});
+
+// Vocab say state
+const vocabSayState=VOCAB.map(()=>({rec:null,stopped:false}));
+
+function startVocabSay(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  const v=VOCAB[i];
+  const sayBtn=document.getElementById(`vsay-${i}`);
+  const stopBtn=document.getElementById(`vstop-${i}`);
+  const resEl=document.getElementById(`vres-${i}`);
+
+  if(vocabSayState[i].rec){
+    vocabSayState[i].rec.onend=null;vocabSayState[i].rec.onerror=null;
+    try{vocabSayState[i].rec.abort();}catch(e){}
+  }
+  vocabSayState[i].stopped=false;
+  sayBtn.disabled=true; stopBtn.disabled=false;
+  resEl.className='vocab-result waiting';resEl.textContent='聆聽中…';
+
+  const rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
+  vocabSayState[i].rec=rec;
+  rec.lang='en-US'; rec.continuous=false; rec.interimResults=false;
+  rec.maxAlternatives=3;
+
+  rec.onresult=e=>{
+    vocabSayState[i].stopped=true;
+    const transcripts=[];
+    for(let r=0;r<e.results[0].length;r++) transcripts.push(e.results[0][r].transcript.toLowerCase().trim());
+    const target=norm(v.word);
+    // For multi-word vocab, check if key parts are present
+    const parts=target.split(/\s+/);
+    const found=transcripts.some(t=>parts.every(p=>norm(t).includes(p)||similar(p,norm(t).split(/\s+/).find(w=>similar(w,p))||'')));
+    vocabAttempts[i]=(vocabAttempts[i]||0)+1;
+    if(found){
+      resEl.className='vocab-result ok'; resEl.textContent='✅ 說得好！';
+      document.getElementById(`vcard-${i}`).style.borderColor='#4caf7d';
+      document.getElementById(`vcard-${i}`).style.background='#f0fbf4';
+      if(!vocabDone[i]){vocabDone[i]=true;updateVocabProgress();checkAndNotify('vocab'+i);}
+    } else {
+      resEl.className='vocab-result err'; resEl.textContent='❌ 再試一次';
+    }
+  };
+  rec.onerror=e=>{
+    if(e.error==='no-speech'){resEl.className='vocab-result err';resEl.textContent='沒聽到，再試';}
+    else if(e.error!=='aborted'){resEl.className='vocab-result err';resEl.textContent='錯誤，重試';}
+  };
+  rec.onend=()=>{sayBtn.disabled=false;stopBtn.disabled=true;};
+  try{rec.start();}catch(e){}
+}
+
+function stopVocabSay(i){
+  vocabSayState[i].stopped=true;
+  document.getElementById(`vstop-${i}`).disabled=true;
+  if(vocabSayState[i].rec){try{vocabSayState[i].rec.stop();}catch(e){}}
+}
+
+function updateVocabProgress(){
+  const done=vocabDone.filter(Boolean).length;
+  const pct=Math.round(done/VOCAB.length*100);
+  document.getElementById('vocab-prog').style.width=pct+'%';
+  document.getElementById('vocab-prog-label').textContent=`單字進度：${done} / ${VOCAB.length}`;
+}
+
+// ── EXAMPLE SENTENCE SAY IT ──
+const exSayState=VOCAB.map(()=>({rec:null,stopped:false}));
+
+function startExSay(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  const v=VOCAB[i];
+  const sayBtn=document.getElementById(`exsay-${i}`);
+  const stopBtn=document.getElementById(`exstop-${i}`);
+  const resEl=document.getElementById(`exres-${i}`);
+
+  if(exSayState[i].rec){exSayState[i].rec.onend=null;exSayState[i].rec.onerror=null;try{exSayState[i].rec.abort();}catch(e){}}
+  exSayState[i].stopped=false;
+  sayBtn.disabled=true;stopBtn.disabled=false;
+  resEl.className='ex-result waiting';resEl.textContent='聆聽中…';
+
+  const rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
+  exSayState[i].rec=rec;
+  rec.lang='en-US';rec.continuous=false;rec.interimResults=false;
+  rec.maxAlternatives=5;
+
+  rec.onresult=e=>{
+    exSayState[i].stopped=true;
+    const transcripts=[];
+    for(let r=0;r<e.results[0].length;r++) transcripts.push(norm(e.results[0][r].transcript));
+    // Lenient: check if the vocab word itself OR any 2 key content words from the sentence appear
+    const wordTarget=norm(v.word);
+    // Extract content words from example sentence (words >4 chars, skip common words)
+    const stopWords=new Set(['this','that','they','have','been','with','from','their','which','when','than','were','some','into','your','what','also','more','only','does','most','than','less','much','just','very','each','will','make','over','after','need','like','well','about','still','even','such','both','many']);
+    const exWords=norm(v.ex).split(/\s+/).filter(w=>w.length>3&&!stopWords.has(w));
+    // Pass if: vocab word found OR any 2 content words from sentence found
+    const anyMatch=transcripts.some(t=>{
+      if(t.includes(wordTarget)||similar(t.split(/\s+/).find(w=>similar(w,wordTarget))||'',wordTarget)) return true;
+      const hits=exWords.filter(ew=>t.includes(ew)||t.split(/\s+/).some(w=>similar(w,ew)));
+      return hits.length>=2;
+    });
+    if(anyMatch){
+      resEl.className='ex-result ok';resEl.textContent='✅ 念得好！';
+    } else {
+      resEl.className='ex-result err';resEl.textContent='❌ 再試一次';
+    }
+  };
+  rec.onerror=e=>{
+    if(e.error==='no-speech'){resEl.className='ex-result err';resEl.textContent='沒聽到，再試';}
+    else if(e.error!=='aborted'){resEl.className='ex-result err';resEl.textContent='錯誤，重試';}
+  };
+  rec.onend=()=>{sayBtn.disabled=false;stopBtn.disabled=true;};
+  try{rec.start();}catch(e){}
+}
+
+function stopExSay(i){
+  exSayState[i].stopped=true;
+  document.getElementById(`exstop-${i}`).disabled=true;
+  if(exSayState[i].rec){try{exSayState[i].rec.stop();}catch(e){}}
+}
+
+// ── PASSAGES + CLOZE ──
+const PARAS=[
+  {
+    label:'PARAGRAPH 1 — Cold-blooded Animals',
+    text:'Lizards and many reptiles fit into the category of cold-blooded animals. Although not technically cold-blooded, the term implies that these animals have a more labile internal body temperature, and are much more sensitive to the environment. Their body temperature is cold when it\'s cold outside, and warms up when it\'s hot outside.',
+    clozeQ:'Cold-blooded animals are much more sensitive to the ___.',
+    answer:'environment',
+    hint:'Think about what affects their body temperature…',
+    keywords:['environment','outside','temperature','sensitive']
+  },
+  {
+    label:'PARAGRAPH 2 — Warm-blooded Animals',
+    text:'Warm-blooded animals, unlike cold-blooded ones, are able to control their body temperature. Mammals are warm-blooded, which means that us humans fit in the category as well. Human body temperature is usually warm, falling at around 37℃, and it doesn\'t vary with the outside temperature. It only changes when we are sick.',
+    clozeQ:'Warm-blooded animals can ___ their body temperature.',
+    answer:'control',
+    hint:'What can warm-blooded animals do with their temperature?',
+    keywords:['control','regulate','maintain','constant']
+  },
+  {
+    label:'PARAGRAPH 3 — Recent Research',
+    text:'Scientists have started comparing dinosaur bones to those of modern mammals in recent research. Bones, much like the rings of a tree, tell us how fast an animal grows or gains weight. Interestingly, the results have suggested that dinosaurs had growth rates and metabolic rates that were somewhere in between warm and cold-blooded animals.',
+    clozeQ:'Scientists compare dinosaur ___ to those of modern mammals.',
+    answer:'bones',
+    hint:'What do scientists study to know how fast dinosaurs grew?',
+    keywords:['bones','bone','skeleton']
+  },
+  {
+    label:'PARAGRAPH 4 — The Conclusion',
+    text:'The studies show that dinosaurs had a high metabolic rate, which allowed them to grow faster and get bigger. On the other hand, cold-blooded animals need less food and their movements are slower. Nonetheless, scientists are still working on it and they haven\'t reached a conclusion yet. Whether dinosaurs were warm-blooded or cold-blooded is a controversial topic to this day.',
+    clozeQ:'Whether dinosaurs were warm or cold-blooded is still a ___ topic.',
+    answer:'controversial',
+    hint:'Scientists still haven\'t agreed — what kind of topic is this?',
+    keywords:['controversial','debated','unsolved','unclear','unknown']
+  }
+];
+
+const passContainer=document.getElementById('passages-container');
+const paraState=PARAS.map(()=>({rec:null,stopped:false,transcript:'',attempts:0}));
+
+PARAS.forEach((p,i)=>{
+  // Split text into two halves for hint
+  const sentences=p.text.match(/[^.!?]+[.!?]+/g)||[p.text];
+  const half=Math.ceil(sentences.length/2);
+  const part1=sentences.slice(0,half).join(' ').trim();
+  const part2=sentences.slice(half).join(' ').trim();
+
+  const block=document.createElement('div');
+  block.className='para-block';
+  block.innerHTML=`
+    <div class="para-card">
+      <div class="para-label">${p.label}</div>
+      <div class="para-text">${p.text}</div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="tts-btn" style="background:#2aabbb;" onclick="speakAndLock(this.dataset.text,0.72,[],['read-start-${i}','cloze-start-${i}'])" data-text="${p.text.replace(/"/g,'&quot;')}">🔊 聽這段</button>
+      </div>
+    </div>
+
+    <!-- READ ALOUD BLOCK -->
+    <div class="read-block">
+      <div class="read-label">🗣️ 念整段 — 念出 80% 以上的單字</div>
+      <div class="word-display" id="read-display-${i}"><span style="color:#bbb;font-style:italic;font-size:.88rem;">按下錄音，念出整段課文…</span></div>
+      <div class="read-score-bar"><div class="read-score-fill" id="read-fill-${i}" style="width:0%;background:#ddd;"></div></div>
+      <div class="read-pct" id="read-pct-${i}" style="color:#888;">—</div>
+      <div class="rec-status" id="read-recstatus-${i}"></div>
+      <div class="assess-info">嘗試次數：<span id="read-cnt-${i}">0</span></div>
+      <div class="btn-row" style="margin-bottom:10px;">
+        <button class="btn-speak" id="read-start-${i}" onclick="startRead(${i})">🎤 開始念整段</button>
+        <button class="btn-stop" id="read-stop-${i}" onclick="stopRead(${i})" disabled>⏹ Stop</button>
+      </div>
+      <!-- HINT: split sentences -->
+      <button class="hint-toggle" onclick="toggleHint(${i})">💡 太難了？分段練習</button>
+      <div class="hint-parts" id="hint-parts-${i}">
+        <div class="hint-part">
+          <div class="hint-part-label">前半段</div>
+          <div class="hint-part-text">${part1}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="tts-btn" style="font-size:.78rem;padding:4px 10px;background:#3498db;" onclick="speak('${part1.replace(/'/g,"\\'").replace(/"/g,'&quot;')}',0.72)">🔊 聽前半</button>
+            <button class="ex-say-btn" id="hint-say-${i}-0" onclick="startHintSay(${i},0,'${part1.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">🎤 念前半</button>
+            <button class="ex-stop-btn" id="hint-stop-${i}-0" onclick="stopHintSay(${i},0)" disabled>⏹</button>
+            <span class="ex-result waiting" id="hint-res-${i}-0">—</span>
+          </div>
+        </div>
+        ${part2?`<div class="hint-part">
+          <div class="hint-part-label">後半段</div>
+          <div class="hint-part-text">${part2}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="tts-btn" style="font-size:.78rem;padding:4px 10px;background:#3498db;" onclick="speak('${part2.replace(/'/g,"\\'").replace(/"/g,'&quot;')}',0.72)">🔊 聽後半</button>
+            <button class="ex-say-btn" id="hint-say-${i}-1" onclick="startHintSay(${i},1,'${part2.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">🎤 念後半</button>
+            <button class="ex-stop-btn" id="hint-stop-${i}-1" onclick="stopHintSay(${i},1)" disabled>⏹</button>
+            <span class="ex-result waiting" id="hint-res-${i}-1">—</span>
+          </div>
+        </div>`:''}
+      </div>
+    </div>
+
+    <!-- CLOZE BLOCK -->
+    <div class="cloze-block">
+      <div class="cloze-label">🔑 關鍵字驗收 — 說出克漏字</div>
+      <div class="cloze-sentence" id="cloze-sent-${i}">${p.clozeQ.replace('___','<span class="cloze-blank" id="cloze-blank-'+i+'">___</span>')}</div>
+      <div class="cloze-hint">💡 ${p.hint}</div>
+      <div class="result-display" id="cloze-res-${i}"><span class="placeholder">按下 Start Speaking，說出克漏字…</span></div>
+      <div class="rec-status" id="cloze-recstatus-${i}"></div>
+      <div class="assess-info">嘗試次數：<span id="cloze-cnt-${i}">0</span></div>
+      <div class="assess-feedback" id="cloze-fb-${i}"></div>
+      <div class="btn-row">
+        <button class="btn-speak" id="cloze-start-${i}" onclick="startCloze(${i})">🎤 Start Speaking</button>
+        <button class="btn-stop" id="cloze-stop-${i}" onclick="stopCloze(${i})" disabled>⏹ Stop</button>
+      </div>
+      <div class="score-pill" id="cloze-score-${i}"></div>
+    </div>
+
+    <!-- PARA PASS BADGE -->
+    <div class="para-pass-badge" id="para-pass-${i}">🎉 這段過關！念整段 ≥80% + 關鍵字都答對了！</div>
+  `;
+  passContainer.appendChild(block);
+});
+
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();}
+function similar(a,b){
+  if(!a||!b) return false;
+  if(a===b) return true;
+  if(Math.abs(a.length-b.length)>2) return false;
+  let diff=0;const len=Math.max(a.length,b.length);
+  for(let i=0;i<len;i++){if(a[i]!==b[i])diff++;}
+  return diff<=1;
+}
+
+function checkKeywords(transcript, keywords){
+  const t=norm(transcript);
+  const words=t.split(/\s+/);
+  return keywords.some(k=>{
+    const kn=norm(k).split(/\s+/);
+    return kn.every(kp=>words.some(w=>similar(w,kp)||t.includes(kp)));
+  });
+}
+
+// Word match score (80% threshold)
+function wordMatchScore(transcript, refText){
+  const spoken=norm(transcript).split(/\s+/).filter(Boolean);
+  const ref=norm(refText).split(/\s+/).filter(Boolean);
+  if(!ref.length) return 0;
+  let hits=0;
+  ref.forEach(rw=>{if(spoken.some(sw=>similar(sw,rw)||rw.includes(sw)||sw.includes(rw))) hits++;});
+  return Math.round(hits/ref.length*100);
+}
+
+function renderWordDiff(transcript, refText){
+  const spoken=norm(transcript).split(/\s+/).filter(Boolean);
+  const ref=norm(refText).split(/\s+/).filter(Boolean);
+  return ref.map(rw=>{
+    const hit=spoken.some(sw=>similar(sw,rw)||rw.includes(sw)||sw.includes(rw));
+    return `<span class="${hit?'w-ok':'w-err'}">${rw}</span>`;
+  }).join(' ');
+}
+
+function makeSR(){return new (window.SpeechRecognition||window.webkitSpeechRecognition)();}
+
+// ── READ ALOUD ──
+const readState=PARAS.map(()=>({rec:null,stopped:false,transcript:'',attempts:0,passed:false}));
+const clozePassed=new Array(PARAS.length).fill(false);
+
+function toggleHint(i){
+  const el=document.getElementById(`hint-parts-${i}`);
+  el.classList.toggle('show');
+}
+
+const hintRecState={};
+function startHintSay(i,part,text){
+  const key=`${i}-${part}`;
+  if(hintRecState[key]){try{hintRecState[key].abort();}catch(e){}}
+  const sayBtn=document.getElementById(`hint-say-${i}-${part}`);
+  const stopBtn=document.getElementById(`hint-stop-${i}-${part}`);
+  const resEl=document.getElementById(`hint-res-${i}-${part}`);
+  sayBtn.disabled=true;stopBtn.disabled=false;
+  resEl.className='ex-result waiting';resEl.textContent='聆聽中…';
+  const rec=makeSR();hintRecState[key]=rec;
+  rec.lang='en-US';rec.continuous=true;rec.interimResults=false;
+  let transcript='';let stopped=false;
+  rec.onresult=e=>{for(let r=e.resultIndex;r<e.results.length;r++){if(e.results[r].isFinal)transcript+=e.results[r][0].transcript+' ';}};
+  rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+  rec.onend=()=>{
+    if(!stopped){setTimeout(()=>{if(!stopped)try{rec.start();}catch(e){}},100);return;}
+    sayBtn.disabled=false;stopBtn.disabled=true;
+    const pct=wordMatchScore(transcript,text);
+    if(pct>=70){resEl.className='ex-result ok';resEl.textContent=`✅ ${pct}% 棒！`;}
+    else{resEl.className='ex-result err';resEl.textContent=`${pct}% 再試試`;}
+  };
+  stopBtn.onclick=()=>{stopped=true;stopBtn.disabled=true;try{rec.stop();}catch(e){}};
+  try{rec.start();}catch(e){}
+}
+function stopHintSay(i,part){
+  // handled via stopBtn.onclick inside startHintSay
+}
+
+function startRead(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  if(readState[i].rec){readState[i].rec.onend=null;readState[i].rec.onerror=null;try{readState[i].rec.abort();}catch(e){}}
+  readState[i].stopped=false;readState[i].transcript='';
+  const startBtn=document.getElementById(`read-start-${i}`);
+  const stopBtn=document.getElementById(`read-stop-${i}`);
+  const display=document.getElementById(`read-display-${i}`);
+  const fill=document.getElementById(`read-fill-${i}`);
+  const pctEl=document.getElementById(`read-pct-${i}`);
+  const recStatus=document.getElementById(`read-recstatus-${i}`);
+  startBtn.disabled=true;stopBtn.disabled=false;
+  display.innerHTML='<span style="color:#bbb;font-style:italic;font-size:.88rem;">正在聆聽中…</span>';
+  recStatus.innerHTML='<span class="rec-dot"></span>錄音中… 念完整段後按 Stop';
+  fill.style.width='0%';fill.style.background='#ddd';pctEl.textContent='—';
+
+  function launchRec(){
+    if(readState[i].stopped)return;
+    const rec=makeSR();readState[i].rec=rec;
+    rec.lang='en-US';rec.continuous=true;rec.interimResults=false;
+    rec.onresult=e=>{for(let r=e.resultIndex;r<e.results.length;r++){if(e.results[r].isFinal)readState[i].transcript+=e.results[r][0].transcript+' ';}};
+    rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+    rec.onend=()=>{
+      if(!readState[i].stopped){setTimeout(launchRec,100);return;}
+      recStatus.textContent='';startBtn.disabled=false;stopBtn.disabled=true;
+      readState[i].attempts++;document.getElementById(`read-cnt-${i}`).textContent=readState[i].attempts;
+      const t=readState[i].transcript.trim();
+      if(!t){display.innerHTML='<span style="color:#bbb;font-style:italic;">未偵測到語音，請重試。</span>';return;}
+      const pct=wordMatchScore(t,PARAS[i].text);
+      display.innerHTML=renderWordDiff(t,PARAS[i].text);
+      fill.style.width=pct+'%';
+      fill.style.background=pct>=80?'linear-gradient(90deg,#43c98e,#4caf7d)':pct>=60?'#f0c040':'#e74c3c';
+      pctEl.style.color=pct>=80?'#27ae60':pct>=60?'#c8a000':'#e74c3c';
+      pctEl.textContent=`命中率：${pct}%${pct>=80?' ✅ 超過80%！':pct>=60?' 💪 快到了！':' ❌ 再念一次'}`;
+      if(pct>=80){
+        readState[i].passed=true;
+        checkParaPass(i);
+      }
+    };
+    try{rec.start();}catch(e){}
+  }
+  launchRec();
+}
+
+function stopRead(i){
+  readState[i].stopped=true;
+  document.getElementById(`read-stop-${i}`).disabled=true;
+  if(readState[i].rec){try{readState[i].rec.stop();}catch(e){}setTimeout(()=>{if(readState[i].rec){try{readState[i].rec.abort();}catch(e){}readState[i].rec=null;}},1200);}
+}
+
+function checkParaPass(i){
+  if(readState[i].passed && clozePassed[i]){
+    document.getElementById(`para-pass-${i}`).classList.add('show');
+    checkAndNotify('para'+i);
+  }
+}
+
+function startCloze(i){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  if(paraState[i].rec){paraState[i].rec.onend=null;paraState[i].rec.onerror=null;try{paraState[i].rec.abort();}catch(e){}}
+  paraState[i].stopped=false;paraState[i].transcript='';
+  const startBtn=document.getElementById(`cloze-start-${i}`);
+  const stopBtn=document.getElementById(`cloze-stop-${i}`);
+  const fb=document.getElementById(`cloze-fb-${i}`);
+  const resEl=document.getElementById(`cloze-res-${i}`);
+  const pill=document.getElementById(`cloze-score-${i}`);
+  const recStatus=document.getElementById(`cloze-recstatus-${i}`);
+  startBtn.disabled=true;stopBtn.disabled=false;
+  fb.textContent='';fb.className='assess-feedback';pill.style.display='none';
+  resEl.innerHTML='<span class="placeholder">正在聆聽中…</span>';
+  recStatus.innerHTML='<span class="rec-dot"></span>錄音中… 說出關鍵字後按 Stop';
+
+  function launchRec(){
+    if(paraState[i].stopped) return;
+    const rec=makeSR();paraState[i].rec=rec;
+    rec.lang='en-US';rec.continuous=true;rec.interimResults=false;
+    rec.onresult=e=>{for(let r=e.resultIndex;r<e.results.length;r++){if(e.results[r].isFinal)paraState[i].transcript+=e.results[r][0].transcript+' ';}};
+    rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+    rec.onend=()=>{
+      if(!paraState[i].stopped){setTimeout(launchRec,100);return;}
+      recStatus.textContent='';startBtn.disabled=false;stopBtn.disabled=true;
+      paraState[i].attempts++;document.getElementById(`cloze-cnt-${i}`).textContent=paraState[i].attempts;
+      const t=paraState[i].transcript.trim();
+      if(!t){resEl.innerHTML='<span class="placeholder">未偵測到語音，請重試。</span>';fb.textContent='🎙 沒有偵測到語音';fb.className='assess-feedback fail';return;}
+      resEl.textContent=t;
+      const found=checkKeywords(t,PARAS[i].keywords);
+      if(found){
+        fb.textContent=`✅ 答對了！關鍵字：${PARAS[i].answer}`;fb.className='assess-feedback pass';
+        pill.style.display='block';pill.className='score-pill pass';
+        pill.textContent=readState[i].passed?'🎯 克漏字過關！這段全部完成！':'🎯 克漏字過關！記得也要念整段喔！';
+        document.getElementById(`cloze-blank-${i}`).textContent=PARAS[i].answer;
+        document.getElementById(`cloze-blank-${i}`).style.color='#27ae60';
+        clozePassed[i]=true;
+        checkParaPass(i);
+      } else {
+        fb.textContent=`💪 沒聽到關鍵字，再試一次！提示：${PARAS[i].hint}`;fb.className='assess-feedback fail';
+        pill.style.display='block';pill.className='score-pill fail';pill.textContent='再試一次！';
+      }
+    };
+    try{rec.start();}catch(e){}
+  }
+  launchRec();
+}
+
+function stopCloze(i){
+  paraState[i].stopped=true;document.getElementById(`cloze-stop-${i}`).disabled=true;
+  if(paraState[i].rec){try{paraState[i].rec.stop();}catch(e){}setTimeout(()=>{if(paraState[i].rec){try{paraState[i].rec.abort();}catch(e){}paraState[i].rec=null;}},1200);}
+}
+
+// ── CHALLENGE ──
+const STANCE_KEYWORDS=['warm-blooded','warm blooded','warmblood','cold-blooded','cold blooded','coldblood','warm','cold'];
+const REASON_KEYWORDS={
+  metabolic:['metabolic','metabolism'],
+  temperature:['temperature','body heat','heat'],
+  food:['food','eat','ate'],
+  bones:['bones','bone','skeleton'],
+  movement:['movement','move','slow','fast'],
+  research:['research','scientist','study','studies']
+};
+
+let challengeRec=null,challengeStopped=false,challengeTranscript='',challengeAttempts=0;
+
+function startChallenge(){
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){alert('請使用 Chrome 瀏覽器');return;}
+  if(challengeRec){challengeRec.onend=null;challengeRec.onerror=null;try{challengeRec.abort();}catch(e){}challengeRec=null;}
+  challengeStopped=false;challengeTranscript='';
+  const startBtn=document.getElementById('challenge-start');const stopBtn=document.getElementById('challenge-stop');
+  const fb=document.getElementById('challenge-fb');const resEl=document.getElementById('challenge-res');
+  const pill=document.getElementById('challenge-pill');const recStatus=document.getElementById('challenge-recstatus');
+  startBtn.disabled=true;stopBtn.disabled=false;
+  fb.textContent='';fb.className='challenge-feedback';pill.style.display='none';
+  resEl.innerHTML='<span class="placeholder">正在聆聽中…</span>';
+  recStatus.innerHTML='<span class="rec-dot"></span>錄音中… 說完後按 Stop';
+  // Reset keyword tags
+  document.querySelectorAll('.keyword-tag').forEach(t=>t.classList.remove('hit'));
+  document.getElementById('score-stance').textContent='0';
+  document.getElementById('score-reason').textContent='0';
+  document.getElementById('score-total').textContent='0';
+
+  function launchRec(){
+    if(challengeStopped)return;
+    const rec=makeSR();challengeRec=rec;
+    rec.lang='en-US';rec.continuous=true;rec.interimResults=false;
+    rec.onresult=e=>{for(let r=e.resultIndex;r<e.results.length;r++){if(e.results[r].isFinal)challengeTranscript+=e.results[r][0].transcript+' ';}};
+    rec.onerror=e=>{if(e.error==='aborted'||e.error==='no-speech')return;};
+    rec.onend=()=>{
+      if(!challengeStopped){setTimeout(launchRec,100);return;}
+      recStatus.textContent='';startBtn.disabled=false;stopBtn.disabled=true;
+      challengeAttempts++;document.getElementById('challenge-count').textContent=challengeAttempts;
+      const t=challengeTranscript.trim();
+      if(!t){resEl.innerHTML='<span class="placeholder">未偵測到語音，請重試。</span>';fb.textContent='🎙 沒有偵測到語音';fb.className='challenge-feedback fail';return;}
+      resEl.textContent=t;
+
+      // Score stance
+      const tn=norm(t);
+      const hasStance=STANCE_KEYWORDS.some(k=>tn.includes(norm(k)));
+      const stanceScore=hasStance?10:0;
+
+      // Score reason keywords
+      let reasonScore=0;
+      Object.entries(REASON_KEYWORDS).forEach(([key,kws])=>{
+        const hit=kws.some(k=>tn.includes(norm(k)));
+        if(hit){
+          reasonScore=20;
+          const tag=document.querySelector(`.keyword-tag[data-key="${key}"]`);
+          if(tag)tag.classList.add('hit');
+        }
+      });
+      if(reasonScore>20)reasonScore=20; // cap
+
+      const total=stanceScore+reasonScore;
+      document.getElementById('score-stance').textContent=stanceScore;
+      document.getElementById('score-reason').textContent=reasonScore;
+      document.getElementById('score-total').textContent=total;
+
+      pill.style.display='block';
+      if(total>challengeBestScore) challengeBestScore=total;
+      if(total===30){
+        challengePassed=true;
+        fb.className='challenge-feedback perfect';fb.textContent='🏆 完美！立場清楚，理由充分！';
+        pill.className='challenge-pill perfect';pill.textContent='🦕 科學家認可你的分析！';
+        checkAndNotify('challenge');
+      } else if(total>=20){
+        challengePassed=true;
+        fb.className='challenge-feedback pass';
+        if(!hasStance)fb.textContent='✅ 理由很好！但記得說 warm 還是 cold-blooded？';
+        else fb.textContent='✅ 有立場！試著說更多理由！';
+        pill.className='challenge-pill pass';pill.textContent=`✅ ${total}/30 — 過關！很棒！`;
+        checkAndNotify('challenge');
+      } else {
+        fb.className='challenge-feedback fail';
+        if(!hasStance)fb.textContent='💪 記得說 "warm-blooded" 或 "cold-blooded"！';
+        else fb.textContent='💪 有立場！再說一個理由關鍵字試試看！';
+        pill.className='challenge-pill fail';pill.textContent=`💪 ${total}/30 — 再試一次！（過關需20分）`;
+      }
+    };
+    try{rec.start();}catch(e){}
+  }
+  launchRec();
+}
+
+function stopChallenge(){
+  challengeStopped=true;document.getElementById('challenge-stop').disabled=true;
+  if(challengeRec){try{challengeRec.stop();}catch(e){}setTimeout(()=>{if(challengeRec){try{challengeRec.abort();}catch(e){}challengeRec=null;}},1200);}
+}
+
+// ── TELEGRAM ──
+/* 通知走 Cloudflare Worker 中繼；token 與 chat id 留在 Worker secrets，不落前端 */
+const NOTIFY_ENDPOINT=window.OIKID_NOTIFY_ENDPOINT||'https://bobo-math-notify.bobo-math-grader.workers.dev';
+
+const TOTAL_UNITS=11;
+const passed=new Set();
+const tgNotified=new Set(); // 避免重複通知
+
+function sendTelegram(msg){
+  fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:msg,to:(DATA&&DATA.child==='Bobo')?'bobo':'default'})})
+  .then(r=>r.json()).then(d=>{if(d.ok)console.log('TG sent');else console.warn('TG error',d);}).catch(e=>console.warn('TG err',e));
+}
+
+function checkAndNotify(unitName){
+  passed.add(unitName);
+  // 單元過關立即通知（不重複）
+  if(!tgNotified.has(unitName)){
+    tgNotified.add(unitName);
+    const label=unitLabel(unitName);
+    sendTelegram(`✅ LV7-7 單元通過：${label}\n（已完成 ${passed.size}/${TOTAL_UNITS} 個單元）`);
+  }
+  if(passed.size>=TOTAL_UNITS){
+    sendTelegram('🎉 太棒了！LV7-7 預習卷全部通關！\n孩子完成了單字、課文克漏字，還說出了自己對恐龍的觀點！🦕🏆');
+    showReport(true); // 自動彈出報告
+  }
+}
+
+function unitLabel(name){
+  if(name.startsWith('vocab')) return `單字 #${parseInt(name.replace('vocab',''))+1}（${VOCAB[parseInt(name.replace('vocab',''))]?.word||''}）`;
+  if(name.startsWith('para')) return `課文段落 #${parseInt(name.replace('para',''))+1}`;
+  if(name==='challenge') return '大挑戰';
+  return name;
+}
+
+// ── 計時 ──
+const sessionStart=Date.now();
+
+// ── LOCALSTORAGE 進度 ──
+const LS_KEY='oikid-lv7-7-progress';
+
+function buildProgressObj(){
+  return {
+    savedAt: new Date().toLocaleString('zh-TW'),
+    vocab: vocabDone.map((done,i)=>({done, attempts: vocabAttempts[i]||0, word: VOCAB[i].word})),
+    para: PARAS.map((p,i)=>({readDone:readState[i].passed, clozeDone:clozePassed[i], readAttempts:readState[i].attempts, clozeAttempts:paraState[i].attempts, label:p.label})),
+    challenge: {done:challengePassed, attempts:challengeAttempts, score:challengeBestScore},
+    passed: [...passed],
+    tgNotified: [...tgNotified]
+  };
+}
+
+function saveProgress(){
+  localStorage.setItem(LS_KEY, JSON.stringify(buildProgressObj()));
+  const msg=document.getElementById('saved-msg');
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',2500);
+}
+
+function loadProgress(){
+  const raw=localStorage.getItem(LS_KEY);
+  if(!raw) return;
+  let data;
+  try{data=JSON.parse(raw);}catch(e){return;}
+  if(!data||!data.vocab) return;
+
+  // 標記已通知
+  (data.tgNotified||[]).forEach(u=>tgNotified.add(u));
+  (data.passed||[]).forEach(u=>passed.add(u));
+
+  // 還原單字
+  data.vocab.forEach((v,i)=>{
+    if(i>=VOCAB.length) return;
+    vocabAttempts[i]=v.attempts||0;
+    if(v.done){
+      vocabDone[i]=true;
+      markVocabDone(i);
+    }
+  });
+  updateVocabProgress();
+
+  // 還原段落
+  data.para.forEach((p,i)=>{
+    if(i>=PARAS.length) return;
+    readState[i].attempts=p.readAttempts||0;
+    paraState[i].attempts=p.clozeAttempts||0;
+    if(p.readDone) readState[i].passed=true;
+    if(p.clozeDone){
+      clozePassed[i]=true;
+      markClozeDone(i);
+    }
+    if(p.readDone && p.clozeDone) markParaDone(i);
+  });
+
+  // 還原大挑戰
+  if(data.challenge&&data.challenge.done){
+    challengePassed=true;
+    challengeAttempts=data.challenge.attempts||0;
+    challengeBestScore=data.challenge.score||0;
+    markChallengeDone();
+  }
+
+  document.getElementById('resume-banner').classList.remove('hide');
+}
+
+function markVocabDone(i){
+  const card=document.getElementById(`vcard-${i}`);
+  if(card){
+    card.style.borderColor='#4caf7d';
+    card.style.background='#f0fbf4';
+    card.classList.add('done-overlay');
+  }
+  const resEl=document.getElementById(`vres-${i}`);
+  if(resEl){resEl.className='vocab-result ok';resEl.textContent='✅ 已完成';}
+  const sayBtn=document.getElementById(`vsay-${i}`);
+  if(sayBtn) sayBtn.textContent='🔁 重新練習';
+}
+
+function markClozeDone(i){
+  const blank=document.getElementById(`cloze-blank-${i}`);
+  if(blank){blank.textContent=PARAS[i].answer;blank.style.color='#27ae60';}
+  const fb=document.getElementById(`cloze-fb-${i}`);
+  if(fb){fb.textContent=`✅ 已過關：${PARAS[i].answer}`;fb.className='assess-feedback pass';}
+}
+
+function markParaDone(i){
+  const badge=document.getElementById(`para-pass-${i}`);
+  if(badge) badge.classList.add('show');
+}
+
+function markChallengeDone(){
+  const fb=document.getElementById('challenge-fb');
+  if(fb){fb.textContent=`✅ 已過關（最高分 ${challengeBestScore}/30）`;fb.className='challenge-feedback pass';}
+  const pill=document.getElementById('challenge-pill');
+  if(pill){pill.style.display='block';pill.className='challenge-pill pass';pill.textContent=`✅ ${challengeBestScore}/30 — 已完成`;}
+}
+
+// 追蹤額外數據
+const vocabAttempts=new Array(VOCAB.length).fill(0);
+let challengePassed=false;
+let challengeBestScore=0;
+
+// ── 報告 ──
+function showReport(auto=false){
+  const modal=document.getElementById('report-modal');
+  const body=document.getElementById('report-body');
+  const dateEl=document.getElementById('report-date');
+  const timeEl=document.getElementById('report-time');
+
+  const mins=Math.round((Date.now()-sessionStart)/60000);
+  dateEl.textContent=`產出時間：${new Date().toLocaleString('zh-TW')}`;
+  timeEl.textContent=`本次練習時間：約 ${mins} 分鐘`;
+
+  const passItems=[],warnItems=[],missItems=[];
+
+  // 單字
+  VOCAB.forEach((v,i)=>{
+    const attempts=vocabAttempts[i]||0;
+    const done=vocabDone[i];
+    if(done && attempts<=1) passItems.push({label:`單字：${v.word}`,badge:'一次過關 🌟'});
+    else if(done) warnItems.push({label:`單字：${v.word}`,badge:`練習 ${attempts} 次`});
+    else missItems.push({label:`單字：${v.word}`,badge:'尚未完成'});
+  });
+
+  // 段落
+  PARAS.forEach((p,i)=>{
+    const rAttempts=readState[i].attempts;
+    const cAttempts=paraState[i].attempts;
+    const done=readState[i].passed&&clozePassed[i];
+    const shortLabel=p.label.split('—')[1]?.trim()||p.label;
+    if(done && rAttempts<=1&&cAttempts<=1) passItems.push({label:`課文：${shortLabel}`,badge:'一次過關 🌟'});
+    else if(done) warnItems.push({label:`課文：${shortLabel}`,badge:`念段 ${rAttempts} 次・克漏字 ${cAttempts} 次`});
+    else missItems.push({label:`課文：${shortLabel}`,badge:'尚未完成'});
+  });
+
+  // 大挑戰
+  if(challengePassed && challengeAttempts<=1) passItems.push({label:'大挑戰',badge:`${challengeBestScore}/30 🌟`});
+  else if(challengePassed) warnItems.push({label:'大挑戰',badge:`${challengeBestScore}/30・嘗試 ${challengeAttempts} 次`});
+  else missItems.push({label:'大挑戰',badge:'尚未完成'});
+
+  let html='';
+  if(passItems.length){
+    html+=`<div class="report-section"><div class="report-section-title rpt-green">✅ 一次通關 / 表現優秀</div>`;
+    passItems.forEach(it=>html+=`<div class="report-item ok">${it.label}<span class="report-badge" style="background:#d4f5e2;color:#1e7d45;">${it.badge}</span></div>`);
+    html+='</div>';
+  }
+  if(warnItems.length){
+    html+=`<div class="report-section"><div class="report-section-title rpt-yellow">💪 已過關，但需要多加練習</div>`;
+    warnItems.forEach(it=>html+=`<div class="report-item warn">${it.label}<span class="report-badge" style="background:#fff3cd;color:#c8a000;">${it.badge}</span></div>`);
+    html+='</div>';
+  }
+  if(missItems.length){
+    html+=`<div class="report-section"><div class="report-section-title rpt-red">⚠️ 尚未完成 — 下次重點加強</div>`;
+    missItems.forEach(it=>html+=`<div class="report-item miss">${it.label}<span class="report-badge" style="background:#fde8e8;color:#c0392b;">${it.badge}</span></div>`);
+    html+='</div>';
+  }
+  if(!html) html='<div style="text-align:center;color:#888;padding:20px;">還沒有練習記錄，開始練習吧！</div>';
+  body.innerHTML=html;
+  modal.classList.add('show');
+
+  // 同步傳 Telegram 報告
+  sendReportToTelegram(passItems,warnItems,missItems,mins);
+}
+
+function closeReport(){
+  document.getElementById('report-modal').classList.remove('show');
+}
+
+function sendReportToTelegram(passItems,warnItems,missItems,mins){
+  let msg=`📊 LV7-7 練習報告\n練習時間：約 ${mins} 分鐘\n\n`;
+  if(passItems.length) msg+=`✅ 優秀過關：\n`+passItems.map(it=>`  • ${it.label}（${it.badge}）`).join('\n')+'\n\n';
+  if(warnItems.length) msg+=`💪 需加強：\n`+warnItems.map(it=>`  • ${it.label}（${it.badge}）`).join('\n')+'\n\n';
+  if(missItems.length) msg+=`⚠️ 尚未完成：\n`+missItems.map(it=>`  • ${it.label}`).join('\n');
+  sendTelegram(msg);
+}
+
+// 頁面載入時恢復進度
+window.addEventListener('load', loadProgress);
+</script>
+<script>
+/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body>
+</html>

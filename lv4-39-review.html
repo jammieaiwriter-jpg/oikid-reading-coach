@@ -1,0 +1,571 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LV4-39 複習 — Hobbies (Indoor Hobbies)</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 120px}
+.hero{background:#155e75;color:#fff;border-radius:10px;padding:22px 20px;margin-bottom:14px}
+.hero h1{font-size:1.6rem;margin:8px 0 4px}.hero h2{font-size:1rem;margin:0;color:#d9f5fb;font-weight:600}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 11px;font-weight:850;font-size:.8rem}
+.intro{font-size:.94rem;line-height:1.65;color:#e6f6fb;margin-top:10px}
+.progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
+.bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
+.note{font-size:.92rem;color:#52606d;line-height:1.6}
+.hero .note{color:#d9f5fb}
+.section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
+.head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.head .pg{font-size:.76rem;font-weight:800;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 9px}
+.body{padding:14px 16px}
+.sub{font-size:.78rem;font-weight:900;color:#0f7c90;letter-spacing:.05em;margin:14px 0 6px;text-transform:uppercase}
+.sub:first-child{margin-top:0}
+.tip{background:#f0f9ff;border-left:4px solid #0f7c90;padding:8px 11px;border-radius:6px;font-size:.9rem;color:#31556b;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid #bcccdc;background:#fff;border-radius:999px;padding:7px 13px;font-weight:800;cursor:pointer;font-size:.95rem}
+.chip.seen{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.chip .zh{color:#627d98;font-weight:700;font-size:.85rem;margin-left:6px}
+.chip.seen .zh{color:#2f9e44}
+.item{border:1px solid #d9e2ec;background:#fbfdff;border-radius:8px;padding:12px;margin:9px 0}
+.item.done{border-color:#2f9e44;background:#f4fdf7}
+.label{font-size:.74rem;color:#627d98;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.sentence{line-height:1.55;margin:6px 0 8px;font-size:1.02rem}
+.btn{border:0;border-radius:7px;padding:9px 13px;font-weight:850;cursor:pointer;background:#0f7c90;color:#fff;margin:3px 3px 3px 0;font-size:.92rem}
+.btn.ok{background:#1f7a4d}.btn.warn{background:#c65f1a}.btn.alt{background:#52606d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.opt{border:1px solid #bcccdc;background:#fff;border-radius:7px;padding:9px 14px;font-weight:800;cursor:pointer;font-size:.98rem}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44;color:#17623a}
+.opt.wrong{background:#fff0f0;border-color:#e03131;color:#c92a2a}
+.opt:disabled{cursor:not-allowed}
+.answer-input{border:2px solid #bcccdc;border-radius:7px;padding:9px 11px;font-size:1.05rem;font-weight:800;width:130px}
+.result{font-size:.92rem;margin-top:7px;line-height:1.5}
+.oktext{color:#17623a;font-weight:850}.failtext{color:#c92a2a;font-weight:850}
+.heard{font-size:.86rem;color:#627d98;margin-top:5px;font-style:italic}
+.sayzone{margin-top:9px;padding:10px 11px;border-radius:8px;background:#fff8f1;border-left:4px solid #c65f1a}
+.sayzone.pass{background:#f4fdf7;border-left-color:#2f9e44}
+.sayzone .lead{font-size:.82rem;font-weight:900;color:#a4470f;margin-bottom:5px}
+.sayzone.pass .lead{color:#17623a}
+.target{font-size:1rem;font-weight:800;line-height:1.5;margin-bottom:7px}
+.modal{position:fixed;inset:0;background:rgba(15,30,45,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.show{display:flex}
+.modal .box{background:#fff;border-radius:12px;padding:20px;max-width:640px;width:100%;max-height:80vh;overflow:auto}
+.footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #d9e2ec;padding:9px 14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
+.typebox{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.typebox input{border:2px solid #bcccdc;border-radius:7px;padding:9px 11px;font-size:1.02rem;font-weight:700;flex:1;min-width:220px}
+.reps{display:inline-flex;gap:5px;margin-left:2px}
+.rep{width:13px;height:13px;border-radius:50%;border:2px solid #bcccdc;display:inline-block}
+.rep.on{background:#2f9e44;border-color:#2f9e44}
+.lbs{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 6px}
+.lb{width:36px;height:42px;border:2px solid #bcccdc;border-radius:6px;text-align:center;
+    font-size:1.15rem;font-weight:850;text-transform:lowercase;background:#fff;padding:0}
+.lb.ok{border-color:#2f9e44;background:#e6fcf5}
+.lb.bad{border-color:#e03131;background:#fff5f5}
+.lbsep{min-width:14px;height:42px;display:inline-flex;align-items:center;justify-content:center;
+    font-weight:900;color:#52606d}
+.hidden-target{display:none;background:#e6fcf5;color:#17623a;border-radius:7px;
+    padding:9px 10px;font-weight:800;margin-top:8px}
+.official{margin-top:8px;font-size:.88rem;color:#7c4a03;background:#fff7e6;border-left:4px solid #f08c00;border-radius:6px;padding:8px 10px;display:none}
+</style></head><body><div class="wrap"><div class="hero">
+<span class="badge">LV4-39　複習（官方作業）</span>
+<h1>Hobbies (Indoor Hobbies)</h1>
+<h2>對照 OiKID 官方作業檔：該寫的用打的，打對了還要唸出來才算過</h2>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="note" id="prog"></div></div>
+<div class="section"><div class="head"><span>1　Vocabulary</span><span class="pg">官方：每個字寫 3 遍 → 這裡打 3 遍再唸</span></div><div class="body">
+<div class="tip">先按「聽」，再把字打對 3 遍（每打對一遍亮一個點），最後唸一次才算過。</div>
+<div class="item" id="w0-item"><div class="label">單字 1</div>
+<div class="sentence"><strong>多彩的</strong><span class="reps" id="w0-reps"><span class="rep" id="w0-rep0"></span><span class="rep" id="w0-rep1"></span><span class="rep" id="w0-rep2"></span></span></div>
+<button class="btn" onclick="demo('w0')">🔊 聽</button>
+<div class="lbs" id="w0-lbs">
+<input class="lb" id="w0-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',0)" onkeydown="lbBack(event,'w0',0)">
+<input class="lb" id="w0-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',1)" onkeydown="lbBack(event,'w0',1)">
+<input class="lb" id="w0-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',2)" onkeydown="lbBack(event,'w0',2)">
+<input class="lb" id="w0-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',3)" onkeydown="lbBack(event,'w0',3)">
+<input class="lb" id="w0-lb4" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',4)" onkeydown="lbBack(event,'w0',4)">
+<input class="lb" id="w0-lb5" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',5)" onkeydown="lbBack(event,'w0',5)">
+<input class="lb" id="w0-lb6" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',6)" onkeydown="lbBack(event,'w0',6)">
+<input class="lb" id="w0-lb7" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w0',7)" onkeydown="lbBack(event,'w0',7)">
+</div>
+<button class="btn" onclick="typeIt('w0')">檢查</button>
+<div class="result" id="w0-res"></div>
+<div class="sayzone" id="w0-sayzone" style="display:none"><div class="lead" id="w0-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w0-target"></div><button class="btn" id="w0-demo">🔊 示範</button><button class="btn ok" id="w0-say-start" onclick="startSay('w0')">開始唸</button><button class="btn warn" id="w0-say-stop" disabled>停止</button><div class="heard" id="w0-say-out"></div><div class="result" id="w0-say-res"></div></div>
+</div>
+<div class="item" id="w1-item"><div class="label">單字 2</div>
+<div class="sentence"><strong>灌籃</strong><span class="reps" id="w1-reps"><span class="rep" id="w1-rep0"></span><span class="rep" id="w1-rep1"></span><span class="rep" id="w1-rep2"></span></span></div>
+<button class="btn" onclick="demo('w1')">🔊 聽</button>
+<div class="lbs" id="w1-lbs">
+<input class="lb" id="w1-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',0)" onkeydown="lbBack(event,'w1',0)">
+<input class="lb" id="w1-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',1)" onkeydown="lbBack(event,'w1',1)">
+<input class="lb" id="w1-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',2)" onkeydown="lbBack(event,'w1',2)">
+<input class="lb" id="w1-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',3)" onkeydown="lbBack(event,'w1',3)">
+<span class="lbsep">·</span>
+<input class="lb" id="w1-lb5" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',5)" onkeydown="lbBack(event,'w1',5)">
+<input class="lb" id="w1-lb6" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',6)" onkeydown="lbBack(event,'w1',6)">
+<input class="lb" id="w1-lb7" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',7)" onkeydown="lbBack(event,'w1',7)">
+<input class="lb" id="w1-lb8" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w1',8)" onkeydown="lbBack(event,'w1',8)">
+</div>
+<button class="btn" onclick="typeIt('w1')">檢查</button>
+<div class="result" id="w1-res"></div>
+<div class="sayzone" id="w1-sayzone" style="display:none"><div class="lead" id="w1-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w1-target"></div><button class="btn" id="w1-demo">🔊 示範</button><button class="btn ok" id="w1-say-start" onclick="startSay('w1')">開始唸</button><button class="btn warn" id="w1-say-stop" disabled>停止</button><div class="heard" id="w1-say-out"></div><div class="result" id="w1-say-res"></div></div>
+</div>
+<div class="item" id="w2-item"><div class="label">單字 3</div>
+<div class="sentence"><strong>練習</strong><span class="reps" id="w2-reps"><span class="rep" id="w2-rep0"></span><span class="rep" id="w2-rep1"></span><span class="rep" id="w2-rep2"></span></span></div>
+<button class="btn" onclick="demo('w2')">🔊 聽</button>
+<div class="lbs" id="w2-lbs">
+<input class="lb" id="w2-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',0)" onkeydown="lbBack(event,'w2',0)">
+<input class="lb" id="w2-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',1)" onkeydown="lbBack(event,'w2',1)">
+<input class="lb" id="w2-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',2)" onkeydown="lbBack(event,'w2',2)">
+<input class="lb" id="w2-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',3)" onkeydown="lbBack(event,'w2',3)">
+<input class="lb" id="w2-lb4" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',4)" onkeydown="lbBack(event,'w2',4)">
+<input class="lb" id="w2-lb5" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',5)" onkeydown="lbBack(event,'w2',5)">
+<input class="lb" id="w2-lb6" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',6)" onkeydown="lbBack(event,'w2',6)">
+<input class="lb" id="w2-lb7" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w2',7)" onkeydown="lbBack(event,'w2',7)">
+</div>
+<button class="btn" onclick="typeIt('w2')">檢查</button>
+<div class="result" id="w2-res"></div>
+<div class="sayzone" id="w2-sayzone" style="display:none"><div class="lead" id="w2-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w2-target"></div><button class="btn" id="w2-demo">🔊 示範</button><button class="btn ok" id="w2-say-start" onclick="startSay('w2')">開始唸</button><button class="btn warn" id="w2-say-stop" disabled>停止</button><div class="heard" id="w2-say-out"></div><div class="result" id="w2-say-res"></div></div>
+</div>
+<div class="item" id="w3-item"><div class="label">單字 4</div>
+<div class="sentence"><strong>鼓掌</strong><span class="reps" id="w3-reps"><span class="rep" id="w3-rep0"></span><span class="rep" id="w3-rep1"></span><span class="rep" id="w3-rep2"></span></span></div>
+<button class="btn" onclick="demo('w3')">🔊 聽</button>
+<div class="lbs" id="w3-lbs">
+<input class="lb" id="w3-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w3',0)" onkeydown="lbBack(event,'w3',0)">
+<input class="lb" id="w3-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w3',1)" onkeydown="lbBack(event,'w3',1)">
+<input class="lb" id="w3-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w3',2)" onkeydown="lbBack(event,'w3',2)">
+<input class="lb" id="w3-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w3',3)" onkeydown="lbBack(event,'w3',3)">
+</div>
+<button class="btn" onclick="typeIt('w3')">檢查</button>
+<div class="result" id="w3-res"></div>
+<div class="sayzone" id="w3-sayzone" style="display:none"><div class="lead" id="w3-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w3-target"></div><button class="btn" id="w3-demo">🔊 示範</button><button class="btn ok" id="w3-say-start" onclick="startSay('w3')">開始唸</button><button class="btn warn" id="w3-say-stop" disabled>停止</button><div class="heard" id="w3-say-out"></div><div class="result" id="w3-say-res"></div></div>
+</div>
+<div class="item" id="w4-item"><div class="label">單字 5</div>
+<div class="sentence"><strong>烤</strong><span class="reps" id="w4-reps"><span class="rep" id="w4-rep0"></span><span class="rep" id="w4-rep1"></span><span class="rep" id="w4-rep2"></span></span></div>
+<button class="btn" onclick="demo('w4')">🔊 聽</button>
+<div class="lbs" id="w4-lbs">
+<input class="lb" id="w4-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w4',0)" onkeydown="lbBack(event,'w4',0)">
+<input class="lb" id="w4-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w4',1)" onkeydown="lbBack(event,'w4',1)">
+<input class="lb" id="w4-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w4',2)" onkeydown="lbBack(event,'w4',2)">
+<input class="lb" id="w4-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w4',3)" onkeydown="lbBack(event,'w4',3)">
+</div>
+<button class="btn" onclick="typeIt('w4')">檢查</button>
+<div class="result" id="w4-res"></div>
+<div class="sayzone" id="w4-sayzone" style="display:none"><div class="lead" id="w4-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w4-target"></div><button class="btn" id="w4-demo">🔊 示範</button><button class="btn ok" id="w4-say-start" onclick="startSay('w4')">開始唸</button><button class="btn warn" id="w4-say-stop" disabled>停止</button><div class="heard" id="w4-say-out"></div><div class="result" id="w4-say-res"></div></div>
+</div>
+<div class="item" id="w5-item"><div class="label">單字 6</div>
+<div class="sentence"><strong>晚點</strong><span class="reps" id="w5-reps"><span class="rep" id="w5-rep0"></span><span class="rep" id="w5-rep1"></span><span class="rep" id="w5-rep2"></span></span></div>
+<button class="btn" onclick="demo('w5')">🔊 聽</button>
+<div class="lbs" id="w5-lbs">
+<input class="lb" id="w5-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w5',0)" onkeydown="lbBack(event,'w5',0)">
+<input class="lb" id="w5-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w5',1)" onkeydown="lbBack(event,'w5',1)">
+<input class="lb" id="w5-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w5',2)" onkeydown="lbBack(event,'w5',2)">
+<input class="lb" id="w5-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w5',3)" onkeydown="lbBack(event,'w5',3)">
+<input class="lb" id="w5-lb4" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w5',4)" onkeydown="lbBack(event,'w5',4)">
+</div>
+<button class="btn" onclick="typeIt('w5')">檢查</button>
+<div class="result" id="w5-res"></div>
+<div class="sayzone" id="w5-sayzone" style="display:none"><div class="lead" id="w5-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w5-target"></div><button class="btn" id="w5-demo">🔊 示範</button><button class="btn ok" id="w5-say-start" onclick="startSay('w5')">開始唸</button><button class="btn warn" id="w5-say-stop" disabled>停止</button><div class="heard" id="w5-say-out"></div><div class="result" id="w5-say-res"></div></div>
+</div>
+<div class="item" id="w6-item"><div class="label">單字 7</div>
+<div class="sentence"><strong>冊</strong><span class="reps" id="w6-reps"><span class="rep" id="w6-rep0"></span><span class="rep" id="w6-rep1"></span><span class="rep" id="w6-rep2"></span></span></div>
+<button class="btn" onclick="demo('w6')">🔊 聽</button>
+<div class="lbs" id="w6-lbs">
+<input class="lb" id="w6-lb0" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w6',0)" onkeydown="lbBack(event,'w6',0)">
+<input class="lb" id="w6-lb1" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w6',1)" onkeydown="lbBack(event,'w6',1)">
+<input class="lb" id="w6-lb2" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w6',2)" onkeydown="lbBack(event,'w6',2)">
+<input class="lb" id="w6-lb3" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w6',3)" onkeydown="lbBack(event,'w6',3)">
+<input class="lb" id="w6-lb4" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" onpaste="return false" ondrop="return false" oninput="lbNext('w6',4)" onkeydown="lbBack(event,'w6',4)">
+</div>
+<button class="btn" onclick="typeIt('w6')">檢查</button>
+<div class="result" id="w6-res"></div>
+<div class="sayzone" id="w6-sayzone" style="display:none"><div class="lead" id="w6-lead">拼完了，把這個字唸一次才算過：</div><div class="target" id="w6-target"></div><button class="btn" id="w6-demo">🔊 示範</button><button class="btn ok" id="w6-say-start" onclick="startSay('w6')">開始唸</button><button class="btn warn" id="w6-say-stop" disabled>停止</button><div class="heard" id="w6-say-out"></div><div class="result" id="w6-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>2　Sentence（聽寫）</span><span class="pg">官方：每句寫 3 遍 → 這裡用聽的寫下來</span></div><div class="body">
+<div class="tip">句子不會顯示出來。按「🔊 聽」想聽幾次都可以，聽懂了再打出來，最後唸一次。標點和大小寫不計較，不能貼上。</div>
+<div class="item" id="s0-item"><div class="label">句子 1　<span class="note">（4 個字）</span><span class="reps" id="s0-reps"><span class="rep" id="s0-rep0"></span></span></div>
+<button class="btn" onclick="demo('s0')">🔊 聽</button>
+<button class="btn alt" id="s0-peek" onclick="peek('s0')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s0-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s0')"><button class="btn" onclick="typeIt('s0')">檢查</button></div>
+<div class="hidden-target" id="s0-peekbox"></div>
+<div class="result" id="s0-res"></div>
+<div class="sayzone" id="s0-sayzone" style="display:none"><div class="lead" id="s0-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s0-target"></div><button class="btn" id="s0-demo">🔊 示範</button><button class="btn ok" id="s0-say-start" onclick="startSay('s0')">開始唸</button><button class="btn warn" id="s0-say-stop" disabled>停止</button><div class="heard" id="s0-say-out"></div><div class="result" id="s0-say-res"></div></div>
+</div>
+<div class="item" id="s1-item"><div class="label">句子 2　<span class="note">（7 個字）</span><span class="reps" id="s1-reps"><span class="rep" id="s1-rep0"></span></span></div>
+<button class="btn" onclick="demo('s1')">🔊 聽</button>
+<button class="btn alt" id="s1-peek" onclick="peek('s1')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s1-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s1')"><button class="btn" onclick="typeIt('s1')">檢查</button></div>
+<div class="hidden-target" id="s1-peekbox"></div>
+<div class="result" id="s1-res"></div>
+<div class="sayzone" id="s1-sayzone" style="display:none"><div class="lead" id="s1-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s1-target"></div><button class="btn" id="s1-demo">🔊 示範</button><button class="btn ok" id="s1-say-start" onclick="startSay('s1')">開始唸</button><button class="btn warn" id="s1-say-stop" disabled>停止</button><div class="heard" id="s1-say-out"></div><div class="result" id="s1-say-res"></div></div>
+</div>
+<div class="item" id="s2-item"><div class="label">句子 3　<span class="note">（7 個字）</span><span class="reps" id="s2-reps"><span class="rep" id="s2-rep0"></span></span></div>
+<button class="btn" onclick="demo('s2')">🔊 聽</button>
+<button class="btn alt" id="s2-peek" onclick="peek('s2')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s2-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s2')"><button class="btn" onclick="typeIt('s2')">檢查</button></div>
+<div class="hidden-target" id="s2-peekbox"></div>
+<div class="result" id="s2-res"></div>
+<div class="sayzone" id="s2-sayzone" style="display:none"><div class="lead" id="s2-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s2-target"></div><button class="btn" id="s2-demo">🔊 示範</button><button class="btn ok" id="s2-say-start" onclick="startSay('s2')">開始唸</button><button class="btn warn" id="s2-say-stop" disabled>停止</button><div class="heard" id="s2-say-out"></div><div class="result" id="s2-say-res"></div></div>
+</div>
+<div class="item" id="s3-item"><div class="label">句子 4　<span class="note">（8 個字）</span><span class="reps" id="s3-reps"><span class="rep" id="s3-rep0"></span></span></div>
+<button class="btn" onclick="demo('s3')">🔊 聽</button>
+<button class="btn alt" id="s3-peek" onclick="peek('s3')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s3-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s3')"><button class="btn" onclick="typeIt('s3')">檢查</button></div>
+<div class="hidden-target" id="s3-peekbox"></div>
+<div class="result" id="s3-res"></div>
+<div class="sayzone" id="s3-sayzone" style="display:none"><div class="lead" id="s3-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s3-target"></div><button class="btn" id="s3-demo">🔊 示範</button><button class="btn ok" id="s3-say-start" onclick="startSay('s3')">開始唸</button><button class="btn warn" id="s3-say-stop" disabled>停止</button><div class="heard" id="s3-say-out"></div><div class="result" id="s3-say-res"></div></div>
+</div>
+<div class="item" id="s4-item"><div class="label">句子 5　<span class="note">（4 個字）</span><span class="reps" id="s4-reps"><span class="rep" id="s4-rep0"></span></span></div>
+<button class="btn" onclick="demo('s4')">🔊 聽</button>
+<button class="btn alt" id="s4-peek" onclick="peek('s4')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s4-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s4')"><button class="btn" onclick="typeIt('s4')">檢查</button></div>
+<div class="hidden-target" id="s4-peekbox"></div>
+<div class="result" id="s4-res"></div>
+<div class="sayzone" id="s4-sayzone" style="display:none"><div class="lead" id="s4-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s4-target"></div><button class="btn" id="s4-demo">🔊 示範</button><button class="btn ok" id="s4-say-start" onclick="startSay('s4')">開始唸</button><button class="btn warn" id="s4-say-stop" disabled>停止</button><div class="heard" id="s4-say-out"></div><div class="result" id="s4-say-res"></div></div>
+</div>
+<div class="item" id="s5-item"><div class="label">句子 6　<span class="note">（11 個字）</span><span class="reps" id="s5-reps"><span class="rep" id="s5-rep0"></span></span></div>
+<button class="btn" onclick="demo('s5')">🔊 聽</button>
+<button class="btn alt" id="s5-peek" onclick="peek('s5')" style="display:none">看一次答案（要多打一遍）</button>
+<div class="typebox"><input id="s5-in" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onpaste="return false" ondrop="return false" placeholder="聽到什麼就打什麼" onkeydown="if(event.key==='Enter')typeIt('s5')"><button class="btn" onclick="typeIt('s5')">檢查</button></div>
+<div class="hidden-target" id="s5-peekbox"></div>
+<div class="result" id="s5-res"></div>
+<div class="sayzone" id="s5-sayzone" style="display:none"><div class="lead" id="s5-lead">打完了，把整句唸一次才算過：</div><div class="target" id="s5-target"></div><button class="btn" id="s5-demo">🔊 示範</button><button class="btn ok" id="s5-say-start" onclick="startSay('s5')">開始唸</button><button class="btn warn" id="s5-say-stop" disabled>停止</button><div class="heard" id="s5-say-out"></div><div class="result" id="s5-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>3　Fill in the blank</span><span class="pg">作業原題，答完唸整句</span></div><div class="body">
+<div class="item" id="f0-item"><div class="label">第 1 題</div>
+<div class="sentence">Carrie likes playing basketball because she can _____________.</div>
+<div class="opts" id="f0-opts">
+<button class="opt" onclick="pickFill('f0',0,this)">slam dunk</button>
+<button class="opt" onclick="pickFill('f0',1,this)">run fast</button>
+<button class="opt" onclick="pickFill('f0',2,this)">sing loud</button>
+<button class="opt" onclick="pickFill('f0',3,this)">draw well</button>
+</div>
+<div class="result" id="f0-res"></div>
+<div class="sayzone" id="f0-sayzone" style="display:none"><div class="lead" id="f0-lead">答對了，把整句唸出來才算過：</div><div class="target" id="f0-target"></div><button class="btn" id="f0-demo">🔊 示範</button><button class="btn ok" id="f0-say-start" onclick="startSay('f0')">開始唸</button><button class="btn warn" id="f0-say-stop" disabled>停止</button><div class="heard" id="f0-say-out"></div><div class="result" id="f0-say-res"></div></div>
+</div>
+<div class="item" id="f1-item"><div class="label">第 2 題</div>
+<div class="sentence">Carrie __________ badminton with her friends after school.</div>
+<div class="opts" id="f1-opts">
+<button class="opt" onclick="pickFill('f1',0,this)">practices</button>
+<button class="opt" onclick="pickFill('f1',1,this)">enjoys</button>
+<button class="opt" onclick="pickFill('f1',2,this)">bakes</button>
+<button class="opt" onclick="pickFill('f1',3,this)">claps</button>
+</div>
+<div class="result" id="f1-res"></div>
+<div class="sayzone" id="f1-sayzone" style="display:none"><div class="lead" id="f1-lead">答對了，把整句唸出來才算過：</div><div class="target" id="f1-target"></div><button class="btn" id="f1-demo">🔊 示範</button><button class="btn ok" id="f1-say-start" onclick="startSay('f1')">開始唸</button><button class="btn warn" id="f1-say-stop" disabled>停止</button><div class="heard" id="f1-say-out"></div><div class="result" id="f1-say-res"></div></div>
+</div>
+<div class="item" id="f2-item"><div class="label">第 3 題</div>
+<div class="sentence">She likes to make her drawings very __________ with colored pencils.</div>
+<div class="opts" id="f2-opts">
+<button class="opt" onclick="pickFill('f2',0,this)">colorful</button>
+<button class="opt" onclick="pickFill('f2',1,this)">boring</button>
+<button class="opt" onclick="pickFill('f2',2,this)">plain</button>
+<button class="opt" onclick="pickFill('f2',3,this)">gray</button>
+</div>
+<div class="result" id="f2-res"></div>
+<div class="sayzone" id="f2-sayzone" style="display:none"><div class="lead" id="f2-lead">答對了，把整句唸出來才算過：</div><div class="target" id="f2-target"></div><button class="btn" id="f2-demo">🔊 示範</button><button class="btn ok" id="f2-say-start" onclick="startSay('f2')">開始唸</button><button class="btn warn" id="f2-say-stop" disabled>停止</button><div class="heard" id="f2-say-out"></div><div class="result" id="f2-say-res"></div></div>
+</div>
+<div class="item" id="f3-item"><div class="label">第 4 題</div>
+<div class="sentence">I&#x27;m busy right now, I will call you ______!</div>
+<div class="opts" id="f3-opts">
+<button class="opt" onclick="pickFill('f3',0,this)">later</button>
+<button class="opt" onclick="pickFill('f3',1,this)">earlier</button>
+<button class="opt" onclick="pickFill('f3',2,this)">before</button>
+<button class="opt" onclick="pickFill('f3',3,this)">today</button>
+</div>
+<div class="result" id="f3-res"></div>
+<div class="sayzone" id="f3-sayzone" style="display:none"><div class="lead" id="f3-lead">答對了，把整句唸出來才算過：</div><div class="target" id="f3-target"></div><button class="btn" id="f3-demo">🔊 示範</button><button class="btn ok" id="f3-say-start" onclick="startSay('f3')">開始唸</button><button class="btn warn" id="f3-say-stop" disabled>停止</button><div class="heard" id="f3-say-out"></div><div class="result" id="f3-say-res"></div></div>
+</div>
+<div class="item" id="f4-item"><div class="label">第 5 題</div>
+<div class="sentence">My brother is showing his stamp _______ to me.</div>
+<div class="opts" id="f4-opts">
+<button class="opt" onclick="pickFill('f4',0,this)">album</button>
+<button class="opt" onclick="pickFill('f4',1,this)">box</button>
+<button class="opt" onclick="pickFill('f4',2,this)">bag</button>
+<button class="opt" onclick="pickFill('f4',3,this)">book</button>
+</div>
+<div class="result" id="f4-res"></div>
+<div class="sayzone" id="f4-sayzone" style="display:none"><div class="lead" id="f4-lead">答對了，把整句唸出來才算過：</div><div class="target" id="f4-target"></div><button class="btn" id="f4-demo">🔊 示範</button><button class="btn ok" id="f4-say-start" onclick="startSay('f4')">開始唸</button><button class="btn warn" id="f4-say-stop" disabled>停止</button><div class="heard" id="f4-say-out"></div><div class="result" id="f4-say-res"></div></div>
+</div>
+</div></div>
+<div class="section"><div class="head"><span>4　Conversation</span><span class="pg">官方：寫出三組問答 → 這裡自己打answer再唸</span></div><div class="body">
+<div class="tip">用自己的話寫一句完整的答案（至少 5 個字），寫完唸出來。卡住的話試兩次會出現官方參考答案。</div>
+<div class="item" id="c0-item"><div class="label">問答 1</div>
+<div class="sentence">Which hobbies involve strategy?</div>
+<button class="btn" onclick="demo('c0')">🔊 聽問題</button>
+<div class="typebox"><input id="c0-in" autocomplete="off" onpaste="return false" ondrop="return false" placeholder="用完整句子寫答案" onkeydown="if(event.key==='Enter')typeIt('c0')"><button class="btn" onclick="typeIt('c0')">檢查</button></div>
+<div class="result" id="c0-res"></div>
+<div class="official" id="c0-official">官方參考答案：Chess is a hobby that involves strategy.</div>
+<div class="sayzone" id="c0-sayzone" style="display:none"><div class="lead" id="c0-lead">把你寫的答案唸出來才算過：</div><div class="target" id="c0-target"></div><button class="btn" id="c0-demo">🔊 示範</button><button class="btn ok" id="c0-say-start" onclick="startSay('c0')">開始唸</button><button class="btn warn" id="c0-say-stop" disabled>停止</button><div class="heard" id="c0-say-out"></div><div class="result" id="c0-say-res"></div></div>
+</div>
+<div class="item" id="c1-item"><div class="label">問答 2</div>
+<div class="sentence">What hobbies can make you smart?</div>
+<button class="btn" onclick="demo('c1')">🔊 聽問題</button>
+<div class="typebox"><input id="c1-in" autocomplete="off" onpaste="return false" ondrop="return false" placeholder="用完整句子寫答案" onkeydown="if(event.key==='Enter')typeIt('c1')"><button class="btn" onclick="typeIt('c1')">檢查</button></div>
+<div class="result" id="c1-res"></div>
+<div class="official" id="c1-official">官方參考答案：Playing checkers can make you smart.</div>
+<div class="sayzone" id="c1-sayzone" style="display:none"><div class="lead" id="c1-lead">把你寫的答案唸出來才算過：</div><div class="target" id="c1-target"></div><button class="btn" id="c1-demo">🔊 示範</button><button class="btn ok" id="c1-say-start" onclick="startSay('c1')">開始唸</button><button class="btn warn" id="c1-say-stop" disabled>停止</button><div class="heard" id="c1-say-out"></div><div class="result" id="c1-say-res"></div></div>
+</div>
+<div class="item" id="c2-item"><div class="label">問答 3</div>
+<div class="sentence">What hobbies can help you relax?</div>
+<button class="btn" onclick="demo('c2')">🔊 聽問題</button>
+<div class="typebox"><input id="c2-in" autocomplete="off" onpaste="return false" ondrop="return false" placeholder="用完整句子寫答案" onkeydown="if(event.key==='Enter')typeIt('c2')"><button class="btn" onclick="typeIt('c2')">檢查</button></div>
+<div class="result" id="c2-res"></div>
+<div class="official" id="c2-official">官方參考答案：Listening music can help me relax.</div>
+<div class="sayzone" id="c2-sayzone" style="display:none"><div class="lead" id="c2-lead">把你寫的答案唸出來才算過：</div><div class="target" id="c2-target"></div><button class="btn" id="c2-demo">🔊 示範</button><button class="btn ok" id="c2-say-start" onclick="startSay('c2')">開始唸</button><button class="btn warn" id="c2-say-stop" disabled>停止</button><div class="heard" id="c2-say-out"></div><div class="result" id="c2-say-res"></div></div>
+</div>
+</div></div>
+</div>
+<div class="footer"><button class="btn alt" onclick="save()">存進度</button><button class="btn" onclick="report(false)">練習報告</button></div>
+<div class="modal" id="modal"><div class="box"><div id="report"></div><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">關閉</button></div></div><script>
+const DATA={"mode": "review", "lesson": "LV4-39", "child": "Bobo", "title": "Hobbies (Indoor Hobbies)", "storage": "oikid-bobo-lv4-39-rev-v2", "vocabRepeat": 3, "sentenceRepeat": 1, "vocabulary": [{"w": "colorful", "zh": "多彩的"}, {"w": "slam dunk", "zh": "灌籃"}, {"w": "practice", "zh": "練習"}, {"w": "clap", "zh": "鼓掌"}, {"w": "bake", "zh": "烤"}, {"w": "later", "zh": "晚點"}, {"w": "album", "zh": "冊"}], "sentences": ["Carrie likes playing chess", "because she can play it very well", "and she thinks chess is very interesting!", "When I go somewhere my dog always follows", "and stands by me.", "Mom wants me to take the garbage out from the house."], "fill": [{"q": "Carrie likes playing basketball because she can _____________.", "answer": "slam dunk", "options": ["slam dunk", "run fast", "sing loud", "draw well"], "say": "Carrie likes playing basketball because she can slam dunk."}, {"q": "Carrie __________ badminton with her friends after school.", "answer": "practices", "options": ["practices", "enjoys", "bakes", "claps"], "say": "Carrie practices badminton with her friends after school."}, {"q": "She likes to make her drawings very __________ with colored pencils.", "answer": "colorful", "options": ["colorful", "boring", "plain", "gray"], "say": "She likes to make her drawings very colorful with colored pencils."}, {"q": "I'm busy right now, I will call you ______!", "answer": "later", "options": ["later", "earlier", "before", "today"], "say": "I'm busy right now, I will call you later!"}, {"q": "My brother is showing his stamp _______ to me.", "answer": "album", "options": ["album", "box", "bag", "book"], "say": "My brother is showing his stamp album to me."}], "conversation": [{"q": "Which hobbies involve strategy?", "model": "Chess is a hobby that involves strategy.", "keywords": ["chess", "strategy"], "minHits": 2, "say": "Chess is a hobby that involves strategy."}, {"q": "What hobbies can make you smart?", "model": "Playing checkers can make you smart.", "keywords": ["checkers", "smart"], "minHits": 2, "say": "Playing checkers can make you smart."}, {"q": "What hobbies can help you relax?", "model": "Listening music can help me relax.", "keywords": ["listening", "music", "help", "relax"], "minHits": 2, "say": "Listening music can help me relax."}]};
+const HOMO={to:'two',too:'two',two:'two',for:'four',fore:'four',four:'four',ate:'eight',eight:'eight',
+ won:'one',one:'one',our:'our',hour:'our',no:'no',know:'no',new:'new',knew:'new',
+ there:'there',their:'there',theyre:'there',here:'here',hear:'here',your:'your',youre:'your',
+ by:'by',buy:'by',bye:'by',see:'see',sea:'see',be:'be',bee:'be',right:'right',write:'right',
+ son:'son',sun:'son',meat:'meat',meet:'meat',week:'week',weak:'weak',wait:'wait',weight:'wait',
+ pair:'pair',pear:'pair',plane:'plane',plain:'plain',road:'road',rode:'road',sale:'sale',sail:'sale',
+ tail:'tail',tale:'tale',threw:'threw',through:'threw',wood:'wood',would:'wood',
+ flour:'flour',flower:'flour',blue:'blue',blew:'blue',night:'night',knight:'night',
+ hi:'hi',high:'hi',mail:'mail',male:'mail',eye:'i',i:'i',red:'red',read:'red'};
+const NUM1={zero:0,oh:0,o:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9};
+const NUM2={ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19};
+const NUM3={twenty:20,thirty:30,forty:40,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+const SAY={for:'four',to:'two',too:'two',ate:'eight',won:'one'};
+function numCanon(str){
+  let words=String(str||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+  words=words.map(w=>HOMO[w]!==undefined?HOMO[w]:w);        // 同音字先收斂
+  const out=[];let i=0;
+  while(i<words.length){
+    const w=words[i];let v=null;
+    if(/^\d+$/.test(w)){out.push(w);i++;continue}            // 已是數字原樣留著，否則 0928 開頭的 0 會被吃掉
+    if(NUM3[w]!==undefined){v=NUM3[w];if(NUM1[words[i+1]]>0){v+=NUM1[words[i+1]];i++}}
+    else if(NUM2[w]!==undefined)v=NUM2[w];
+    else if(NUM1[w]!==undefined)v=NUM1[w];
+    if(v===null){out.push(w);i++;continue}
+    while(words[i+1]==='hundred'||words[i+1]==='thousand'){
+      v=v*(words[i+1]==='hundred'?100:1000);i++;
+      if(words[i+1]==='and')i++;
+      const nx=words[i+1];let add=null;
+      if(nx!==undefined){
+        if(NUM3[nx]!==undefined){add=NUM3[nx];if(NUM1[words[i+2]]>0){add+=NUM1[words[i+2]];i++}}
+        else if(NUM2[nx]!==undefined)add=NUM2[nx];
+        else if(NUM1[nx]>0)add=NUM1[nx];
+        if(add!==null){v+=add;i++}
+      }
+    }
+    out.push(String(v));i++;
+  }
+  // one o one → 1 0 1 → 101。只合併連續 3 位以上，否則 "two to" 會被誤併成 22
+  const merged=[];let run=[];
+  const flush=()=>{if(run.length>=3)merged.push(run.join(''));else run.forEach(x=>merged.push(x));run=[]};
+  out.forEach(t=>{if(/^\d$/.test(t))run.push(t);else{flush();merged.push(t)}});
+  flush();
+  return merged;
+};
+function norm(s,expandDigits=false){return numCanon(s).join(' ')};
+function sim(a,b){if(a===b)return true;if(Math.abs(a.length-b.length)>2)return false;let d=Math.abs(a.length-b.length);for(let i=0;i<Math.min(a.length,b.length);i++)if(a[i]!==b[i])d++;return d<=1};
+function alike(a,b){return sim(a,b)||SAY[a]===b||SAY[b]===a};
+function pct(ref,got){const rw=norm(ref).split(' ').filter(Boolean),gw=norm(got,true).split(' ').filter(Boolean);let h=0;rw.forEach(w=>{if(gw.some(g=>sim(w,g)))h++});return rw.length?Math.round(h/rw.length*100):0};
+function keyHit(k,g,gw){const nk=norm(k,true);if(g.includes(nk))return true;const kw=nk.split(' ').filter(Boolean);return kw.length&&kw.every(w=>gw.some(x=>alike(w,x)))};
+function hits(keys,got){const g=norm(got,true),gw=g.split(' ').filter(Boolean);return (keys||[]).filter(k=>keyHit(k,g,gw)).length};
+function SR(){return window.SpeechRecognition||window.webkitSpeechRecognition};
+function rec(id,cb){const C=SR(),out=document.getElementById(id+'-out'),start=document.getElementById(id+'-start'),stop=document.getElementById(id+'-stop');if(!C){out.textContent='此瀏覽器不支援語音辨識。';return}let text='',stopped=false;const r=new C();r.lang='en-US';r.continuous=true;r.interimResults=false;r.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)text+=e.results[i][0].transcript+' '};r.onend=()=>{if(!stopped){setTimeout(()=>{try{r.start()}catch(e){}},120);return}if(start)start.disabled=false;if(stop)stop.disabled=true;cb(text.trim())};if(start)start.disabled=true;if(stop){stop.disabled=false;stop.onclick=()=>{stopped=true;try{r.stop()}catch(e){}setTimeout(()=>{try{r.abort()}catch(e){}},1200)}}out.textContent='Listening...';try{r.start()}catch(e){out.textContent='請再按一次。'}};
+function speak(t,r=.82){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r;window.speechSynthesis.speak(u)};
+
+const passed=new Set(), attempts={}, reps={};
+function el(id){return document.getElementById(id)}
+function unit(x){return String(x).replace(/[^a-z0-9_-]/gi,'_')}
+
+/* 每一項要打幾遍、目標字串是什麼、打完要唸什麼 */
+const ITEM={};
+(DATA.vocabulary||[]).forEach((v,i)=>{ITEM['w'+i]={type:'word',target:v.w,say:v.w,
+  need:DATA.vocabRepeat||3,speak:v.w}});
+(DATA.sentences||[]).forEach((s,i)=>{ITEM['s'+i]={type:'sent',target:s,say:s,
+  need:DATA.sentenceRepeat||1,speak:s}});
+(DATA.fill||[]).forEach((f,i)=>{ITEM['f'+i]={type:'fill',answer:f.answer,options:f.options,
+  say:f.say,need:0,speak:f.say}});
+(DATA.conversation||[]).forEach((c,i)=>{ITEM['c'+i]={type:'convo',model:c.model,
+  keywords:c.keywords||[],minHits:c.minHits||2,say:'',need:1,speak:c.q}});
+
+function total(){return Object.keys(ITEM).length}
+function prog(){const t=total();el('bar').style.width=Math.round(passed.size/Math.max(t,1)*100)+'%';
+  el('prog').textContent='進度 '+passed.size+' / '+t}
+function mark(k){k=unit(k);if(passed.has(k))return;passed.add(k);prog();save(true);
+  if(passed.size>=total())finish()}
+function demo(id){speak(ITEM[id].speak)}
+
+/* 打字比對：單字要一模一樣，句子忽略標點大小寫 */
+function clean(s){return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim()}
+
+/* 單字用一格一個字母，手機的智慧拼音沒辦法一次補完整個字 */
+function lbIdx(word){const out=[];for(let k=0;k<word.length;k++)if(word[k]!==' ')out.push(k);return out}
+function lbNext(wid,k){const el0=el(wid+'-lb'+k);el0.value=(el0.value||'').slice(-1).toLowerCase();
+  el0.classList.remove('ok','bad');
+  if(!el0.value)return;
+  const ix=lbIdx(ITEM[wid].target),at=ix.indexOf(k);
+  if(at>=0&&at+1<ix.length){const nx=el(wid+'-lb'+ix[at+1]);if(nx)nx.focus()}}
+function lbBack(e,wid,k){if(e.key!=='Backspace')return;
+  const el0=el(wid+'-lb'+k);if(el0.value)return;
+  const ix=lbIdx(ITEM[wid].target),at=ix.indexOf(k);
+  if(at>0){const pv=el(wid+'-lb'+ix[at-1]);if(pv){pv.value='';pv.classList.remove('ok','bad');pv.focus()}}}
+function lbRead(wid){const w=ITEM[wid].target;let out='';
+  for(let k=0;k<w.length;k++)out+=(w[k]===' ')?' ':((el(wid+'-lb'+k)||{}).value||'');
+  return out}
+function lbClear(wid,onlyBad){const w=ITEM[wid].target;
+  for(let k=0;k<w.length;k++){const b=el(wid+'-lb'+k);if(!b)continue;
+    if(!onlyBad||b.classList.contains('bad')){b.value='';}
+    b.classList.remove('ok','bad')}}
+
+/* 句子是聽寫，句子本身不顯示。錯 3 次才給看一次，看了要多打一遍。 */
+const peeked={};
+function peek(sid){const box=el(sid+'-peekbox');box.textContent=ITEM[sid].target;
+  box.style.display='block';
+  if(!peeked[sid]){peeked[sid]=1;ITEM[sid].need+=1;
+    const wrap=el(sid+'-reps');if(wrap){const d=document.createElement('span');
+      d.className='rep';d.id=sid+'-rep'+(ITEM[sid].need-1);wrap.appendChild(d)}}
+  setTimeout(()=>{box.style.display='none'},6000)}
+
+function typeIt(id){const it=ITEM[id],inp=el(id+'-in'),res=el(id+'-res');
+  const v=(it.type==='word')?lbRead(id):inp.value;
+  attempts[id]=(attempts[id]||0)+1;
+  if(it.type==='convo'){
+    /* 擋「把題目抄成答案」：貼上已經禁掉，這裡再擋手動照抄 */
+    const qw=clean(it.speak).split(' ').filter(Boolean),aw=clean(v).split(' ').filter(Boolean);
+    /* 好答案本來就會重用題目的字（There are ten decades in a century），
+       所以只有「完全沒帶進任何新字」才算照抄。 */
+    const fresh=aw.filter(x=>!qw.includes(x));
+    if(aw.length>=3&&fresh.length===0){res.className='result failtext';
+      res.textContent='這是把問題抄一遍，不是答案。用你自己的話回答。';return}
+    const n=hits(it.keywords,v),words=clean(v).split(' ').filter(Boolean).length;
+    if(n>=it.minHits&&words>=5){it.say=v.trim();res.className='result oktext';
+      res.textContent='寫得好（命中 '+n+' 個關鍵字）。現在唸出來。';
+      inp.disabled=true;openSay(id,'把你寫的答案唸出來才算過：',v.trim())}
+    else{res.className='result failtext';
+      res.textContent='再寫完整一點（命中 '+n+'/'+it.minHits+' 個關鍵字，寫了 '+words+' 個字，至少 5 個）。';
+      if(attempts[id]>=2&&it.model){const o=el(id+'-official');if(o)o.style.display='block'}}
+    return}
+  const ok=clean(v)===clean(it.target);
+  if(!ok){res.className='result failtext';
+    if(it.type==='word'){
+      const w=it.target;
+      for(let k=0;k<w.length;k++){const b=el(id+'-lb'+k);if(!b)continue;
+        b.classList.remove('ok','bad');
+        b.classList.add((b.value||'').toLowerCase()===w[k].toLowerCase()?'ok':'bad')}
+      setTimeout(()=>lbClear(id,true),50);
+      res.textContent='紅色的格子拼錯了，再聽一次然後補上。';
+    }else{
+      const want=clean(it.target).split(' '),got=clean(v).split(' ');
+      let same=0;while(same<want.length&&same<got.length&&want[same]===got[same])same++;
+      res.textContent='還沒對。前 '+same+' 個字是對的，共 '+want.length+' 個字。再聽一次。';
+      if(attempts[id]>=3){const pk=el(id+'-peek');if(pk)pk.style.display='inline-block'}
+    }
+    return}
+  reps[id]=(reps[id]||0)+1;
+  const dot=el(id+'-rep'+(reps[id]-1));if(dot)dot.classList.add('on');
+  if(it.type==='word')lbClear(id,false);else inp.value='';
+  if(reps[id]<it.need){res.className='result oktext';
+    res.textContent='對了，還要再打 '+(it.need-reps[id])+' 遍。';return}
+  res.className='result oktext';res.textContent='打完了。現在唸一次。';
+  if(it.type==='word'){const w=it.target;
+    for(let k=0;k<w.length;k++){const b=el(id+'-lb'+k);if(b){b.value=w[k];b.disabled=true;b.classList.add('ok')}}}
+  else inp.disabled=true;
+  openSay(id,it.type==='word'?'把這個字唸一次才算過：':'把整句唸一次才算過：',it.say)}
+
+/* 選項題 */
+function shuffleOpts(box){const bs=[].slice.call(box.children);
+  for(let i=bs.length-1;i>0;i--){const r=Math.floor(Math.random()*(i+1));const t=bs[i];bs[i]=bs[r];bs[r]=t}
+  bs.forEach(b=>box.appendChild(b))}
+const answered={};
+function pickFill(fid,j,btn){const it=ITEM[fid],box=el(fid+'-opts'),res=el(fid+'-res');
+  attempts[fid]=(attempts[fid]||0)+1;
+  const ok=String(it.options[j]).toLowerCase()===String(it.answer).toLowerCase();
+  box.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  answered[fid]=ok;
+  openSay(fid,ok?'答對了，把整句唸出來才算過：':'答錯了。先把正確的整句唸一次，唸過才能重做：',it.say);
+  res.className='result '+(ok?'oktext':'failtext');res.textContent=ok?'答對了。':'答錯了。'}
+
+/* 唸 */
+function openSay(id,lead,target){const z=el(id+'-sayzone');
+  el(id+'-target').textContent=target;el(id+'-lead').textContent=lead;
+  el(id+'-demo').onclick=()=>speak(target);
+  z.style.display='block';z.className='sayzone';
+  el(id+'-say-res').textContent='';el(id+'-say-out').textContent='';
+  el(id+'-say-start').disabled=false}
+function wordOk(want,got){return norm(got,true).split(' ').filter(Boolean).includes(norm(want))}
+function startSay(id){const it=ITEM[id],target=el(id+'-target').textContent;
+  rec(id+'-say',t=>{const k=id+'-say';attempts[k]=(attempts[k]||0)+1;
+    el(id+'-say-out').textContent='聽到：'+(t||'(沒收到聲音)');
+    const res=el(id+'-say-res');
+    const ok=(it.type==='word')?wordOk(target,t):(pct(target,t)>=85);
+    if(!ok){res.className='result failtext';
+      res.textContent=(it.type==='word')?'聽起來不是 '+target+'，再唸清楚一次。'
+        :'只有 '+pct(target,t)+'%，整句再唸一次。';return}
+    res.className='result oktext';res.textContent='唸得好。';
+    el(id+'-sayzone').className='sayzone pass';el(id+'-say-start').disabled=true;
+    if(it.type==='fill'&&!answered[id]){res.textContent='唸得好。現在重做這一題。';
+      setTimeout(()=>{const box=el(id+'-opts');
+        box.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});
+        shuffleOpts(box);el(id+'-sayzone').style.display='none';el(id+'-res').textContent=''},900);
+      return}
+    el(id+'-item').classList.add('done');mark(id)})}
+
+/* 存檔與報告 */
+function save(silent){try{localStorage.setItem(DATA.storage,JSON.stringify({
+  passed:[...passed],attempts,reps,at:new Date().toISOString()}))}catch(e){}
+  if(!silent)alert('已存檔。')}
+function load(){try{const d=JSON.parse(localStorage.getItem(DATA.storage)||'{}');
+  (d.passed||[]).forEach(x=>passed.add(x));Object.assign(attempts,d.attempts||{});
+  Object.assign(reps,d.reps||{});
+  passed.forEach(k=>{const it=el(k+'-item');if(it)it.classList.add('done');
+    const i=el(k+'-in');if(i)i.disabled=true;
+    const spec=ITEM[k];if(spec&&spec.type==='word'){const w=spec.target;
+      for(let x=0;x<w.length;x++){const b=el(k+'-lb'+x);if(b){b.value=w[x];b.disabled=true;b.classList.add('ok')}}}
+    for(let r=0;r<(reps[k]||0);r++){const dot=el(k+'-rep'+r);if(dot)dot.classList.add('on')}})}catch(e){}
+  document.querySelectorAll('.opts').forEach(shuffleOpts);
+  prog()}
+function weak(){return Object.keys(attempts).filter(k=>attempts[k]>1).sort().map(k=>k+'：'+attempts[k]+' 次')}
+function report(auto){const w=weak();
+  el('report').innerHTML='<p><strong>'+DATA.child+'　'+DATA.lesson+' 複習</strong></p>'
+   +'<p>完成 '+passed.size+' / '+total()+'</p>'
+   +'<p>總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次</p>'
+   +(w.length?'<p><strong>做超過一次的：</strong></p><ul><li>'+w.join('</li><li>')+'</li></ul>':'<p>每一項都一次過。</p>');
+  el('modal').classList.add('show');
+  if(auto)tg(DATA.child+' '+DATA.lesson+' 複習完成。\n完成 '+passed.size+'/'+total()
+    +'\n總練習 '+Object.values(attempts).reduce((a,b)=>a+b,0)+' 次'
+    +(w.length?'\n卡關的：\n'+w.join('\n'):'\n每項一次過。'))}
+function finish(){report(true)}
+const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
+async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
+load();
+
+</script><script>
+/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body></html>

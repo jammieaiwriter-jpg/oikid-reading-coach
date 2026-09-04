@@ -1,0 +1,27 @@
+.DS_Store
+
+# Local/private state
+.clawhub/
+.openclaw/
+memory/
+runtime/
+logs/
+backups/
+downloads/
+
+# Secrets and auth files
+*.env
+*.secret
+*.key
+*.pem
+*oauth*.json
+
+# Large/generated documents that should not be committed here
+*.pdf
+*.tgz
+*.zip
+
+# Legacy local workspace folders
+skills/
+plugins/
+workspace-*/
