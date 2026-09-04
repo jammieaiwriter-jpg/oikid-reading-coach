@@ -1,0 +1,665 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>英文錯題本</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:18px 14px 80px}
+.hero{background:#c2255c;color:#fff;border-radius:10px;padding:20px;margin-bottom:14px}
+.hero h1{font-size:1.4rem;margin:6px 0 4px}.hero p{margin:6px 0 0;color:#ffdeeb;font-size:.9rem;line-height:1.6}
+.sect{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:12px 0;overflow:hidden}
+.sect>.head{padding:11px 16px;font-weight:900;color:#fff;background:#e64980}
+.card{border-bottom:1px solid #eef1f5;padding:13px 16px}.card:last-child{border-bottom:0}
+.card h3{margin:0 0 3px;font-size:1rem}
+.meta{font-size:.78rem;color:#627d98;font-weight:800}
+.btn{border:0;border-radius:7px;padding:9px 13px;font-weight:850;cursor:pointer;background:#e64980;color:#fff;margin:6px 3px 0 0;font-size:.92rem}
+.q{border:1px solid #d9e2ec;background:#fbfdff;border-radius:8px;padding:11px;margin:8px 0}
+.q .stem{font-weight:800;margin-bottom:6px}
+.opt{display:block;width:100%;text-align:left;border:1px solid #bcccdc;background:#fff;border-radius:7px;padding:9px 12px;font-weight:700;cursor:pointer;margin:5px 0}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44}.opt.wrong{background:#fff0f0;border-color:#e03131}
+.result{font-size:.9rem;font-weight:850;margin-top:6px}.ok{color:#17623a}.no{color:#c92a2a}
+.bar{background:#f1f3f5;border-radius:999px;height:14px;overflow:hidden;margin:4px 0 10px}
+.bar>span{display:block;height:100%;background:#e64980}
+.empty{padding:16px;color:#2f9e44;font-weight:800}
+.note{font-size:.8rem;color:#52606d;margin-top:12px;line-height:1.6}
+</style></head><body><div class="wrap"><div class="hero"><h1>📒 英文錯題本</h1><p>練習時答錯的文法點都記在這裡。「追攻」會出<strong>同觀念、不同面孔</strong>的新題——3 題全對才銷帳，證明是真的懂了，不是背答案。<span id="summary"></span></p></div><div class="sect"><div class="head">⚔️ 文法待補</div><div id="gp-list"></div></div><div class="sect"><div class="head">📖 閱讀題型命中率</div><div class="card" id="read-stats"></div></div><div class="note">閱讀弱的題型不重考舊文章——處方是回聽讀頁和課次頁多讀幾篇再作答。</div></div><script>/*
+ * grammar-gen.js
+ * 英文文法無限出題引擎 —— 零依賴、純 JS，可直接內嵌到瀏覽器頁面，也可在 Node 測試中 require()。
+ *
+ * 使用方式：
+ *   瀏覽器: 以 script 標籤內嵌本檔 -> window.GrammarGen.make(["GP-01","GP-10"], 20, seed)
+ *   Node:   const GrammarGen = require("./grammar-gen.js"); GrammarGen.make(["GP-01"], 50, 42)
+ *
+ * 輸出題目格式（與現有練習頁一致）：
+ *   { kind:"fill", q, answer, options:[3個, 已隨機排序], say, gp:"GP-01" }
+ *
+ * 設計重點（硬規則）：
+ *   - 每個模板的 3 個選項中，只有 1 個在該題的上下文下文法正確；另外 2 個一定錯，
+ *     且錯誤原因是「詞池與句型骨架搭配後恆錯」，不是碰運氣才錯。
+ *   - say 一律用 q.replace("___", answer) 生成，保證包含正確答案原字串。
+ *   - 支援 seed（整數）→ 可重現；不給 seed 用 Math.random()。
+ */
+(function (root) {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // 0. 隨機數工具（可種子化）
+  // ---------------------------------------------------------------------
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeRng(seed) {
+    if (seed === undefined || seed === null) {
+      return Math.random;
+    }
+    return mulberry32(Number(seed) || 0);
+  }
+
+  function pick(rng, arr) {
+    return arr[Math.floor(rng() * arr.length)];
+  }
+
+  function pickIndex(rng, n) {
+    return Math.floor(rng() * n);
+  }
+
+  // 從陣列中隨機挑 count 個「排除 excludeSet 內容」的相異元素
+  function pickDistinctExcluding(rng, arr, excludeArr, count) {
+    var pool = arr.filter(function (x) {
+      return excludeArr.indexOf(x) === -1;
+    });
+    var out = [];
+    var used = {};
+    var guard = 0;
+    while (out.length < count && guard < 500) {
+      guard++;
+      var cand = pick(rng, pool);
+      if (!used[cand]) {
+        used[cand] = true;
+        out.push(cand);
+      }
+    }
+    return out;
+  }
+
+  function shuffle(rng, arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function cap(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // 刻意產生「看起來像單字但拼錯」的干擾項：重複最後一個字母。
+  // 保證不等於詞池中任何真實單字（我們的詞池沒有雙寫尾字母的巧合詞）。
+  function mangle(word) {
+    return word + word.slice(-1);
+  }
+
+  // ---------------------------------------------------------------------
+  // 1. 詞池（GEPT 初級基礎字）
+  // ---------------------------------------------------------------------
+  var NAMES = [
+    { name: "Tom", g: "m" },
+    { name: "Jack", g: "m" },
+    { name: "Sam", g: "m" },
+    { name: "Ben", g: "m" },
+    { name: "Leo", g: "m" },
+    { name: "Amy", g: "f" },
+    { name: "Mary", g: "f" },
+    { name: "Lily", g: "f" },
+    { name: "Kate", g: "f" },
+    { name: "Nina", g: "f" },
+  ];
+
+  // nouns: sg / pl / vowel(是否母音開頭，用於 a/an) / wrongPl(刻意錯誤複數)
+  var NOUN_DEFS = [
+    ["cat", "cats", false],
+    ["dog", "dogs", false],
+    ["book", "books", false],
+    ["apple", "apples", true],
+    ["ball", "balls", false],
+    ["box", "boxes", false],
+    ["pen", "pens", false],
+    ["cup", "cups", false],
+    ["bag", "bags", false],
+    ["hat", "hats", false],
+    ["car", "cars", false],
+    ["bike", "bikes", false],
+    ["egg", "eggs", true],
+    ["banana", "bananas", false],
+    ["chair", "chairs", false],
+    ["orange", "oranges", true],
+    ["umbrella", "umbrellas", true],
+    ["watch", "watches", false],
+    ["baby", "babies", false],
+    ["kite", "kites", false],
+  ];
+  var NOUNS = NOUN_DEFS.map(function (d) {
+    var sg = d[0],
+      pl = d[1],
+      vowel = d[2];
+    // 規律變化 (sg+'s'===pl) 的錯誤複數用 sg+'es'；不規律變化(es/ies)的錯誤複數用 sg+'s'
+    var wrongPl = pl === sg + "s" ? sg + "es" : sg + "s";
+    return { sg: sg, pl: pl, vowel: vowel, wrongPl: wrongPl };
+  });
+
+  var ADJECTIVES = [
+    "big", "small", "tall", "short", "happy", "sad", "hungry",
+    "thirsty", "tired", "busy", "kind", "smart", "young", "nice",
+  ];
+
+  var PLACES = [
+    "school", "park", "zoo", "library", "store", "classroom",
+    "garden", "playground", "room", "home",
+  ];
+
+  // 動作動詞（用於現在進行式 & can & 祈使句）: base / s(第三人稱單數) / ing / wrongIng
+  var ACTION_VERB_DEFS = [
+    ["run", "runs", "running", "runing"],
+    ["swim", "swims", "swimming", "swiming"],
+    ["sit", "sits", "sitting", "siting"],
+    ["write", "writes", "writing", "writeing"],
+    ["make", "makes", "making", "makeing"],
+    ["come", "comes", "coming", "comeing"],
+    ["play", "plays", "playing", "playeing"],
+    ["read", "reads", "reading", "readeing"],
+    ["eat", "eats", "eating", "eateing"],
+    ["jump", "jumps", "jumping", "jumpeing"],
+    ["sing", "sings", "singing", "singeing"],
+    ["dance", "dances", "dancing", "danceing"],
+    ["ride", "rides", "riding", "rideing"],
+    ["cook", "cooks", "cooking", "cookeing"],
+    ["fly", "flies", "flying", "flyeing"],
+    ["drive", "drives", "driving", "driveing"],
+    ["open", "opens", "opening", "openning"],
+    ["close", "closes", "closing", "closeing"],
+    ["wash", "washes", "washing", "washeing"],
+    ["clean", "cleans", "cleaning", "cleanning"],
+    ["listen", "listens", "listening", "listenning"],
+    ["look", "looks", "looking", "lookking"],
+    ["stop", "stops", "stopping", "stoping"],
+    ["wait", "waits", "waiting", "waitting"],
+    ["stand", "stands", "standing", "standding"],
+    ["help", "helps", "helping", "helpping"],
+  ];
+  var ACTION_VERBS = ACTION_VERB_DEFS.map(function (d) {
+    return { base: d[0], s: d[1], ing: d[2], wrongIng: d[3] };
+  });
+
+  var MASS_NOUNS = [
+    "water", "rice", "milk", "money", "juice", "bread", "cheese", "tea", "coffee", "soup",
+  ];
+
+  var WEEKDAYS = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+  ];
+  var MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  var CARDINAL = [
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+    "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three",
+    "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight",
+    "twenty-nine", "thirty", "thirty-one",
+  ];
+  var ORDINAL = [
+    "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth",
+    "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+    "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth",
+    "twenty-first", "twenty-second", "twenty-third", "twenty-fourth", "twenty-fifth",
+    "twenty-sixth", "twenty-seventh", "twenty-eighth", "twenty-ninth", "thirtieth",
+    "thirty-first",
+  ];
+
+  // 全部 be 動詞主詞（含姓名、人稱代名詞），每個都標好正確 be 型態
+  function allBeSubjects() {
+    var list = NAMES.map(function (n) {
+      return { text: n.name, be: "is" };
+    });
+    list.push({ text: "He", be: "is" });
+    list.push({ text: "She", be: "is" });
+    list.push({ text: "It", be: "is" });
+    list.push({ text: "I", be: "am" });
+    list.push({ text: "You", be: "are" });
+    list.push({ text: "We", be: "are" });
+    list.push({ text: "They", be: "are" });
+    return list;
+  }
+  var BE_SUBJECTS = allBeSubjects();
+  var ALL_BE_FORMS = ["am", "is", "are"];
+
+  function twoNameSubject(rng) {
+    var n1 = pick(rng, NAMES);
+    var n2 = pick(rng, NAMES.filter(function (n) { return n.name !== n1.name; }));
+    return { text: n1.name + " and " + n2.name, be: "are" };
+  }
+
+  // ---------------------------------------------------------------------
+  // 2. 每個 GP 的骨架 + 生成邏輯
+  // ---------------------------------------------------------------------
+  function buildItem(gp, q, answer, distractors, extra) {
+    var options3 = [answer].concat(distractors);
+    var say = q.replace("___", answer);
+    // 若空格在句首，插入的答案要大寫成句首字母（例如 "open" -> "Open"）
+    if (q.indexOf("___") === 0 && say.length > 0) {
+      say = say.charAt(0).toUpperCase() + say.slice(1);
+    }
+    return {
+      kind: "fill",
+      q: q,
+      answer: answer,
+      options: options3,
+      say: say,
+      gp: gp,
+    };
+  }
+
+  function finalizeOptions(rng, item) {
+    item.options = shuffle(rng, item.options);
+    return item;
+  }
+
+  // ---- GP-01 be動詞 -------------------------------------------------
+  function genGP01(rng) {
+    var subj = rng() < 0.15 ? twoNameSubject(rng) : pick(rng, BE_SUBJECTS);
+    var wrongForms = ALL_BE_FORMS.filter(function (f) { return f !== subj.be; });
+    var faces = [
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ very " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ " + pick(rng, ADJECTIVES) + " today."; },
+      function () { return subj.text + " ___ so " + pick(rng, ADJECTIVES) + "."; },
+      function () { return subj.text + " ___ at the " + pick(rng, PLACES) + "."; },
+      function () { return subj.text + " ___ in the " + pick(rng, PLACES) + "."; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-01", q, subj.be, wrongForms);
+  }
+
+  // ---- GP-02 名詞複數 -------------------------------------------------
+  function genGP02(rng) {
+    var noun = pick(rng, NOUNS);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)]; // two..nine
+    var isPlural = rng() < 0.5;
+    var faces;
+    if (isPlural) {
+      faces = [
+        function () { return "I have " + numWord + " ___."; },
+        function () { return "There are " + numWord + " ___ on the desk."; },
+        function () { return "I see " + numWord + " ___ in the sky."; },
+      ];
+      var q = pick(rng, faces)();
+      return buildItem("GP-02", q, noun.pl, [noun.sg, noun.wrongPl]);
+    } else {
+      faces = [
+        function () { return "She has one ___."; },
+        function () { return "He has one ___ in his bag."; },
+        function () { return "We need one ___ for the party."; },
+      ];
+      var q2 = pick(rng, faces)();
+      return buildItem("GP-02", q2, noun.sg, [noun.pl, noun.wrongPl]);
+    }
+  }
+
+  // ---- GP-03 冠詞 a/an -------------------------------------------------
+  function genGP03(rng) {
+    var noun = pick(rng, NOUNS);
+    var correct = noun.vowel ? "an" : "a";
+    var wrongArticle = noun.vowel ? "a" : "an";
+    var faces = [
+      function () { return "I have ___ " + noun.sg + "."; },
+      function () { return "She wants ___ " + noun.sg + "."; },
+      function () { return "There is ___ " + noun.sg + " on the table."; },
+      function () { return "Look! It's ___ " + noun.sg + "."; },
+      function () { return "He needs ___ " + noun.sg + " today."; },
+      function () { return "Can I have ___ " + noun.sg + "?"; },
+    ];
+    var q = pick(rng, faces)();
+    return buildItem("GP-03", q, correct, [wrongArticle, "some"]);
+  }
+
+  // ---- GP-04 指示代名詞 -------------------------------------------------
+  function genGP04(rng) {
+    var sgNoun = pick(rng, NOUNS).sg;
+    var plNoun = pick(rng, NOUNS).pl;
+    var faces = [
+      { ctx: "It's right here.", blankQ: "___ is my " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "It's over there.", blankQ: "___ is my " + sgNoun + ".", answer: "That", wrong: ["This", "Those"] },
+      { ctx: "They're right here.", blankQ: "___ are my " + plNoun + ".", answer: "These", wrong: ["Those", "This"] },
+      { ctx: "They're over there.", blankQ: "___ are my " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+      { ctx: "Look, it's close to me.", blankQ: "___ is a nice " + sgNoun + ".", answer: "This", wrong: ["That", "These"] },
+      { ctx: "Look, they're far away.", blankQ: "___ are cute " + plNoun + ".", answer: "Those", wrong: ["These", "That"] },
+    ];
+    var f = pick(rng, faces);
+    var q = f.ctx + " " + f.blankQ;
+    return buildItem("GP-04", q, f.answer, f.wrong);
+  }
+
+  // ---- GP-06 Wh 問句 -------------------------------------------------
+  function genGP06(rng) {
+    var noun = pick(rng, NOUNS).sg;
+    var noun2 = pick(rng, NOUNS.filter(function (n) { return n.sg !== noun; })).sg;
+    var place = pick(rng, PLACES);
+    var name = pick(rng, NAMES).name;
+    var name1 = pick(rng, NAMES).name;
+    var name2 = pick(rng, NAMES.filter(function (n) { return n.name !== name1; })).name;
+    var faces = [
+      { q: "___ is that? It's a " + noun + ".", answer: "What" },
+      { q: "___ is she? She is " + name + ".", answer: "Who" },
+      { q: "___ is my " + noun + "? It's in the " + place + ".", answer: "Where" },
+      { q: "___ are they? They are my friends, " + name1 + " and " + name2 + ".", answer: "Who" },
+      { q: "___ is your favorite toy? It's a " + noun2 + ".", answer: "What" },
+      { q: "___ is the cat? It's under the " + place + ".", answer: "Where" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["What", "Who", "Where"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-06", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-07 How 問句 -------------------------------------------------
+  function genGP07(rng) {
+    var name = pick(rng, NAMES).name;
+    var plNoun = pick(rng, NOUNS).pl;
+    var mass = pick(rng, MASS_NOUNS);
+    var faces = [
+      { q: "How ___ are you, " + name + "?", answer: "old" },
+      { q: "How ___ is your dog?", answer: "old" },
+      { q: "How ___ " + plNoun + " are there?", answer: "many" },
+      { q: "How ___ students are in your class?", answer: "many" },
+      { q: "How ___ " + mass + " is there?", answer: "much" },
+      { q: "How ___ " + mass + " do you need?", answer: "much" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["old", "many", "much"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-07", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-10 現在進行式 -------------------------------------------------
+  function genGP10(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var mode = pickIndex(rng, 6);
+    var subj, q, answer, wrong;
+    if (mode < 3) {
+      // 測試 be 動詞主詞一致
+      if (mode === 0) subj = { text: "I", be: "am" };
+      else if (mode === 1) subj = pick(rng, [{ text: "He", be: "is" }, { text: "She", be: "is" }, { text: pick(rng, NAMES).name, be: "is" }]);
+      else subj = pick(rng, [{ text: "We", be: "are" }, { text: "They", be: "are" }, twoNameSubject(rng)]);
+      q = subj.text + " ___ " + v.ing + " now.";
+      answer = subj.be;
+      wrong = ALL_BE_FORMS.filter(function (f) { return f !== answer; });
+    } else {
+      // 測試 -ing 拼法
+      var subjTexts = ["I am", "He is", "They are"];
+      var chosen = subjTexts[mode - 3];
+      q = chosen + " ___ now.";
+      answer = v.ing;
+      wrong = [v.wrongIng, v.base];
+    }
+    return buildItem("GP-10", q, answer, wrong);
+  }
+
+  // ---- GP-11 There be -------------------------------------------------
+  function genGP11(rng) {
+    var sgNoun = pick(rng, NOUNS);
+    var plNoun = pick(rng, NOUNS).pl;
+    var place = pick(rng, PLACES);
+    var numWord = CARDINAL[1 + pickIndex(rng, 8)];
+    var faces = [
+      { q: "There ___ a " + sgNoun.sg + " on the " + place + ".", answer: "is" },
+      { q: "There ___ " + numWord + " " + plNoun + " in the " + place + ".", answer: "are" },
+      { q: "There ___ many " + plNoun + " on the " + place + ".", answer: "are" },
+      { q: "There ___ " + (sgNoun.vowel ? "an " : "a ") + sgNoun.sg + " in the bag.", answer: "is" },
+      { q: "There ___ some " + plNoun + " near the " + place + ".", answer: "are" },
+      { q: "There ___ one " + sgNoun.sg + " under the " + place + ".", answer: "is" },
+    ];
+    var f = pick(rng, faces);
+    var wrong = ["is", "are", "am"].filter(function (w) { return w !== f.answer; });
+    return buildItem("GP-11", f.q, f.answer, wrong);
+  }
+
+  // ---- GP-12 祈使句 -------------------------------------------------
+  function genGP12(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var faces = [
+      { q: "___ the door, please.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Please ___ your hands.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Don't ___ in the classroom.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ quiet, please!", answer: "Be", wrong: ["Is", "Are"] },
+      { q: "___ your book, everyone.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "Let's ___ now.", answer: v.base, wrong: [v.s, v.ing] },
+    ];
+    var f = pick(rng, faces);
+    return buildItem("GP-12", f.q, f.answer, f.wrong);
+  }
+
+  // ---- GP-14 can -------------------------------------------------
+  function genGP14(rng) {
+    var v = pick(rng, ACTION_VERBS);
+    var name = pick(rng, NAMES).name;
+    var faces = [
+      "" + name + " can ___ well.",
+      "I can ___ every day.",
+      "They can ___ now.",
+      "We can ___ here.",
+      "Can " + name + " ___ today?",
+      "You can ___ after school.",
+    ];
+    var q = pick(rng, faces);
+    return buildItem("GP-14", q, v.base, [v.s, "to " + v.base]);
+  }
+
+  // ---- GP-21 基數序數 -------------------------------------------------
+  function genGP21(rng) {
+    var mode = pickIndex(rng, 6);
+    if (mode < 3) {
+      var n = 2 + pickIndex(rng, 8); // 2..9 (plural noun 需要 >=2)
+      var pl = pick(rng, NOUNS).pl;
+      var faces = [
+        "I have ___ " + pl + ".",
+        "There are ___ " + pl + " on the table.",
+        "She bought ___ " + pl + " at the store.",
+      ];
+      var q = faces[mode];
+      return buildItem("GP-21", q, CARDINAL[n - 1], [ORDINAL[n - 1], mangle(CARDINAL[n - 1])]);
+    } else {
+      var n2 = 1 + pickIndex(rng, 12);
+      var facesO = [
+        "This is my ___ time here.",
+        "He is the ___ in line.",
+        "Today is her ___ day at school.",
+      ];
+      var q2 = facesO[mode - 3];
+      return buildItem("GP-21", q2, ORDINAL[n2 - 1], [CARDINAL[n2 - 1], mangle(ORDINAL[n2 - 1])]);
+    }
+  }
+
+  // ---- GP-23 星期月份日期 -------------------------------------------------
+  function genGP23(rng) {
+    var mode = pickIndex(rng, 6);
+    var q, answer;
+    if (mode === 0) {
+      var i0 = pickIndex(rng, 7);
+      var d0 = WEEKDAYS[i0], d1 = WEEKDAYS[(i0 + 1) % 7], d2 = WEEKDAYS[(i0 + 2) % 7];
+      q = d0 + ", " + d1 + ", ___.";
+      answer = d2;
+      var wrong = pickDistinctExcluding(rng, WEEKDAYS, [d0, d1, d2], 2);
+      return buildItem("GP-23", q, answer, wrong);
+    } else if (mode === 1 || mode === 2) {
+      var im = pickIndex(rng, 12);
+      var m = MONTHS[im];
+      if (mode === 1) {
+        answer = MONTHS[(im + 11) % 12];
+        q = "The month before " + m + " is ___.";
+      } else {
+        answer = MONTHS[(im + 1) % 12];
+        q = "The month after " + m + " is ___.";
+      }
+      var wrongM = pickDistinctExcluding(rng, MONTHS, [m, answer], 2);
+      return buildItem("GP-23", q, answer, wrongM);
+    } else if (mode === 3) {
+      var ix = 1 + pickIndex(rng, 5); // 避免邊界
+      var dPrev = WEEKDAYS[ix - 1], dMid = WEEKDAYS[ix], dNext = WEEKDAYS[ix + 1];
+      q = dPrev + ", ___, " + dNext + ".";
+      answer = dMid;
+      var wrongMid = pickDistinctExcluding(rng, WEEKDAYS, [dPrev, dMid, dNext], 2);
+      return buildItem("GP-23", q, answer, wrongMid);
+    } else if (mode === 4) {
+      var im2 = pickIndex(rng, 11);
+      var m0 = MONTHS[im2], m1 = MONTHS[im2 + 1], m2 = MONTHS[im2 + 2 > 11 ? 11 : im2 + 2];
+      // 確保三個相異（月份陣列長度足夠時必相異）
+      if (im2 + 2 <= 11) {
+        m2 = MONTHS[im2 + 2];
+      } else {
+        im2 = 9; m0 = MONTHS[9]; m1 = MONTHS[10]; m2 = MONTHS[11];
+      }
+      q = m0 + ", " + m1 + ", ___.";
+      answer = m2;
+      var wrongMo = pickDistinctExcluding(rng, MONTHS, [m0, m1, m2], 2);
+      return buildItem("GP-23", q, answer, wrongMo);
+    } else {
+      var iy = pickIndex(rng, 7);
+      var dy = WEEKDAYS[iy];
+      answer = WEEKDAYS[(iy + 1) % 7];
+      q = "The day after " + dy + " is ___.";
+      var wrongDy = pickDistinctExcluding(rng, WEEKDAYS, [dy, answer], 2);
+      return buildItem("GP-23", q, answer, wrongDy);
+    }
+  }
+
+  var GENERATORS = {
+    "GP-01": genGP01,
+    "GP-02": genGP02,
+    "GP-03": genGP03,
+    "GP-04": genGP04,
+    "GP-06": genGP06,
+    "GP-07": genGP07,
+    "GP-10": genGP10,
+    "GP-11": genGP11,
+    "GP-12": genGP12,
+    "GP-14": genGP14,
+    "GP-21": genGP21,
+    "GP-23": genGP23,
+  };
+
+  var SUPPORTED_GPS = Object.keys(GENERATORS);
+
+  // ---------------------------------------------------------------------
+  // 3. 對外主函式
+  // ---------------------------------------------------------------------
+  function make(gpList, n, seed) {
+    if (!gpList || !gpList.length) gpList = SUPPORTED_GPS.slice();
+    gpList = gpList.filter(function (gp) { return GENERATORS[gp]; });
+    if (!gpList.length) return [];
+    var rng = makeRng(seed);
+    var out = [];
+    var seen = {};
+    var guard = 0;
+    var maxGuard = n * 50 + 200;
+    var i = 0;
+    while (out.length < n && guard < maxGuard) {
+      guard++;
+      var gp = gpList[i % gpList.length];
+      i++;
+      var item = GENERATORS[gp](rng);
+      finalizeOptions(rng, item);
+      var key = item.gp + "|" + item.q + "|" + item.answer;
+      if (seen[key]) continue;
+      seen[key] = true;
+      out.push(item);
+    }
+    return out;
+  }
+
+  var GrammarGen = {
+    make: make,
+    supportedGPs: SUPPORTED_GPS,
+    _internal: {
+      DATA: {
+        NAMES: NAMES, NOUNS: NOUNS, ADJECTIVES: ADJECTIVES, PLACES: PLACES,
+        ACTION_VERBS: ACTION_VERBS, MASS_NOUNS: MASS_NOUNS, WEEKDAYS: WEEKDAYS,
+        MONTHS: MONTHS, CARDINAL: CARDINAL, ORDINAL: ORDINAL,
+      },
+      mangle: mangle,
+      makeRng: makeRng,
+    },
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = GrammarGen;
+  } else {
+    root.GrammarGen = GrammarGen;
+  }
+})(typeof window !== "undefined" ? window : this);
+</script><script>
+var GPN={"GP-01": "be動詞", "GP-02": "名詞", "GP-03": "不定冠詞與冠詞", "GP-04": "指示代名詞", "GP-05": "人稱代名詞，所有格", "GP-06": "what/ who/ where引導的問句與答句", "GP-07": "how的問句", "GP-08": "介系詞", "GP-09": "基數", "GP-10": "現在進行式", "GP-11": "There be 存在句", "GP-12": "祈使句、感嘆句", "GP-13": "對等連接詞", "GP-14": "助動詞can的用法", "GP-15": "現在簡單式", "GP-16": "現在簡單式的用法", "GP-17": "頻率副詞", "GP-18": "搭乘交通工具的用法與how問句", "GP-19": "數量詞的介紹", "GP-20": "how many/how much的問句", "GP-21": "基數與序數", "GP-22": "時間副詞", "GP-23": "星期、月份與日期", "GP-24": "時間介系詞", "GP-25": "天氣的表達方式", "GP-26": "which的問句", "GP-27": "be動詞過去式", "GP-28": "規則動詞過去式", "GP-29": "不規則動詞過去式", "GP-30": "過去進行式", "GP-31": "情狀副詞、程度副詞與焦點副詞", "GP-32": "地方副詞、時間副詞與介系詞片語", "GP-33": "從屬連接詞 when/while/before/as soon as/until", "GP-34": "why問句與從屬連接詞because與so", "GP-35": "未來式", "GP-36": "情態助動詞", "GP-37": "不定詞&動名詞當受詞", "GP-38": "不定詞&動名詞當主詞+ it虛主詞句型", "GP-39": "特殊動詞用法", "GP-40": "問路句型", "GP-41": "連綴動詞", "GP-42": "授與動詞", "GP-43": "感官動詞&使役動詞", "GP-44": "比較級(原級&比較級)", "GP-45": "形容詞&副詞比較級(最高級)", "GP-46": "反身代名詞&人稱所有代名詞(whose)", "GP-47": "不定數量代名詞(含不定代名詞 one/ones）", "GP-48": "enough to & too...to...及 so...that...", "GP-49": "現在完成式", "GP-50": "附加問句", "GP-51": "情緒動詞及分詞形容詞", "GP-52": "被動語態", "GP-53": "that名詞子句", "GP-54": "間接問句; 間接引述與 wh- 不定詞片語", "GP-55": "英語中「也」的說法（附和句）", "GP-56": "關係代（名）詞的用法", "GP-57": "連接詞 if 和 (al)though 與介系詞despite", "GP-58": "對等相關連接詞", "GP-59": "片語動詞", "GP-60": "過去完成式"};
+var K='nanyi-eng-ledger-v1';
+function ledger(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function save(d){try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}}
+function tg(msg){fetch('https://bobo-math-notify.bobo-math-grader.workers.dev',{method:'POST',
+  headers:{'Content-Type':'application/json'},body:JSON.stringify({text:msg,to:'bobo'})}).catch(function(){})}
+function pendings(){var d=ledger(),out=[];Object.keys(d.gp||{}).forEach(function(gp){
+  var g=d.gp[gp];if(g.wrong>(g.cleared||0))out.push({gp:gp,n:g.wrong-(g.cleared||0)})});
+  out.sort(function(a,b){return b.n-a.n});return out}
+function render(){
+  var host=document.getElementById('gp-list');host.innerHTML='';
+  var ps=pendings();
+  document.getElementById('summary').textContent=ps.length?('待補 '+ps.length+' 個文法點'):'';
+  if(!ps.length){host.innerHTML='<div class="empty">🎉 沒有待補的文法點——錯題本是空的，去練習頁繼續累積吧。</div>'}
+  ps.forEach(function(item){
+    var d=document.createElement('div');d.className='card';
+    d.innerHTML='<h3>'+item.gp+'　'+(GPN[item.gp]||'')+'</h3>'
+      +'<div class="meta">累積答錯 '+item.n+' 次（未銷帳）</div>'
+      +'<button class="btn">⚔️ 追攻 3 題（同觀念、不同題）</button><div class="qhost"></div>';
+    d.querySelector('.btn').onclick=function(){attack(item.gp,d.querySelector('.qhost'),this)};
+    host.appendChild(d)});
+  var rd=ledger().read||{},rh=document.getElementById('read-stats');rh.innerHTML='';
+  var types=['主旨','細節','推論','字義猜測'];var any=false;
+  types.forEach(function(t){var r=rd[t];if(!r||!r.n)return;any=true;
+    var rate=Math.round((1-r.wrong/r.n)*100);
+    rh.innerHTML+='<div><b>'+t+'</b>　'+rate+'%（'+(r.n-r.wrong)+'/'+r.n+'）'
+      +(rate<70?'　<span style="color:#c92a2a;font-weight:850">偏弱→多讀幾篇文章再答題</span>':'')
+      +'</div><div class="bar"><span style="width:'+rate+'%"></span></div>'});
+  if(!any)rh.innerHTML='<div class="empty">還沒有閱讀作答紀錄。</div>';
+}
+function attack(gp,host,btn){
+  btn.disabled=true;
+  var items=GrammarGen.make([gp],3),i=0,allOk=true;
+  function next(){
+    if(i>=items.length){
+      var d=ledger(),g=d.gp[gp];
+      if(allOk){g.cleared=g.wrong;save(d);
+        host.innerHTML='<div class="result ok">✓ 3 題全對——這個文法點銷帳！</div>';
+        tg('Bobo 英文錯題本銷帳：'+gp+' '+(GPN[gp]||''));}
+      else{g.wrong++;save(d);
+        host.innerHTML='<div class="result no">還沒乾淨——這個點留在錯題本，晚點再追一次。</div>'}
+      setTimeout(render,1600);return}
+    var it=items[i],q=document.createElement('div');q.className='q';
+    q.innerHTML='<div class="stem">'+(i+1)+' / 3　'+it.q+'</div>';
+    it.options.slice().sort(function(){return Math.random()-.5}).forEach(function(o){
+      var b=document.createElement('button');b.className='opt';b.textContent=o;
+      b.onclick=function(){q.querySelectorAll('.opt').forEach(function(x){x.disabled=true});
+        var right=o===it.answer;if(!right)allOk=false;
+        b.classList.add(right?'correct':'wrong');
+        var r=document.createElement('div');r.className='result '+(right?'ok':'no');
+        r.textContent=(right?'✓　':'✗ 正解：'+it.answer+'　')+it.say;q.appendChild(r);
+        i++;setTimeout(next,right?700:1800)};
+      q.appendChild(b)});
+    host.innerHTML='';host.appendChild(q)}
+  next()}
+document.addEventListener('DOMContentLoaded',render);
+</script></body></html>
