@@ -819,7 +819,13 @@ function normKey(w){return String(w||'').trim().toLowerCase()}
 
 /* 單字聽辨嚴格比對（沿用 build_page 的 wordOk：整句沒差 1 個字母沒關係，
    單字會被 sim() 誤判成別的字，所以要求辨識結果裡剛好出現那個字） */
-function wordOk(want,got){const a=norm(want),g=norm(got,true).split(' ').filter(Boolean);return g.includes(a)}
+function wordOk(want,got){const a=norm(want,true).split(' ').filter(Boolean),g=norm(got,true).split(' ').filter(Boolean);
+  if(!a.length)return false;
+  if(a.length===1)return g.includes(a[0]);
+  for(let i=0;i+a.length<=g.length;i++){let ok=true;
+    for(let j=0;j<a.length;j++)if(g[i+j]!==a[j]){ok=false;break}
+    if(ok)return true}
+  return false}
 
 const NOTIFY_ENDPOINT='https://bobo-math-notify.bobo-math-grader.workers.dev';
 async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
