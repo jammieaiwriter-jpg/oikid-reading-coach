@@ -1,0 +1,200 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>會考聽力應試練習</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:18px 14px 80px}
+.hero{background:#0b7285;color:#fff;border-radius:10px;padding:20px;margin-bottom:14px}
+.hero h1{font-size:1.4rem;margin:6px 0 4px}.hero p{margin:6px 0 0;color:#d0f3fa;font-size:.9rem;line-height:1.6}
+.card{background:#fff;border:1px solid #d9e2ec;border-radius:10px;padding:16px;margin:12px 0}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.qhead .num{font-weight:900;font-size:1.05rem;color:#0b7285}
+.qhead .prog{font-size:.78rem;color:#627d98;font-weight:800}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid #bcccdc;background:#fff;
+  border-radius:8px;padding:11px 13px;font-weight:700;cursor:pointer;margin:7px 0;font-size:.98rem}
+.opt:disabled{cursor:default}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44}
+.opt.wrong{background:#fff0f0;border-color:#e03131}
+.opt.dim:disabled{opacity:.55}
+.btn{border:0;border-radius:8px;padding:11px 16px;font-weight:850;cursor:pointer;background:#0b7285;
+  color:#fff;margin:8px 6px 0 0;font-size:.95rem}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:#fff;color:#0b7285;border:1.5px solid #0b7285}
+.playbar{margin:6px 0 10px}
+audio{width:100%}
+.segrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.segbtn{border:1px solid #99c8cf;border-radius:6px;padding:5px 10px;font-weight:800;cursor:pointer;
+  background:#eafaf9;color:#0b7285;font-size:.8rem}
+.result{font-weight:900;margin:10px 0 4px;font-size:1rem}
+.result.ok{color:#17623a}.result.no{color:#c92a2a}
+.transcript{background:#f4fbfb;border:1px dashed #99c8cf;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:.9rem;line-height:1.7}
+.transcript .line{margin:2px 0}
+.transcript .q{margin-top:6px;font-weight:800;color:#0b7285}
+.answer-line{font-weight:800;color:#17623a;margin-top:4px}
+.report h2{margin:0 0 10px;color:#0b7285}
+.stat{display:flex;justify-content:space-between;border-bottom:1px solid #eef1f5;padding:6px 0;font-size:.9rem}
+.stat b{color:#1f2933}
+.weak{background:#fff5f5;border:1px solid #ffc9c9;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:.88rem;color:#a61e1e}
+.done-banner{background:#e6fcf5;border:1px solid #2f9e44;border-radius:10px;padding:16px;text-align:center;font-weight:900;color:#17623a}
+.note{font-size:.8rem;color:#52606d;margin-top:14px;line-height:1.6}
+</style></head><body><div class="wrap">
+<div class="hero"><h1>🎧 會考聽力應試練習</h1><p>先看選項 → 按「開始作答」聽一次（素材唸兩遍＋問題，跟會考一樣）→ 播放中或播畢都可以作答 → 答完立刻看對錯、正解、逐字稿，還能重聽。每 18 題一組，中途離開下次會接著上次的進度。</p></div>
+<div id="stage"></div>
+<div class="note">答錯的題目會記錄弱點到裝置上的錯題本，之後可以在錯題本頁追蹤。這一頁純聽力應試模擬，不會用到麥克風。</div></div>
+<script>var DATA={"cap-qa-001": {"id": "cap-qa-001", "kind": "qa", "subkind": "question", "fn": "道歉", "options": ["Sure, that would be nice.", "No, I already gave it back.", "He needs it today."], "answer": 0, "distractorTags": [null, "答非所問-對象", "人稱錯置"], "material": ["I'm sorry I still have your umbrella. Can I return it tomorrow?"], "question": null, "audioSrc": "audio/cap/cap-qa-001.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-002": {"id": "cap-qa-002", "kind": "qa", "subkind": "question", "fn": "抱怨", "options": ["Sorry, I'll make you a new bowl.", "It's five dollars.", "Great, enjoy your meal!"], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "語氣不搭"], "material": ["Why is my soup cold again? This happened last time too."], "question": null, "audioSrc": "audio/cap/cap-qa-002.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-003": {"id": "cap-qa-003", "kind": "qa", "subkind": "question", "fn": "表達意見", "options": ["I think it's more fun than last year.", "She thinks it's too crowded.", "It starts at seven o'clock."], "answer": 0, "distractorTags": [null, "人稱錯置", "答非所問-類別錯位"], "material": ["What do you think of the festival at the temple this year?"], "question": null, "audioSrc": "audio/cap/cap-qa-003.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-004": {"id": "cap-qa-004", "kind": "qa", "subkind": "statement", "fn": "抱怨", "options": ["I'm sorry. Let me check that for you.", "It costs five dollars to send.", "That's great news!"], "answer": 0, "distractorTags": [null, "表面關鍵字重複但邏輯不通", "語氣不搭"], "material": ["I mailed my package five days ago, but it is still not here."], "question": null, "audioSrc": "audio/cap/cap-qa-004.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-005": {"id": "cap-qa-005", "kind": "qa", "subkind": "statement", "fn": "拒絕", "options": ["Okay, you can rest here for a while.", "You can borrow my pencil.", "He is fine now."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "人稱錯置"], "material": ["My stomach hurts so much. I don't want to go back to class."], "question": null, "audioSrc": "audio/cap/cap-qa-005.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-006": {"id": "cap-qa-006", "kind": "qa", "subkind": "question", "fn": "問路", "options": ["Just put it over there by the door.", "It's really good today.", "In the classroom."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "場所張冠李戴"], "material": ["Where should I put my plate after lunch?"], "question": null, "audioSrc": "audio/cap/cap-qa-006.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-007": {"id": "cap-qa-007", "kind": "qa", "subkind": "question", "fn": "約時間", "options": ["It starts at four o'clock.", "It starts at four thirty.", "It's next to the office."], "answer": 0, "distractorTags": [null, "數字-鄰近值替換", "答非所問-類別錯位"], "material": ["When does the club meeting start this week?"], "question": null, "audioSrc": "audio/cap/cap-qa-007.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-008": {"id": "cap-qa-008", "kind": "qa", "subkind": "question", "fn": "拒絕", "options": ["Sorry, I have too much homework.", "It's really beautiful today.", "She watched it last night."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "時態人稱錯置"], "material": ["Do you want to come up and watch the sun go down with me tonight?"], "question": null, "audioSrc": "audio/cap/cap-qa-008.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-009": {"id": "cap-qa-009", "kind": "qa", "subkind": "question", "fn": "購物", "options": ["It's about eighty dollars.", "It's about eighteen dollars.", "It leaves every hour."], "answer": 0, "distractorTags": [null, "數字-鄰近值替換", "答非所問-類別錯位"], "material": ["How much is a ticket for the boat?"], "question": null, "audioSrc": "audio/cap/cap-qa-009.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-010": {"id": "cap-qa-010", "kind": "qa", "subkind": "question", "fn": "請求", "options": ["They will be ready in ten minutes.", "They will be ready in ten days.", "I really like this shirt."], "answer": 0, "distractorTags": [null, "數字-鄰近值替換", "答非所問-類別錯位"], "material": ["Can you tell me when my clothes will be ready?"], "question": null, "audioSrc": "audio/cap/cap-qa-010.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-011": {"id": "cap-qa-011", "kind": "qa", "subkind": "statement", "fn": "道歉", "options": ["That's fine. I can feed them today.", "The fish tank is very clean.", "That's wonderful news!"], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "語氣不搭"], "material": ["I did not feed the fish this week. I feel really bad about it."], "question": null, "audioSrc": "audio/cap/cap-qa-011.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-012": {"id": "cap-qa-012", "kind": "qa", "subkind": "statement", "fn": "請求", "options": ["You can share mine.", "The bus comes every ten minutes.", "That sounds like fun!"], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "語氣不搭"], "material": ["It's raining so hard, and I don't have an umbrella."], "question": null, "audioSrc": "audio/cap/cap-qa-012.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-013": {"id": "cap-qa-013", "kind": "qa", "subkind": "statement", "fn": "詢問經驗", "options": ["I think it writes very well.", "It costs thirty dollars.", "She bought it last week."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "人稱錯置"], "material": ["I have never had this kind of pen before."], "question": null, "audioSrc": "audio/cap/cap-qa-013.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-014": {"id": "cap-qa-014", "kind": "qa", "subkind": "statement", "fn": "表達意見", "options": ["Don't worry, it will grow back soon.", "It costs two hundred dollars.", "That's a great haircut!"], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "語氣不搭"], "material": ["I think this haircut is too short for me."], "question": null, "audioSrc": "audio/cap/cap-qa-014.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-015": {"id": "cap-qa-015", "kind": "qa", "subkind": "question", "fn": "讚美", "options": ["I made it with color paper.", "I bought it last week.", "She likes it very much."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "人稱錯置"], "material": ["How did you make this beautiful card?"], "question": null, "audioSrc": "audio/cap/cap-qa-015.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-qa-016": {"id": "cap-qa-016", "kind": "qa", "subkind": "question", "fn": "詢問經驗", "options": ["Yes, it works really well.", "It costs five hundred dollars.", "He bought one last year."], "answer": 0, "distractorTags": [null, "答非所問-類別錯位", "人稱錯置"], "material": ["Have you had this kind of washer before?"], "question": null, "audioSrc": "audio/cap/cap-qa-016.mp3", "seg": {"material1": 0.0, "question": null}}, "cap-talk-001": {"id": "cap-talk-001", "kind": "talk", "subkind": "dialog", "fn": "購物", "options": ["About two hundred dollars.", "About fifty dollars.", "About three hundred dollars."], "answer": 0, "distractorTags": [null, "對象混淆-費用歸屬", "數字-鄰近值替換"], "material": ["Paul: Excuse me, can you take a look at this?", "Ryan: Sure. It's not working. I can fix it today.", "Paul: How much will it cost?", "Ryan: About two hundred dollars.", "Paul: That's more than I thought. Can you also clean it?", "Ryan: Sure, that will cost another fifty dollars."], "question": "How much does it cost to fix it?", "audioSrc": "audio/cap/cap-talk-001.mp3", "seg": {"material1": 0.0, "question": 45.66}}, "cap-talk-002": {"id": "cap-talk-002", "kind": "talk", "subkind": "dialog", "fn": "拒絕", "options": ["Because he has to visit his grandmother.", "Because he does not like basketball.", "Because Ivy already asked someone else."], "answer": 0, "distractorTags": [null, "因果反向", "對象混淆"], "material": ["Ivy: Max, do you want to join our basketball team this weekend?", "Max: I'm sorry, I can't. I have to visit my grandmother.", "Ivy: That's too bad. Maybe next time?", "Max: Sure, I'd like that."], "question": "Why can't Max join the team?", "audioSrc": "audio/cap/cap-talk-002.mp3", "seg": {"material1": 0.0, "question": 33.42}}, "cap-talk-003": {"id": "cap-talk-003", "kind": "talk", "subkind": "monologue", "fn": "約時間", "options": ["A change in the meeting time and place.", "A new rule about notebooks.", "A test in the music room."], "answer": 0, "distractorTags": [null, "主旨-細節誤植為主旨", "情境混淆-同詞異義"], "material": ["Good morning, everyone. Our class meeting will not be at eight o'clock today.", "It will start at eight thirty in the music room.", "Please bring your notebooks and come on time."], "question": "What is Zoe talking about?", "audioSrc": "audio/cap/cap-talk-003.mp3", "seg": {"material1": 0.0, "question": 25.404}}, "cap-talk-004": {"id": "cap-talk-004", "kind": "talk", "subkind": "dialog", "fn": "約時間", "options": ["In the library.", "In the art room.", "In the classroom."], "answer": 0, "distractorTags": [null, "場所張冠李戴", "情境混淆-未提及地點"], "material": ["Ella: Sam, can we meet to finish the picture tomorrow?", "Sam: Sure. How about after school in the art room?", "Ella: The art room is locked after school. Let's meet in the library.", "Sam: Okay, that works for me."], "question": "Where will they meet?", "audioSrc": "audio/cap/cap-talk-004.mp3", "seg": {"material1": 0.0, "question": 35.052}}, "cap-talk-005": {"id": "cap-talk-005", "kind": "talk", "subkind": "dialog", "fn": "抱怨", "options": ["He feels angry.", "He feels excited.", "Lily feels angry."], "answer": 0, "distractorTags": [null, "語氣誤判-情緒相反", "對象混淆-歸屬轉移"], "material": ["Owen: Lily, why are there so many boxes here again? This is the third week.", "Lily: I know. Some people just leave everything on this day.", "Owen: I feel angry. We have to clean all of this by ourselves.", "Lily: Let's just work together and finish soon."], "question": "How does Owen feel about the boxes?", "audioSrc": "audio/cap/cap-talk-005.mp3", "seg": {"material1": 0.0, "question": 41.676}}, "cap-talk-006": {"id": "cap-talk-006", "kind": "talk", "subkind": "dialog", "fn": "道歉", "options": ["A new water bottle.", "A new cap.", "A new bag."], "answer": 0, "distractorTags": [null, "對象混淆-物品替換", "情境混淆-無關物品"], "material": ["Max: Ivy, I'm sorry about your water bottle. It doesn't work now.", "Ivy: That's fine. Is the cap fine too?", "Max: No, just the bottle. I already bought you a new one.", "Ivy: Thanks, Max. That's very kind of you."], "question": "What did Max buy for Ivy?", "audioSrc": "audio/cap/cap-talk-006.mp3", "seg": {"material1": 0.0, "question": 40.044}}, "cap-talk-007": {"id": "cap-talk-007", "kind": "talk", "subkind": "dialog", "fn": "讚美", "options": ["Because it is sweet but not too sweet.", "Because it is cheap.", "Because Hank asked him to try it."], "answer": 0, "distractorTags": [null, "因果反向-未提及條件", "對象混淆-歸因轉移"], "material": ["Hank: Ken, this is a great new snack. Why do you like it so much?", "Ken: It's sweet but not too sweet. I eat it every night.", "Hank: That's funny. I never see you eat anything else here.", "Ken: Well, this store also has my favorite drink."], "question": "Why does Ken like this snack?", "audioSrc": "audio/cap/cap-talk-007.mp3", "seg": {"material1": 0.0, "question": 39.756}}, "cap-talk-008": {"id": "cap-talk-008", "kind": "talk", "subkind": "dialog", "fn": "建議", "options": ["One dollar.", "Two dollars.", "A new bag."], "answer": 0, "distractorTags": [null, "數字-鄰近值替換", "答非所問-類別錯位"], "material": ["Zoe: Excuse me, I think you gave me the wrong change.", "Ella: Let me check. Oh, you are right. Here is one more dollar.", "Zoe: Thanks. Maybe you should count it twice next time.", "Ella: That's a good idea. I will be more careful."], "question": "How much more money did Ella give Zoe?", "audioSrc": "audio/cap/cap-talk-008.mp3", "seg": {"material1": 0.0, "question": 41.196}}, "cap-talk-009": {"id": "cap-talk-009", "kind": "talk", "subkind": "dialog", "fn": "表達意見", "options": ["She feels peaceful.", "She feels bored.", "Ted feels peaceful."], "answer": 0, "distractorTags": [null, "語氣誤判-情緒相反", "對象混淆-歸屬轉移"], "material": ["Ted: Gina, what do you think of this house so far?", "Gina: I feel really peaceful here. The mountain air is so clean.", "Ted: I feel the same way. It's much quieter than the city.", "Gina: I hope we can come back again next year."], "question": "How does Gina feel about this place?", "audioSrc": "audio/cap/cap-talk-009.mp3", "seg": {"material1": 0.0, "question": 35.916}}, "cap-talk-010": {"id": "cap-talk-010", "kind": "talk", "subkind": "dialog", "fn": "詢問經驗", "options": ["Behind the gift shop.", "Next to the entrance.", "In the gift shop."], "answer": 0, "distractorTags": [null, "場所張冠李戴", "情境混淆-地標混用"], "material": ["Nora: Max, have you been to this zoo before?", "Max: Yes, I came here last year. The lion area is really nice.", "Nora: Where is the lion area?", "Max: It's behind the gift shop, near the small lake."], "question": "Where is the lion area?", "audioSrc": "audio/cap/cap-talk-010.mp3", "seg": {"material1": 0.0, "question": 31.356}}, "cap-talk-011": {"id": "cap-talk-011", "kind": "talk", "subkind": "dialog", "fn": "請求", "options": ["His guitar, music book, and extra strings.", "His guitar, music book, and a music stand.", "Lily will bring the guitar and music book."], "answer": 0, "distractorTags": [null, "列表增減陷阱-項目替換", "對象混淆-歸屬轉移"], "material": ["Lily: Paul, can you bring your guitar and music book tomorrow?", "Paul: Sure. Should I bring my music stand too?", "Lily: Yes, please. And don't forget extra strings.", "Paul: Okay, I will bring the guitar, the music book, and extra strings."], "question": "What will Paul bring tomorrow?", "audioSrc": "audio/cap/cap-talk-011.mp3", "seg": {"material1": 0.0, "question": 38.556}}, "cap-talk-012": {"id": "cap-talk-012", "kind": "talk", "subkind": "dialog", "fn": "問路", "options": ["Because more people walk by that corner.", "Because the food stands asked him to move.", "Because Zoe asked him to move."], "answer": 0, "distractorTags": [null, "因果反向-未提及條件", "對象混淆-歸因轉移"], "material": ["Zoe: Hank, why did you move your table to this corner?", "Hank: More people walk by here, near the food stands.", "Zoe: That makes sense. Are you selling more today?", "Hank: Yes, much more than yesterday."], "question": "Why did Hank move his table?", "audioSrc": "audio/cap/cap-talk-012.mp3", "seg": {"material1": 0.0, "question": 31.068}}, "cap-talk-013": {"id": "cap-talk-013", "kind": "talk", "subkind": "dialog", "fn": "邀請", "options": ["Take pictures on the old street.", "Buy tea to bring home.", "Meet new friends on the street."], "answer": 0, "distractorTags": [null, "主旨-細節誤植為主旨", "情境混淆-無關主旨"], "material": ["Kate: Nora, I want to take some pictures on this old street today.", "Nora: That sounds great. Should we also visit the tea shop near here?", "Kate: Sure, we can take pictures there too.", "Nora: Let's start now before it gets too crowded."], "question": "What will Kate and Nora do?", "audioSrc": "audio/cap/cap-talk-013.mp3", "seg": {"material1": 0.0, "question": 34.716}}, "cap-talk-014": {"id": "cap-talk-014", "kind": "talk", "subkind": "dialog", "fn": "詢問經驗", "options": ["Cake, juice, and cookies.", "Cake, juice, and ice cream.", "Owen had cake, juice, and cookies."], "answer": 0, "distractorTags": [null, "列表增減陷阱-項目替換", "對象混淆-歸屬轉移"], "material": ["Owen: Max, have you had the food at this party?", "Max: Yes, I had cake and juice. The cookies are good too.", "Owen: Did you have the ice cream?", "Max: Not yet, but I will get some soon."], "question": "What has Max already had at the party?", "audioSrc": "audio/cap/cap-talk-014.mp3", "seg": {"material1": 0.0, "question": 29.964}}, "cap-talk-015": {"id": "cap-talk-015", "kind": "talk", "subkind": "dialog", "fn": "請求", "options": ["She feels excited.", "She feels nervous.", "She feels bored."], "answer": 0, "distractorTags": [null, "對象混淆-歸屬轉移", "語氣誤判-憑空情緒"], "material": ["Zoe: Lily, this tent is really hard to set up.", "Lily: I know, but I feel excited about camping tonight.", "Zoe: Really? I feel nervous about the bugs.", "Lily: Don't worry, it will be fun."], "question": "How does Lily feel about camping tonight?", "audioSrc": "audio/cap/cap-talk-015.mp3", "seg": {"material1": 0.0, "question": 30.972}}, "cap-talk-016": {"id": "cap-talk-016", "kind": "talk", "subkind": "monologue", "fn": "請求", "options": ["Seven dollars.", "Ten dollars.", "At three o'clock."], "answer": 0, "distractorTags": [null, "對象混淆-票種替換", "答非所問-類別錯位"], "material": ["Welcome to our theater. Tickets are ten dollars for adults and seven dollars for students.", "Please show your student card when you buy a student ticket.", "The next movie starts at three o'clock."], "question": "How much is a student ticket?", "audioSrc": "audio/cap/cap-talk-016.mp3", "seg": {"material1": 0.0, "question": 27.9}}, "cap-talk-017": {"id": "cap-talk-017", "kind": "talk", "subkind": "monologue", "fn": "拒絕", "options": ["Because of the heavy rain.", "Because she does not like the songs.", "Because the games started late."], "answer": 0, "distractorTags": [null, "因果反向-未提及條件", "情境混淆-無關細節"], "material": ["Thank you all for tonight. We are sorry, but the last singer can't come because of the heavy rain.", "We will play more music and games for everyone.", "Please stay and enjoy the show."], "question": "Why can't the last singer come?", "audioSrc": "audio/cap/cap-talk-017.mp3", "seg": {"material1": 0.0, "question": 27.036}}, "cap-talk-018": {"id": "cap-talk-018", "kind": "talk", "subkind": "monologue", "fn": "抱怨", "options": ["Next to the front gate.", "At this counter.", "Near the fish tanks."], "answer": 0, "distractorTags": [null, "場所張冠李戴", "情境混淆-無關地標"], "material": ["Attention, please. We are sorry for the long line today.", "If you want to buy tickets, the ticket counter is next to the front gate, not at this counter.", "This counter is for gift shop items only."], "question": "Where is the ticket counter?", "audioSrc": "audio/cap/cap-talk-018.mp3", "seg": {"material1": 0.0, "question": 30.348}}, "cap-talk-019": {"id": "cap-talk-019", "kind": "talk", "subkind": "monologue", "fn": "詢問經驗", "options": ["He was proud.", "He was nervous.", "He was angry."], "answer": 0, "distractorTags": [null, "因果-時間點錯置", "語氣誤判-憑空情緒"], "material": ["Last year, I helped at the fair for the first time.", "I was very nervous at first, but everyone was kind to me.", "By the end of the day, I was proud of our class table.", "I want to help again this year."], "question": "How did Hank feel by the end of the day?", "audioSrc": "audio/cap/cap-talk-019.mp3", "seg": {"material1": 0.0, "question": 29.628}}, "cap-talk-020": {"id": "cap-talk-020", "kind": "talk", "subkind": "monologue", "fn": "建議", "options": ["Their bag, lunch box, and umbrella.", "Their bag, lunch box, and books.", "Get off at the next stop."], "answer": 0, "distractorTags": [null, "列表增減陷阱-項目替換", "答非所問-類別錯位"], "material": ["Good morning, everyone. Before we get off the bus, please take your bag, your lunch box, and your umbrella.", "Do not leave anything under the seat.", "Have a nice day at school."], "question": "What should students take with them?", "audioSrc": "audio/cap/cap-talk-020.mp3", "seg": {"material1": 0.0, "question": 27.9}}};var GROUPS=[["cap-qa-001", "cap-qa-002", "cap-qa-003", "cap-qa-004", "cap-qa-005", "cap-qa-006", "cap-qa-007", "cap-qa-008", "cap-qa-009", "cap-qa-010", "cap-qa-011", "cap-qa-012", "cap-qa-013", "cap-qa-014", "cap-qa-015", "cap-qa-016", "cap-talk-001", "cap-talk-002"], ["cap-talk-003", "cap-talk-004", "cap-talk-005", "cap-talk-006", "cap-talk-007", "cap-talk-008", "cap-talk-009", "cap-talk-010", "cap-talk-011", "cap-talk-012", "cap-talk-013", "cap-talk-014", "cap-talk-015", "cap-talk-016", "cap-talk-017", "cap-talk-018", "cap-talk-019", "cap-talk-020"]];var GROUP_SIZE=18;
+
+var LK='nanyi-eng-ledger-v1';
+var PK='cap-listen-progress-v1';
+
+function ledger(){try{return JSON.parse(localStorage.getItem(LK)||'{}')}catch(e){return{}}}
+function saveLedger(d){try{localStorage.setItem(LK,JSON.stringify(d))}catch(e){}}
+function recordWrong(item, distractorTag){
+  var d=ledger();
+  d.capListening=d.capListening||[];
+  d.capListening.push({type:'cap-listening', id:item.id, kind:item.kind, subkind:item.subkind,
+    function:item.fn, distractorTag:distractorTag||null, ts:Date.now()});
+  saveLedger(d);
+}
+
+function loadProgress(){
+  try{
+    var p=JSON.parse(localStorage.getItem(PK)||'null');
+    if(p && typeof p.groupIdx==='number' && typeof p.qIdx==='number' && Array.isArray(p.answers)) return p;
+  }catch(e){}
+  return {groupIdx:0, qIdx:0, answers:[]};
+}
+function saveProgress(p){try{localStorage.setItem(PK,JSON.stringify(p))}catch(e){}}
+
+var STATE=loadProgress();
+
+function currentGroup(){return GROUPS[STATE.groupIdx]||[]}
+
+function fmtTranscript(item){
+  var html='';
+  item.material.forEach(function(line){html+='<div class="line">'+line+'</div>'});
+  if(item.question) html+='<div class="q">❓ '+item.question+'</div>';
+  return html;
+}
+
+function renderQuestion(){
+  var host=document.getElementById('stage');
+  var group=currentGroup();
+  if(STATE.qIdx>=group.length){renderReport();return}
+  var id=group[STATE.qIdx];
+  var item=DATA[id];
+  var globalNo=STATE.groupIdx*GROUP_SIZE+STATE.qIdx+1;
+  var html='<div class="card"><div class="qhead"><span class="num">第 '+globalNo+' 題</span>'
+    +'<span class="prog">第 '+(STATE.groupIdx+1)+' 組　'+(STATE.qIdx+1)+' / '+group.length+'</span></div>';
+  html+='<div class="playbar"><button class="btn" id="startBtn">▶ 開始作答</button>'
+    +'<audio id="qaudio" preload="none" src="'+item.audioSrc+'"></audio></div>';
+  html+='<div id="opts"></div><div id="afterQ"></div></div>';
+  host.innerHTML=html;
+
+  var opts=document.getElementById('opts');
+  var order=item.options.map(function(text,idx){return {text:text, idx:idx}});
+  order.forEach(function(o){
+    var b=document.createElement('button');
+    b.className='opt dim'; b.textContent=o.text; b.disabled=true;
+    b.setAttribute('data-idx', o.idx);
+    b.onclick=function(){answer(item, o.idx, b, opts)};
+    opts.appendChild(b);
+  });
+
+  document.getElementById('startBtn').onclick=function(){
+    var a=document.getElementById('qaudio');
+    opts.querySelectorAll('.opt').forEach(function(b){b.disabled=false;b.classList.remove('dim')});
+    var p=a.play(); if(p&&p.catch)p.catch(function(){});
+    this.disabled=true;
+  };
+}
+
+function distractorTagFor(item, chosenIdx){
+  // item.distractorTags 已在建置時對齊 options 索引（answer 位置為 null），直接查表即可
+  if(chosenIdx===item.answer) return null;
+  return (item.distractorTags && item.distractorTags[chosenIdx]) || null;
+}
+
+function answer(item, chosenIdx, btn, opts){
+  opts.querySelectorAll('.opt').forEach(function(b){b.disabled=true});
+  var right=chosenIdx===item.answer;
+  opts.querySelectorAll('.opt').forEach(function(b){
+    var i=parseInt(b.getAttribute('data-idx'),10);
+    if(i===item.answer) b.classList.add('correct');
+    else if(i===chosenIdx) b.classList.add('wrong');
+  });
+  var tag=null;
+  if(!right){ tag=distractorTagFor(item, chosenIdx); recordWrong(item, tag) }
+
+  STATE.answers.push({id:item.id, correct:right, distractorTag:tag});
+  saveProgress(STATE);
+
+  var after=document.getElementById('afterQ');
+  var html='<div class="result '+(right?'ok':'no')+'">'+(right?'✓ 答對了':'✗ 答錯了')+'</div>';
+  html+='<div class="answer-line">正解：'+item.options[item.answer]+'</div>';
+  html+='<div class="transcript" id="transcriptBox" style="display:none">'+fmtTranscript(item)+'</div>';
+  html+='<button class="btn ghost" id="relistenBtn">🔁 重聽</button>';
+  html+='<div class="segrow" id="segRow" style="display:none"></div>';
+  html+='<button class="btn" id="nextBtn">下一題 →</button>';
+  after.innerHTML=html;
+
+  document.getElementById('relistenBtn').onclick=function(){
+    var box=document.getElementById('transcriptBox'); box.style.display='block';
+    var row=document.getElementById('segRow'); row.style.display='flex'; row.innerHTML='';
+    var a=document.getElementById('qaudio');
+    if(item.seg && item.seg.material1!=null){
+      var b1=document.createElement('button'); b1.className='segbtn'; b1.textContent='🔁 素材';
+      b1.onclick=function(){ a.currentTime=item.seg.material1; var p=a.play(); if(p&&p.catch)p.catch(function(){}) };
+      row.appendChild(b1);
+    }
+    if(item.seg && item.seg.question!=null){
+      var b2=document.createElement('button'); b2.className='segbtn'; b2.textContent='🔁 問題';
+      b2.onclick=function(){ a.currentTime=item.seg.question; var p=a.play(); if(p&&p.catch)p.catch(function(){}) };
+      row.appendChild(b2);
+    }
+    var b3=document.createElement('button'); b3.className='segbtn'; b3.textContent='▶ 從頭播';
+    b3.onclick=function(){ a.currentTime=0; var p=a.play(); if(p&&p.catch)p.catch(function(){}) };
+    row.appendChild(b3);
+  };
+  document.getElementById('nextBtn').onclick=function(){
+    STATE.qIdx++; saveProgress(STATE); renderQuestion();
+  };
+}
+
+function renderReport(){
+  var group=currentGroup();
+  var answers=STATE.answers.slice(-group.length);
+  var total=answers.length, okN=answers.filter(function(a){return a.correct}).length;
+  var byKind={}, byFn={};
+  answers.forEach(function(a){
+    var item=DATA[a.id];
+    var kk=item.kind+'/'+item.subkind;
+    byKind[kk]=byKind[kk]||{ok:0,n:0}; byKind[kk].n++; if(a.correct)byKind[kk].ok++;
+    byFn[item.fn]=byFn[item.fn]||{ok:0,n:0,wrong:0}; byFn[item.fn].n++;
+    if(a.correct)byFn[item.fn].ok++; else byFn[item.fn].wrong++;
+  });
+  var html='<div class="card report"><h2>📋 第 '+(STATE.groupIdx+1)+' 組成績單</h2>';
+  html+='<div class="stat"><span>總分</span><b>'+okN+' / '+total+'</b></div>';
+  Object.keys(byKind).sort().forEach(function(k){
+    var s=byKind[k];
+    html+='<div class="stat"><span>'+k+'</span><b>'+s.ok+' / '+s.n+'</b></div>';
+  });
+  var weak=Object.keys(byFn).filter(function(f){return byFn[f].wrong>0})
+    .sort(function(a,b){return byFn[b].wrong-byFn[a].wrong});
+  if(weak.length){
+    html+='<div class="weak">弱項功能：'+weak.map(function(f){return f+'（錯 '+byFn[f].wrong+' 題）'}).join('、')+'</div>';
+  }
+  var hasMore=STATE.groupIdx+1 < GROUPS.length;
+  if(hasMore){
+    html+='<button class="btn" id="nextGroupBtn">下一組 →</button>';
+  } else {
+    html+='<div class="done-banner" style="margin-top:12px">🎉 全部題組完成！</div>';
+  }
+  html+='</div>';
+  document.getElementById('stage').innerHTML=html;
+  if(hasMore){
+    document.getElementById('nextGroupBtn').onclick=function(){
+      STATE.groupIdx++; STATE.qIdx=0; STATE.answers=[]; saveProgress(STATE); renderQuestion();
+    };
+  }
+}
+
+document.addEventListener('DOMContentLoaded', renderQuestion);
+</script></body></html>
