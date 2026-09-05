@@ -9,6 +9,14 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .progress{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:14px}
 .bar{height:100%;width:0;background:#7bdcb5;transition:width .3s}
 .note{font-size:.92rem;color:#52606d;line-height:1.6}
+.rounds{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.rounds-label{color:#fff;font-weight:900;margin-right:2px;font-size:.85rem}
+.rchip{border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 13px;font-weight:900;font-size:.85rem;cursor:pointer}
+.rchip.done{background:#7bdcb5;border-color:#7bdcb5;color:#0b3a2a}
+.rchip.cur{background:#fff;border-color:#fff;color:#155e75}
+.rchip:disabled{opacity:.55;cursor:default}
+.round-hide{display:none !important}
+.round-done-note{background:#e6fcf5;border:1px solid #2f9e44;color:#17623a;border-radius:10px;padding:12px 14px;font-weight:800;margin:12px 0;display:none}
 .hero .note{color:#d9f5fb}
 .section{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:14px 0;overflow:hidden}
 .head{padding:12px 16px;font-weight:900;color:#fff;background:#0f7c90;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -58,7 +66,27 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .dw-ok{color:#17623a;background:#e6fcf5;border-radius:4px;padding:0 3px}
 .dw-near{color:#8a5a00;background:#fff6da;border-radius:4px;padding:0 3px}
 .dw-miss{color:#c92a2a;background:#fff0f0;border-radius:4px;padding:0 3px;text-decoration:underline wavy #e03131}
-</style></head><body><div class="wrap">
+.coach-controls{margin:10px 0}
+.chiprow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.chiprow .note{font-weight:800;color:#155e75}
+.fulltext .w{cursor:pointer;padding:2px 3px;border-radius:4px}
+.fulltext .w:hover,.fulltext .w:active{background:#e0f2f7}
+.wordcard{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:#fff;
+  border:2px solid #0f7c90;border-radius:12px;padding:14px 18px;box-shadow:0 8px 24px rgba(15,30,45,.28);
+  z-index:60;display:none;min-width:200px;max-width:86vw;text-align:center}
+.wordcard .wc-en{font-size:1.15rem;font-weight:900;color:#0f7c90}
+.wordcard .wc-zh{font-size:1rem;color:#334;margin:5px 0 9px}
+.round-cta{background:#0f7c90;color:#fff;border-radius:12px;padding:22px 20px;margin:18px 0;text-align:center}
+.round-cta .round-cta-msg{font-size:1.1rem;font-weight:900;margin-bottom:12px}
+.round-cta .round-cta-btn{font-size:1.05rem;padding:14px 26px;background:#7bdcb5;color:#0b3a2a}
+.round-cta .round-cta-btn.cta-secondary{background:transparent;border:2px solid #7bdcb5;color:#d9fff0;font-size:.92rem;padding:10px 18px}
+/* 課完成大徽章：與單回完成的 round-cta 視覺明確區分（金色＋徽章圖示＋更大字） */
+.round-cta.course-done{background:linear-gradient(135deg,#7c4a03,#c9950c);border:3px solid #ffd43b;padding:28px 20px}
+.round-cta.course-done .course-badge{font-size:2.6rem;line-height:1;margin-bottom:8px}
+.round-cta.course-done .course-done-title{font-size:1.5rem;font-weight:900;margin-bottom:6px}
+.round-cta.course-done .course-done-sub{font-size:.98rem;opacity:.95;font-weight:700}
+
+.core-badge{display:inline-block;background:#ffb020;color:#2a1a00;border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:900;vertical-align:middle}</style></head><body><div class="wrap">
 <div class="hero">
 <span class="badge">每日單字</span>
 <h1>今日單字練習</h1>
@@ -682,9 +710,12 @@ function rec(id,cb){
   out.textContent='Listening...';
   try{r.start()}catch(e){window.__recActive=false;out.textContent='請再按一次。'}
 };
-function speak(t,r=.82){
+function speak(t,r){
   if(window.__recActive)return; /* 錄音中禁播示範：曾被用來作弊（開始唸後點示範，TTS 被麥克風收進去過關） */
-  window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r;window.speechSynthesis.speak(u)};
+  /* 示範語速可調（2026-09-05）：window.__ttsRate 是全域設定，蓋過呼叫端傳進來的 r，
+     預設 0.85；只有頁面完全沒設定這個全域值時才退回呼叫端給的 r 或原本的 .82。 */
+  const rate=(typeof window.__ttsRate==='number')?window.__ttsRate:(typeof r==='number'?r:.82);
+  window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=rate;window.speechSynthesis.speak(u)};
 function levenshtein(a,b){
   a=String(a||'');b=String(b||'');
   const m=a.length,n=b.length;
@@ -837,12 +868,21 @@ function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+
 function fsrsDb(){try{return (window.VocabSRS&&VocabSRS._test.loadDB())||{}}catch(e){return {}}}
 function leechThreshold(){try{return VocabSRS._test.LEECH_THRESHOLD}catch(e){return 4}}
 
+/* 會考 1200 核心字判斷：沿用 vocab-bank.json ladder 既有的 tier 欄位（不新增任何欄位、
+   不寫入 FSRS 儲存），只在排隊/顯示徽章時查表。 */
+function isCoreWord(w){const m=findLadderMeta(w);return !!(m&&m.tier==='1200')}
+function dayBucket(ts){return Math.floor((ts||0)/86400000)}
+
 function buildQueue(now){
   const db=fsrsDb(),LEECH=leechThreshold();
   const dueAll=Object.keys(db).map(k=>db[k]).filter(c=>c&&typeof c.due==='number'&&c.due<=now);
   dueAll.sort((a,b)=>{
     const al=(a.lapses||0)>=LEECH?0:1,bl=(b.lapses||0)>=LEECH?0:1;
-    if(al!==bl)return al-bl;
+    if(al!==bl)return al-bl; // 難字（lapses>=4）永遠最前，不受核心字影響
+    const ad=dayBucket(a.due),bd=dayBucket(b.due);
+    if(ad!==bd)return (a.due||0)-(b.due||0); // 不同到期日仍照 FSRS 時間排，核心字不搶跑
+    const ac=isCoreWord(a.w)?0:1,bc=isCoreWord(b.w)?0:1;
+    if(ac!==bc)return ac-bc; // 同一天到期：核心字排前
     return (a.due||0)-(b.due||0);
   });
   const take=Math.min(dueAll.length,20);
@@ -850,13 +890,18 @@ function buildQueue(now){
   if(dueAll.length<20){
     let scanned=0;
     const ladder=(DATA.bank&&DATA.bank.ladder)||[];
+    const candidates=[];
     for(let i=0;i<ladder.length;i++){
-      if(queue.length>=20||scanned>=20)break;
+      if(candidates.length>=20-queue.length||scanned>=20)break;
       scanned++;
       const item=ladder[i];
       if(db[normKey(item.w)])continue; // 已有卡（不管是否到期）就跳過，不重複學
-      queue.push({w:item.w,type:'new'});
+      candidates.push(item);
     }
+    // 新字入列：核心 1200 字優先，同層內維持原本掃描到的先後順序（穩定排序，非核心字不會被餓死）
+    const core=candidates.filter(item=>item.tier==='1200');
+    const rest=candidates.filter(item=>item.tier!=='1200');
+    core.concat(rest).forEach(item=>queue.push({w:item.w,type:'new'}));
   }
   return queue;
 }
@@ -886,10 +931,20 @@ function updateProgress(){
 }
 function clearHost(){const h=el('card-host');h.innerHTML='';return h}
 
+/* 核心 1200 字小徽章（純顯示用，不寫入 FSRS 卡片資料） */
+function appendCoreBadge(labelDiv,isCore){
+  if(!isCore)return;
+  const b=mkEl('span','core-badge','核心');b.id='core-badge';
+  labelDiv.appendChild(document.createTextNode(' '));
+  labelDiv.appendChild(b);
+}
+
 /* ---- 拼寫階段（複習卡、新字卡的「認識」通過後都會走到這） ---- */
-function renderSpellStage(host,card,onDone){
+function renderSpellStage(host,card,onDone,isCore){
   const box=mkEl('div','item');
-  box.appendChild(mkEl('div','label','拼寫'));
+  const labelDiv=mkEl('div','label','拼寫');
+  appendCoreBadge(labelDiv,isCore);
+  box.appendChild(labelDiv);
   const sent=mkEl('div','sentence');
   sent.innerHTML=esc(card.zh||'')+(card.pos?' <span class="pos">'+esc(card.pos)+'</span>':'');
   box.appendChild(sent);
@@ -961,9 +1016,11 @@ function renderSpellStage(host,card,onDone){
 }
 
 /* ---- 新字「認識」階段：先聽，再跟著唸一次，唸對才能進拼寫 ---- */
-function renderRecognizeStage(host,card,onPass){
+function renderRecognizeStage(host,card,onPass,isCore){
   const box=mkEl('div','item');
-  box.appendChild(mkEl('div','label','新字'));
+  const labelDiv=mkEl('div','label','新字');
+  appendCoreBadge(labelDiv,isCore);
+  box.appendChild(labelDiv);
   const sent=mkEl('div','sentence');
   sent.innerHTML='<strong>'+esc(card.w)+'</strong>'+(card.pos?' <span class="pos">'+esc(card.pos)+'</span>':'')+
     '　<span class="note">'+esc(card.zh||'')+'</span>';
@@ -1029,6 +1086,7 @@ function renderReview(item){
   const db=fsrsDb(),card=db[normKey(item.w)];
   const host=clearHost();
   if(!card){STATE.completed[idx]=true;saveState();idx++;renderNext();return}
+  const core=isCoreWord(item.w);
   renderSpellStage(host,card,function(quality){
     const fresh=fsrsDb(),key=normKey(card.w),stored=fresh[key]||card;
     try{VocabSRS._test.applyReview(stored,quality,{setLesson:false})}catch(e){}
@@ -1037,7 +1095,7 @@ function renderReview(item){
     if(stored.leech)STATE.leechDone++;
     STATE.completed[idx]=true;saveState();
     idx++;renderNext();
-  });
+  },core);
 }
 
 function renderNewWord(item){
@@ -1045,6 +1103,7 @@ function renderNewWord(item){
   const host=clearHost();
   if(!meta){STATE.completed[idx]=true;saveState();idx++;renderNext();return}
   const card=newCardFor(meta);
+  const core=isCoreWord(item.w);
   renderRecognizeStage(host,card,function(){
     const host2=clearHost();
     renderSpellStage(host2,card,function(quality){
@@ -1055,8 +1114,8 @@ function renderNewWord(item){
       if(card.leech)STATE.leechDone++;
       STATE.completed[idx]=true;saveState();
       idx++;renderNext();
-    });
-  });
+    },core);
+  },core);
 }
 
 function finish(){
@@ -1089,32 +1148,4 @@ function init(){
 }
 init();
 
-</script><script>
-/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
-   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
-   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
-(function(){
-  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
-  function pick(){
-    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
-    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
-    if(!en.length) return null;
-    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
-    for(var pass=0;pass<2;pass++){
-      for(var i=0;i<PREF.length;i++){
-        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
-        if(pass===0)hits=hits.filter(isEnh);
-        if(hits.length)return hits.find(isEnh)||hits[0];
-      }
-    }
-    return en.find(isEnh)||null;
-  }
-  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
-  window.speechSynthesis.speak=function(u){
-    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
-    return orig(u);
-  };
-  try{ speechSynthesis.getVoices(); }catch(e){}
-})();
-</script>
-</body></html>
+</script></body></html>

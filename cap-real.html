@@ -1,0 +1,316 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>會考聽力真題演練</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:18px 14px 90px}
+.hero{background:#0b7285;color:#fff;border-radius:10px;padding:20px;margin-bottom:14px}
+.hero h1{font-size:1.4rem;margin:6px 0 4px}.hero p{margin:6px 0 0;color:#d0f3fa;font-size:.9rem;line-height:1.6}
+.card{background:#fff;border:1px solid #d9e2ec;border-radius:10px;padding:16px;margin:12px 0}
+.yearrow{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.yearbtn{flex:1;min-width:90px;border:1.5px solid #0b7285;background:#fff;color:#0b7285;
+  border-radius:10px;padding:14px 8px;font-weight:900;font-size:1.05rem;cursor:pointer}
+.yearbtn .best{display:block;font-size:.75rem;font-weight:700;color:#627d98;margin-top:4px}
+.moderow{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.modebtn{flex:1;min-width:140px;border:1.5px solid #bcccdc;background:#fff;color:#1f2933;
+  border-radius:10px;padding:14px 10px;font-weight:850;cursor:pointer;text-align:left}
+.modebtn b{display:block;color:#0b7285;font-size:1rem;margin-bottom:3px}
+.modebtn span{font-size:.82rem;color:#627d98;line-height:1.5}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.qhead .num{font-weight:900;font-size:1.05rem;color:#0b7285}
+.qhead .part{font-size:.76rem;color:#fff;background:#0b7285;border-radius:20px;padding:2px 10px;font-weight:800}
+.qhead .prog{font-size:.78rem;color:#627d98;font-weight:800}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid #bcccdc;background:#fff;
+  border-radius:8px;padding:11px 13px;font-weight:700;cursor:pointer;margin:7px 0;font-size:.98rem}
+.opt:disabled{cursor:default}
+.opt.correct{background:#e6fcf5;border-color:#2f9e44}
+.opt.wrong{background:#fff0f0;border-color:#e03131}
+.opt.dim:disabled{opacity:.55}
+.opt.picked{border-color:#0b7285;box-shadow:inset 0 0 0 1.5px #0b7285}
+.btn{border:0;border-radius:8px;padding:11px 16px;font-weight:850;cursor:pointer;background:#0b7285;
+  color:#fff;margin:8px 6px 0 0;font-size:.95rem}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:#fff;color:#0b7285;border:1.5px solid #0b7285}
+.btn.warn{background:#e03131}
+.playbar{margin:6px 0 10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+audio{width:100%;margin-top:4px}
+.picwrap{position:relative;border:1px solid #d9e2ec;border-radius:8px;overflow:hidden;margin:8px 0}
+.picwrap img{display:block;width:100%;height:auto}
+.picbadge{position:absolute;top:8px;left:8px;background:#e03131;color:#fff;font-weight:900;
+  font-size:.85rem;border-radius:20px;padding:3px 12px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pichint{font-size:.8rem;color:#627d98;margin:4px 0 8px}
+.abc-row{display:flex;gap:8px}
+.abc-row .opt{flex:1;text-align:center;font-size:1.1rem}
+.result{font-weight:900;margin:10px 0 4px;font-size:1rem}
+.result.ok{color:#17623a}.result.no{color:#c92a2a}
+.answer-line{font-weight:800;color:#17623a;margin-top:4px}
+.report h2{margin:0 0 10px;color:#0b7285}
+.stat{display:flex;justify-content:space-between;border-bottom:1px solid #eef1f5;padding:6px 0;font-size:.9rem}
+.stat b{color:#1f2933}
+.review-item{border-bottom:1px solid #eef1f5;padding:10px 0}
+.review-item .rh{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem}
+.review-item .rh.ok{color:#17623a}.review-item .rh.no{color:#c92a2a}
+.review-item .ra{font-size:.85rem;color:#52606d;margin-top:3px}
+.note{font-size:.8rem;color:#52606d;margin-top:14px;line-height:1.6}
+.progressbar{font-size:.8rem;color:#627d98;margin-bottom:6px}
+.examnav{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.navdot{width:30px;height:30px;border-radius:50%;border:1.5px solid #bcccdc;background:#fff;
+  font-size:.78rem;font-weight:800;cursor:pointer;color:#627d98}
+.navdot.cur{border-color:#0b7285;background:#0b7285;color:#fff}
+.navdot.answered{border-color:#2f9e44;color:#17623a}
+</style></head><body><div class="wrap">
+<div class="hero"><h1>🎧 會考聽力真題演練</h1><p>用歷屆會考官方原始音檔（113／114／115），可以逐題練習看對錯，也可以整卷連續播放、交卷後才看成績，練出真實考場的臨場感。</p></div>
+<div id="stage"></div>
+<div class="note">答錯的題目會記錄到裝置上的錯題本（capReal），之後可以在錯題本頁追蹤。這一頁純聽力應試模擬，不會用到麥克風、不做語音辨識。</div></div>
+<script>var DATA={"113": [{"year": 113, "qnum": 1, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/113/04%20%E7%AC%AC1%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/113/page2.png"}, {"year": 113, "qnum": 2, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/113/05%20%E7%AC%AC2%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/113/page2.png"}, {"year": 113, "qnum": 3, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 1, "audioSrc": "audio/cap-real/113/06%20%E7%AC%AC3%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/113/page3.png"}, {"year": 113, "qnum": 4, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["No, they moved out", "Yes, I have a pet dog", "No, I’m the only child"], "answer": 2, "audioSrc": "audio/cap-real/113/08%20%E7%AC%AC4%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 5, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Don’t worry. We won’t be late", "The movie is about two hours long", "Which movie are you interested in?"], "answer": 0, "audioSrc": "audio/cap-real/113/09%20%E7%AC%AC5%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 6, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["It’s right there", "I feel sorry for you", "I was bitten by a dog"], "answer": 2, "audioSrc": "audio/cap-real/113/10%20%E7%AC%AC6%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 7, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["No, I can’t eat any more", "Sure, I never say no to meat", "Sorry, but we don’t have it today"], "answer": 0, "audioSrc": "audio/cap-real/113/11%20%E7%AC%AC7%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 8, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["It’s been with me for ten years", "It’s small, gray, and has a long tail", "We call it Milky because it likes milk"], "answer": 1, "audioSrc": "audio/cap-real/113/12%20%E7%AC%AC8%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 9, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["It’s been about a year", "I’ll see him next time", "You can go to see him"], "answer": 0, "audioSrc": "audio/cap-real/113/13%20%E7%AC%AC9%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 10, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Sounds great. I can’t wait", "Yes, I have visited many interesting places", "I just can’t choose between Japan and France"], "answer": 2, "audioSrc": "audio/cap-real/113/14%20%E7%AC%AC10%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 11, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["9:50", "10:00", "10:10"], "answer": 1, "audioSrc": "audio/cap-real/113/15%20%E7%AC%AC11%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 12, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["It is not turned on", "There is no water inside", "The man forgot to put coffee beans in"], "answer": 0, "audioSrc": "audio/cap-real/113/17%20%E7%AC%AC12%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 13, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Take Bus 703 and walk there", "Take Bus 941", "Take a taxi"], "answer": 1, "audioSrc": "audio/cap-real/113/18%20%E7%AC%AC13%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 14, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["In front of the theater", "On West Street", "At a pet shop"], "answer": 1, "audioSrc": "audio/cap-real/113/19%20%E7%AC%AC14%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 15, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["The man’s hobby", "The man’s travel experience", "The pictures of the man’s sister"], "answer": 0, "audioSrc": "audio/cap-real/113/20%20%E7%AC%AC15%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 16, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["It was free", "It was delicious", "It was sent to their house"], "answer": 0, "audioSrc": "audio/cap-real/113/21%20%E7%AC%AC16%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 17, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Her Christmas plan", "Tips on cooking Chinese dishes", "Her Chinese New Year experience"], "answer": 2, "audioSrc": "audio/cap-real/113/22%20%E7%AC%AC17%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 18, "part": 3, "partLabel": "言談理解", "optionsType": "picture", "options": null, "answer": 1, "audioSrc": "audio/cap-real/113/23%20%E7%AC%AC18%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/113/page5.png"}, {"year": 113, "qnum": 19, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Don’t stop the train leaving", "Move to the center of the train", "Let other people get on the train"], "answer": 0, "audioSrc": "audio/cap-real/113/24%20%E7%AC%AC19%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 20, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["He enjoyed it", "He did not like it", "He was sorry he didn’t eat it"], "answer": 1, "audioSrc": "audio/cap-real/113/25%20%E7%AC%AC20%E9%A1%8C.mp3", "picSrc": null}, {"year": 113, "qnum": 21, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Whether everyone at work will like him", "Whether he will get a call for a job interview", "Whether he will get the job he interviewed for"], "answer": 2, "audioSrc": "audio/cap-real/113/26%20%E7%AC%AC21%E9%A1%8C.mp3", "picSrc": null}], "114": [{"year": 114, "qnum": 1, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 0, "audioSrc": "audio/cap-real/114/04%20%E7%AC%AC1%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/114/page2.png"}, {"year": 114, "qnum": 2, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/114/05%20%E7%AC%AC2%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/114/page2.png"}, {"year": 114, "qnum": 3, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/114/06%20%E7%AC%AC3%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/114/page3.png"}, {"year": 114, "qnum": 4, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["I love my job", "Usually by metro", "Usually at six thirty"], "answer": 1, "audioSrc": "audio/cap-real/114/08%20%E7%AC%AC4%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 5, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Just leave them on the table", "They’re in the wrong drawer", "I need them for tomorrow’s test"], "answer": 0, "audioSrc": "audio/cap-real/114/09%20%E7%AC%AC5%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 6, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Yes, a dress", "Your favorite apple pie", "I bought some new plates"], "answer": 1, "audioSrc": "audio/cap-real/114/10%20%E7%AC%AC6%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 7, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Sure, what is it?", "Really? That’s crazy", "I haven’t heard of it before"], "answer": 0, "audioSrc": "audio/cap-real/114/11%20%E7%AC%AC7%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 8, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Hurry up! Let’s run for it", "Don’t worry. I can give you a ride", "Sorry. Please come again some other time"], "answer": 1, "audioSrc": "audio/cap-real/114/12%20%E7%AC%AC8%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 9, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Yes, it tastes delicious", "OK. See you at seven", "No, I’m not really hungry"], "answer": 2, "audioSrc": "audio/cap-real/114/13%20%E7%AC%AC9%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 10, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["I taught myself", "I won a prize once", "I take lessons twice a week"], "answer": 0, "audioSrc": "audio/cap-real/114/14%20%E7%AC%AC10%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 11, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["9:50", "10:00", "10:10"], "answer": 1, "audioSrc": "audio/cap-real/114/15%20%E7%AC%AC11%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 12, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Make him a card", "Cook him a nice dinner", "Take him to a restaurant"], "answer": 1, "audioSrc": "audio/cap-real/114/17%20%E7%AC%AC12%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 13, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Cookies, milk, and tomatoes", "Cookies, milk, ice cream, and tomatoes", "Cookies, milk, tomatoes, and sandwiches"], "answer": 0, "audioSrc": "audio/cap-real/114/18%20%E7%AC%AC13%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 14, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["In a gift shop", "In a bookstore", "In a clothes shop"], "answer": 2, "audioSrc": "audio/cap-real/114/19%20%E7%AC%AC14%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 15, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["He almost hit someone", "He drove around a corner", "He was trying to answer a call"], "answer": 0, "audioSrc": "audio/cap-real/114/20%20%E7%AC%AC15%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 16, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["The man’s class", "The woman’s class", "Lily’s class"], "answer": 0, "audioSrc": "audio/cap-real/114/21%20%E7%AC%AC16%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 17, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["She tries to make him feel bad", "She wants him to enjoy his birthday", "She can deal with dirty plates herself"], "answer": 1, "audioSrc": "audio/cap-real/114/22%20%E7%AC%AC17%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 18, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Because she wants a better job", "Because she already found a job", "Because she lied in the job interview"], "answer": 2, "audioSrc": "audio/cap-real/114/23%20%E7%AC%AC18%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 19, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["What days the garbage truck comes", "How garbage is collected in Taiwan", "Which music garbage trucks in Taiwan play"], "answer": 1, "audioSrc": "audio/cap-real/114/24%20%E7%AC%AC19%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 20, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["She thinks the man knows Alan well", "She does not think Alan will move to America", "She thinks Alan will move to America next year"], "answer": 1, "audioSrc": "audio/cap-real/114/25%20%E7%AC%AC20%E9%A1%8C.mp3", "picSrc": null}, {"year": 114, "qnum": 21, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["The game will begin soon", "The snacks at the food stands are free", "People have to wait until the rain stops"], "answer": 2, "audioSrc": "audio/cap-real/114/26%20%E7%AC%AC21%E9%A1%8C.mp3", "picSrc": null}], "115": [{"year": 115, "qnum": 1, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/115/04%20%E7%AC%AC1%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/115/page2.png"}, {"year": 115, "qnum": 2, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/115/05%20%E7%AC%AC2%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/115/page2.png"}, {"year": 115, "qnum": 3, "part": 1, "partLabel": "辨識句意", "optionsType": "picture", "options": null, "answer": 2, "audioSrc": "audio/cap-real/115/06%20%E7%AC%AC3%E9%A1%8C.mp3", "picSrc": "pictures/cap-real/115/page3.png"}, {"year": 115, "qnum": 4, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Easter is coming", "Halloween is my favorite", "I’d like a watch for my birthday"], "answer": 1, "audioSrc": "audio/cap-real/115/08%20%E7%AC%AC4%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 5, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["I don’t, either", "Sure, why not?", "It is a great movie"], "answer": 1, "audioSrc": "audio/cap-real/115/09%20%E7%AC%AC5%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 6, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["Thank you for the pie", "Who do you want to invite?", "Some chocolate cake would be good"], "answer": 2, "audioSrc": "audio/cap-real/115/10%20%E7%AC%AC6%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 7, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["All right. Good night", "Good morning to you, too", "OK, be careful on the road"], "answer": 0, "audioSrc": "audio/cap-real/115/11%20%E7%AC%AC7%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 8, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["No, it’s not mine", "No, it’s not raining", "No, it’s not my table"], "answer": 0, "audioSrc": "audio/cap-real/115/12%20%E7%AC%AC8%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 9, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["I’m glad you like it", "How was your Christmas?", "You look good in the photos"], "answer": 0, "audioSrc": "audio/cap-real/115/13%20%E7%AC%AC9%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 10, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["How much time do you need?", "You should be proud of yourself", "I’m surprised you haven’t started"], "answer": 1, "audioSrc": "audio/cap-real/115/14%20%E7%AC%AC10%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 11, "part": 2, "partLabel": "基本問答", "optionsType": "text", "options": ["9:50", "10:00", "10:10"], "answer": 1, "audioSrc": "audio/cap-real/115/15%20%E7%AC%AC11%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 12, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["To go to the gym", "To clean their classroom", "To meet at the playground"], "answer": 0, "audioSrc": "audio/cap-real/115/17%20%E7%AC%AC12%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 13, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Today", "Next week", "When it plays on TV"], "answer": 0, "audioSrc": "audio/cap-real/115/18%20%E7%AC%AC13%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 14, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Use their time well", "Check their eye health", "Follow rules during a hospital visit"], "answer": 1, "audioSrc": "audio/cap-real/115/19%20%E7%AC%AC14%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 15, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["They both did badly", "The boy did badly, but the girl did well", "The boy did well, but the girl did badly"], "answer": 0, "audioSrc": "audio/cap-real/115/20%20%E7%AC%AC15%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 16, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["He misses it", "He feels excited about it", "He doesn’t really enjoy it"], "answer": 2, "audioSrc": "audio/cap-real/115/21%20%E7%AC%AC16%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 17, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["It gave very little food", "Its food and service were bad", "It allowed people to bring their pets"], "answer": 1, "audioSrc": "audio/cap-real/115/22%20%E7%AC%AC17%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 18, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["Nothing", "Start a fight with her", "Talk to her and ask her to stop"], "answer": 0, "audioSrc": "audio/cap-real/115/23%20%E7%AC%AC18%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 19, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["He will not read them", "He is studying too hard", "He knows how to enjoy his vacation"], "answer": 0, "audioSrc": "audio/cap-real/115/24%20%E7%AC%AC19%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 20, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["They will each ride their own bikes", "The girl will give the boy a ride on her bike", "The girl will ride a bike and the boy will walk"], "answer": 1, "audioSrc": "audio/cap-real/115/25%20%E7%AC%AC20%E9%A1%8C.mp3", "picSrc": null}, {"year": 115, "qnum": 21, "part": 3, "partLabel": "言談理解", "optionsType": "text", "options": ["They are happy about it", "They don’t care about it", "They think differently about it"], "answer": 0, "audioSrc": "audio/cap-real/115/26%20%E7%AC%AC21%E9%A1%8C.mp3", "picSrc": null}]};var YEARS=["113", "114", "115"];
+
+var LK='nanyi-eng-ledger-v1';
+var PK='cap-real-progress-v1';
+
+function ledger(){try{return JSON.parse(localStorage.getItem(LK)||'{}')}catch(e){return{}}}
+function saveLedger(d){try{localStorage.setItem(LK,JSON.stringify(d))}catch(e){}}
+function recordWrong(year, item){
+  var d=ledger();
+  d.capReal=d.capReal||[];
+  d.capReal.push({type:'cap-real', year:parseInt(year,10), qnum:item.qnum, part:item.part, ts:Date.now()});
+  saveLedger(d);
+}
+
+function loadProgress(){
+  try{ var p=JSON.parse(localStorage.getItem(PK)||'null'); if(p && typeof p==='object') return p; }catch(e){}
+  return {};
+}
+function saveProgress(p){try{localStorage.setItem(PK,JSON.stringify(p))}catch(e){}}
+var PROGRESS=loadProgress();
+
+function bestFor(year){ return (PROGRESS[year] && PROGRESS[year].best) || null; }
+function recordResult(year, mode, answers){
+  var okN=answers.filter(function(a){return a.correct}).length;
+  var total=answers.length;
+  PROGRESS[year]=PROGRESS[year]||{};
+  PROGRESS[year].last={mode:mode, answers:answers, ts:Date.now()};
+  var prevBest=PROGRESS[year].best;
+  if(!prevBest || okN>prevBest.score){
+    PROGRESS[year].best={score:okN, total:total, mode:mode, ts:Date.now()};
+  }
+  saveProgress(PROGRESS);
+  return {okN:okN, total:total};
+}
+
+var APP={year:null, mode:null, idx:0, answers:[], playedOnce:false, autoTimer:null};
+
+function partLabel(p){return {1:'辨識句意',2:'基本問答',3:'言談理解'}[p]||''}
+
+function renderHome(){
+  var host=document.getElementById('stage');
+  var html='<div class="card"><h2 style="margin-top:0;color:#0b7285">選年份</h2><div class="yearrow">';
+  YEARS.forEach(function(y){
+    var b=bestFor(y);
+    html+='<button class="yearbtn" data-y="'+y+'">'+y+' 年'
+      +(b?('<span class="best">最佳 '+b.score+'/'+b.total+'</span>'):'<span class="best">尚未作答</span>')
+      +'</button>';
+  });
+  html+='</div></div>';
+  host.innerHTML=html;
+  host.querySelectorAll('.yearbtn').forEach(function(b){
+    b.onclick=function(){ APP.year=b.getAttribute('data-y'); renderModeSelect(); };
+  });
+}
+
+function renderModeSelect(){
+  var host=document.getElementById('stage');
+  var html='<div class="card"><button class="btn ghost" id="backHome">← 換年份</button>'
+    +'<h2 style="color:#0b7285">'+APP.year+' 年會考聽力</h2>'
+    +'<div class="moderow">'
+    +'<button class="modebtn" id="stepModeBtn"><b>🎧 逐題演練</b><span>一題一題來，播完馬上看對錯與正解，適合練習弱點。</span></button>'
+    +'<button class="modebtn" id="fullModeBtn"><b>📝 整卷模式</b><span>21 題連續播放，不逐題公布答案，交卷後才看成績與檢討，貼近真實考感。</span></button>'
+    +'</div></div>';
+  host.innerHTML=html;
+  document.getElementById('backHome').onclick=renderHome;
+  document.getElementById('stepModeBtn').onclick=function(){ startStepMode(); };
+  document.getElementById('fullModeBtn').onclick=function(){ startFullMode(); };
+}
+
+function startStepMode(){
+  APP.mode='step'; APP.idx=0; APP.answers=[];
+  renderStepQuestion();
+}
+
+function currentItems(){ return DATA[APP.year]; }
+
+function optionsHtml(item, prefix){
+  var host='';
+  if(item.optionsType==='picture'){
+    host+='<div class="picwrap"><span class="picbadge">第 '+item.qnum+' 題</span>'
+      +'<img src="'+item.picSrc+'" alt="第'+item.qnum+'題圖片"></div>'
+      +'<div class="pichint">請對照上圖找出對應圖片，再選 A / B / C</div>'
+      +'<div class="opts abc-row" id="opts">'
+      +['A','B','C'].map(function(L,i){return '<button class="opt dim" data-idx="'+i+'">'+L+'</button>'}).join('')
+      +'</div>';
+  } else {
+    host+='<div class="opts" id="opts">'
+      +item.options.map(function(t,i){return '<button class="opt dim" data-idx="'+i+'">'+t+'</button>'}).join('')
+      +'</div>';
+  }
+  return host;
+}
+
+function renderStepQuestion(){
+  var host=document.getElementById('stage');
+  var items=currentItems();
+  if(APP.idx>=items.length){ renderStepReport(); return; }
+  var item=items[APP.idx];
+  APP.playedOnce=false;
+  var html='<div class="card"><div class="qhead"><span class="num">第 '+item.qnum+' 題</span>'
+    +'<span class="part">'+item.partLabel+'</span>'
+    +'<span class="prog">'+(APP.idx+1)+' / '+items.length+'</span></div>';
+  html+='<div class="playbar"><button class="btn" id="playBtn">▶ 播放</button>'
+    +'<button class="btn ghost" id="replayBtn" disabled>🔁 再聽一次</button></div>';
+  html+='<audio id="qaudio" preload="none" src="'+(item.audioSrc||'')+'"></audio>';
+  html+=optionsHtml(item);
+  html+='<div id="afterQ"></div></div>';
+  host.innerHTML=html;
+
+  var opts=document.getElementById('opts');
+  var audioEl=document.getElementById('qaudio');
+  document.getElementById('playBtn').onclick=function(){
+    opts.querySelectorAll('.opt').forEach(function(b){b.disabled=false;b.classList.remove('dim')});
+    document.getElementById('replayBtn').disabled=false;
+    var p=audioEl.play(); if(p&&p.catch)p.catch(function(){});
+  };
+  document.getElementById('replayBtn').onclick=function(){
+    audioEl.currentTime=0; var p=audioEl.play(); if(p&&p.catch)p.catch(function(){});
+  };
+  opts.querySelectorAll('.opt').forEach(function(b){
+    b.onclick=function(){ stepAnswer(item, parseInt(b.getAttribute('data-idx'),10), opts); };
+  });
+}
+
+function stepAnswer(item, chosenIdx, opts){
+  opts.querySelectorAll('.opt').forEach(function(b){b.disabled=true});
+  var right=chosenIdx===item.answer;
+  opts.querySelectorAll('.opt').forEach(function(b){
+    var i=parseInt(b.getAttribute('data-idx'),10);
+    if(i===item.answer) b.classList.add('correct');
+    else if(i===chosenIdx) b.classList.add('wrong');
+  });
+  if(!right) recordWrong(APP.year, item);
+  APP.answers.push({qnum:item.qnum, part:item.part, chosen:chosenIdx, correct:right});
+
+  var answerText = item.optionsType==='picture' ? ['A','B','C'][item.answer] : item.options[item.answer];
+  var after=document.getElementById('afterQ');
+  var html='<div class="result '+(right?'ok':'no')+'">'+(right?'✓ 答對了':'✗ 答錯了')+'</div>';
+  html+='<div class="answer-line">正解：'+answerText+'</div>';
+  html+='<button class="btn" id="nextBtn">下一題 →</button>';
+  after.innerHTML=html;
+  document.getElementById('nextBtn').onclick=function(){ APP.idx++; renderStepQuestion(); };
+}
+
+function renderStepReport(){
+  var r=recordResult(APP.year, 'step', APP.answers);
+  renderReportCommon(r, APP.answers, 'step');
+}
+
+function renderReportCommon(r, answers, mode){
+  var host=document.getElementById('stage');
+  var items=currentItems();
+  var byPart={};
+  answers.forEach(function(a){
+    byPart[a.part]=byPart[a.part]||{ok:0,n:0}; byPart[a.part].n++; if(a.correct)byPart[a.part].ok++;
+  });
+  var html='<div class="card report"><h2>📋 '+APP.year+' 年成績單（'+(mode==='step'?'逐題演練':'整卷模式')+'）</h2>';
+  html+='<div class="stat"><span>總分</span><b>'+r.okN+' / '+r.total+'</b></div>';
+  Object.keys(byPart).sort().forEach(function(p){
+    var s=byPart[p];
+    html+='<div class="stat"><span>'+partLabel(parseInt(p,10))+'</span><b>'+s.ok+' / '+s.n+'</b></div>';
+  });
+  html+='<h2 style="margin-top:16px">逐題檢討</h2>';
+  answers.forEach(function(a){
+    var item=items.find(function(it){return it.qnum===a.qnum});
+    var answerText = item.optionsType==='picture' ? ['A','B','C'][item.answer] : item.options[item.answer];
+    html+='<div class="review-item"><div class="rh '+(a.correct?'ok':'no')+'"><span>第 '+a.qnum+' 題（'+item.partLabel+'）</span>'
+      +'<span>'+(a.correct?'✓ 答對':'✗ 答錯')+'</span></div>'
+      +'<div class="ra">正解：'+answerText+'</div></div>';
+  });
+  html+='<button class="btn" id="backHome2" style="margin-top:14px">← 回選單</button></div>';
+  host.innerHTML=html;
+  document.getElementById('backHome2').onclick=renderHome;
+}
+
+// ---------- 整卷模式：21 題音軌連續自動播放，不逐題回饋 ----------
+function startFullMode(){
+  APP.mode='full'; APP.idx=0;
+  APP.answers=currentItems().map(function(it){return {qnum:it.qnum, part:it.part, chosen:null, correct:false}});
+  renderFullIntro();
+}
+
+function renderFullIntro(){
+  var host=document.getElementById('stage');
+  var html='<div class="card"><h2 style="color:#0b7285;margin-top:0">'+APP.year+' 年整卷模式</h2>'
+    +'<p style="color:#52606d;font-size:.9rem;line-height:1.7">21 題會依序自動連續播放（跟考場一樣），過程中可以隨時作答、也可以先不選之後回來改（限「目前正在播放或已播過」的題目），播完最後一題或按「交卷」才會看到成績。</p>'
+    +'<button class="btn" id="startExamBtn">▶ 開始考試</button>'
+    +'<button class="btn ghost" id="backHome3">← 回選單</button></div>';
+  host.innerHTML=html;
+  document.getElementById('backHome3').onclick=renderHome;
+  document.getElementById('startExamBtn').onclick=function(){ APP.idx=0; renderFullQuestion(true); };
+}
+
+function renderFullQuestion(autoplay){
+  var host=document.getElementById('stage');
+  var items=currentItems();
+  var item=items[APP.idx];
+  var html='<div class="card"><div class="qhead"><span class="num">第 '+item.qnum+' 題</span>'
+    +'<span class="part">'+item.partLabel+'</span>'
+    +'<span class="prog">'+(APP.idx+1)+' / '+items.length+'</span></div>';
+  html+='<audio id="qaudio" preload="none" src="'+(item.audioSrc||'')+'"></audio>';
+  html+=optionsHtml(item);
+  html+='<div class="examnav" id="examNav"></div>';
+  html+='<button class="btn warn" id="submitBtn">交卷</button></div>';
+  host.innerHTML=html;
+
+  var nav=document.getElementById('examNav');
+  items.forEach(function(it,i){
+    var d=document.createElement('button'); d.className='navdot';
+    if(i===APP.idx) d.classList.add('cur');
+    if(APP.answers[i].chosen!==null) d.classList.add('answered');
+    d.textContent=it.qnum;
+    d.onclick=function(){ if(i<=APP.idx){ APP.idx=i; renderFullQuestion(false); } };
+    nav.appendChild(d);
+  });
+
+  var opts=document.getElementById('opts');
+  var picked=APP.answers[APP.idx].chosen;
+  opts.querySelectorAll('.opt').forEach(function(b){
+    b.disabled=false; b.classList.remove('dim');
+    if(parseInt(b.getAttribute('data-idx'),10)===picked) b.classList.add('picked');
+    b.onclick=function(){
+      var idx=parseInt(b.getAttribute('data-idx'),10);
+      APP.answers[APP.idx].chosen=idx;
+      opts.querySelectorAll('.opt').forEach(function(x){x.classList.remove('picked')});
+      b.classList.add('picked');
+    };
+  });
+
+  var audioEl=document.getElementById('qaudio');
+  audioEl.onended=function(){
+    if(APP.idx<items.length-1){ APP.idx++; renderFullQuestion(true); }
+    else { finishFullMode(); }
+  };
+  document.getElementById('submitBtn').onclick=finishFullMode;
+
+  if(autoplay){
+    var p=audioEl.play(); if(p&&p.catch)p.catch(function(){});
+  }
+}
+
+function finishFullMode(){
+  var items=currentItems();
+  APP.answers.forEach(function(a,i){
+    var item=items[i];
+    a.correct = a.chosen===item.answer;
+    if(!a.correct) recordWrong(APP.year, item);
+  });
+  var r=recordResult(APP.year, 'full', APP.answers);
+  renderReportCommon(r, APP.answers, 'full');
+}
+
+document.addEventListener('DOMContentLoaded', renderHome);
+</script></body></html>
