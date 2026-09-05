@@ -3,41 +3,48 @@
 body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif}
 .wrap{max-width:860px;margin:0 auto;padding:18px 14px 60px}
 .top{margin-bottom:10px}.top a{color:#0f7c90;text-decoration:none;font-weight:800;font-size:.9rem}
-.hero{background:#155e75;color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:12px}
-.hero h1{font-size:1.45rem;margin:4px 0}
-.hero p{margin:6px 0 0;color:#d9f5fb;font-size:.88rem;line-height:1.6}
+.hero{background:#155e75;color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px}
+.hero h1{font-size:1.4rem;margin:2px 0}
+.hero p{margin:6px 0 0;color:#d9f5fb;font-size:.86rem;line-height:1.6}
 .today{background:#fff;border:2px solid #0f7c90;border-radius:12px;padding:16px 18px;margin:12px 0}
-.today h2{margin:0 0 8px;font-size:1.05rem;color:#0f7c90}
-.today .sig{font-size:.95rem;line-height:1.9}
-.today .sig b{font-size:1.05rem}
-.today .btn{display:inline-block;text-decoration:none;border:0;border-radius:8px;padding:10px 14px;font-weight:900;cursor:pointer;background:#0f7c90;color:#fff;margin:8px 6px 0 0;font-size:.95rem}
-.today .btn.hot{background:#e8590c}
-.vtabs{display:flex;gap:8px;margin:14px 0 4px}
-.vtab{flex:1;border:2px solid #bcccdc;background:#fff;border-radius:10px;padding:11px 6px;font-weight:900;cursor:pointer;text-align:center;color:#52606d}
+.today h2{margin:0 0 4px;font-size:1.05rem;color:#0f7c90}
+.today .hint{color:#52606d;font-size:.82rem;margin:0 0 10px}
+.today .main-btn{display:block;text-align:center;text-decoration:none;border-radius:10px;padding:16px;font-weight:900;font-size:1.12rem;background:#e8590c;color:#fff;margin:4px 0 10px}
+.today .sub{display:flex;gap:8px;flex-wrap:wrap}
+.today .sub a{text-decoration:none;border:1.5px solid #0f7c90;color:#0f7c90;border-radius:8px;padding:8px 12px;font-weight:800;font-size:.86rem;background:#fff}
+.entry{display:block;background:#fff;border:1px solid #d9e2ec;border-radius:12px;margin:10px 0;padding:15px 18px;cursor:pointer;text-decoration:none;color:#1f2933;position:relative}
+.entry b{font-size:1.08rem}
+.entry .desc{display:block;color:#627d98;font-size:.84rem;margin-top:4px;line-height:1.6}
+.entry .arrow{position:absolute;right:16px;top:16px;color:#9fb3c8;font-weight:900;transition:transform .15s}
+.entry.open .arrow{transform:rotate(90deg)}
+.entry .badge{display:inline-block;background:#e03131;color:#fff;border-radius:999px;font-size:.74rem;font-weight:900;padding:1px 9px;margin-left:8px;vertical-align:2px}
+.panel{display:none;margin:-4px 0 10px;background:#fff;border:1px solid #d9e2ec;border-top:0;border-radius:0 0 12px 12px;padding:6px 12px 12px}
+.panel.show{display:block}
+.vtabs{display:flex;gap:8px;margin:10px 4px 4px}
+.vtab{flex:1;border:2px solid #bcccdc;background:#fff;border-radius:10px;padding:10px 6px;font-weight:900;cursor:pointer;text-align:center;color:#52606d}
 .vtab.on{border-color:#0f7c90;background:#0f7c90;color:#fff}
-.sect{background:#fff;border:1px solid #d9e2ec;border-radius:10px;margin:12px 0;overflow:hidden}
-.sect>.head{padding:11px 16px;font-weight:900;color:#fff;background:#0f7c90}
-.sect>.head small{font-weight:600;opacity:.85;margin-left:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:8px;padding:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:8px;padding:8px 4px}
 .card{display:block;text-align:center;background:#fbfdff;border:1px solid #d9e2ec;border-radius:8px;padding:12px 8px;text-decoration:none;color:#1f2933;font-weight:800}
 .card small{display:block;font-weight:600;color:#627d98;font-size:.72rem;margin-top:3px;line-height:1.3}
 .card.free{border-color:#2f9e44}
 .card .tag{display:inline-block;border-radius:999px;font-size:.68rem;padding:1px 8px;margin-top:4px;font-weight:850;background:#e6fcf5;color:#17623a}
 .card.lock{opacity:.75;background:#f3f5f7}
 .card.lock .tag{background:#e4e7eb;color:#52606d}
-.big{display:flex;gap:10px;padding:12px;flex-wrap:wrap}
+.big{display:flex;gap:10px;padding:8px 4px;flex-wrap:wrap}
 .big a{flex:1;min-width:200px;display:block;background:#fbfdff;border:1px solid #d9e2ec;border-radius:10px;padding:13px;text-decoration:none;color:#1f2933}
-.big a b{font-size:1rem}
+.big a b{font-size:.98rem}
 .big a span{display:block;color:#627d98;font-size:.8rem;margin-top:4px;line-height:1.5}
-.note{font-size:.8rem;color:#52606d;line-height:1.6;margin-top:12px}
+.note{font-size:.8rem;color:#52606d;line-height:1.6;margin-top:14px}
+.note a{color:#0f7c90}
 .vmodal{position:fixed;inset:0;background:rgba(15,30,45,.72);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
 .vmodal .box{background:#fff;border-radius:14px;padding:24px 22px;max-width:420px;width:100%;text-align:center}
 .vmodal h2{margin:0 0 6px;font-size:1.2rem}
 .vmodal p{color:#52606d;font-size:.88rem;margin:0 0 14px}
 .vmodal .vbtn{display:block;width:100%;border:2px solid #0f7c90;background:#fff;color:#0f7c90;border-radius:10px;padding:14px;font-size:1.05rem;font-weight:900;cursor:pointer;margin:8px 0}
 .vmodal .vbtn:active{background:#0f7c90;color:#fff}
-</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>選版本跟課練＋每日單字＋聽讀＋錯題本。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><div class="sig" id="today-sig">載入中…</div><div id="today-btns"></div></div><div class="vtabs"><button class="vtab" data-v="nanyi">南一</button><button class="vtab" data-v="kang">康軒</button><button class="vtab" data-v="han">翰林</button></div><div class="sect"><div class="head">📖 隨堂練習<small>國一上（第一冊）</small></div><div class="grid" id="lessons"></div></div><div class="sect"><div class="head">🎯 段考・會考・工具</div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。</span></a><a href="wrongbook-en.html"><b>📒 錯題本</b><span>錯題集中追攻，週末確認過了才銷帳。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a><a href="range-exam.html"><b>📝 段考範圍卷</b><span>選課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力。</span></a></div></div><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a></div></div><script>
+</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>今天的英語，從這裡開始——照建議走就好。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><p class="hint">一次做一件事就好，做完會帶你到下一件。</p><a class="main-btn" id="today-main" href="vocab-daily.html">載入中…</a><div class="sub" id="today-sub"></div></div><a class="entry" data-panel="panel-course" href="#"><b>📖 複習學校進度</b><span class="arrow">›</span><span class="desc">跟課本走，一次一回：朗讀＋單字＋文法＋閱讀。</span></a><div class="panel" id="panel-course"><div class="vtabs"><button class="vtab" data-v="nanyi">南一</button><button class="vtab" data-v="kang">康軒</button><button class="vtab" data-v="han">翰林</button></div><div class="grid" id="lessons"></div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。搭課文進度用。</span></a></div></div><a class="entry" data-panel="panel-exam" href="#"><b>🎯 準備考試</b><span class="arrow">›</span><span class="desc">週考段考圈範圍組卷；會考練聽力題型、用真題檢核。</span></a><div class="panel" id="panel-exam"><div class="big"><a href="range-exam.html"><b>📝 段考範圍卷</b><span>圈課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力，交卷才看成績。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a></div></div><a class="entry" href="wrongbook-en.html"><b>📒 錯題本</b><span class="badge" id="wb-badge" style="display:none"></span><span class="desc">平日追攻、週末確認銷帳，考前不留舊帳。</span></a><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a></div></div><script>
 var FULL=true;
+var VNAME={nanyi:'南一',kang:'康軒',han:'翰林'};
 function nowVer(){try{return localStorage.getItem('gd-eng-ver')||'nanyi'}catch(e){return 'nanyi'}}
 function dueWords(){try{var db=JSON.parse(localStorage.getItem('nanyi-vocab-fsrs-v1')||'{}');
   db=db.cards||db;var n=0,t=Date.now();
@@ -47,29 +54,42 @@ function dailyDone(){try{var s=JSON.parse(localStorage.getItem('nanyi-daily-voca
   var today=new Date();var key=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   if(String(s.date||'').indexOf(String(today.getDate()))<0&&s.date!==key)return false;
   return s.queue&&Object.keys(s.completed||{}).length>=s.queue.length&&s.queue.length>0}catch(e){return false}}
-function pendingGP(){try{var d=JSON.parse(localStorage.getItem('nanyi-eng-ledger-v1')||'{}');
-  var n=0;Object.keys(d.gp||{}).forEach(function(k){var g=d.gp[k];if(g.wrong>(g.cleared||0))n++});
-  return n}catch(e){return 0}}
+function ledgerCounts(){var out={pending:0,confirm:0};
+  try{var d=JSON.parse(localStorage.getItem('nanyi-eng-ledger-v1')||'{}');
+    Object.keys(d.gp||{}).forEach(function(k){var g=d.gp[k];
+      if(!g||typeof g!=='object')return;
+      if(g.wrong>(g.cleared||0)){if(g.status==='recovered')out.confirm++;else out.pending++}});
+  }catch(e){}
+  return out}
+function isWeekend(){var w=new Date().getDay();return w===5||w===6||w===0}
 function lastLesson(){var best=null,bt=0;
   for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);
     var m=k&&k.match(/^(nanyi|kang|han)-b1-(l\d)-pre/);if(!m)continue;
     try{var v=JSON.parse(localStorage.getItem(k));var t=Date.parse(v.at||0)||0;
       if(t>bt){bt=t;best={ver:m[1],ln:m[2]}}}catch(e){}}
   return best}
+/* 主建議：一次只推一件事（優先序：每日單字 → 週末確認 → 待補錯題 → 繼續上次的課 → 從 L1 開始） */
 function renderToday(){
-  var d=dueWords(),dd=dailyDone(),pg=pendingGP(),last=lastLesson();
-  var sig='';
-  sig+='🔁 到期複習單字：<b>'+d+'</b> 字'+(dd?'（今日單字已完成 ✓）':'')+'<br>';
-  if(pg)sig+='📒 錯題本待補：<b>'+pg+'</b> 個文法點<br>';
-  if(last)sig+='📖 上次練到：<b>'+({nanyi:'南一',kang:'康軒',han:'翰林'})[last.ver]+' '+last.ln.toUpperCase()+'</b>';
-  else sig+='📖 還沒開始——從你的版本 L1 出發！';
-  document.getElementById('today-sig').innerHTML=sig;
-  var btns=document.getElementById('today-btns');btns.innerHTML='';
-  function add(txt,href,hot){var a=document.createElement('a');a.className='btn'+(hot?' hot':'');
-    a.textContent=txt;a.setAttribute('href',href);btns.appendChild(a)}
-  if(!dd)add((d?'先做每日單字（'+d+' 字到期）':'做今天的每日單字'),'vocab-daily.html',d>=10);
-  if(pg)add('清錯題本（'+pg+' 點）','wrongbook-en.html',pg>=3);
-  if(last&&(FULL||last.ln==='l1'))add('繼續 '+last.ln.toUpperCase(),last.ver+'-b1-'+last.ln+'.html',false);
+  var d=dueWords(),dd=dailyDone(),lc=ledgerCounts(),last=lastLesson();
+  var main=document.getElementById('today-main');
+  var mTxt,mHref;
+  if(!dd){mTxt=(d?'先做每日單字（'+d+' 字到期）':'做今天的每日單字');mHref='vocab-daily.html'}
+  else if(isWeekend()&&lc.confirm){mTxt='週末錯題確認（'+lc.confirm+' 個文法點等你銷帳）';mHref='wrongbook-en.html'}
+  else if(lc.pending>=3){mTxt='先清錯題本（'+lc.pending+' 個文法點待補）';mHref='wrongbook-en.html'}
+  else if(last&&(FULL||last.ln==='l1')){mTxt='繼續 '+VNAME[last.ver]+' '+last.ln.toUpperCase()+' 的下一回';mHref=last.ver+'-b1-'+last.ln+'.html'}
+  else{var v=nowVer();mTxt='從 '+(VNAME[v]||'南一')+' L1 開始跟課';mHref=(VNAME[v]?v:'nanyi')+'-b1-l1.html'}
+  main.textContent='▶ '+mTxt;main.setAttribute('href',mHref);
+  /* 次要捷徑：主建議以外還想做的 */
+  var sub=document.getElementById('today-sub');sub.innerHTML='';
+  function add(txt,href){var a=document.createElement('a');a.textContent=txt;a.setAttribute('href',href);sub.appendChild(a)}
+  if(dd&&d)add('🔁 單字加練（'+d+' 字）','vocab-daily.html');
+  if(lc.pending&&mHref!=='wrongbook-en.html')add('📒 錯題本待補 '+lc.pending+' 點','wrongbook-en.html');
+  var lv=nowVer();add('🎧 聽讀 10 分鐘','listen-'+(VNAME[lv]?lv:'nanyi')+'-b1.html');
+  /* 錯題卡 badge */
+  var bd=document.getElementById('wb-badge');
+  var total=lc.pending+lc.confirm;
+  if(bd){if(total){bd.textContent=(isWeekend()&&lc.confirm)?('週末確認 '+lc.confirm):('待補 '+total);bd.style.display=''}
+    else bd.style.display='none'}
 }
 var DATA={"nanyi": [["L1", "What's This?", "be動詞・指示代名詞・複數"], ["L2", "Wh 問句", "What/Who/Where・How"], ["L3", "祈使句", "感嘆句"], ["L4", "There is / are", "存在句"], ["L5", "現在進行式", "V-ing"], ["L6", "can", "能力與請求"]], "kang": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "感嘆句"], ["L4", "can", "能力與請求"], ["L5", "現在進行式", "日期星期"], ["L6", "There is / are", "存在句"]], "han": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "can"], ["L4", "現在進行式", "V-ing"], ["L5", "數字與日期", "基數序數"], ["L6", "There is / are", "存在句"]]};
 function render(v){
@@ -88,13 +108,24 @@ function render(v){
   var l=document.getElementById('listen-link');
   if(l)l.setAttribute('href','listen-'+v+'-b1.html');
   try{localStorage.setItem('gd-eng-ver',v)}catch(e){}
+  renderToday();
 }
-/* 首訪版本選擇（2026-09-05 Emma：一進來就選、選一次固定；上方 tabs 保留隨時可切換） */
+/* 三入口卡展開/收合（錯題本卡是直達連結，不在此列） */
+document.querySelectorAll('.entry[data-panel]').forEach(function(card){
+  card.onclick=function(ev){ev.preventDefault();
+    var p=document.getElementById(card.dataset.panel);
+    var opening=!p.classList.contains('show');
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('show')});
+    document.querySelectorAll('.entry[data-panel]').forEach(function(x){x.classList.remove('open')});
+    if(opening){p.classList.add('show');card.classList.add('open');
+      try{p.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}}
+  }});
+/* 首訪版本選擇（選一次固定；之後可在跟課面板內切換） */
 (function(){var saved=null;try{saved=localStorage.getItem('gd-eng-ver')}catch(e){}
   if(saved&&DATA[saved])return;
   var m=document.createElement('div');m.className='vmodal';
   m.innerHTML='<div class="box"><h2>你的學校用哪個版本？</h2>'
-    +'<p>選一次就記住，之後想換可用上方的版本按鈕。</p>'
+    +'<p>選一次就記住，之後想換可在「複習學校進度」裡切換。</p>'
     +'<button class="vbtn" data-v="nanyi">南一</button>'
     +'<button class="vbtn" data-v="kang">康軒</button>'
     +'<button class="vbtn" data-v="han">翰林</button></div>';
