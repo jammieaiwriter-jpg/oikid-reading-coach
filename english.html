@@ -42,7 +42,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .vmodal p{color:#52606d;font-size:.88rem;margin:0 0 14px}
 .vmodal .vbtn{display:block;width:100%;border:2px solid #0f7c90;background:#fff;color:#0f7c90;border-radius:10px;padding:14px;font-size:1.05rem;font-weight:900;cursor:pointer;margin:8px 0}
 .vmodal .vbtn:active{background:#0f7c90;color:#fff}
-</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>今天的英語，從這裡開始——照建議走就好。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><p class="hint">一次做一件事就好，做完會帶你到下一件。</p><a class="main-btn" id="today-main" href="vocab-daily.html">載入中…</a><div class="sub" id="today-sub"></div></div><a class="entry" data-panel="panel-course" href="#"><b>📖 複習學校進度</b><span class="arrow">›</span><span class="desc">跟課本走，一次一回：朗讀＋單字＋文法＋閱讀。</span></a><div class="panel" id="panel-course"><div class="vtabs"><button class="vtab" data-v="nanyi">南一</button><button class="vtab" data-v="kang">康軒</button><button class="vtab" data-v="han">翰林</button></div><div class="grid" id="lessons"></div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。搭課文進度用。</span></a></div></div><a class="entry" data-panel="panel-exam" href="#"><b>🎯 準備考試</b><span class="arrow">›</span><span class="desc">週考段考圈範圍組卷；會考練聽力題型、用真題檢核。</span></a><div class="panel" id="panel-exam"><div class="big"><a href="range-exam.html"><b>📝 段考範圍卷</b><span>圈課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力，交卷才看成績。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a></div></div><a class="entry" href="wrongbook-en.html"><b>📒 錯題本</b><span class="badge" id="wb-badge" style="display:none"></span><span class="desc">平日追攻、週末確認銷帳，考前不留舊帳。</span></a><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a></div></div><script>
+</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>今天的英語，從這裡開始——照建議走就好。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><p class="hint">一次做一件事就好，做完會帶你到下一件。</p><a class="main-btn" id="today-main" href="vocab-daily.html">載入中…</a><div class="sub" id="today-sub"></div></div><a class="entry" data-panel="panel-course" href="#"><b>📖 複習學校進度</b><span class="arrow">›</span><span class="desc">跟課本走，一次一回：朗讀＋單字＋文法＋閱讀。</span></a><div class="panel" id="panel-course"><div class="note" id="ver-label" style="margin:8px 4px 0"></div><div class="grid" id="lessons"></div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。搭課文進度用。</span></a></div></div><a class="entry" data-panel="panel-exam" href="#"><b>🎯 準備考試</b><span class="arrow">›</span><span class="desc">週考段考圈範圍組卷；會考練聽力題型、用真題檢核。</span></a><div class="panel" id="panel-exam"><div class="big"><a href="range-exam.html"><b>📝 段考範圍卷</b><span>圈課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力，交卷才看成績。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a></div></div><a class="entry" href="wrongbook-en.html"><b>📒 錯題本</b><span class="badge" id="wb-badge" style="display:none"></span><span class="desc">平日追攻、週末確認銷帳，考前不留舊帳。</span></a><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a>｜<a href="#" id="switch-ver">🔁 換課本版本</a></div></div><script>
 var FULL=true;
 var VNAME={nanyi:'南一',kang:'康軒',han:'翰林'};
 function nowVer(){try{return localStorage.getItem('gd-eng-ver')||'nanyi'}catch(e){return 'nanyi'}}
@@ -104,7 +104,8 @@ function render(v){
     var tag=document.createElement('span');tag.className='tag';
     tag.textContent=open?(FULL?'開始':'免費試閱'):'訂閱解鎖';a.appendChild(tag);
     g.appendChild(a)});
-  document.querySelectorAll('.vtab').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});
+  var vl=document.getElementById('ver-label');
+  if(vl)vl.textContent='目前版本：'+(VNAME[v]||v)+'（要換課本版本，用頁面最下面的「換課本版本」）';
   var l=document.getElementById('listen-link');
   if(l)l.setAttribute('href','listen-'+v+'-b1.html');
   try{localStorage.setItem('gd-eng-ver',v)}catch(e){}
@@ -120,20 +121,22 @@ document.querySelectorAll('.entry[data-panel]').forEach(function(card){
     if(opening){p.classList.add('show');card.classList.add('open');
       try{p.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}}
   }});
-/* 首訪版本選擇（選一次固定；之後可在跟課面板內切換） */
-(function(){var saved=null;try{saved=localStorage.getItem('gd-eng-ver')}catch(e){}
-  if(saved&&DATA[saved])return;
+/* 版本選擇彈窗（首訪自動出現；頁尾「換課本版本」可重開） */
+function showVerModal(){
   var m=document.createElement('div');m.className='vmodal';
   m.innerHTML='<div class="box"><h2>你的學校用哪個版本？</h2>'
-    +'<p>選一次就記住，之後想換可在「複習學校進度」裡切換。</p>'
+    +'<p>選一次就記住，之後想換可用頁面最下面的「換課本版本」。</p>'
     +'<button class="vbtn" data-v="nanyi">南一</button>'
     +'<button class="vbtn" data-v="kang">康軒</button>'
     +'<button class="vbtn" data-v="han">翰林</button></div>';
   m.querySelectorAll('.vbtn').forEach(function(b){b.onclick=function(){
     try{localStorage.setItem('gd-eng-ver',b.dataset.v)}catch(e){}
     render(b.dataset.v);document.body.removeChild(m)}});
-  document.body.appendChild(m)})();
-document.querySelectorAll('.vtab').forEach(function(b){b.onclick=function(){render(b.dataset.v)}});
+  document.body.appendChild(m)}
+(function(){var saved=null;try{saved=localStorage.getItem('gd-eng-ver')}catch(e){}
+  if(!(saved&&DATA[saved]))showVerModal()})();
+var sw=document.getElementById('switch-ver');
+if(sw)sw.onclick=function(ev){ev.preventDefault();showVerModal()};
 render(DATA[nowVer()]?nowVer():'nanyi');
 renderToday();
 </script></body></html>
