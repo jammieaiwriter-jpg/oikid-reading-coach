@@ -83,10 +83,13 @@ function renderQuestion(){
   var globalNo=STATE.groupIdx*GROUP_SIZE+STATE.qIdx+1;
   var html='<div class="card"><div class="qhead"><span class="num">第 '+globalNo+' 題</span>'
     +'<span class="prog">第 '+(STATE.groupIdx+1)+' 組　'+(STATE.qIdx+1)+' / '+group.length+'</span></div>';
-  html+='<div class="playbar"><button class="btn" id="startBtn">▶ 開始作答</button>'
-    +'<audio id="qaudio" preload="none" src="'+item.audioSrc+'"></audio></div>';
+  html+='<div class="playbar"><button class="btn" id="startBtn">▶ 開始作答</button></div>';
   html+='<div id="opts"></div><div id="afterQ"></div></div>';
   host.innerHTML=html;
+
+  var qaudio=document.createElement('audio');
+  qaudio.id='qaudio'; qaudio.preload='none'; qaudio.src=item.audioSrc;
+  host.querySelector('.playbar').appendChild(qaudio);
 
   var opts=document.getElementById('opts');
   var order=item.options.map(function(text,idx){return {text:text, idx:idx}});

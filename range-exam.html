@@ -325,13 +325,24 @@ function questionHtml(q,globalNo,secPrefix){
   var html='<div class="q" data-qkey="'+secPrefix+'-'+globalNo+'">';
   html+='<div class="stem"><span class="qno">'+globalNo+'.</span>'+q.stem+'</div>';
   if(q.audioSrc){
-    html+='<div class="playbar"><audio controls preload="none" src="'+q.audioSrc+'"></audio></div>';
+    html+='<div class="playbar" data-audio-slot="'+secPrefix+'-'+globalNo+'"></div>';
   }
   q.options.forEach(function(opt,i){
     html+='<label class="opt"><input type="radio" name="'+secPrefix+'-'+globalNo+'" value="'+i+'"> '+opt+'</label>';
   });
   html+='</div>';
   return html;
+}
+
+function attachAudioSlots(dataAttr,entries){
+  entries.forEach(function(e){
+    if(!e.audioSrc) return;
+    var slot=document.querySelector('['+dataAttr+'="'+e.key+'"]');
+    if(!slot) return;
+    var a=document.createElement('audio');
+    a.controls=true;a.preload='none';a.src=e.audioSrc;
+    slot.appendChild(a);
+  });
 }
 
 function renderExam(){
@@ -360,6 +371,14 @@ function renderExam(){
   body+='</div>';
 
   el('examBody').innerHTML=body;
+
+  var entries=[];
+  ex.vocab.forEach(function(q,i){entries.push({key:'vocab-'+(i+1),audioSrc:q.audioSrc})});
+  ex.grammar.forEach(function(q,i){entries.push({key:'grammar-'+(i+1),audioSrc:q.audioSrc})});
+  if(ex.reading){ex.reading.questions.forEach(function(q,i){entries.push({key:'reading-'+(i+1),audioSrc:q.audioSrc})})}
+  ex.listening.forEach(function(q,i){entries.push({key:'listening-'+(i+1),audioSrc:q.audioSrc})});
+  attachAudioSlots('data-audio-slot',entries);
+
   show('view-exam');
 }
 
@@ -400,12 +419,12 @@ function gradeAndRecord(res){
 
 function scoreOf(list){var n=0;list.forEach(function(r){if(r.ok)n++});return n}
 
-function reviewHtml(list,label,startNo){
+function reviewHtml(list,label,startNo,slug){
   var html='<div class="sect"><div class="head">'+label+'　'+scoreOf(list)+' / '+list.length+'</div>';
   list.forEach(function(r,i){
     var q=r.q;
     html+='<div class="q"><div class="stem"><span class="qno">'+(startNo+i)+'.</span>'+q.stem+'</div>';
-    if(q.audioSrc)html+='<div class="playbar"><audio controls preload="none" src="'+q.audioSrc+'"></audio></div>';
+    if(q.audioSrc)html+='<div class="playbar" data-review-audio="'+slug+'-'+(startNo+i)+'"></div>';
     q.options.forEach(function(opt,oi){
       var cls='opt';
       if(oi===q.answerIndex)cls+=' correct';
@@ -430,11 +449,19 @@ function renderResult(res){
     '<div>閱讀 '+scoreOf(res.reading)+'/5</div>'+
     '<div>聽力 '+scoreOf(res.listening)+'/4</div>';
   var body='';
-  body+=reviewHtml(res.vocab,'一、單字',1);
-  body+=reviewHtml(res.grammar,'二、文法',11);
-  if(res.reading.length)body+=reviewHtml(res.reading,'三、閱讀',21);
-  body+=reviewHtml(res.listening,'四、聽力',26);
+  body+=reviewHtml(res.vocab,'一、單字',1,'vocab');
+  body+=reviewHtml(res.grammar,'二、文法',11,'grammar');
+  if(res.reading.length)body+=reviewHtml(res.reading,'三、閱讀',21,'reading');
+  body+=reviewHtml(res.listening,'四、聽力',26,'listening');
   el('resultBody').innerHTML=body;
+
+  var rentries=[];
+  res.vocab.forEach(function(r,i){rentries.push({key:'vocab-'+(1+i),audioSrc:r.q.audioSrc})});
+  res.grammar.forEach(function(r,i){rentries.push({key:'grammar-'+(11+i),audioSrc:r.q.audioSrc})});
+  res.reading.forEach(function(r,i){rentries.push({key:'reading-'+(21+i),audioSrc:r.q.audioSrc})});
+  res.listening.forEach(function(r,i){rentries.push({key:'listening-'+(26+i),audioSrc:r.q.audioSrc})});
+  attachAudioSlots('data-review-audio',rentries);
+
   show('view-result');
 }
 

@@ -140,7 +140,7 @@ function optionsHtml(item, prefix){
   var host='';
   if(item.optionsType==='picture'){
     host+='<div class="picwrap"><span class="picbadge">第 '+item.qnum+' 題</span>'
-      +'<img src="'+item.picSrc+'" alt="第'+item.qnum+'題圖片"></div>'
+      +'<img class="qpic" alt="第'+item.qnum+'題圖片"></div>'
       +'<div class="pichint">請對照上圖找出對應圖片，再選 A / B / C</div>'
       +'<div class="opts abc-row" id="opts">'
       +['A','B','C'].map(function(L,i){return '<button class="opt dim" data-idx="'+i+'">'+L+'</button>'}).join('')
@@ -151,6 +151,15 @@ function optionsHtml(item, prefix){
       +'</div>';
   }
   return host;
+}
+
+function attachItemMedia(item){
+  var a=document.getElementById('qaudio');
+  if(a) a.src=item.audioSrc||'';
+  if(item.optionsType==='picture'){
+    var img=document.querySelector('#stage img.qpic');
+    if(img) img.src=item.picSrc;
+  }
 }
 
 function renderStepQuestion(){
@@ -164,10 +173,11 @@ function renderStepQuestion(){
     +'<span class="prog">'+(APP.idx+1)+' / '+items.length+'</span></div>';
   html+='<div class="playbar"><button class="btn" id="playBtn">▶ 播放</button>'
     +'<button class="btn ghost" id="replayBtn" disabled>🔁 再聽一次</button></div>';
-  html+='<audio id="qaudio" preload="none" src="'+(item.audioSrc||'')+'"></audio>';
+  html+='<audio id="qaudio" preload="none"></audio>';
   html+=optionsHtml(item);
   html+='<div id="afterQ"></div></div>';
   host.innerHTML=html;
+  attachItemMedia(item);
 
   var opts=document.getElementById('opts');
   var audioEl=document.getElementById('qaudio');
@@ -260,11 +270,12 @@ function renderFullQuestion(autoplay){
   var html='<div class="card"><div class="qhead"><span class="num">第 '+item.qnum+' 題</span>'
     +'<span class="part">'+item.partLabel+'</span>'
     +'<span class="prog">'+(APP.idx+1)+' / '+items.length+'</span></div>';
-  html+='<audio id="qaudio" preload="none" src="'+(item.audioSrc||'')+'"></audio>';
+  html+='<audio id="qaudio" preload="none"></audio>';
   html+=optionsHtml(item);
   html+='<div class="examnav" id="examNav"></div>';
   html+='<button class="btn warn" id="submitBtn">交卷</button></div>';
   host.innerHTML=html;
+  attachItemMedia(item);
 
   var nav=document.getElementById('examNav');
   items.forEach(function(it,i){

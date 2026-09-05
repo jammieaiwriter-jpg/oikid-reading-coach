@@ -771,8 +771,13 @@ function runQuiz(items,host,cb){
     if(i>=items.length){cb(allOk);return}
     var it=items[i],q=document.createElement('div');q.className='q';
     var stemHtml=(i+1)+' / '+items.length+'　'+it.stem;
-    q.innerHTML='<div class="stem">'+stemHtml+'</div>'
-      +(it.audioSrc?'<audio controls preload="none" src="'+it.audioSrc+'" style="width:100%;margin-bottom:8px"></audio>':'');
+    q.innerHTML='<div class="stem">'+stemHtml+'</div>';
+    if(it.audioSrc){
+      var qa=document.createElement('audio');
+      qa.controls=true;qa.preload='none';qa.src=it.audioSrc;
+      qa.style.width='100%';qa.style.marginBottom='8px';
+      q.appendChild(qa);
+    }
     it.options.slice().sort(function(){return Math.random()-.5}).forEach(function(o){
       var b=document.createElement('button');b.className='opt';b.textContent=o;
       b.onclick=function(){q.querySelectorAll('.opt').forEach(function(x){x.disabled=true});
