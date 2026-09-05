@@ -30,6 +30,12 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .big a b{font-size:1rem}
 .big a span{display:block;color:#627d98;font-size:.8rem;margin-top:4px;line-height:1.5}
 .note{font-size:.8rem;color:#52606d;line-height:1.6;margin-top:12px}
+.vmodal{position:fixed;inset:0;background:rgba(15,30,45,.72);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
+.vmodal .box{background:#fff;border-radius:14px;padding:24px 22px;max-width:420px;width:100%;text-align:center}
+.vmodal h2{margin:0 0 6px;font-size:1.2rem}
+.vmodal p{color:#52606d;font-size:.88rem;margin:0 0 14px}
+.vmodal .vbtn{display:block;width:100%;border:2px solid #0f7c90;background:#fff;color:#0f7c90;border-radius:10px;padding:14px;font-size:1.05rem;font-weight:900;cursor:pointer;margin:8px 0}
+.vmodal .vbtn:active{background:#0f7c90;color:#fff}
 </style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>選版本跟課練＋每日單字＋聽讀＋錯題本。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><div class="sig" id="today-sig">載入中…</div><div id="today-btns"></div></div><div class="vtabs"><button class="vtab" data-v="nanyi">南一</button><button class="vtab" data-v="kang">康軒</button><button class="vtab" data-v="han">翰林</button></div><div class="sect"><div class="head">📖 隨堂練習<small>國一上（第一冊）</small></div><div class="grid" id="lessons"></div></div><div class="sect"><div class="head">🎯 段考・會考・工具</div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。</span></a><a href="wrongbook-en.html"><b>📒 錯題本</b><span>答錯的文法點集中在這，追攻換題驗真懂，全對才銷帳。</span></a></div></div><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a></div></div><script>
 var FULL=true;
 function nowVer(){try{return localStorage.getItem('gd-eng-ver')||'nanyi'}catch(e){return 'nanyi'}}
@@ -83,6 +89,19 @@ function render(v){
   if(l)l.setAttribute('href','listen-'+v+'-b1.html');
   try{localStorage.setItem('gd-eng-ver',v)}catch(e){}
 }
+/* 首訪版本選擇（2026-09-05 Emma：一進來就選、選一次固定；上方 tabs 保留隨時可切換） */
+(function(){var saved=null;try{saved=localStorage.getItem('gd-eng-ver')}catch(e){}
+  if(saved&&DATA[saved])return;
+  var m=document.createElement('div');m.className='vmodal';
+  m.innerHTML='<div class="box"><h2>你的學校用哪個版本？</h2>'
+    +'<p>選一次就記住，之後想換可用上方的版本按鈕。</p>'
+    +'<button class="vbtn" data-v="nanyi">南一</button>'
+    +'<button class="vbtn" data-v="kang">康軒</button>'
+    +'<button class="vbtn" data-v="han">翰林</button></div>';
+  m.querySelectorAll('.vbtn').forEach(function(b){b.onclick=function(){
+    try{localStorage.setItem('gd-eng-ver',b.dataset.v)}catch(e){}
+    render(b.dataset.v);document.body.removeChild(m)}});
+  document.body.appendChild(m)})();
 document.querySelectorAll('.vtab').forEach(function(b){b.onclick=function(){render(b.dataset.v)}});
 render(DATA[nowVer()]?nowVer():'nanyi');
 renderToday();
