@@ -205,6 +205,12 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
   var ACTION_VERBS = ACTION_VERB_DEFS.map(function (d) {
     return { base: d[0], s: d[1], ing: d[2], wrongIng: d[3] };
   });
+  // 語意白名單（2026-09-05 修「Swim the door」亂湊）：句框只抽合語意的動詞
+  function verbsOf(bases){return ACTION_VERBS.filter(function(v){return bases.indexOf(v.base)>=0})}
+  var INTRANS_VERBS = verbsOf(["run","swim","sit","read","eat","jump","sing","dance","cook","play","write"]);
+  var DOOR_VERBS = verbsOf(["open","close"]);
+  var HANDS_VERBS = verbsOf(["wash","clean"]);
+  var BOOK_VERBS = verbsOf(["open","close","read"]);
 
   var MASS_NOUNS = [
     "water", "rice", "milk", "money", "juice", "bread", "cheese", "tea", "coffee", "soup",
@@ -398,7 +404,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 
   // ---- GP-10 現在進行式 -------------------------------------------------
   function genGP10(rng) {
-    var v = pick(rng, ACTION_VERBS);
+    var v = pick(rng, INTRANS_VERBS);
     var mode = pickIndex(rng, 6);
     var subj, q, answer, wrong;
     if (mode < 3) {
@@ -441,22 +447,31 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 
   // ---- GP-12 祈使句 -------------------------------------------------
   function genGP12(rng) {
-    var v = pick(rng, ACTION_VERBS);
     var faces = [
-      { q: "___ the door, please.", answer: v.base, wrong: [v.s, v.ing] },
-      { q: "Please ___ your hands.", answer: v.base, wrong: [v.s, v.ing] },
-      { q: "Don't ___ in the classroom.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ the door, please.", pool: DOOR_VERBS },
+      { q: "___ the window, please.", pool: DOOR_VERBS },
+      { q: "Please ___ your hands.", pool: HANDS_VERBS },
+      { q: "Please ___ your room.", pool: verbsOf(["clean"]) },
+      { q: "Don't ___ in the classroom.", pool: INTRANS_VERBS },
+      { q: "___ slowly, please.", pool: INTRANS_VERBS },
+      { q: "Don't ___ so fast.", pool: verbsOf(["run", "drive", "eat"]) },
       { q: "___ quiet, please!", answer: "Be", wrong: ["Is", "Are"] },
-      { q: "___ your book, everyone.", answer: v.base, wrong: [v.s, v.ing] },
-      { q: "Let's ___ now.", answer: v.base, wrong: [v.s, v.ing] },
+      { q: "___ your book, everyone.", pool: BOOK_VERBS },
+      { q: "Let's ___ now.", pool: INTRANS_VERBS },
+      { q: "___ to the music, everyone.", pool: verbsOf(["listen", "dance"]) },
+      { q: "___ at the picture.", pool: verbsOf(["look"]) },
+      { q: "Please ___ me.", pool: verbsOf(["help"]) },
+      { q: "___ down, please.", pool: verbsOf(["sit"]) },
+      { q: "___ up, please.", pool: verbsOf(["stand"]) },
     ];
     var f = pick(rng, faces);
+    if (f.pool) { var v = pick(rng, f.pool); return buildItem("GP-12", f.q, v.base, [v.s, v.ing]); }
     return buildItem("GP-12", f.q, f.answer, f.wrong);
   }
 
   // ---- GP-14 can -------------------------------------------------
   function genGP14(rng) {
-    var v = pick(rng, ACTION_VERBS);
+    var v = pick(rng, INTRANS_VERBS);
     var name = pick(rng, NAMES).name;
     var faces = [
       "" + name + " can ___ well.",
