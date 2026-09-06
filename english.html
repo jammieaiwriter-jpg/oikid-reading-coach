@@ -50,10 +50,13 @@ function dueWords(){try{var db=JSON.parse(localStorage.getItem('nanyi-vocab-fsrs
   db=db.cards||db;var n=0,t=Date.now();
   Object.keys(db).forEach(function(k){var c=db[k];if(c&&typeof c.due==='number'&&c.due<=t)n++});
   return n}catch(e){return 0}}
-function dailyDone(){try{var s=JSON.parse(localStorage.getItem('nanyi-daily-vocab-v1')||'{}');
-  var today=new Date();var key=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+function dailyDone(){try{var today=new Date();var key=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var s=JSON.parse(localStorage.getItem('nanyi-daily-vocab-v1')||'{}');
   if(String(s.date||'').indexOf(String(today.getDate()))<0&&s.date!==key)return false;
-  return s.queue&&Object.keys(s.completed||{}).length>=s.queue.length&&s.queue.length>0}catch(e){return false}}
+  var vocabDone=s.queue&&Object.keys(s.completed||{}).length>=s.queue.length&&s.queue.length>0;
+  /* 今日完成＝單字兩輪＋閃卡都完成（2026-09-06 Emma：每日單字＝單字區＋閃卡區） */
+  var sc={};try{sc=JSON.parse(localStorage.getItem('sight-cards-v1')||'{}')}catch(e){}
+  return !!vocabDone&&sc.doneDay===key}catch(e){return false}}
 function ledgerCounts(){var out={pending:0,confirm:0};
   try{var d=JSON.parse(localStorage.getItem('nanyi-eng-ledger-v1')||'{}');
     Object.keys(d.gp||{}).forEach(function(k){var g=d.gp[k];

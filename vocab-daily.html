@@ -90,15 +90,15 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 <div class="hero">
 <span class="badge">每日單字</span>
 <h1>今日單字練習</h1>
-<h2>複習到期單字 ＋ 補新字（每天最多學 8 個新字）</h2>
-<div class="intro">今天的題目一開就固定，不會因為重整而變來變去；已經做完的不會再出現。單字庫共 1970 個字。</div>
+<h2>複習到期單字 ＋ 補新字（每天最多學 8 個新字）・分兩輪：先聽＋唸，再拼字</h2>
+<div class="intro">今天的題目一開就固定，不會因為重整而變來變去；已經做完的不會再出現。第一輪把今天的字都聽過、唸過一次，第二輪重新排序（唸錯的排前面）逐字拼寫，兩輪都做完才算今日完成。單字庫共 1970 個字。</div>
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="note" id="prog"></div>
 </div>
 <div id="card-host"></div>
 <div class="item" id="sight-zone" style="margin-top:18px">
-<div class="label">⚡ Sight Words 閃卡（每天 10 張，看到就要唸得出來）</div>
-<div class="note">點卡片翻面看中文＋聽發音；「認得」下一張，「還不熟」明天再出現。</div>
+<div class="label">⚡ 閃卡（每天 20 張，唸得出來才算過）</div>
+<div class="note">看到單字就按「開始唸」大聲唸出來；唸對自動換下一張，唸錯有 2 次機會，兩次都不對就顯示正解＋唸給你聽，明天還會再出現。一開始都是 sight words，全部練過一輪之後名額會慢慢換成已經學會的單字（唸對後還要多選一次中文意思）。</div>
 <div id="sight-host"></div>
 </div>
 </div><script>window.VOCAB_SRS_NO_AUTORENDER=true;</script><script>
@@ -932,27 +932,35 @@ function buildQueue(now){
 }
 
 /* ---- 當日狀態存取 ---- */
-let STATE, idx=0;
+let STATE, idx1=0, idx2=0;
 function loadState(){
   let s=null;
   try{s=JSON.parse(localStorage.getItem(DATA.storage)||'null')}catch(e){}
   const t=todayStr();
-  if(!s||s.date!==t){
-    s={date:t,queue:buildQueue(Date.now()),completed:{},newQuotaUsed:0,
-       notifiedStart:false,notifiedComplete:false,reviewDone:0,newDone:0,leechDone:0};
+  /* 舊格式偵測：新結構一定有數字型的 round 欄位（1 或 2）。
+     沒有這個欄位＝舊的單輪存檔，語意跟兩輪制不相容，直接重開今天的佇列（見上方註解）。 */
+  const isOldShape = !!s && typeof s.round !== 'number';
+  if(!s||s.date!==t||isOldShape){
+    s={date:t,queue:buildQueue(Date.now()),round:1,
+       completed1:{},queue2:null,completed2:{},round1Wrong:{},
+       newQuotaUsed:0,notifiedStart:false,notifiedComplete:false,
+       reviewDone:0,newDone:0,leechDone:0};
   }
   return s;
 }
 function saveState(){try{localStorage.setItem(DATA.storage,JSON.stringify(STATE))}catch(e){}}
 
 function updateProgress(){
-  const total=STATE.queue.length;
-  const done=Object.keys(STATE.completed).length;
   const bar=el('bar'),prog=el('prog');
-  if(bar)bar.style.width=Math.round(done/Math.max(total,1)*100)+'%';
-  if(prog){const rv=STATE.queue.filter(q=>q.type==='review').length,nw=total-rv;
-    const mins=Math.max(1,Math.round((rv*0.5+nw*1)));
-    prog.textContent='今日 '+done+' / '+total+'（複習 '+rv+'＋新字 '+nw+'，約 '+mins+' 分鐘）'}
+  const totalR1=STATE.queue.length,doneR1=Object.keys(STATE.completed1).length;
+  if(STATE.round===1){
+    if(bar)bar.style.width=Math.round(doneR1/Math.max(totalR1,1)*50)+'%';
+    if(prog)prog.textContent='第一輪・聽＋跟讀　'+doneR1+' / '+totalR1;
+  }else{
+    const totalR2=(STATE.queue2||[]).length,doneR2=Object.keys(STATE.completed2).length;
+    if(bar)bar.style.width=(50+Math.round(doneR2/Math.max(totalR2,1)*50))+'%';
+    if(prog)prog.textContent='第一輪已完成　｜　第二輪・拼字　'+doneR2+' / '+totalR2;
+  }
 }
 function clearHost(){const h=el('card-host');h.innerHTML='';return h}
 
@@ -964,10 +972,10 @@ function appendCoreBadge(labelDiv,isCore){
   labelDiv.appendChild(b);
 }
 
-/* ---- 拼寫階段（複習卡、新字卡的「認識」通過後都會走到這） ---- */
-function renderSpellStage(host,card,onDone,isCore){
+/* ---- 拼寫階段（第二輪：新字挖空拼、複習字全拼，都走這一套 UI） ---- */
+function renderSpellStage(host,card,onDone,isCore,label){
   const box=mkEl('div','item');
-  const labelDiv=mkEl('div','label','拼寫');
+  const labelDiv=mkEl('div','label',label||'拼寫');
   appendCoreBadge(labelDiv,isCore);
   box.appendChild(labelDiv);
   const sent=mkEl('div','sentence');
@@ -1043,10 +1051,13 @@ function renderSpellStage(host,card,onDone,isCore){
   idkBtn.onclick=()=>{if(!finished)doReveal('again')};
 }
 
-/* ---- 新字「認識」階段：先聽，再跟著唸一次，唸對才能進拼寫 ---- */
-function renderRecognizeStage(host,card,onPass,isCore){
+/* ---- 第一輪：聽＋跟讀（全部今日字都要做，新字／複習字共用同一套） ----
+   先聽，再跟著唸一次，唸對才算過這一關；連續失敗 3 次給跳過鈕（辨識不良防卡死）。
+   onDone(hadWrong) 一定會被呼叫：hadWrong=false 表示一次就唸對，
+   true 表示唸錯過（含最後用跳過鈕結束）——只用來決定第二輪排序，不影響 FSRS。 */
+function renderListenRepeatStage(host,card,onDone,isCore){
   const box=mkEl('div','item');
-  const labelDiv=mkEl('div','label','新字');
+  const labelDiv=mkEl('div','label','第一輪・聽＋跟讀');
   appendCoreBadge(labelDiv,isCore);
   box.appendChild(labelDiv);
   const sent=mkEl('div','sentence');
@@ -1070,7 +1081,7 @@ function renderRecognizeStage(host,card,onPass,isCore){
       if(done)return;
       if(wordOk(card.w,t)){
         done=true;res.className='result oktext';res.textContent='唸對了。';
-        startBtn.disabled=true;onPass();
+        startBtn.disabled=true;onDone(fails>0);
       }else{
         fails++;
         res.className='result failtext';res.textContent='再聽一次，把整個字唸清楚。';
@@ -1078,7 +1089,7 @@ function renderRecognizeStage(host,card,onPass,isCore){
       }
     });
   };
-  skipBtn.onclick=()=>{if(!done){done=true;onPass()}};
+  skipBtn.onclick=()=>{if(!done){done=true;onDone(true)}};
   box.appendChild(listenBtn);box.appendChild(startBtn);box.appendChild(stopBtn);
   box.appendChild(out);box.appendChild(res);box.appendChild(skipBtn);
   host.appendChild(box);
@@ -1099,54 +1110,84 @@ function saveCard(card){
   try{VocabSRS._test.saveDB(db)}catch(e){}
 }
 
-/* ---- 主流程：一次只顯示一張卡，做完才出下一張 ---- */
+/* ---- 主流程：兩輪制。第一輪跑完整條 queue 才建立 queue2，跑完 queue2 才 finish ---- */
 function renderNext(){
   updateProgress();
-  while(idx<STATE.queue.length&&STATE.completed[idx])idx++;
-  if(idx>=STATE.queue.length){finish();return}
-  const item=STATE.queue[idx];
-  if(item.type==='new'&&STATE.newQuotaUsed>=8){
-    // 新字額度用完：這張新字今天不再出，直接跳過（複習卡不受此限制）
-    STATE.completed[idx]=true;saveState();idx++;renderNext();return;
+  if(STATE.round===1){
+    while(idx1<STATE.queue.length&&STATE.completed1[idx1])idx1++;
+    if(idx1>=STATE.queue.length){startRound2();renderNext();return}
+    renderRound1(STATE.queue[idx1]);
+    return;
   }
-  if(item.type==='review')renderReview(item);
-  else renderNewWord(item);
+  const q2=STATE.queue2||[];
+  while(idx2<q2.length&&STATE.completed2[idx2])idx2++;
+  if(idx2>=q2.length){finish();return}
+  const item2=q2[idx2];
+  if(item2.type==='new'&&STATE.newQuotaUsed>=8){
+    // 新字額度用完：這張新字今天不再出，直接跳過（複習卡不受此限制）
+    STATE.completed2[idx2]=true;saveState();idx2++;renderNext();return;
+  }
+  renderRound2(item2);
 }
 
-function renderReview(item){
-  const db=fsrsDb(),card=db[normKey(item.w)];
+/* 第一輪：不管新字或複習字，都先聽＋跟讀一次。用暫存卡片物件顯示，不寫入 FSRS。 */
+function renderRound1(item){
   const host=clearHost();
-  if(!card){STATE.completed[idx]=true;saveState();idx++;renderNext();return}
+  const db=fsrsDb();
+  const card=item.type==='review'?db[normKey(item.w)]:(function(){const meta=findLadderMeta(item.w);return meta?newCardFor(meta):null})();
+  if(!card){STATE.completed1[idx1]=true;saveState();idx1++;renderNext();return}
   const core=isCoreWord(item.w);
-  renderSpellStage(host,card,function(quality){
-    const fresh=fsrsDb(),key=normKey(card.w),stored=fresh[key]||card;
-    try{VocabSRS._test.applyReview(stored,quality,{setLesson:false})}catch(e){}
-    fresh[key]=stored;try{VocabSRS._test.saveDB(fresh)}catch(e){}
-    STATE.reviewDone++;
-    if(stored.leech)STATE.leechDone++;
-    STATE.completed[idx]=true;saveState();
-    idx++;renderNext();
+  renderListenRepeatStage(host,card,function(hadWrong){
+    if(hadWrong)STATE.round1Wrong[idx1]=true;
+    STATE.completed1[idx1]=true;saveState();
+    idx1++;renderNext();
   },core);
 }
 
-function renderNewWord(item){
-  const meta=findLadderMeta(item.w);
+/* 第一輪全部做完才呼叫一次：把 queue 重新排序（第一輪唸錯的排最前面，穩定排序）成 queue2 */
+function startRound2(){
+  const withFlag=STATE.queue.map((item,i)=>({item,wrong:!!STATE.round1Wrong[i]}));
+  withFlag.sort((a,b)=>{
+    const aw=a.wrong?0:1,bw=b.wrong?0:1;return aw-bw; // Array.sort 穩定排序，同組內維持原順序
+  });
+  STATE.queue2=withFlag.map(x=>x.item);
+  STATE.round=2;idx2=0;
+  saveState();
+}
+
+/* 第二輪：拼字，FSRS 評分掛在這裡。
+   review（FSRS 已有卡）→ 全拼：暫時把顯示用的卡片 mask 蓋成全底線，不改真正存進 FSRS 的 mask。
+   new（FSRS 今天首見）→ 用 bank ladder 給的挖空 mask（既有邏輯）。 */
+function renderRound2(item){
   const host=clearHost();
-  if(!meta){STATE.completed[idx]=true;saveState();idx++;renderNext();return}
-  const card=newCardFor(meta);
   const core=isCoreWord(item.w);
-  renderRecognizeStage(host,card,function(){
-    const host2=clearHost();
-    renderSpellStage(host2,card,function(quality){
+  if(item.type==='review'){
+    const db=fsrsDb(),card=db[normKey(item.w)];
+    if(!card){STATE.completed2[idx2]=true;saveState();idx2++;renderNext();return}
+    const displayCard=Object.assign({},card,{mask:'_'.repeat(String(card.w||'').length)});
+    renderSpellStage(host,displayCard,function(quality){
+      const fresh=fsrsDb(),key=normKey(card.w),stored=fresh[key]||card;
+      try{VocabSRS._test.applyReview(stored,quality,{setLesson:false})}catch(e){}
+      fresh[key]=stored;try{VocabSRS._test.saveDB(fresh)}catch(e){}
+      STATE.reviewDone++;
+      if(stored.leech)STATE.leechDone++;
+      STATE.completed2[idx2]=true;saveState();
+      idx2++;renderNext();
+    },core,'第二輪・拼字（全拼）');
+  }else{
+    const meta=findLadderMeta(item.w);
+    if(!meta){STATE.completed2[idx2]=true;saveState();idx2++;renderNext();return}
+    const card=newCardFor(meta);
+    renderSpellStage(host,card,function(quality){
       if(quality!=='good')STATE.newQuotaUsed++;
       try{VocabSRS._test.applyReview(card,quality,{setLesson:false})}catch(e){}
       saveCard(card);
       STATE.newDone++;
       if(card.leech)STATE.leechDone++;
-      STATE.completed[idx]=true;saveState();
-      idx++;renderNext();
-    },core);
-  },core);
+      STATE.completed2[idx2]=true;saveState();
+      idx2++;renderNext();
+    },core,'第二輪・拼字（新字）');
+  }
 }
 
 function finish(){
@@ -1179,55 +1220,251 @@ function finish(){
   host.appendChild(box);
 }
 
-/* --- Sight Words 閃卡（獨立於 FSRS：key sight-cards-v1，只記還不熟清單與日期） --- */
+/* --- 閃卡混合池（sight words ＋ 單字卡）：獨立於每日單字兩輪制，key sight-cards-v1。
+   2026-09-06 Emma 拍板兩件事：
+   A) sight 卡「唸得出來才過」：唸對→✓，唸錯 2 次→✗＋speak＋顯示中文＋記 missed。
+   B) 混合池：sight 沒畢業前，20 張全是 sight（missed 優先、其次未出過的字）；
+      sight 畢業（109 字都至少唸過一次且 missed 清空）後，名額開始分給「單字卡」
+      （FSRS 裡 reps>=1 且非 leech 的字，這是唯一的資格篩選），
+      畢業後每天仍保留 4-5 張 sight 輪播防退化，其餘給久未閃過的單字卡。
+      單字卡流程比 sight 多一關：唸對後還要從 3 個中文選項選出正確字義，
+      選錯只有 1 次機會（沒有第二次），唸錯 2 次則直接判失敗、不考字義。
+
+   sight-cards-v1 存檔結構（欄位只能加、不能改型別）：
+     missed:[]      共用清單，存字串（sight 字或單字卡字混在一起，渲染/建池時用
+                    isSightWord() 判斷是哪一種，不額外存 kind——這是 Emma 拍板的設計）
+     doneDay:''     今天已完成的日期字串
+     seenSight:[]   （新欄位）曾經至少被閃過一次的 sight word 清單，用來判斷「畢業」
+     lastShown:{}   （新欄位）字 -> 最近一次被閃到的日序（dayNumber），用來排「久未閃過優先」
+   防禦性讀取：舊格式（沒有 seenSight/lastShown）視為「還沒有任何字閃過」，不會噴例外，
+   只是要重新從頭累積畢業進度——不影響 missed/doneDay 既有語意，也不會不小心提早判定畢業。 --- */
 const SIGHT_KEY='sight-cards-v1';
+const FLASHCARD_DAILY_COUNT=20;
+const SIGHT_KEEP_AFTER_GRAD=5; // 畢業後每天仍保留的 sight 輪播張數（防退化，4-5 張，取上限）
 function sightState(){try{const d=JSON.parse(localStorage.getItem(SIGHT_KEY)||'{}');
-  return {missed:Array.isArray(d.missed)?d.missed:[],doneDay:d.doneDay||''}}catch(e){return{missed:[],doneDay:''}}}
+  return {
+    missed:Array.isArray(d.missed)?d.missed:[],
+    doneDay:d.doneDay||'',
+    seenSight:Array.isArray(d.seenSight)?d.seenSight:[],
+    lastShown:(d.lastShown&&typeof d.lastShown==='object'&&!Array.isArray(d.lastShown))?d.lastShown:{},
+  };
+}catch(e){return{missed:[],doneDay:'',seenSight:[],lastShown:{}}}}
 function sightSave(st){try{localStorage.setItem(SIGHT_KEY,JSON.stringify(st))}catch(e){}}
 function sightDayKey(){const t=new Date();return t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate()}
-function sightTodayCards(){
-  const all=DATA.sight||[];if(!all.length)return[];
-  const st=sightState();
-  const dayN=Math.floor(new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()).getTime()/864e5);
-  const missSet=new Set(st.missed);
-  const missCards=all.filter(c=>missSet.has(c.w));
-  const rest=all.filter(c=>!missSet.has(c.w));
-  const rot=[];for(let i=0;i<rest.length&&rot.length<10;i++)rot.push(rest[(dayN*10+i)%rest.length]);
-  const seen=new Set();const out=[];
-  missCards.concat(rot).forEach(c=>{if(!seen.has(c.w)&&out.length<10){seen.add(c.w);out.push(c)}});
+function dayNumNow(){return Math.floor(new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()).getTime()/864e5)}
+
+function allSightWords(){return (DATA.sight||[]).map(c=>c.w)}
+function isSightWord(w){return (DATA.sight||[]).some(c=>c.w===w)}
+function sightMeta(w){return (DATA.sight||[]).find(c=>c.w===w)||{w,zh:''}}
+/* 單字卡資格：FSRS 牌組裡 reps>=1（有成功複習過）且非 leech；這是唯一的篩選條件，不看到期日。 */
+function vocabEligibleWords(){
+  const db=fsrsDb();
+  return Object.keys(db).map(k=>db[k]).filter(c=>c&&(c.reps||0)>=1&&!c.leech).map(c=>c.w);
+}
+function vocabMeta(w){
+  const fromLadder=findLadderMeta(w);
+  if(fromLadder)return fromLadder;
+  const c=fsrsDb()[normKey(w)];
+  return c?{w:c.w,zh:c.zh||'',pos:c.pos||'',say:c.say||c.w}:{w,zh:'',pos:'',say:w};
+}
+/* 畢業條件：109 個 sight words 全部都至少被閃過一次，而且目前 missed 是空的
+   （還有沒過關的字，代表還在「還不熟」的補救期，不能一邊有欠帳一邊開始分名額給單字卡）。 */
+function sightGraduated(st){
+  const all=allSightWords();
+  if(!all.length)return false;
+  const seen=new Set(st.seenSight||[]);
+  return all.every(w=>seen.has(w))&&(st.missed||[]).length===0;
+}
+function lastShownDay(st,w){return (st.lastShown&&st.lastShown[w])||0}
+
+/* 建今天的混合池（當日固定，只在還沒完成今天時呼叫一次）：
+   1. missed 永遠最優先（不管是 sight 字還是單字卡字，字串比對＋isSightWord() 判斷種類）
+   2. 沒畢業：補「還沒閃過的 sight words」；真的補不滿（都閃過了但 missed 還沒清空過關）
+      就退回「最久沒閃過」排序補位，維持每天都有滿額練習
+   3. 已畢業：保留 4-5 張最久沒閃過的 sight 輪播防退化，其餘用「最久沒閃過」的合格單字卡補滿，
+      單字卡不夠的話一樣退回 sight 補位，不開天窗 */
+function buildMixedQueue(st){
+  const out=[],used=new Set();
+  function push(w,kind){
+    if(used.has(w)||out.length>=FLASHCARD_DAILY_COUNT)return false;
+    used.add(w);out.push({w,kind});return true;
+  }
+  (st.missed||[]).forEach(w=>push(w,isSightWord(w)?'sight':'vocab'));
+
+  const graduated=sightGraduated(st);
+  const byStale=(a,b)=>lastShownDay(st,a)-lastShownDay(st,b);
+
+  if(!graduated){
+    const seen=new Set(st.seenSight||[]);
+    allSightWords().filter(w=>!seen.has(w)&&!used.has(w)).forEach(w=>push(w,'sight'));
+    if(out.length<FLASHCARD_DAILY_COUNT){
+      allSightWords().filter(w=>!used.has(w)).sort(byStale).forEach(w=>push(w,'sight'));
+    }
+  }else{
+    let keep=Math.min(SIGHT_KEEP_AFTER_GRAD,FLASHCARD_DAILY_COUNT-out.length);
+    allSightWords().filter(w=>!used.has(w)).sort(byStale).forEach(w=>{if(keep>0&&push(w,'sight'))keep--});
+    vocabEligibleWords().filter(w=>!used.has(w)).sort(byStale).forEach(w=>push(w,'vocab'));
+    if(out.length<FLASHCARD_DAILY_COUNT){
+      allSightWords().filter(w=>!used.has(w)).sort(byStale).forEach(w=>push(w,'sight'));
+    }
+  }
   return out;
 }
+
+let FLASH_ST=null;
+function markShown(w,kind){
+  if(!FLASH_ST)return;
+  if(kind==='sight'&&FLASH_ST.seenSight.indexOf(w)<0)FLASH_ST.seenSight.push(w);
+  FLASH_ST.lastShown[w]=dayNumNow();
+}
+
+/* 字義誘答：優先從 FSRS 牌組其他字取中文（同詞性優先），不足才補單字庫同詞性字；
+   選項文字不得重複、不得跟正解相同。極端情況（測試用的迷你字庫）真的湊不出 2 個不同意思時，
+   用帶編號的佔位字串頂上，保證不重複——正式字庫（1970 字）幾乎不會走到這條路。 */
+function meaningDistractors(word,correctZh,pos){
+  const correct=String(correctZh||'').trim();
+  const seenZh=new Set([correct]);
+  const out=[];
+  function tryAdd(z){z=String(z||'').trim();if(!z||seenZh.has(z))return false;seenZh.add(z);out.push(z);return true}
+  const db=fsrsDb();
+  const dbOthers=Object.keys(db).map(k=>db[k]).filter(c=>c&&normKey(c.w)!==normKey(word));
+  dbOthers.filter(c=>pos&&c.pos===pos).forEach(c=>{if(out.length<2)tryAdd(c.zh)});
+  dbOthers.forEach(c=>{if(out.length<2)tryAdd(c.zh)});
+  if(out.length<2){
+    const ladder=(DATA.bank&&DATA.bank.ladder)||[];
+    ladder.filter(it=>pos&&it.pos===pos&&normKey(it.w)!==normKey(word)).forEach(it=>{if(out.length<2)tryAdd(it.zh)});
+    ladder.forEach(it=>{if(normKey(it.w)!==normKey(word)&&out.length<2)tryAdd(it.zh)});
+  }
+  let filler=1;
+  while(out.length<2){tryAdd('（其他字義 '+filler+'）');filler++}
+  return out.slice(0,2);
+}
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}return a}
+
 function initSight(){
   const host=el('sight-host');if(!host)return;
-  const st=sightState();
-  if(st.doneDay===sightDayKey()){host.innerHTML='<div class="result oktext">今日閃卡完成 ✓'+(st.missed.length?'（還不熟 '+st.missed.length+' 張，明天再出現）':'')+'</div>';return}
-  const cards=sightTodayCards();
+  FLASH_ST=sightState();
+  if(FLASH_ST.doneDay===sightDayKey()){host.innerHTML='<div class="result oktext">今日閃卡完成 ✓'+(FLASH_ST.missed.length?'（還不熟 '+FLASH_ST.missed.length+' 張，明天再出現）':'')+'</div>';return}
+  const cards=buildMixedQueue(FLASH_ST);
   if(!cards.length){host.innerHTML='<div class="note">（單字庫沒有可用的 sight words）</div>';return}
   const b=document.createElement('button');b.className='btn ok';b.textContent='開始閃卡（'+cards.length+' 張）';
-  b.onclick=()=>runSight(cards,0,{miss:[]});
+  b.onclick=()=>renderFlashcard(cards,0,{correct:0,miss:[]});
   host.innerHTML='';host.appendChild(b);
 }
-function runSight(cards,i,acc){
+
+/* 主渲染：sight 卡跟單字卡共用「聽＋唸」這一段 UI／判準；單字卡唸對後多接一段字義選擇。 */
+function renderFlashcard(cards,i,acc){
   const host=el('sight-host');host.innerHTML='';
   if(i>=cards.length){
-    const st=sightState();st.missed=acc.miss.slice();st.doneDay=sightDayKey();sightSave(st);
-    host.innerHTML='<div class="result oktext">閃卡完成！'+(acc.miss.length?'還不熟 '+acc.miss.length+' 張，明天再出現。':'全部一眼認得，讚！')+'</div>';
-    tg(DATA.child+' 完成 sight words 閃卡：'+cards.length+' 張'+(acc.miss.length?'，還不熟 '+acc.miss.length+' 張':'，全數認得'));
+    FLASH_ST.missed=acc.miss.slice();FLASH_ST.doneDay=sightDayKey();sightSave(FLASH_ST);
+    host.innerHTML='<div class="result oktext">閃卡完成！唸對 '+acc.correct+' 張'+
+      (acc.miss.length?'、還不熟 '+acc.miss.length+' 張（明天再出現）':'，全數唸對，讚！')+'</div>';
+    tg(DATA.child+' 完成 sight words 閃卡：唸對 '+acc.correct+' 張、還不熟 '+acc.miss.length+' 張');
     return}
-  const c=cards[i];let flipped=false;
-  const card=document.createElement('div');card.className='item';card.style.cssText='text-align:center;cursor:pointer;padding:26px 10px';
-  card.innerHTML='<div style="font-size:2.2rem;font-weight:900">'+c.w+'</div><div class="note">（點一下翻面）</div>';
-  const btns=document.createElement('div');btns.style.cssText='display:flex;gap:10px;justify-content:center;margin-top:10px';
-  card.onclick=()=>{if(flipped)return;flipped=true;
-    card.innerHTML='<div style="font-size:2.2rem;font-weight:900">'+c.w+'</div><div style="font-size:1.1rem;margin-top:6px">'+(c.zh||'')+'</div>';
-    speak(c.w);
-    const ok=document.createElement('button');ok.className='btn ok';ok.textContent='😀 認得';
-    ok.onclick=e=>{e.stopPropagation();runSight(cards,i+1,acc)};
-    const ng=document.createElement('button');ng.className='btn warn';ng.textContent='🤔 還不熟';
-    ng.onclick=e=>{e.stopPropagation();acc.miss.push(c.w);runSight(cards,i+1,acc)};
-    btns.appendChild(ok);btns.appendChild(ng)};
-  const prog=document.createElement('div');prog.className='note';prog.textContent='第 '+(i+1)+' / '+cards.length+' 張';
-  host.appendChild(prog);host.appendChild(card);host.appendChild(btns);
+  const item=cards[i];
+  const meta=item.kind==='sight'?sightMeta(item.w):vocabMeta(item.w);
+  markShown(item.w,item.kind);
+
+  const prog=mkEl('div','note','第 '+(i+1)+' / '+cards.length+' 張'+(item.kind==='vocab'?'　單字卡':''));
+  const card=mkEl('div','item');card.style.cssText='text-align:center;padding:26px 10px';
+  card.innerHTML='<div style="font-size:2.4rem;font-weight:900">'+esc(item.w)+'</div>';
+  const startBtn=mkEl('button','btn ok','▶️ 開始唸');startBtn.id='sw-start';
+  const stopBtn=mkEl('button','btn warn','停止');stopBtn.id='sw-stop';stopBtn.disabled=true;stopBtn.style.display='none';
+  const fb=mkEl('div');fb.id='sw-feedback';fb.style.cssText='font-size:3.4rem;font-weight:900;margin-top:6px;min-height:1.2em';
+  const out=mkEl('div','heard');out.id='sw-out';
+  const res=mkEl('div','result');res.id='sw-res';
+  const skipBtn=mkEl('button','btn alt','跳過（辨識不良）');skipBtn.id='sw-skip';skipBtn.style.display='none';
+  host.appendChild(prog);host.appendChild(card);host.appendChild(fb);
+  host.appendChild(startBtn);host.appendChild(stopBtn);host.appendChild(out);host.appendChild(res);host.appendChild(skipBtn);
+
+  function fail(){
+    fb.style.color='#d32f2f';fb.textContent='✗';
+    res.className='result failtext';res.textContent='正解：'+esc(item.w)+'（'+esc(meta.zh||'')+'）';
+    speak(item.w);
+    setTimeout(()=>renderFlashcard(cards,i+1,{correct:acc.correct,miss:acc.miss.concat([item.w])}),1200);
+  }
+  function passSight(){
+    fb.style.color='#1a8f3c';fb.textContent='✓';
+    res.className='result oktext';res.textContent='唸對了！';
+    setTimeout(()=>renderFlashcard(cards,i+1,{correct:acc.correct+1,miss:acc.miss}),700);
+  }
+
+  let wrongAttempts=0,noSound=0,finished=false;
+  startBtn.onclick=()=>{
+    if(finished)return;
+    rec('sw',t=>{
+      if(finished)return;
+      const heardText=String(t||'').trim();
+      out.textContent='聽到：'+(heardText||'(沒收到聲音)');
+      if(!heardText){
+        // 沒收到聲音不算次數，只累計「連續沒聲音」給跳過鈕防卡死
+        noSound++;
+        res.className='result failtext';res.textContent='沒收到聲音，再按一次開始唸。';
+        if(noSound>=3)skipBtn.style.display='inline-block';
+        return;
+      }
+      noSound=0;
+      if(wordOk(item.w,heardText)){
+        finished=true;startBtn.disabled=true;
+        if(item.kind==='sight'){
+          passSight();
+        }else{
+          // 單字卡：唸對後不直接過關，接著考字義（唸錯的情況不會走到這裡，見下面 else 分支）
+          renderMeaningQuiz(host,cards,i,acc,item,meta);
+        }
+      }else{
+        wrongAttempts++;
+        if(wrongAttempts>=2){
+          finished=true;startBtn.disabled=true;
+          fail(); // 唸錯兩次：sight／單字卡都一樣直接判失敗，不考字義
+        }else{
+          res.className='result failtext';res.textContent='再唸一次，把整個字唸清楚。';
+        }
+      }
+    });
+  };
+  skipBtn.onclick=()=>{if(finished)return;finished=true;renderFlashcard(cards,i+1,acc)};
+}
+
+/* 單字卡唸對後的字義三選一：選錯只有 1 次機會（沒有第二次），跟拼字/聽讀的「兩次機會」不同，
+   因為孩子已經證明唸得出來了，這一關考的是「知不知道意思」，猜中運氣不該算過。 */
+function renderMeaningQuiz(host,cards,i,acc,item,meta){
+  host.innerHTML='';
+  const prog=mkEl('div','note','第 '+(i+1)+' / '+cards.length+' 張　單字卡・這個字是什麼意思？');
+  const card=mkEl('div','item');card.style.cssText='text-align:center;padding:20px 10px';
+  card.innerHTML='<div style="font-size:2rem;font-weight:900">'+esc(item.w)+'</div>';
+  const fb=mkEl('div');fb.id='sw-feedback';fb.style.cssText='font-size:3.4rem;font-weight:900;margin-top:6px;min-height:1.2em';
+  const res=mkEl('div','result');res.id='sw-res';
+  const optBox=mkEl('div');optBox.id='mq-box';optBox.style.cssText='display:flex;flex-direction:column;gap:8px;margin-top:10px';
+  host.appendChild(prog);host.appendChild(card);host.appendChild(fb);host.appendChild(optBox);host.appendChild(res);
+
+  const correctZh=String(meta.zh||'').trim();
+  const distractors=meaningDistractors(item.w,correctZh,meta.pos);
+  const options=shuffleArr([correctZh].concat(distractors));
+  const btns=[];
+  let answered=false;
+  options.forEach((opt,oi)=>{
+    const b=mkEl('button','btn mq-opt',opt);b.id='mq-opt-'+oi;
+    b.onclick=()=>{
+      if(answered)return;answered=true;
+      btns.forEach(x=>x.disabled=true);
+      if(opt===correctZh){
+        b.classList.add('ok');
+        fb.style.color='#1a8f3c';fb.textContent='✓';
+        res.className='result oktext';res.textContent='選對了！';
+        setTimeout(()=>renderFlashcard(cards,i+1,{correct:acc.correct+1,miss:acc.miss}),700);
+      }else{
+        b.classList.add('warn');
+        const correctBtn=btns.filter(x=>x.textContent===correctZh)[0];
+        if(correctBtn)correctBtn.classList.add('ok');
+        fb.style.color='#d32f2f';fb.textContent='✗';
+        res.className='result failtext';res.textContent='正解：'+esc(item.w)+'（'+esc(correctZh)+'）';
+        speak(item.w);
+        setTimeout(()=>renderFlashcard(cards,i+1,{correct:acc.correct,miss:acc.miss.concat([item.w])}),1200);
+      }
+    };
+    btns.push(b);optBox.appendChild(b);
+  });
 }
 
 function init(){
@@ -1237,7 +1474,7 @@ function init(){
     tg(DATA.child+' 開始每日單字');
   }
   saveState();
-  idx=0;
+  idx1=0;idx2=0;
   renderNext();
   initSight();
 }

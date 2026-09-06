@@ -108,7 +108,13 @@ function ledgerCapWrong(item,distractorTag){var d=ledger();d.capListening=d.capL
   d.capListening.push({type:'cap-listening',id:item.id,kind:item.kind,subkind:item.subkind,
     function:item.function,distractorTag:distractorTag||null,ts:Date.now()});ledgerSave(d)}
 function ledgerVocabWrong(rec){var d=ledger();d.rangeExamVocab=d.rangeExamVocab||[];
-  d.rangeExamVocab.push(rec);ledgerSave(d)}
+  d.rangeExamVocab.push(rec);ledgerSave(d);
+  /* 單字錯不進錯題本，改餵回 FSRS：該字提前到期，明天每日單字自然重考（2026-09-06 Emma 拍板） */
+  try{var FK='nanyi-vocab-fsrs-v1';var fd=JSON.parse(localStorage.getItem(FK)||'{}');
+    var cards=fd.cards||fd;var w=String(rec&&rec.w||'').toLowerCase();
+    Object.keys(cards).forEach(function(k){var c=cards[k];
+      if(c&&typeof c==='object'&&String(k).toLowerCase()===w&&typeof c.due==='number'&&c.due>Date.now()){c.due=Date.now();}});
+    localStorage.setItem(FK,JSON.stringify(fd));}catch(e){}}
 
 function loadSeen(){try{var a=JSON.parse(localStorage.getItem(SEEN_K)||'[]');
   return Array.isArray(a)?a:[]}catch(e){return[]}}
