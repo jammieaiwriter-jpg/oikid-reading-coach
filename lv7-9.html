@@ -68,7 +68,8 @@ function numCanon(str){
   return merged;
 }
 /* expandDigits 參數保留只為相容既有呼叫點；兩側一律做同樣的正規化，不再分方向 */
-function norm(s,expandDigits=false){return numCanon(s).join(' ')}
+function expandSpokenDigits(str){return numCanon(str).join(' ')}
+function norm(s,expandDigits=false){return expandSpokenDigits(s)}
 function sim(a,b){if(a===b)return true;if(Math.abs(a.length-b.length)>2)return false;let d=Math.abs(a.length-b.length);for(let i=0;i<Math.min(a.length,b.length);i++)if(a[i]!==b[i])d++;return d<=1}
 function pct(ref,got){const rw=norm(ref).split(' ').filter(Boolean),gw=norm(got,true).split(' ').filter(Boolean);let h=0;rw.forEach(w=>{if(gw.some(g=>sim(w,g)))h++});return rw.length?Math.round(h/rw.length*100):0}
 const SAY={for:'four',to:'two',too:'two',ate:'eight',won:'one'};
