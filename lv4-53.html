@@ -1048,32 +1048,4 @@ async function tg(msg){try{await fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'
   body:JSON.stringify({text:msg,to:DATA.child==='Bobo'?'bobo':'default'})})}catch(e){}}
 load();
 
-</script><script>
-/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
-   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
-   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
-(function(){
-  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
-  function pick(){
-    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
-    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
-    if(!en.length) return null;
-    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
-    for(var pass=0;pass<2;pass++){
-      for(var i=0;i<PREF.length;i++){
-        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
-        if(pass===0)hits=hits.filter(isEnh);
-        if(hits.length)return hits.find(isEnh)||hits[0];
-      }
-    }
-    return en.find(isEnh)||null;
-  }
-  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
-  window.speechSynthesis.speak=function(u){
-    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
-    return orig(u);
-  };
-  try{ speechSynthesis.getVoices(); }catch(e){}
-})();
-</script>
-</body></html>
+</script></body></html>
