@@ -42,7 +42,7 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
 .vmodal p{color:#52606d;font-size:.88rem;margin:0 0 14px}
 .vmodal .vbtn{display:block;width:100%;border:2px solid #0f7c90;background:#fff;color:#0f7c90;border-radius:10px;padding:14px;font-size:1.05rem;font-weight:900;cursor:pointer;margin:8px 0}
 .vmodal .vbtn:active{background:#0f7c90;color:#fff}
-</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>今天的英語，從這裡開始——照建議走就好。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><p class="hint">一次做一件事就好，做完會帶你到下一件。</p><a class="main-btn" id="today-main" href="vocab-daily.html">載入中…</a><div class="sub" id="today-sub"></div></div><a class="entry" data-panel="panel-course" href="#"><b>📖 複習學校進度</b><span class="arrow">›</span><span class="desc">跟課本走，一次一回：朗讀＋單字＋文法＋閱讀。</span></a><div class="panel" id="panel-course"><div class="note" id="ver-label" style="margin:8px 4px 0"></div><div class="grid" id="lessons"></div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練</b><span>真人發音：先聽→答題→解鎖全文。搭課文進度用。</span></a></div></div><a class="entry" data-panel="panel-exam" href="#"><b>🎯 準備考試</b><span class="arrow">›</span><span class="desc">週考段考圈範圍組卷；會考練聽力題型、用真題檢核。</span></a><div class="panel" id="panel-exam"><div class="big"><a href="range-exam.html"><b>📝 段考範圍卷</b><span>圈課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力，交卷才看成績。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a></div></div><a class="entry" href="wrongbook-en.html"><b>📒 錯題本</b><span class="badge" id="wb-badge" style="display:none"></span><span class="desc">平日追攻、週末確認銷帳，考前不留舊帳。</span></a><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a>｜<a href="#" id="switch-ver">🔁 換課本版本</a></div></div><script>
+</style></head><body><div class="wrap"><div class="hero"><h1>📚 國中英語練習</h1><p>今天的英語，從這裡開始——照建議走就好。開口唸對才過關、拼錯不給過。<br>⚠️ 請用 Safari 或 Chrome 直接開啟（LINE / Telegram 內建瀏覽器不支援語音辨識）。</p></div><div class="today"><h2>⭐ 今天該做什麼</h2><p class="hint">一次做一件事就好，做完會帶你到下一件。</p><a class="main-btn" id="today-main" href="vocab-daily.html">載入中…</a><div class="sub" id="today-sub"></div></div><a class="entry" data-panel="panel-course" href="#"><b>📖 複習學校進度</b><span class="arrow">›</span><span class="desc">跟課本走，一次一回：朗讀＋單字＋文法＋閱讀。</span></a><div class="panel" id="panel-course"><div class="note" id="ver-label" style="margin:8px 4px 0"></div><div class="grid" id="lessons"></div><div id="b2-sect" style="display:none"><div class="note" style="margin:12px 4px 0;font-weight:800">國一下（第二冊）</div><div class="grid" id="lessons-b2"></div></div><div class="big"><a id="listen-link" href="listen-nanyi-b1.html"><b>🎧 聽讀訓練（上冊）</b><span>真人發音：三段式邊聽邊答。</span></a><a id="listen-link-b2" href="listen-nanyi-b2.html" style="display:none"><b>🎧 聽讀訓練（下冊）</b><span>國一下文章，同樣三段式。</span></a></div></div><a class="entry" data-panel="panel-exam" href="#"><b>🎯 準備考試</b><span class="arrow">›</span><span class="desc">週考段考圈範圍組卷；會考練聽力題型、用真題檢核。</span></a><div class="panel" id="panel-exam"><div class="big"><a href="range-exam.html"><b>📝 段考範圍卷</b><span>圈課次範圍一鍵組卷：單字＋文法＋閱讀＋聽力，交卷才看成績。</span></a><a href="listen-cap.html"><b>🎯 會考聽力特訓</b><span>會考題型練習：先看選項→聽兩遍→作答，錯題進錯題本。</span></a><a href="cap-real.html"><b>📻 會考聽力真題</b><span>113–115 年官方原音，整卷模擬或逐題演練。</span></a></div></div><a class="entry" href="wrongbook-en.html"><b>📒 錯題本</b><span class="badge" id="wb-badge" style="display:none"></span><span class="desc">平日追攻、週末確認銷帳，考前不留舊帳。</span></a><div class="note">語音有問題先開 <a href="mic-test.html">🎤 麥克風測試</a>｜<a href="#" id="switch-ver">🔁 換課本版本</a></div></div><script>
 var FULL=true;
 var VNAME={nanyi:'南一',kang:'康軒',han:'翰林'};
 function nowVer(){try{return localStorage.getItem('gd-eng-ver')||'nanyi'}catch(e){return 'nanyi'}}
@@ -67,9 +67,9 @@ function ledgerCounts(){var out={pending:0,confirm:0};
 function isWeekend(){var w=new Date().getDay();return w===5||w===6||w===0}
 function lastLesson(){var best=null,bt=0;
   for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);
-    var m=k&&k.match(/^(nanyi|kang|han)-b1-(l\d)-pre/);if(!m)continue;
+    var m=k&&k.match(/^(nanyi|kang|han)-(b\d)-(l\d)-pre/);if(!m)continue;
     try{var v=JSON.parse(localStorage.getItem(k));var t=Date.parse(v.at||0)||0;
-      if(t>bt){bt=t;best={ver:m[1],ln:m[2]}}}catch(e){}}
+      if(t>bt){bt=t;best={ver:m[1],bk:m[2],ln:m[3]}}}catch(e){}}
   return best}
 /* 主建議：一次只推一件事（優先序：每日單字 → 週末確認 → 待補錯題 → 繼續上次的課 → 從 L1 開始） */
 function renderToday(){
@@ -79,7 +79,7 @@ function renderToday(){
   if(!dd){mTxt=(d?'先做每日單字（'+d+' 字到期）':'做今天的每日單字');mHref='vocab-daily.html'}
   else if(isWeekend()&&lc.confirm){mTxt='週末錯題確認（'+lc.confirm+' 個文法點等你銷帳）';mHref='wrongbook-en.html'}
   else if(lc.pending>=3){mTxt='先清錯題本（'+lc.pending+' 個文法點待補）';mHref='wrongbook-en.html'}
-  else if(last&&(FULL||last.ln==='l1')){mTxt='繼續 '+VNAME[last.ver]+' '+last.ln.toUpperCase()+' 的下一回';mHref=last.ver+'-b1-'+last.ln+'.html'}
+  else if(last&&(FULL||(last.bk==='b1'&&last.ln==='l1'))){mTxt='繼續 '+VNAME[last.ver]+' '+(last.bk==='b2'?'下冊':'')+last.ln.toUpperCase()+' 的下一回';mHref=last.ver+'-'+last.bk+'-'+last.ln+'.html'}
   else{var v=nowVer();mTxt='從 '+(VNAME[v]||'南一')+' L1 開始跟課';mHref=(VNAME[v]?v:'nanyi')+'-b1-l1.html'}
   main.textContent='▶ '+mTxt;main.setAttribute('href',mHref);
   /* 次要捷徑：主建議以外還想做的 */
@@ -94,7 +94,7 @@ function renderToday(){
   if(bd){if(total){bd.textContent=(isWeekend()&&lc.confirm)?('週末確認 '+lc.confirm):('待補 '+total);bd.style.display=''}
     else bd.style.display='none'}
 }
-var DATA={"nanyi": [["L1", "What's This?", "be動詞・指示代名詞・複數"], ["L2", "Wh 問句", "What/Who/Where・How"], ["L3", "祈使句", "感嘆句"], ["L4", "There is / are", "存在句"], ["L5", "現在進行式", "V-ing"], ["L6", "can", "能力與請求"]], "kang": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "感嘆句"], ["L4", "can", "能力與請求"], ["L5", "現在進行式", "日期星期"], ["L6", "There is / are", "存在句"]], "han": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "can"], ["L4", "現在進行式", "V-ing"], ["L5", "數字與日期", "基數序數"], ["L6", "There is / are", "存在句"]]};
+var DATA={"nanyi": [["L1", "What's This?", "be動詞・指示代名詞・複數"], ["L2", "Wh 問句", "What/Who/Where・How"], ["L3", "祈使句", "感嘆句"], ["L4", "There is / are", "存在句"], ["L5", "現在進行式", "V-ing"], ["L6", "can", "能力與請求"]], "kang": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "感嘆句"], ["L4", "can", "能力與請求"], ["L5", "現在進行式", "日期星期"], ["L6", "There is / are", "存在句"]], "han": [["L1", "be 動詞", "＋Wh 問句"], ["L2", "this / that", "名詞複數"], ["L3", "祈使句", "can"], ["L4", "現在進行式", "V-ing"], ["L5", "數字與日期", "基數序數"], ["L6", "There is / are", "存在句"]]};var DATA2={"nanyi": [["L1", "星期與日常", "現在簡單式・慈善週"], ["L2", "天氣與季節", "It 天氣句・現在式"], ["L3", "月份與日期", "wh問句・序數"], ["L4", "How many/much", "數量問句"], ["L5", "頻率副詞", "always~never・How often"], ["L6", "問路與交通", "指路句型・how"]]};
 function render(v){
   var g=document.getElementById('lessons');g.innerHTML='';
   DATA[v].forEach(function(L,i){
@@ -109,8 +109,27 @@ function render(v){
     g.appendChild(a)});
   var vl=document.getElementById('ver-label');
   if(vl)vl.textContent='目前版本：'+(VNAME[v]||v)+'（要換課本版本，用頁面最下面的「換課本版本」）';
+  var g2wrap=document.getElementById('b2-sect');
+  var g2=document.getElementById('lessons-b2');
+  if(g2wrap&&g2){
+    var d2=DATA2[v];
+    if(d2){g2wrap.style.display='';g2.innerHTML='';
+      d2.forEach(function(L,i){
+        var open=FULL; /* 國一下全鎖 trial */
+        var a=document.createElement('a');
+        a.className='card '+(open?'free':'lock');
+        a.setAttribute('href', open?(v+'-b2-l'+(i+1)+'.html'):'#');
+        a.appendChild(document.createTextNode((open?'':'🔒 ')+L[0]));
+        var sm=document.createElement('small');sm.innerHTML=L[1]+'<br>'+L[2];a.appendChild(sm);
+        var tag=document.createElement('span');tag.className='tag';
+        tag.textContent=open?'開始':'訂閱解鎖';a.appendChild(tag);
+        g2.appendChild(a)});
+    } else g2wrap.style.display='none';
+  }
   var l=document.getElementById('listen-link');
   if(l)l.setAttribute('href','listen-'+v+'-b1.html');
+  var l2=document.getElementById('listen-link-b2');
+  if(l2){if(DATA2[v]){l2.style.display='';l2.setAttribute('href','listen-'+v+'-b2.html')}else l2.style.display='none'}
   try{localStorage.setItem('gd-eng-ver',v)}catch(e){}
   renderToday();
 }

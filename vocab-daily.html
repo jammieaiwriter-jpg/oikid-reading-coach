@@ -1210,9 +1210,9 @@ function finish(){
   goBtn.setAttribute('href',(function(){
     let best=null,bt=0;
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);
-      const m=k&&k.match(/^(nanyi|kang|han)-b1-(l\d)-pre/);if(!m)continue;
+      const m=k&&k.match(/^(nanyi|kang|han)-(b\d)-(l\d)-pre/);if(!m)continue;
       const v=JSON.parse(localStorage.getItem(k)||'{}');const t=Date.parse(v.at||0)||0;
-      if(t>bt){bt=t;best=m[1]+'-b1-'+m[2]+'.html'}}}catch(e){}
+      if(t>bt){bt=t;best=m[1]+'-'+m[2]+'-'+m[3]+'.html'}}}catch(e){}
     if(best)return best;
     let ver='nanyi';try{const sv=localStorage.getItem('gd-eng-ver');if(sv)ver=sv}catch(e){}
     return ver+'-b1-l1.html'})());
