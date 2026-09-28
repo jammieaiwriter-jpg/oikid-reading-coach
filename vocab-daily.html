@@ -418,6 +418,10 @@ body{margin:0;background:#f5f7fb;color:#1f2933;font-family:-apple-system,BlinkMa
         var inp = document.createElement('input');
         inp.setAttribute('maxlength', '1');
         inp.autocomplete = 'off';
+        inp.setAttribute('autocorrect', 'off');
+        inp.setAttribute('autocapitalize', 'off');
+        inp.setAttribute('spellcheck', 'false');
+        inp.setAttribute('inputmode', 'latin');
         inputs.push(inp);
         lettersDiv.appendChild(inp);
       } else {
