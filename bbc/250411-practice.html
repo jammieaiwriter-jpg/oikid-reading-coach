@@ -25,6 +25,8 @@ h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26p
 .tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
 .tag.bbc{background:#fde8eb;color:var(--brand2)}
 .tag.pick{background:#fff3e0;color:var(--warn)}
+.tag.gept{background:#e7f6ec;color:#1b7a3d}
+.tag.plus{background:#ede7fb;color:#5b3fb3}
 .zhm{color:var(--mute);font-size:15px}
 .ex{font-size:15px;margin-top:6px;color:#3b4250}
 .ex b{color:var(--brand2)}
@@ -138,10 +140,19 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 <div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
 <div id="gr" class="hide">
   <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
-  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <p class="hint">看括號裡的提示和句子前後的線索，填入正確的形式。<b>小心：不是每一題都套同一個規則！</b></p>
   <div class="card" id="gItems"></div>
   <button class="pri" id="gCheck">✔︎ 對答案</button>
   <div class="msg" id="gMsg"></div>
+  <div id="gRep" class="hide">
+    <div class="card" style="border-color:#f0b429">
+      <b>🔁 文法補強：錯一題，補兩題</b>
+      <div class="zhm">剛剛第一次填錯的地方，再用同一個文法練兩題。</div>
+      <div class="bar" style="margin-top:8px"><i id="bG"></i></div><div class="prog" id="pG"></div>
+      <div class="qhead" id="gRq" style="margin-top:8px"></div>
+      <div class="olist" id="gRo"></div><div class="msg" id="gRm"></div>
+    </div>
+  </div>
 </div>
 
 <div id="allDone" class="hide">
@@ -156,7 +167,7 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 </div>
 </div>
 <div id="toast"></div>
-<script>window.EP = {"ssd_dir": "250411_Talking about games", "id": "250411", "date": "2025-04-11", "series": "Real Easy English", "level": "Easy", "title": "Talking about games", "title_zh": "聊聊遊戲", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/250411", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/RealEasyEnglish_games_download.mp3", "transcript_pdf": "250411_games_transcript逐字稿.pdf", "worksheet_pdf": "250411_games_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Beth 和 Georgie 喜歡玩桌遊和紙牌遊戲嗎？她們小時候玩遊戲會不會作弊？聽完再對答案！", "vocab": [{"w": "board games", "zh": "桌上遊戲（如西洋棋、大富翁）", "src": "BBC", "ex": "We play board games like chess at home."}, {"w": "quiz", "zh": "問答比賽、小測驗", "src": "BBC", "ex": "Our team won the quiz at school."}, {"w": "cheat", "zh": "作弊；作弊的人", "src": "BBC", "ex": "Don't cheat when you play cards."}, {"w": "goody-goody", "zh": "很守規矩的乖寶寶（口語）", "src": "BBC", "ex": "My sister is a goody-goody. She never breaks rules."}, {"w": "It depends on …", "say": "It depends on the game.", "zh": "要看⋯而定", "src": "pick", "ex": "It depends on the game."}, {"w": "competitive", "zh": "好勝的、愛競爭的", "src": "pick", "ex": "My brother is very competitive. He always wants to win."}, {"w": "dishonest", "zh": "不誠實的", "src": "pick", "ex": "Cheating is dishonest."}, {"w": "follow the rules", "zh": "遵守規則", "src": "pick", "ex": "Please follow the rules of the game."}, {"w": "last", "zh": "（時間）持續", "src": "pick", "ex": "The game lasted for three hours."}, {"w": "suggest", "zh": "建議、提議", "src": "pick", "ex": "I suggest a card game."}, {"w": "general knowledge", "zh": "一般常識", "src": "pick", "ex": "I like general knowledge quizzes."}, {"w": "Well done!", "zh": "做得好！", "src": "pick", "ex": "You won the quiz. Well done!"}], "reading": {"title": "Games, Cheats and Quizzes", "paras": [["Beth and Georgie are friends, and today they are talking about games.", "Beth enjoys physical games, like running around in the park.", "But she doesn't really like board games or card games."], ["Georgie likes sporty games too, but she also enjoys card games.", "She often plays them with her friends in the pub.", "Sometimes she doesn't want to talk anymore, so she suggests a game."], ["When Beth was a child, she played Monopoly with her neighbours.", "The game lasted about five hours!", "Georgie thinks people get very competitive and angry when they play it."], ["Beth liked to cheat when she was a child, but now she thinks it is dishonest.", "When she wins, she wants to win because she is good at the game.", "Georgie never cheats because she is a goody-goody and likes following the rules."], ["Georgie is good at quizzes.", "She used to go to pub quizzes with her team, and they won a couple of them.", "But when the general knowledge questions are too hard, the quiz is boring."]], "questions": [{"q": "What kind of games does Beth enjoy?", "zh": "Beth 喜歡哪一種遊戲？", "opts": ["Card games.", "Board games.", "Games in the park."], "a": 2, "ev": [1]}, {"q": "Why does Georgie sometimes suggest a game in the pub?", "zh": "Georgie 為什麼有時會在酒吧提議玩遊戲？", "opts": ["She wants to win a prize.", "She doesn't want to talk anymore.", "Her friends feel bored."], "a": 1, "ev": [5]}, {"q": "How long did Beth's game of Monopoly last?", "zh": "Beth 那場大富翁玩了多久？", "opts": ["About five hours.", "About two hours.", "The whole weekend."], "a": 0, "ev": [7]}, {"q": "What does Beth think about cheating now?", "zh": "Beth 現在覺得作弊怎麼樣？", "opts": ["It is fun.", "It is OK for children.", "It is dishonest."], "a": 2, "ev": [9]}, {"q": "Why does Georgie never cheat?", "zh": "Georgie 為什麼從不作弊？", "opts": ["She likes following the rules.", "She is bad at games.", "Her team doesn't let her."], "a": 0, "ev": [11]}]}, "cloze": {"title": "Amy's diary", "text": "Dear Diary, Today was my cousin's birthday. After lunch we played {1} like chess. One game {2} for two hours! My brother is very {3} and he always wants to win. He sometimes {4} and hides cards, so my cousin got angry. I'm a goody-goody, so I always follow the {5}. In the evening we did a music {6} on TV, and I got ten questions right! It was a really fun day.", "items": [{"opts": ["quizzes", "board games", "teams"], "a": 1}, {"opts": ["lasted", "suggested", "cheated"], "a": 0}, {"opts": ["dishonest", "boring", "competitive"], "a": 2}, {"opts": ["cheats", "helps", "listens"], "a": 0}, {"opts": ["games", "rules", "teams"], "a": 1}, {"opts": ["team", "card", "quiz"], "a": 2}]}, "grammar": {"gp": ["GP-37"], "point": "be good at / be bad at ＋ V-ing／名詞", "explain": "說自己「擅長／不擅長」某件事，用 <b>be good at<\/b>／<b>be bad at<\/b>，後面接<b>名詞<\/b>或 <b>V-ing<\/b>（at 是介系詞，後面的動詞要加 ing）：<br><b>be 動詞（am / is / are / was / were）＋ good at / bad at ＋ 名詞／V-ing<\/b><br>文章裡的例子：Georgie <b>is good at<\/b> quizzes.／When she wins, she wants to win because she <b>is good at<\/b> the game.<br>自己造句：I'm <b>bad at<\/b> <b>playing<\/b> card games.", "spelling": ["一般直接加 ing：play → playing、answer → answering", "字尾是不發音的 e，去 e 再加 ing：make → making", "短母音＋一個子音結尾，重複字尾再加 ing：swim → swimming、win → winning"], "items": [{"s": "Georgie is good ___ quizzes.", "hint": "介系詞", "a": ["at"]}, {"s": "I'm bad at ___ card games.", "hint": "play", "a": ["playing"]}, {"s": "My brother ___ good at football.", "hint": "be", "a": ["is"]}, {"s": "Are you good at ___?", "hint": "swim", "a": ["swimming"]}, {"s": "Tom ___ bad at chess last year, but now he is good at it.", "hint": "be", "a": ["was"]}, {"s": "She is good at ___ general knowledge questions.", "hint": "answer", "a": ["answering"]}]}, "speaking": [{"q": "Do you enjoy games? What kind of games do you like?", "zh": "你喜歡玩遊戲嗎？喜歡哪一種？", "starters": ["It depends on …", "I enjoy … because …", "I don't really like board games because …"]}, {"q": "Are you good at any games or sports?", "zh": "你有擅長哪種遊戲或運動嗎？", "starters": ["I'm good at …", "I'm bad at …", "I'm not very good at …, but …"]}, {"q": "Do you think it is OK to cheat in a game? Why?", "zh": "你覺得玩遊戲作弊可以嗎？為什麼？", "starters": ["Cheating is dishonest because …", "I always follow the rules because …", "When I was a child, I …"]}, {"q": "Tell me about a game you played with your friends or family.", "zh": "說說你和朋友或家人玩過的一個遊戲。", "tag": "KET 口說風格", "starters": ["Last …, I played … with …", "The game lasted …", "It was fun / boring because …"]}]}; window.PAGE = 'read';</script>
+<script>window.EP = {"ssd_dir": "250411_Talking about games", "id": "250411", "date": "2025-04-11", "series": "Real Easy English", "level": "Easy", "title": "Talking about games", "title_zh": "聊聊遊戲", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/250411", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/RealEasyEnglish_games_download.mp3", "transcript_pdf": "250411_games_transcript逐字稿.pdf", "worksheet_pdf": "250411_games_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Beth 和 Georgie 喜歡玩桌遊和紙牌遊戲嗎？她們小時候玩遊戲會不會作弊？聽完再對答案！", "vocab": [{"w": "board games", "zh": "桌上遊戲（如西洋棋、大富翁）", "src": "BBC", "ex": "We play board games like chess at home.", "lv": "gept"}, {"w": "quiz", "zh": "問答比賽、小測驗", "src": "BBC", "ex": "Our team won the quiz at school.", "lv": "gept"}, {"w": "cheat", "zh": "作弊；作弊的人", "src": "BBC", "ex": "Don't cheat when you play cards.", "lv": "gept"}, {"w": "goody-goody", "zh": "很守規矩的乖寶寶（口語，常帶點「太愛守規矩」的調侃）", "src": "BBC", "ex": "My sister is a goody-goody. She never breaks the rules.", "lv": "plus"}, {"w": "It depends on …", "say": "It depends on the game.", "zh": "要看⋯而定", "src": "pick", "ex": "It depends on the game.", "lv": "gept"}, {"w": "competitive", "zh": "好勝的、愛競爭的", "src": "pick", "ex": "My brother is very competitive. He always wants to win.", "lv": "plus"}, {"w": "dishonest", "zh": "不誠實的", "src": "pick", "ex": "Cheating is dishonest.", "lv": "gept"}, {"w": "follow the rules", "zh": "遵守規則", "src": "pick", "ex": "Please follow the rules of the game.", "lv": "gept"}, {"w": "last", "zh": "（時間）持續", "src": "pick", "ex": "The game lasted for three hours.", "lv": "gept"}, {"w": "suggest", "zh": "建議、提議", "src": "pick", "ex": "I suggest a card game.", "lv": "gept"}, {"w": "general knowledge", "zh": "一般常識", "src": "pick", "ex": "I like general knowledge quizzes.", "lv": "gept"}, {"w": "Well done!", "zh": "做得好！", "src": "pick", "ex": "You won the quiz. Well done!", "lv": "gept"}], "reading": {"title": "Games, Cheats and Quizzes", "paras": [["Beth and Georgie work together, and today they talk about games.", "It is only Monday, but Georgie is already tired.", "Beth enjoys sporty games, like running around in the park.", "She doesn't really like board games or most card games.", "She only likes fast card games with questions, like \"Name three kinds of transport.\""], ["Georgie likes card games, and she plays them with her friends in the pub.", "Sometimes she doesn't want to talk anymore, so she suggests a game."], ["When Beth was a child, she played Monopoly with her neighbours.", "She thinks the game lasted about five hours, but maybe not that long.", "Georgie says people get competitive and angry in this game."], ["Beth liked to cheat when she was a child, but now she thinks it is dishonest.", "Georgie never cheats because she is a goody-goody and likes following the rules."], ["Georgie likes quizzes, and she is good at them.", "She used to do pub quizzes, and her team won two of them.", "But when she doesn't know the general knowledge questions, the quiz is boring."]], "questions": [{"q": "Who is already tired at the start of the podcast?", "zh": "節目一開始，誰已經覺得累了？", "opts": ["Beth.", "Georgie.", "Both of them."], "a": 1, "ev": [1]}, {"q": "Who did Beth play Monopoly with as a child?", "zh": "Beth 小時候和誰一起玩大富翁？", "opts": ["Her neighbours.", "Her friends.", "Her team."], "a": 0, "ev": [7]}, {"q": "How many pub quizzes did Georgie's team win?", "zh": "Georgie 的隊伍贏過幾次酒吧問答比賽？", "opts": ["Five.", "Three.", "Two."], "a": 2, "ev": [13]}, {"q": "Who liked to cheat as a child?", "zh": "誰小時候喜歡作弊？", "opts": ["Georgie only.", "Beth only.", "Both of them."], "a": 1, "ev": [10, 11]}, {"q": "Why does Georgie sometimes suggest a game?", "zh": "Georgie 為什麼有時候會提議玩遊戲？", "opts": ["She doesn't want to talk.", "She wants to win.", "Her friends are bored."], "a": 0, "ev": [6]}]}, "cloze": {"title": "Amy's diary", "text": "Dear Diary, Today was my cousin's birthday. After lunch we played {1} like chess. One game {2} for two hours! My brother is very {3} and he always wants to win. He sometimes {4} and moves the pieces when nobody is looking, so my cousin got angry. I'm a goody-goody, so I always follow the {5}. In the evening we did a music {6} with my family, and I got ten questions right! It was a really fun day.", "items": [{"opts": ["quizzes", "board games", "teams"], "a": 1}, {"opts": ["lasted", "suggested", "cheated"], "a": 0}, {"opts": ["sleepy", "boring", "competitive"], "a": 2}, {"opts": ["cheats", "helps", "listens"], "a": 0}, {"opts": ["games", "rules", "teams"], "a": 1}, {"opts": ["team", "card", "quiz"], "a": 2}]}, "grammar": {"gp": ["GP-37"], "point": "be good at / be bad at ＋ V-ing／名詞", "explain": "說自己「擅長／不擅長」某件事，用 <b>be good at<\/b>／<b>be bad at<\/b>，後面接<b>名詞<\/b>或 <b>V-ing<\/b>（at 是介系詞，後面的動詞要加 ing）：<br><b>be 動詞（am / is / are / was / were）＋ good at / bad at ＋ 名詞／V-ing<\/b><br>文章裡的例子：Georgie likes quizzes, and she <b>is good at<\/b> them.<br>自己造句：I'm <b>bad at<\/b> <b>playing<\/b> card games.<br>⚠️ 小心：不是每一題都要加 ing，看前面的字決定。", "spelling": ["一般直接加 ing：play → playing、answer → answering", "字尾是不發音的 e，去 e 再加 ing：make → making", "短母音＋一個子音結尾，重複字尾再加 ing：swim → swimming、win → winning"], "items": [{"s": "I'm bad at ___ card games.", "hint": "play", "a": ["playing"]}, {"s": "Tomorrow I want ___ chess with my brother.", "hint": "play", "a": ["to play"]}, {"s": "Georgie is good ___ quizzes.", "hint": "in / on / at", "a": ["at"]}, {"s": "Ten years ago, Tom ___ bad at chess, but now he is good at it.", "hint": "be", "a": ["was"]}, {"s": "We can ___ in the park after school today.", "hint": "run", "a": ["run"]}, {"s": "She is good at ___ general knowledge questions.", "hint": "answer", "a": ["answering"]}], "repair": [{"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Mary is afraid of ___ in the sea.", "o": ["swim", "to swim", "swimming", "swam"], "a": 2, "x": "of 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "My father kept ___ the same question.", "o": ["to ask", "ask", "asked", "asking"], "a": 3, "x": "「kept」後面接動名詞（V-ing），所以是 asking。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "You can improve your English by ___ a diary.", "o": ["keeping", "kept", "to keep", "keep"], "a": 0, "x": "by 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "Tom minded ___ the window.", "o": ["opened", "open", "opening", "to open"], "a": 2, "x": "「minded」後面接動名詞（V-ing），所以是 opening。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "We had a good time ___ a walk in the park.", "o": ["to take", "taking", "take", "took"], "a": 1, "x": "have a good time + V-ing 是固定說法。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "They enjoyed ___ basketball after school.", "o": ["play", "playing", "be playing", "to play"], "a": 1, "x": "「enjoyed」後面接動名詞（V-ing），所以是 playing。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "How about ___ a cake for Tom's birthday?", "o": ["made", "to make", "making", "make"], "a": 2, "x": "How about 的 about 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "You finished ___ the dishes before dinner.", "o": ["to wash", "washing", "wash", "washed"], "a": 1, "x": "「finished」後面接動名詞（V-ing），所以是 washing。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Mary looks forward to ___ her friends this weekend.", "o": ["seeing", "see", "saw", "to see"], "a": 0, "x": "look forward to 的 to 是介系詞不是不定詞，後面接動名詞——這是最常被寫錯的一個。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "You expected ___ a gift from a good friend.", "o": ["be getting", "been getting", "to get", "gets"], "a": 2, "x": "「expected」後面接不定詞（to + 原形），所以是 to get。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Tom left without ___ a word.", "o": ["said", "saying", "say", "to say"], "a": 1, "x": "without 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "We hoped ___ the English test.", "o": ["to pass", "passed", "pass", "passing"], "a": 0, "x": "「hoped」後面接不定詞（to + 原形），所以是 to pass。這一組要整批背下來，沒有規則可以推。"}], "gpName": {"GP-37": "不定詞&動名詞當受詞"}}, "speaking": [{"q": "Do you enjoy games? What kind of games do you like?", "zh": "你喜歡玩遊戲嗎？喜歡哪一種？", "starters": ["It depends on …", "I enjoy … because …", "I don't really like board games because …"]}, {"q": "Are you good at any games or sports?", "zh": "你有擅長哪種遊戲或運動嗎？", "starters": ["I'm good at …", "I'm bad at …", "I'm not very good at …, but …"]}, {"q": "Do you think it is OK to cheat in a game? Why?", "zh": "你覺得玩遊戲作弊可以嗎？為什麼？", "starters": ["Cheating is dishonest because …", "I always follow the rules because …", "When I was a child, I …"]}, {"q": "Tell me about a game you played with your friends or family.", "zh": "說說你和朋友或家人玩過的一個遊戲。", "tag": "KET 口說風格", "starters": ["Last …, I played … with …", "The game lasted …", "It was fun / boring because …"]}]}; window.PAGE = 'read';</script>
 <script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
    紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
 var EP = window.EP;
@@ -296,6 +307,8 @@ function passText(r) {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
   st.first = st.first || {};
+  /* 第一次就答錯的題號（給家長通知，也用來抓寫壞的題目） */
+  function logWrong(k, n) { st[k] = st[k] || []; if (st[k].indexOf(n) < 0) { st[k].push(n); store.set(st); } }
 
   function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
   $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
@@ -336,7 +349,7 @@ function passText(r) {
     q.opts.forEach(function (o, i) {
       var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
       b.onclick = function () {
-        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; if (first) logWrong('wr', qi + 1); first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
         b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
         msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
         art.classList.add('pick'); art.scrollTop = 0;
@@ -418,7 +431,7 @@ function passText(r) {
           if (!tried[n]) czFirst++; czDone++;
           $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
           if (czDone >= C.items.length) czFinish();
-        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+        } else { ob.className = 'wrong'; ob.disabled = true; if (!tried[n]) logWrong('wc', n); tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
       };
       pop.appendChild(ob);
     });
@@ -452,29 +465,78 @@ function passText(r) {
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {
-        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        row.className = 'gitem no'; if (!gWrong[i]) logWrong('wg', i + 1); gWrong[i] = (gWrong[i] || 0) + 1;
         if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
       }
     });
     if (ok >= G.items.length) {
       var f = G.items.length - Object.keys(gWrong).length;
       st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
-      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; startRepair();
     } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
   };
+
+  /* ---- 文法錯一補二（題目來自知洞學堂英文文法題庫；同知洞規則：不遞迴，補題錯了不再加題，記為「還不穩」） ---- */
+  function startRepair() {
+    var nWrong = (st.wg || []).length, P = G.repair || [];
+    if (!st.rep) {
+      var need = Math.min(nWrong * 2, P.length), ids = [], used = {};
+      // 先挑不同模板的題，再補同模板的，避免兩題長得一樣
+      P.forEach(function (x, i) { if (ids.length < need && !used[x.t]) { used[x.t] = 1; ids.push(i); } });
+      P.forEach(function (x, i) { if (ids.length < need && ids.indexOf(i) < 0) ids.push(i); });
+      st.rep = { ids: ids, i: 0, bad: [] }; store.set(st);
+    }
+    if (st.rep.i >= st.rep.ids.length) return finish();
+    $('#gRep').classList.remove('hide'); showRep();
+  }
+  function showRep() {
+    var R2 = st.rep, n = R2.ids.length;
+    $('#bG').style.width = (R2.i / n * 100) + '%'; $('#pG').textContent = '補強第 ' + (R2.i + 1) + ' / ' + n + ' 題';
+    var q = G.repair[R2.ids[R2.i]], first = true;
+    $('#gRq').textContent = q.s; $('#gRm').textContent = '';
+    var box = $('#gRo'); box.innerHTML = '';
+    q.o.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i === q.a) {
+          b.className = 'right'; [].forEach.call(box.children, function (x) { x.disabled = true; });
+          $('#gRm').innerHTML = (first ? '✅ 答對了！' : '✅ 對了，記住它！') + '<div class="zhm">' + esc(q.x) + '</div>';
+          setTimeout(function () { R2.i++; store.set(st); if (R2.i >= R2.ids.length) { $('#bG').style.width = '100%'; $('#pG').textContent = '補強完成！'; $('#gRq').textContent = ''; box.innerHTML = ''; finish(); } else showRep(); }, first ? 1300 : 2600);
+        } else {
+          b.className = 'wrong'; b.disabled = true;
+          if (first) { first = false; R2.bad.push(R2.ids[R2.i]); store.set(st); }
+          $('#gRm').innerHTML = '❌ 不對喔，看看說明再選一次：<div class="zhm">' + esc(q.x) + '</div>';
+        }
+      };
+      box.appendChild(b);
+    });
+  }
 
   function finish() {
     $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
     $('#s1').textContent = st.first.read + '/' + R.questions.length;
     $('#s2').textContent = st.first.cloze + '/' + C.items.length;
     $('#s3').textContent = st.first.gram + '/' + G.items.length;
-    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+    var lines = ['第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length];
+    var wl = [];
+    if ((st.wr || []).length) wl.push('閱讀第 ' + st.wr.join('、') + ' 題');
+    if ((st.wc || []).length) wl.push('克漏字第 ' + st.wc.join('、') + ' 格');
+    if ((st.wg || []).length) wl.push('文法第 ' + st.wg.join('、') + ' 題');
+    if (wl.length) lines.push('第一次答錯：' + wl.join('；'));
+    var rp = st.rep || { ids: [], bad: [] };
+    if (rp.ids.length) {
+      var shaky = {}; rp.bad.forEach(function (k) { var g = G.repair[k].gp; shaky[g] = g + ' ' + (G.gpName[g] || ''); });
+      lines.push('文法錯一補二：補 ' + rp.ids.length + ' 題，第一次答對 ' + (rp.ids.length - rp.bad.length) + ' 題' +
+        (rp.bad.length ? '（還不穩：' + Object.keys(shaky).map(function (k) { return shaky[k]; }).join('、') + '）' : '，補起來了 👍'));
+      rp.bad.forEach(function (k) { lines.push('・補題答錯：' + G.repair[k].s); });
+    }
+    report(lines.join('\n'));
 
   }
 
   if (st.first.gram != null) {
     gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
-    $('#gCheck').disabled = true; finish();
+    $('#gCheck').disabled = true; startRepair();
   }
 })();
 </script>

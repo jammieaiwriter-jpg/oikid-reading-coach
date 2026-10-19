@@ -25,6 +25,8 @@ h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26p
 .tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
 .tag.bbc{background:#fde8eb;color:var(--brand2)}
 .tag.pick{background:#fff3e0;color:var(--warn)}
+.tag.gept{background:#e7f6ec;color:#1b7a3d}
+.tag.plus{background:#ede7fb;color:#5b3fb3}
 .zhm{color:var(--mute);font-size:15px}
 .ex{font-size:15px;margin-top:6px;color:#3b4250}
 .ex b{color:var(--brand2)}
@@ -138,10 +140,19 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 <div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
 <div id="gr" class="hide">
   <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
-  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <p class="hint">看括號裡的提示和句子前後的線索，填入正確的形式。<b>小心：不是每一題都套同一個規則！</b></p>
   <div class="card" id="gItems"></div>
   <button class="pri" id="gCheck">✔︎ 對答案</button>
   <div class="msg" id="gMsg"></div>
+  <div id="gRep" class="hide">
+    <div class="card" style="border-color:#f0b429">
+      <b>🔁 文法補強：錯一題，補兩題</b>
+      <div class="zhm">剛剛第一次填錯的地方，再用同一個文法練兩題。</div>
+      <div class="bar" style="margin-top:8px"><i id="bG"></i></div><div class="prog" id="pG"></div>
+      <div class="qhead" id="gRq" style="margin-top:8px"></div>
+      <div class="olist" id="gRo"></div><div class="msg" id="gRm"></div>
+    </div>
+  </div>
 </div>
 
 <div id="allDone" class="hide">
@@ -156,7 +167,7 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 </div>
 </div>
 <div id="toast"></div>
-<script>window.EP = {"ssd_dir": "260403_Talking about books", "id": "260403", "date": "2026-04-03", "series": "Real Easy English", "level": "Easy", "title": "Talking about books", "title_zh": "聊聊看書", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260403", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/260403_REE_books_download.mp3", "transcript_pdf": "260403_books_transcript逐字稿.pdf", "worksheet_pdf": "260403_books_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Neil 和 Becca 多常看書？他們各自喜歡哪一種書——長篇小說、詩，還是真人真事的傳記？聽完再對答案！", "vocab": [{"w": "fiction", "zh": "小說、虛構作品（故事不是真的）", "src": "BBC", "ex": "I love fiction because the stories are made up."}, {"w": "non-fiction", "zh": "非虛構作品（真實的內容）", "src": "BBC", "ex": "This non-fiction book is about real animals."}, {"w": "novel", "zh": "長篇小說", "src": "BBC", "ex": "This novel has more than two hundred pages."}, {"w": "biography", "zh": "傳記（寫別人一生的書）", "src": "BBC", "ex": "I read a biography of a famous singer."}, {"w": "autobiography", "zh": "自傳（寫自己一生的書）", "src": "BBC", "ex": "He wrote an autobiography about his own life."}, {"w": "poems", "zh": "詩（複數）", "src": "BBC", "ex": "My sister likes short poems about nature."}, {"w": "author", "zh": "作者、作家", "src": "pick", "ex": "Who is your favourite author?"}, {"w": "short story", "zh": "短篇故事", "src": "pick", "ex": "I read a short story before bed."}, {"w": "documentary", "zh": "紀錄片", "src": "pick", "ex": "We watched a documentary about the sea."}, {"w": "fall asleep", "zh": "睡著", "src": "pick", "ex": "I often fall asleep when I read in bed."}, {"w": "I prefer …", "say": "I prefer short books to long ones.", "zh": "我比較喜歡⋯", "src": "pick", "ex": "I prefer short books to long ones."}, {"w": "How often do you …", "say": "How often do you read?", "zh": "你多常⋯？", "src": "pick", "ex": "How often do you read?"}], "reading": {"title": "Two Different Readers", "paras": [["Neil and Becca both like reading, but they read in different ways.", "Neil reads every day.", "He reads serious books when he travels to and from work.", "At home, he reads easier things, because he often falls asleep with a book."], ["Becca doesn't read as often as Neil.", "She only reads when she feels relaxed, for example in the park or on the beach in summer.", "She likes short books, and long, thick books make her feel stressed."], ["Most of the books on her shelf are poems.", "Poems are short and emotional, and some of the words rhyme.", "Her favourite authors are poets."], ["Neil loves fiction, especially novels.", "A novel is one long story that the writer makes up.", "Becca asks him, \"Have you ever read a non-fiction book?\"", "Yes, he has read many biographies of musicians, because he plays the guitar."], ["Becca hasn't read many non-fiction books.", "She prefers watching documentaries."]], "questions": [{"q": "When does Neil read serious books?", "zh": "Neil 什麼時候讀比較嚴肅的書？", "opts": ["At home before he goes to bed.", "When he travels to and from work.", "In the park on summer days."], "a": 1, "ev": [2]}, {"q": "Why does Neil read easier things at home?", "zh": "為什麼 Neil 在家讀比較簡單的東西？", "opts": ["He often falls asleep there.", "He has no time there.", "His serious books are at work."], "a": 0, "ev": [3]}, {"q": "What are most of the books on Becca's shelf?", "zh": "Becca 書架上的書大多是什麼？", "opts": ["Long novels.", "Biographies of singers.", "Books of poems."], "a": 2, "ev": [7]}, {"q": "Why does Neil read biographies of musicians?", "zh": "為什麼 Neil 讀音樂家的傳記？", "opts": ["He plays the guitar.", "He wants to be an author.", "His teacher told him to."], "a": 0, "ev": [13]}, {"q": "How does Becca like to learn about true stories?", "zh": "Becca 喜歡用什麼方式認識真實的故事？", "opts": ["She reads biographies.", "She watches documentaries.", "She writes short poems."], "a": 1, "ev": [14, 15]}]}, "cloze": {"title": "Leo's message", "text": "Hi Amy! I went to the library today. I usually read {1}, like Harry Potter, because I love made-up stories. But today I found a {2} of a famous football player. It tells his life story! My sister doesn't like long books. She prefers {3}, because they are short and some of the words rhyme. Her favourite {4} is a poet from Taiwan. My dad doesn't read much. He prefers watching {5} about animals. And me? I read in bed every night until I {6}!", "items": [{"opts": ["non-fiction", "fiction", "poetry"], "a": 1}, {"opts": ["novel", "poem", "biography"], "a": 2}, {"opts": ["poems", "novels", "biographies"], "a": 0}, {"opts": ["author", "library", "shelf"], "a": 0}, {"opts": ["novels", "documentaries", "poems"], "a": 1}, {"opts": ["get up", "wake up", "fall asleep"], "a": 2}]}, "grammar": {"gp": ["GP-49"], "point": "現在完成式：經驗用法（Have you ever ＋ p.p.？）", "explain": "說「到現在為止<b>有沒有做過<\/b>某件事」，用 <b>have / has ＋ 過去分詞（p.p.）<\/b>：<br>問句：<b>Have you ever ＋ p.p. …?<\/b>（你曾經⋯過嗎？）<br>否定：<b>haven't / hasn't ＋ p.p.<\/b>（沒有⋯過）；也可以用 <b>have never ＋ p.p.<\/b><br>文章裡的例子：Becca asks him, \"Have you ever <b>read<\/b> a non-fiction book?\"<br>Yes, he <b>has read<\/b> many biographies of musicians.<br>Becca <b>hasn't read<\/b> many non-fiction books.", "spelling": ["規則動詞：過去分詞＝過去式，加 ed：finish → finished、watch → watched", "不規則動詞要背：read → read（唸 red）、see → seen、write → written、be → been"], "items": [{"s": "Have you ever ___ a biography?", "hint": "read", "a": ["read"]}, {"s": "I have ___ that documentary twice.", "hint": "see", "a": ["seen"]}, {"s": "Becca ___ many non-fiction books.", "hint": "not read", "a": ["hasn't read", "has not read"]}, {"s": "My brother has ___ a poem for his teacher.", "hint": "write", "a": ["written"]}, {"s": "Have you ever ___ to a big library?", "hint": "be", "a": ["been"]}, {"s": "I have never ___ a long, thick novel.", "hint": "finish", "a": ["finished"]}]}, "speaking": [{"q": "How often do you read? Where do you like to read?", "zh": "你多常看書？你喜歡在哪裡看書？", "starters": ["I read about … times a week.", "I like to read when I feel relaxed, for example …", "Sometimes I fall asleep when …"]}, {"q": "Do you prefer fiction or non-fiction? Why?", "zh": "你比較喜歡虛構故事還是真實內容的書？為什麼？", "starters": ["I prefer fiction because …", "I like novels about …", "I don't really like non-fiction because …"]}, {"q": "Have you ever read a biography? Whose life story would you like to read?", "zh": "你讀過傳記嗎？你想讀誰的一生故事？", "starters": ["Yes, I have read a biography of … / No, I have never read …", "I'd like to read a biography of … because …", "I think his or her life story is …"]}, {"q": "Tell me about your favourite book or author.", "zh": "說說你最喜歡的一本書或一位作者。", "tag": "KET 口說風格", "starters": ["My favourite author is …", "My favourite book is … It's a novel about …", "I like it because …"]}]}; window.PAGE = 'read';</script>
+<script>window.EP = {"ssd_dir": "260403_Talking about books", "id": "260403", "date": "2026-04-03", "series": "Real Easy English", "level": "Easy", "title": "Talking about books", "title_zh": "聊聊看書", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260403", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/260403_REE_books_download.mp3", "transcript_pdf": "260403_books_transcript逐字稿.pdf", "worksheet_pdf": "260403_books_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Neil 和 Becca 多常看書？他們各自喜歡哪一種書——長篇小說、詩，還是真人真事的傳記？聽完再對答案！", "vocab": [{"w": "fiction", "zh": "小說、虛構作品（故事不是真的）", "src": "BBC", "ex": "I love fiction because the stories are made up.", "lv": "plus"}, {"w": "non-fiction", "zh": "非虛構作品（真實的內容）", "src": "BBC", "ex": "This non-fiction book is about real animals.", "lv": "plus"}, {"w": "novel", "zh": "長篇小說", "src": "BBC", "ex": "This novel has more than two hundred pages.", "lv": "gept"}, {"w": "biography", "zh": "傳記（寫別人一生的書）", "src": "BBC", "ex": "I read a biography of a famous singer.", "lv": "plus"}, {"w": "autobiography", "zh": "自傳（寫自己一生的書）", "src": "BBC", "ex": "He wrote an autobiography about his own life.", "lv": "plus"}, {"w": "poems", "zh": "詩（複數）", "src": "BBC", "ex": "My sister likes short poems about nature.", "lv": "gept"}, {"w": "author", "zh": "作者、作家", "src": "pick", "ex": "Who is your favourite author?", "lv": "plus"}, {"w": "short story", "zh": "短篇故事", "src": "pick", "ex": "I read a short story before bed.", "lv": "gept"}, {"w": "documentary", "zh": "紀錄片", "src": "pick", "ex": "We watched a documentary about the sea.", "lv": "plus"}, {"w": "fall asleep", "zh": "睡著", "src": "pick", "ex": "I often fall asleep when I read in bed.", "lv": "gept"}, {"w": "I prefer …", "say": "I prefer short books to long ones.", "zh": "我比較喜歡⋯", "src": "pick", "ex": "I prefer short books to long ones.", "lv": "gept"}, {"w": "How often do you …", "say": "How often do you read?", "zh": "你多常⋯？", "src": "pick", "ex": "How often do you read?", "lv": "gept"}], "reading": {"title": "Two Different Readers", "paras": [["Neil and Becca both like reading, but they read in different ways.", "Neil reads every day.", "He reads serious books when he travels to and from work.", "At home, he reads easier things, because he often falls asleep with a book."], ["Becca sees a lot of people reading on the train, but she only reads when she feels relaxed.", "For example, she reads in the park or on the beach in summer.", "She doesn't read as often as she feels she should."], ["Becca likes short books, and long, thick books make her feel stressed.", "A lot of the books on her shelf at home are poems.", "Poems are short and emotional, and some of the words rhyme.", "She also enjoys short stories."], ["Neil loves fiction, especially novels.", "A novel is one long story that the writer makes up.", "Becca asks him, \"Have you ever read a non-fiction book?\"", "Neil says he likes biographies, especially about musicians.", "Becca knows he plays the guitar."], ["Becca hasn't read many non-fiction books.", "She prefers watching documentaries."]], "questions": [{"q": "What does Neil read when he travels to and from work?", "zh": "Neil 上下班通勤時讀什麼？", "opts": ["Easier things.", "Books of poems.", "Serious books."], "a": 2, "ev": [2]}, {"q": "What are a lot of the books on Becca's shelf at home?", "zh": "Becca 家裡書架上很多書是什麼？", "opts": ["Novels.", "Poems.", "Biographies."], "a": 1, "ev": [8]}, {"q": "What kind of fiction does Neil love most?", "zh": "Neil 最愛哪一種虛構作品？", "opts": ["Novels.", "Poems.", "Short stories."], "a": 0, "ev": [11]}, {"q": "Neil likes reading biographies of which people?", "zh": "Neil 喜歡讀哪一種人的傳記？", "opts": ["Poets.", "Authors.", "Musicians."], "a": 2, "ev": [14]}, {"q": "Which kind of books has Becca not read many of?", "zh": "Becca 哪一種書讀得不多？", "opts": ["Books of poems.", "Non-fiction books.", "Short story books."], "a": 1, "ev": [16]}]}, "cloze": {"title": "Leo's message", "text": "Hi Amy! I went to the library today. I usually read {1}, like Harry Potter, because I love made-up stories. But today I found a {2} of a famous football player. It tells his life story! My sister doesn't like long books. She prefers {3}, because they are short and some of the words rhyme. Her favourite {4} is a poet from Taiwan. My dad doesn't read much. He prefers watching {5} about animals. And me? I read in bed every night until I {6}!", "items": [{"opts": ["non-fiction", "fiction", "poetry"], "a": 1}, {"opts": ["novel", "poem", "biography"], "a": 2}, {"opts": ["poems", "novels", "biographies"], "a": 0}, {"opts": ["author", "library", "shelf"], "a": 0}, {"opts": ["novels", "documentaries", "poems"], "a": 1}, {"opts": ["get up", "wake up", "fall asleep"], "a": 2}]}, "grammar": {"gp": ["GP-49"], "point": "現在完成式：經驗用法（Have you ever ＋ p.p.？）", "explain": "說「到現在為止<b>有沒有做過<\/b>某件事」，用 <b>have / has ＋ 過去分詞（p.p.）<\/b>：<br>問句：<b>Have you ever ＋ p.p. …?<\/b>（你曾經⋯過嗎？）<br>否定：<b>haven't / hasn't ＋ p.p.<\/b>（沒有⋯過）；也可以用 <b>have never ＋ p.p.<\/b><br>文章裡的例子：Becca asks him, \"Have you ever <b>read<\/b> a non-fiction book?\"<br>Yes, he <b>has read<\/b> many biographies of musicians.<br>Becca <b>hasn't read<\/b> many non-fiction books.<br>⚠️ 小心：不是每一題都要用 have / has ＋ p.p.，先看時間線索：ever / never / twice / already 用現在完成式；every day 用現在式；last summer 用過去式。", "spelling": ["規則動詞：過去分詞＝過去式，加 ed：finish → finished、watch → watched", "不規則動詞要背：read → read（唸 red）、see → seen、write → written、be → been"], "items": [{"s": "Have you ever ___ a biography?", "hint": "read", "a": ["read"]}, {"s": "These days, Neil ___ on the train every day.", "hint": "read", "a": ["reads"]}, {"s": "I have ___ that documentary twice.", "hint": "see", "a": ["seen"]}, {"s": "Becca ___ to the beach with a book last summer.", "hint": "go", "a": ["went"]}, {"s": "My brother has already ___ two poems for his teacher.", "hint": "write", "a": ["written"]}, {"s": "I have never ___ a long, thick novel.", "hint": "finish", "a": ["finished"]}], "repair": [{"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "My father has worked at that factory ___ almost thirty years.", "o": ["since", "in", "before", "for"], "a": 3, "x": "for 後面接「一段時間」。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "He ___ all the milk already.", "o": ["has drink", "has drank", "has drunk", "have drunk"], "a": 2, "x": "主詞「He」是第三人稱單數，用 has；後面一定接過去分詞 drunk（過去式是 drank，不能混用）。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "It ___ two years since Ben moved to Taipei.", "o": ["has", "has been", "was been", "was"], "a": 1, "x": "It has been + 一段時間 + since… 是固定句型。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "Mary ___ to the night market already.", "o": ["has gone", "has went", "have gone", "has go"], "a": 0, "x": "主詞「Mary」是第三人稱單數，用 has；後面一定接過去分詞 gone（過去式是 went，不能混用）。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "Ben and Tom ___ before, so they are not strangers.", "o": ["have met", "meets", "has met", "meet"], "a": 0, "x": "主詞是兩個人，用 have；後面接過去分詞 met。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "We ___ that English song before.", "o": ["have sing", "have sang", "has sung", "have sung"], "a": 3, "x": "主詞「We」不是第三人稱單數，用 have；後面一定接過去分詞 sung（過去式是 sang，不能混用）。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "The bus has ___. Let's go outside now.", "o": ["come", "comes", "came", "coming"], "a": 0, "x": "have／has 後面接過去分詞；come 的三態是 come, came, come。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "You ___ that English song before.", "o": ["have sang", "has sung", "have sing", "have sung"], "a": 3, "x": "主詞「You」不是第三人稱單數，用 have；後面一定接過去分詞 sung（過去式是 sang，不能混用）。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "Have you ___ eaten Japanese food?  ─ Yes, once.", "o": ["once", "ever", "before", "never"], "a": 1, "x": "問「曾經」用 ever；never 是「從來沒有」，不能放在問句裡。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "Tom ___ to the teacher already.", "o": ["has speak", "has spoke", "has spoken", "have spoken"], "a": 2, "x": "主詞「Tom」是第三人稱單數，用 has；後面一定接過去分詞 spoken（過去式是 spoke，不能混用）。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-perfect-frame-001", "s": "Mary hasn't finished her homework ___.", "o": ["already", "just", "yet", "never"], "a": 2, "x": "否定句的句尾用 yet＝「還沒」；already 用在肯定句。"}, {"gp": "GP-49", "t": "MTX-ENG-GP49-present-perfect-001", "s": "My parents ___ two bowls of noodles already.", "o": ["have eat", "has eaten", "have ate", "have eaten"], "a": 3, "x": "主詞「My parents」不是第三人稱單數，用 have；後面一定接過去分詞 eaten（過去式是 ate，不能混用）。"}], "gpName": {"GP-49": "現在完成式"}}, "speaking": [{"q": "How often do you read? Where do you like to read?", "zh": "你多常看書？你喜歡在哪裡看書？", "starters": ["I read about … times a week.", "I like to read when I feel relaxed, for example …", "Sometimes I fall asleep when …"]}, {"q": "Do you prefer fiction or non-fiction? Why?", "zh": "你比較喜歡虛構故事還是真實內容的書？為什麼？", "starters": ["I prefer fiction because …", "I like novels about …", "I don't really like non-fiction because …"]}, {"q": "Have you ever read a biography? Whose life story would you like to read?", "zh": "你讀過傳記嗎？你想讀誰的一生故事？", "starters": ["Yes, I have read a biography of … / No, I have never read …", "I'd like to read a biography of … because …", "I think his or her life story is …"]}, {"q": "Tell me about your favourite book or author.", "zh": "說說你最喜歡的一本書或一位作者。", "tag": "KET 口說風格", "starters": ["My favourite author is …", "My favourite book is … It's a novel about …", "I like it because …"]}]}; window.PAGE = 'read';</script>
 <script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
    紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
 var EP = window.EP;
@@ -296,6 +307,8 @@ function passText(r) {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
   st.first = st.first || {};
+  /* 第一次就答錯的題號（給家長通知，也用來抓寫壞的題目） */
+  function logWrong(k, n) { st[k] = st[k] || []; if (st[k].indexOf(n) < 0) { st[k].push(n); store.set(st); } }
 
   function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
   $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
@@ -336,7 +349,7 @@ function passText(r) {
     q.opts.forEach(function (o, i) {
       var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
       b.onclick = function () {
-        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; if (first) logWrong('wr', qi + 1); first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
         b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
         msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
         art.classList.add('pick'); art.scrollTop = 0;
@@ -418,7 +431,7 @@ function passText(r) {
           if (!tried[n]) czFirst++; czDone++;
           $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
           if (czDone >= C.items.length) czFinish();
-        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+        } else { ob.className = 'wrong'; ob.disabled = true; if (!tried[n]) logWrong('wc', n); tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
       };
       pop.appendChild(ob);
     });
@@ -452,29 +465,78 @@ function passText(r) {
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {
-        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        row.className = 'gitem no'; if (!gWrong[i]) logWrong('wg', i + 1); gWrong[i] = (gWrong[i] || 0) + 1;
         if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
       }
     });
     if (ok >= G.items.length) {
       var f = G.items.length - Object.keys(gWrong).length;
       st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
-      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; startRepair();
     } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
   };
+
+  /* ---- 文法錯一補二（題目來自知洞學堂英文文法題庫；同知洞規則：不遞迴，補題錯了不再加題，記為「還不穩」） ---- */
+  function startRepair() {
+    var nWrong = (st.wg || []).length, P = G.repair || [];
+    if (!st.rep) {
+      var need = Math.min(nWrong * 2, P.length), ids = [], used = {};
+      // 先挑不同模板的題，再補同模板的，避免兩題長得一樣
+      P.forEach(function (x, i) { if (ids.length < need && !used[x.t]) { used[x.t] = 1; ids.push(i); } });
+      P.forEach(function (x, i) { if (ids.length < need && ids.indexOf(i) < 0) ids.push(i); });
+      st.rep = { ids: ids, i: 0, bad: [] }; store.set(st);
+    }
+    if (st.rep.i >= st.rep.ids.length) return finish();
+    $('#gRep').classList.remove('hide'); showRep();
+  }
+  function showRep() {
+    var R2 = st.rep, n = R2.ids.length;
+    $('#bG').style.width = (R2.i / n * 100) + '%'; $('#pG').textContent = '補強第 ' + (R2.i + 1) + ' / ' + n + ' 題';
+    var q = G.repair[R2.ids[R2.i]], first = true;
+    $('#gRq').textContent = q.s; $('#gRm').textContent = '';
+    var box = $('#gRo'); box.innerHTML = '';
+    q.o.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i === q.a) {
+          b.className = 'right'; [].forEach.call(box.children, function (x) { x.disabled = true; });
+          $('#gRm').innerHTML = (first ? '✅ 答對了！' : '✅ 對了，記住它！') + '<div class="zhm">' + esc(q.x) + '</div>';
+          setTimeout(function () { R2.i++; store.set(st); if (R2.i >= R2.ids.length) { $('#bG').style.width = '100%'; $('#pG').textContent = '補強完成！'; $('#gRq').textContent = ''; box.innerHTML = ''; finish(); } else showRep(); }, first ? 1300 : 2600);
+        } else {
+          b.className = 'wrong'; b.disabled = true;
+          if (first) { first = false; R2.bad.push(R2.ids[R2.i]); store.set(st); }
+          $('#gRm').innerHTML = '❌ 不對喔，看看說明再選一次：<div class="zhm">' + esc(q.x) + '</div>';
+        }
+      };
+      box.appendChild(b);
+    });
+  }
 
   function finish() {
     $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
     $('#s1').textContent = st.first.read + '/' + R.questions.length;
     $('#s2').textContent = st.first.cloze + '/' + C.items.length;
     $('#s3').textContent = st.first.gram + '/' + G.items.length;
-    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+    var lines = ['第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length];
+    var wl = [];
+    if ((st.wr || []).length) wl.push('閱讀第 ' + st.wr.join('、') + ' 題');
+    if ((st.wc || []).length) wl.push('克漏字第 ' + st.wc.join('、') + ' 格');
+    if ((st.wg || []).length) wl.push('文法第 ' + st.wg.join('、') + ' 題');
+    if (wl.length) lines.push('第一次答錯：' + wl.join('；'));
+    var rp = st.rep || { ids: [], bad: [] };
+    if (rp.ids.length) {
+      var shaky = {}; rp.bad.forEach(function (k) { var g = G.repair[k].gp; shaky[g] = g + ' ' + (G.gpName[g] || ''); });
+      lines.push('文法錯一補二：補 ' + rp.ids.length + ' 題，第一次答對 ' + (rp.ids.length - rp.bad.length) + ' 題' +
+        (rp.bad.length ? '（還不穩：' + Object.keys(shaky).map(function (k) { return shaky[k]; }).join('、') + '）' : '，補起來了 👍'));
+      rp.bad.forEach(function (k) { lines.push('・補題答錯：' + G.repair[k].s); });
+    }
+    report(lines.join('\n'));
 
   }
 
   if (st.first.gram != null) {
     gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
-    $('#gCheck').disabled = true; finish();
+    $('#gCheck').disabled = true; startRepair();
   }
 })();
 </script>

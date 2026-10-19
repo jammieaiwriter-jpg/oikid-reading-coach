@@ -25,6 +25,8 @@ h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26p
 .tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
 .tag.bbc{background:#fde8eb;color:var(--brand2)}
 .tag.pick{background:#fff3e0;color:var(--warn)}
+.tag.gept{background:#e7f6ec;color:#1b7a3d}
+.tag.plus{background:#ede7fb;color:#5b3fb3}
 .zhm{color:var(--mute);font-size:15px}
 .ex{font-size:15px;margin-top:6px;color:#3b4250}
 .ex b{color:var(--brand2)}
@@ -138,10 +140,19 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 <div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
 <div id="gr" class="hide">
   <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
-  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <p class="hint">看括號裡的提示和句子前後的線索，填入正確的形式。<b>小心：不是每一題都套同一個規則！</b></p>
   <div class="card" id="gItems"></div>
   <button class="pri" id="gCheck">✔︎ 對答案</button>
   <div class="msg" id="gMsg"></div>
+  <div id="gRep" class="hide">
+    <div class="card" style="border-color:#f0b429">
+      <b>🔁 文法補強：錯一題，補兩題</b>
+      <div class="zhm">剛剛第一次填錯的地方，再用同一個文法練兩題。</div>
+      <div class="bar" style="margin-top:8px"><i id="bG"></i></div><div class="prog" id="pG"></div>
+      <div class="qhead" id="gRq" style="margin-top:8px"></div>
+      <div class="olist" id="gRo"></div><div class="msg" id="gRm"></div>
+    </div>
+  </div>
 </div>
 
 <div id="allDone" class="hide">
@@ -156,7 +167,7 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 </div>
 </div>
 <div id="toast"></div>
-<script>window.EP = {"ssd_dir": "250328_Talking about teachers", "id": "250328", "date": "2025-03-28", "series": "Real Easy English", "level": "Easy", "title": "Talking about teachers", "title_zh": "聊聊老師", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/250328", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/RealEasyEnglish_teachers_download.mp3", "transcript_pdf": "250328_teachers_transcript逐字稿.pdf", "worksheet_pdf": "250328_teachers_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Beth 和 Neil 最喜歡的老師是誰？教什麼科目？他們覺得「好老師」需要有哪些特質？聽完再對答案！", "vocab": [{"w": "inspire", "zh": "激勵、啟發", "src": "BBC", "ex": "Good teachers inspire us to learn."}, {"w": "wise", "zh": "有智慧的、明智的", "src": "BBC", "ex": "My grandma is very wise."}, {"w": "respect", "zh": "尊敬、尊重", "src": "BBC", "ex": "We all respect our teacher."}, {"w": "put in effort", "zh": "付出努力", "src": "BBC", "ex": "I put in effort every day."}, {"w": "favourite", "zh": "最喜愛的", "src": "pick", "ex": "Who was your favourite teacher?"}, {"w": "subject", "zh": "科目", "src": "pick", "ex": "Science is my best subject."}, {"w": "look forward to …", "say": "We look forward to his lessons.", "zh": "期待⋯", "src": "pick", "ex": "We look forward to his lessons."}, {"w": "work hard", "zh": "努力、用功", "src": "pick", "ex": "We work hard in maths class."}, {"w": "scary", "zh": "可怕的、嚇人的", "src": "pick", "ex": "Our new teacher looks a bit scary."}, {"w": "relaxed", "zh": "放鬆的", "src": "pick", "ex": "I feel relaxed in art class."}, {"w": "experience", "zh": "經驗", "src": "pick", "ex": "Old teachers have a lot of experience."}, {"w": "make a decision", "zh": "做決定", "src": "pick", "ex": "It is hard to make a decision."}], "reading": {"title": "Our Favourite Teachers", "paras": [["Beth and Neil talked about teachers in their podcast.", "They think a good teacher can inspire students and make them want to learn.", "With the right teacher, even a boring subject can become fun."], ["Beth's favourite teacher was her science teacher, Mr Langford.", "The students called him Langy.", "He made science fun, and once the class sang karaoke with science words.", "Everyone looked forward to his lessons."], ["Neil remembered a university professor.", "He knew a lot about his subject, and the students wanted to be in his classes.", "It was a long time ago, so Neil doesn't remember everything, but he still remembers a lot."], ["Beth also had a teacher who was a bit scary.", "But the students really liked her, so they worked hard and put in a lot of effort.", "They had a lot of respect for her."], ["Neil thinks older teachers are often wise.", "They have a lot of experience, and they make good decisions.", "Beth and Neil agree that a good teacher needs respect and a bit of fun."]], "questions": [{"q": "What subject did Mr Langford teach?", "zh": "Langford 老師教什麼科目？", "opts": ["Music.", "Science.", "English."], "a": 1, "ev": [3]}, {"q": "What did Beth's class once do in his lessons?", "zh": "Beth 的班上有一次在他的課上做了什麼？", "opts": ["They sang karaoke.", "They watched a film.", "They played a game outside."], "a": 0, "ev": [5]}, {"q": "Why doesn't Neil remember everything from his professor?", "zh": "為什麼 Neil 不記得教授教的全部內容？", "opts": ["The lessons were boring.", "He didn't go to many classes.", "It was a long time ago."], "a": 2, "ev": [9]}, {"q": "Why did the students work hard for the scary teacher?", "zh": "為什麼學生在那位有點兇的老師課上很用功？", "opts": ["They were afraid of her.", "She gave them lots of homework.", "They really liked her."], "a": 2, "ev": [11]}, {"q": "What does Neil say about older teachers?", "zh": "Neil 對年紀比較大的老師有什麼看法？", "opts": ["They are too strict.", "They are often wise.", "They can't understand young kids."], "a": 1, "ev": [13, 14]}]}, "cloze": {"title": "Amy's diary", "text": "Dear diary, Today we had art, my favourite {1}. Our teacher, Ms Lin, is very {2}. She has a lot of life experience and always makes good decisions. She {3} me to draw every day. She can be a bit {4} when we are noisy, but everyone {5} her because she is kind and fair. So I always {6} in a lot of effort in her class. I really look forward to her lessons!", "items": [{"opts": ["teacher", "subject", "school"], "a": 1}, {"opts": ["tired", "late", "wise"], "a": 2}, {"opts": ["inspires", "sings", "looks"], "a": 0}, {"opts": ["happy", "scary", "quiet"], "a": 1}, {"opts": ["forgets", "loses", "respects"], "a": 2}, {"opts": ["take", "put", "keep"], "a": 1}]}, "grammar": {"gp": ["GP-28", "GP-29"], "point": "過去式（規則＋不規則動詞）", "explain": "說「過去發生的事」要用<b>過去式<\/b>。<br><b>規則動詞<\/b>：原形加 -ed，例如 look → <b>looked<\/b>、talk → <b>talked<\/b>。<br><b>不規則動詞<\/b>：要一個一個背，例如 make → <b>made<\/b>、sing → <b>sang<\/b>、have → <b>had<\/b>、know → <b>knew<\/b>。<br>文章裡的例子：Everyone <b>looked<\/b> forward to his lessons. He <b>made<\/b> science fun, and once the class <b>sang<\/b> karaoke.", "spelling": ["一般直接加 ed：look → looked、talk → talked", "字尾是 e，只加 d：like → liked、live → lived", "子音＋y 結尾，去 y 改 ied：study → studied", "短母音＋一個子音結尾，重複字尾再加 ed：stop → stopped"], "items": [{"s": "Everyone ___ forward to Mr Langford's lessons.", "hint": "look", "a": ["looked"]}, {"s": "The students really ___ their scary teacher.", "hint": "like", "a": ["liked"]}, {"s": "Neil ___ at university a long time ago.", "hint": "study", "a": ["studied"]}, {"s": "Mr Langford ___ science fun.", "hint": "make", "a": ["made"]}, {"s": "Last year our class ___ songs in English lessons.", "hint": "sing", "a": ["sang"]}, {"s": "We ___ a lot from our wise teacher.", "hint": "learn", "a": ["learned", "learnt"]}]}, "speaking": [{"q": "Who is your favourite teacher? Why?", "zh": "你最喜歡的老師是誰？為什麼？", "starters": ["My favourite teacher is …", "He / She teaches …", "I respect him / her because …"]}, {"q": "What is your favourite subject at school? Why?", "zh": "你在學校最喜歡哪個科目？為什麼？", "starters": ["My favourite subject is …", "I put in a lot of effort in …", "I look forward to … lessons because …"]}, {"q": "What do you think makes a good teacher?", "zh": "你覺得怎樣才算是好老師？", "starters": ["I think a good teacher is …", "Students respect a teacher who …", "A wise teacher …"]}, {"q": "Tell me about a teacher who inspired you. What did he or she do?", "zh": "說說一位啟發過你的老師。他／她做了什麼？", "tag": "KET 口說風格", "starters": ["A teacher who inspired me was …", "He / She made … fun by …", "Because of him / her, I worked hard and …"]}]}; window.PAGE = 'read';</script>
+<script>window.EP = {"ssd_dir": "250328_Talking about teachers", "id": "250328", "date": "2025-03-28", "series": "Real Easy English", "level": "Easy", "title": "Talking about teachers", "title_zh": "聊聊老師", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/250328", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/RealEasyEnglish_teachers_download.mp3", "transcript_pdf": "250328_teachers_transcript逐字稿.pdf", "worksheet_pdf": "250328_teachers_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Beth 和 Neil 最喜歡的老師是誰？教什麼科目？他們覺得「好老師」需要有哪些特質？聽完再對答案！", "vocab": [{"w": "inspire", "zh": "激勵、啟發", "src": "BBC", "ex": "Good teachers inspire us to learn.", "lv": "gept"}, {"w": "wise", "zh": "有智慧的、明智的", "src": "BBC", "ex": "My grandma is very wise.", "lv": "gept"}, {"w": "respect", "zh": "尊敬、尊重", "src": "BBC", "ex": "We all respect our teacher.", "lv": "gept"}, {"w": "put in effort", "zh": "付出努力", "src": "BBC", "ex": "You need to put in effort to get good at English.", "lv": "gept"}, {"w": "favourite", "zh": "最喜愛的", "src": "pick", "ex": "Who was your favourite teacher?", "lv": "gept"}, {"w": "subject", "zh": "科目", "src": "pick", "ex": "Science is my best subject.", "lv": "gept"}, {"w": "look forward to …", "say": "We look forward to his lessons.", "zh": "期待⋯", "src": "pick", "ex": "We look forward to his lessons.", "lv": "gept"}, {"w": "work hard", "zh": "努力、用功", "src": "pick", "ex": "We work hard in maths class.", "lv": "gept"}, {"w": "scary", "zh": "可怕的、嚇人的", "src": "pick", "ex": "Our new teacher looks a bit scary.", "lv": "plus"}, {"w": "relaxed", "zh": "放鬆的", "src": "pick", "ex": "I feel relaxed in art class.", "lv": "plus"}, {"w": "experience", "zh": "經驗", "src": "pick", "ex": "Older teachers have a lot of experience.", "lv": "gept"}, {"w": "make a decision", "zh": "做決定", "src": "pick", "ex": "It is hard to make a decision.", "lv": "gept"}], "reading": {"title": "Our Favourite Teachers", "paras": [["Beth and Neil talked about teachers in their podcast.", "They think good teachers inspire students to learn."], ["Beth's favourite teacher was her science teacher, Mr Langford.", "The students called him Langy.", "Science was just a normal subject for Beth, but he made it fun.", "Once the class sang karaoke with science words.", "Everyone looked forward to his lessons.", "Neil agreed: students remember more when they have fun and feel relaxed."], ["Neil remembered a university professor.", "He knew a lot about his subject, and students liked his classes.", "It was a long time ago, so Neil doesn't remember everything.", "Beth said she doesn't remember much science."], ["Beth also had a teacher who was a bit scary.", "But the students really liked her, so they put in a lot of effort.", "They had a lot of respect for her."], ["Neil thinks some older teachers are the best because they are wise.", "Wise people have a lot of life experience and make good decisions.", "Beth agreed that both of her teachers were wise.", "They agree a good teacher needs respect and fun."]], "questions": [{"q": "Who said students remember more when they feel relaxed?", "zh": "誰說學生覺得放鬆的時候會記得比較多？", "opts": ["Beth.", "Neil.", "Langy."], "a": 1, "ev": [7]}, {"q": "What did Beth's science class once do?", "zh": "Beth 的科學課有一次做了什麼？", "opts": ["They sang karaoke.", "They visited a university.", "They made a podcast."], "a": 0, "ev": [5]}, {"q": "What did Beth say about both of her teachers?", "zh": "Beth 怎麼形容她提到的兩位老師？", "opts": ["They were scary.", "They were relaxed.", "They were wise."], "a": 2, "ev": [17]}, {"q": "Whose lessons did everyone look forward to?", "zh": "大家都很期待誰的課？", "opts": ["The scary teacher's.", "Mr Langford's.", "Neil's professor's."], "a": 1, "ev": [6]}, {"q": "What was science for Beth?", "zh": "科學對 Beth 來說是怎樣的科目？", "opts": ["Just a normal subject.", "Her favourite subject.", "A scary subject."], "a": 0, "ev": [4]}]}, "cloze": {"title": "Amy's diary", "text": "Dear diary, Today we had art, my favourite {1}. Our teacher, Ms Lin, is very {2}. She has a lot of life experience and always makes good decisions. She {3} me to draw every day. She can be a bit {4} when we are noisy, but everyone {5} her because she is kind and fair. So I always {6} in a lot of effort in her class. I really look forward to her lessons!", "items": [{"opts": ["teacher", "subject", "school"], "a": 1}, {"opts": ["tired", "late", "wise"], "a": 2}, {"opts": ["inspires", "sings", "looks"], "a": 0}, {"opts": ["happy", "scary", "hungry"], "a": 1}, {"opts": ["forgets", "loses", "respects"], "a": 2}, {"opts": ["take", "put", "keep"], "a": 1}]}, "grammar": {"gp": ["GP-28", "GP-29"], "point": "過去式（規則＋不規則動詞）", "explain": "說「過去發生的事」要用<b>過去式<\/b>。<br><b>規則動詞<\/b>：原形加 -ed，例如 look → <b>looked<\/b>、talk → <b>talked<\/b>。<br><b>不規則動詞<\/b>：要一個一個背，例如 make → <b>made<\/b>、sing → <b>sang<\/b>、have → <b>had<\/b>、know → <b>knew<\/b>。<br>文章裡的例子：Everyone <b>looked<\/b> forward to his lessons. He <b>made<\/b> science fun, and once the class <b>sang<\/b> karaoke.<br>⚠️ 小心：不是每一題都要用過去式，先找時間線索（last year / now / every day / tomorrow / will）再決定。", "spelling": ["一般直接加 ed：look → looked、talk → talked", "字尾是 e，只加 d：like → liked、live → lived", "子音＋y 結尾，去 y 改 ied：study → studied", "短母音＋一個子音結尾，重複字尾再加 ed：stop → stopped"], "items": [{"s": "Last year everyone ___ forward to Mr Langford's lessons.", "hint": "look", "a": ["looked"]}, {"s": "Ms Lin is our teacher this year. She always ___ her lessons fun.", "hint": "make", "a": ["makes"]}, {"s": "Ten years ago, the students really ___ their scary teacher.", "hint": "like", "a": ["liked"]}, {"s": "Neil ___ at university a long time ago.", "hint": "study", "a": ["studied"]}, {"s": "Tomorrow we will ___ a song in our English lesson.", "hint": "sing", "a": ["sing"]}, {"s": "Last year we ___ a lot from our wise teacher.", "hint": "learn", "a": ["learned", "learnt"]}], "repair": [{"gp": "GP-28", "t": "MTX-ENG-GP28-did-question-2blank-001", "s": "Amy: ___ they ___ at the night market last Friday?  Ben: Yes, they did.", "o": ["Were; shop", "Did; shop", "Do; shop", "Did; shops"], "a": 1, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Do）。 Did 已經表示過去了，後面的動詞回原形 shop，不能再變成 shopped。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-form-001", "s": "You ___ the whole class to dinner last Sunday.", "o": ["invited", "inviting", "invitation", "invites"], "a": 0, "x": "句子裡的時間是過去，動詞要用過去式：invite → invited（字尾是 e，只加 -d）。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-negative-001", "s": "She ___ at the factory last year.", "o": ["doesn't work", "don't work", "didn't work", "didn't worked"], "a": 2, "x": "句子裡的時間是過去，否定要用 didn't，後面的動詞一律回原形 work。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-did-question-2blank-001", "s": "A: ___ Tom ___ two bags to the car last Sunday?  B: Yes, he did.", "o": ["Was; carry", "Does; carry", "Did; carry", "Did; carried"], "a": 2, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Does）。 Did 已經表示過去了，後面的動詞回原形 carry，不能再變成 carried。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-form-001", "s": "The students ___ basketball after school yesterday.", "o": ["is playing", "play", "had played", "played"], "a": 3, "x": "句子裡的時間是過去，動詞要用過去式：play → played（一般動詞直接加 -ed）。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-negative-001", "s": "They ___ the police last night.", "o": ["didn't call", "didn't called", "don't call", "doesn't call"], "a": 0, "x": "句子裡的時間是過去，否定要用 didn't，後面的動詞一律回原形 call。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-did-question-2blank-001", "s": "Ben: ___ Mary ___ about the weather all day yesterday?  Amy: Yes, she did.", "o": ["Does; worry", "Was; worry", "Did; worry", "Did; worried"], "a": 2, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Does）。 Did 已經表示過去了，後面的動詞回原形 worry，不能再變成 worried。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-form-001", "s": "The students ___ the piano at the party last night.", "o": ["played", "is playing", "had played", "playing"], "a": 0, "x": "句子裡的時間是過去，動詞要用過去式：play → played（一般動詞直接加 -ed）。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-negative-001", "s": "You ___ the desk to the window yesterday.", "o": ["didn't moves", "didn't move", "don't move", "doesn't move"], "a": 1, "x": "句子裡的時間是過去，否定要用 didn't，後面的動詞一律回原形 move。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-did-question-2blank-001", "s": "Amy: ___ he ___ in Taipei two years ago?  Ben: Yes, he did.", "o": ["Is; live", "Do; live", "Did; lived", "Did; live"], "a": 3, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Does）。 Did 已經表示過去了，後面的動詞回原形 live，不能再變成 lived。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-form-001", "s": "He ___ a movie after dinner yesterday.", "o": ["watched", "am watching", "had watched", "watch"], "a": 0, "x": "句子裡的時間是過去，動詞要用過去式：watch → watched（一般動詞直接加 -ed）。"}, {"gp": "GP-28", "t": "MTX-ENG-GP28-past-negative-001", "s": "We ___ in the park every Sunday.", "o": ["didn't dance", "don't dance", "doesn't dance", "don't danced"], "a": 1, "x": "句子講的是平常的習慣，用現在式的 don't，後面的動詞一律回原形 dance。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-irregular-past-form-001", "s": "They ___ a lot of noise in the music room yesterday.", "o": ["makes", "making", "made", "maked"], "a": 2, "x": "句子裡的時間是過去，make 是不規則動詞，過去式是 made（過去式和過去分詞長得一樣；過去分詞是 made）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-did-irregular-2blank-001", "s": "Amy: ___ Tom ___ the keys in the bag last night?  Ben: Yes, he did.", "o": ["Did; puted", "Was; put", "Did; put", "Does; put"], "a": 2, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Does）。 Did 已經表示過去了，後面回原形 put，不能用過去式 put，也不能自己加 -ed。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-full-reply-001", "s": "Amy: Did your father have a bad cold last week?  Ben: ___", "o": ["Yes, he does.", "Yes, they did.", "Yes, he was.", "Yes, he did."], "a": 3, "x": "問句用 Did 起頭，簡答就要用 did 回答：Yes, he did.（不換成 be 動詞，也不用現在式的 does）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-irregular-past-form-001", "s": "Tom and Mary ___ the money in the box last night.", "o": ["put", "putting", "puts", "puted"], "a": 0, "x": "句子裡的時間是過去，put 是不規則動詞，過去式是 put（三態同形，靠句子裡的時間詞才看得出是過去；過去分詞是 put）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-did-irregular-2blank-001", "s": "A: ___ the students ___ a long letter last Sunday?  B: Yes, they did.", "o": ["Were; write", "Did; wrote", "Did; write", "Do; write"], "a": 2, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Do）。 Did 已經表示過去了，後面回原形 write，不能用過去式 wrote，也不能自己加 -ed。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-full-reply-001", "s": "A: Did Tom and Mary see the doctor yesterday morning?  B: ___", "o": ["Yes, they do.", "Yes, he did.", "Yes, they were.", "Yes, they did."], "a": 3, "x": "問句用 Did 起頭，簡答就要用 did 回答：Yes, they did.（不換成 be 動詞，也不用現在式的 do）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-irregular-past-form-001", "s": "I ___ the cake at the party last night.", "o": ["cutting", "cuted", "cut", "cuts"], "a": 2, "x": "句子裡的時間是過去，cut 是不規則動詞，過去式是 cut（三態同形，靠句子裡的時間詞才看得出是過去；過去分詞是 cut）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-did-irregular-2blank-001", "s": "Ben: ___ the students ___ a wallet on the school bus yesterday?  Amy: Yes, they did.", "o": ["Does; find", "Did; found", "Are; find", "Did; find"], "a": 3, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Do）。 Did 已經表示過去了，後面回原形 find，不能用過去式 found，也不能自己加 -ed。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-irregular-past-form-001", "s": "You ___ a lot of pictures at the zoo last Sunday.", "o": ["take", "took", "taken", "taked"], "a": 1, "x": "句子裡的時間是過去，take 是不規則動詞，過去式是 took（原形、過去式、過去分詞三個都不一樣，要一起背；過去分詞是 taken）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-did-irregular-2blank-001", "s": "Ben: ___ Mary ___ for ten hours last night?  Amy: Yes, she did.", "o": ["Did; slept", "Is; sleep", "Did; sleep", "Do; sleep"], "a": 2, "x": "過去式的疑問句借助動詞 Did，不管主詞是不是第三人稱單數都一樣（現在式才要分 Does）。 Did 已經表示過去了，後面回原形 sleep，不能用過去式 slept，也不能自己加 -ed。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-full-reply-001", "s": "Ben: Did Mary find the answer in the book last night?  Amy: ___", "o": ["Yes, she did.", "Yes, she does.", "Yes, she was.", "Yes, they did."], "a": 0, "x": "問句用 Did 起頭，簡答就要用 did 回答：Yes, she did.（不換成 be 動詞，也不用現在式的 does）。"}, {"gp": "GP-29", "t": "MTX-ENG-GP29-irregular-past-form-001", "s": "Tom ___ a new bag at the night market last Friday.", "o": ["buyed", "buying", "buy", "bought"], "a": 3, "x": "句子裡的時間是過去，buy 是不規則動詞，過去式是 bought（過去式和過去分詞長得一樣；過去分詞是 bought）。"}], "gpName": {"GP-28": "規則動詞過去式", "GP-29": "不規則動詞過去式"}}, "speaking": [{"q": "Who is your favourite teacher? Why?", "zh": "你最喜歡的老師是誰？為什麼？", "starters": ["My favourite teacher is …", "He / She teaches …", "I respect him / her because …"]}, {"q": "What is your favourite subject at school? Why?", "zh": "你在學校最喜歡哪個科目？為什麼？", "starters": ["My favourite subject is …", "I put in a lot of effort in …", "I look forward to … lessons because …"]}, {"q": "What do you think makes a good teacher?", "zh": "你覺得怎樣才算是好老師？", "starters": ["I think a good teacher is …", "Students respect a teacher who …", "A wise teacher …"]}, {"q": "Tell me about a teacher who inspired you. What did he or she do?", "zh": "說說一位啟發過你的老師。他／她做了什麼？", "tag": "KET 口說風格", "starters": ["A teacher who inspired me was …", "He / She made … fun by …", "Because of him / her, I worked hard and …"]}]}; window.PAGE = 'read';</script>
 <script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
    紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
 var EP = window.EP;
@@ -296,6 +307,8 @@ function passText(r) {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
   st.first = st.first || {};
+  /* 第一次就答錯的題號（給家長通知，也用來抓寫壞的題目） */
+  function logWrong(k, n) { st[k] = st[k] || []; if (st[k].indexOf(n) < 0) { st[k].push(n); store.set(st); } }
 
   function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
   $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
@@ -336,7 +349,7 @@ function passText(r) {
     q.opts.forEach(function (o, i) {
       var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
       b.onclick = function () {
-        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; if (first) logWrong('wr', qi + 1); first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
         b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
         msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
         art.classList.add('pick'); art.scrollTop = 0;
@@ -418,7 +431,7 @@ function passText(r) {
           if (!tried[n]) czFirst++; czDone++;
           $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
           if (czDone >= C.items.length) czFinish();
-        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+        } else { ob.className = 'wrong'; ob.disabled = true; if (!tried[n]) logWrong('wc', n); tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
       };
       pop.appendChild(ob);
     });
@@ -452,29 +465,78 @@ function passText(r) {
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {
-        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        row.className = 'gitem no'; if (!gWrong[i]) logWrong('wg', i + 1); gWrong[i] = (gWrong[i] || 0) + 1;
         if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
       }
     });
     if (ok >= G.items.length) {
       var f = G.items.length - Object.keys(gWrong).length;
       st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
-      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; startRepair();
     } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
   };
+
+  /* ---- 文法錯一補二（題目來自知洞學堂英文文法題庫；同知洞規則：不遞迴，補題錯了不再加題，記為「還不穩」） ---- */
+  function startRepair() {
+    var nWrong = (st.wg || []).length, P = G.repair || [];
+    if (!st.rep) {
+      var need = Math.min(nWrong * 2, P.length), ids = [], used = {};
+      // 先挑不同模板的題，再補同模板的，避免兩題長得一樣
+      P.forEach(function (x, i) { if (ids.length < need && !used[x.t]) { used[x.t] = 1; ids.push(i); } });
+      P.forEach(function (x, i) { if (ids.length < need && ids.indexOf(i) < 0) ids.push(i); });
+      st.rep = { ids: ids, i: 0, bad: [] }; store.set(st);
+    }
+    if (st.rep.i >= st.rep.ids.length) return finish();
+    $('#gRep').classList.remove('hide'); showRep();
+  }
+  function showRep() {
+    var R2 = st.rep, n = R2.ids.length;
+    $('#bG').style.width = (R2.i / n * 100) + '%'; $('#pG').textContent = '補強第 ' + (R2.i + 1) + ' / ' + n + ' 題';
+    var q = G.repair[R2.ids[R2.i]], first = true;
+    $('#gRq').textContent = q.s; $('#gRm').textContent = '';
+    var box = $('#gRo'); box.innerHTML = '';
+    q.o.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i === q.a) {
+          b.className = 'right'; [].forEach.call(box.children, function (x) { x.disabled = true; });
+          $('#gRm').innerHTML = (first ? '✅ 答對了！' : '✅ 對了，記住它！') + '<div class="zhm">' + esc(q.x) + '</div>';
+          setTimeout(function () { R2.i++; store.set(st); if (R2.i >= R2.ids.length) { $('#bG').style.width = '100%'; $('#pG').textContent = '補強完成！'; $('#gRq').textContent = ''; box.innerHTML = ''; finish(); } else showRep(); }, first ? 1300 : 2600);
+        } else {
+          b.className = 'wrong'; b.disabled = true;
+          if (first) { first = false; R2.bad.push(R2.ids[R2.i]); store.set(st); }
+          $('#gRm').innerHTML = '❌ 不對喔，看看說明再選一次：<div class="zhm">' + esc(q.x) + '</div>';
+        }
+      };
+      box.appendChild(b);
+    });
+  }
 
   function finish() {
     $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
     $('#s1').textContent = st.first.read + '/' + R.questions.length;
     $('#s2').textContent = st.first.cloze + '/' + C.items.length;
     $('#s3').textContent = st.first.gram + '/' + G.items.length;
-    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+    var lines = ['第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length];
+    var wl = [];
+    if ((st.wr || []).length) wl.push('閱讀第 ' + st.wr.join('、') + ' 題');
+    if ((st.wc || []).length) wl.push('克漏字第 ' + st.wc.join('、') + ' 格');
+    if ((st.wg || []).length) wl.push('文法第 ' + st.wg.join('、') + ' 題');
+    if (wl.length) lines.push('第一次答錯：' + wl.join('；'));
+    var rp = st.rep || { ids: [], bad: [] };
+    if (rp.ids.length) {
+      var shaky = {}; rp.bad.forEach(function (k) { var g = G.repair[k].gp; shaky[g] = g + ' ' + (G.gpName[g] || ''); });
+      lines.push('文法錯一補二：補 ' + rp.ids.length + ' 題，第一次答對 ' + (rp.ids.length - rp.bad.length) + ' 題' +
+        (rp.bad.length ? '（還不穩：' + Object.keys(shaky).map(function (k) { return shaky[k]; }).join('、') + '）' : '，補起來了 👍'));
+      rp.bad.forEach(function (k) { lines.push('・補題答錯：' + G.repair[k].s); });
+    }
+    report(lines.join('\n'));
 
   }
 
   if (st.first.gram != null) {
     gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
-    $('#gCheck').disabled = true; finish();
+    $('#gCheck').disabled = true; startRepair();
   }
 })();
 </script>

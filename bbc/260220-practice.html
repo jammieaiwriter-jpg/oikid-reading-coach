@@ -25,6 +25,8 @@ h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26p
 .tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
 .tag.bbc{background:#fde8eb;color:var(--brand2)}
 .tag.pick{background:#fff3e0;color:var(--warn)}
+.tag.gept{background:#e7f6ec;color:#1b7a3d}
+.tag.plus{background:#ede7fb;color:#5b3fb3}
 .zhm{color:var(--mute);font-size:15px}
 .ex{font-size:15px;margin-top:6px;color:#3b4250}
 .ex b{color:var(--brand2)}
@@ -138,10 +140,19 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 <div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
 <div id="gr" class="hide">
   <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
-  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <p class="hint">看括號裡的提示和句子前後的線索，填入正確的形式。<b>小心：不是每一題都套同一個規則！</b></p>
   <div class="card" id="gItems"></div>
   <button class="pri" id="gCheck">✔︎ 對答案</button>
   <div class="msg" id="gMsg"></div>
+  <div id="gRep" class="hide">
+    <div class="card" style="border-color:#f0b429">
+      <b>🔁 文法補強：錯一題，補兩題</b>
+      <div class="zhm">剛剛第一次填錯的地方，再用同一個文法練兩題。</div>
+      <div class="bar" style="margin-top:8px"><i id="bG"></i></div><div class="prog" id="pG"></div>
+      <div class="qhead" id="gRq" style="margin-top:8px"></div>
+      <div class="olist" id="gRo"></div><div class="msg" id="gRm"></div>
+    </div>
+  </div>
 </div>
 
 <div id="allDone" class="hide">
@@ -156,7 +167,7 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 </div>
 </div>
 <div id="toast"></div>
-<script>window.EP = {"ssd_dir": "260220_Talking about birthdays", "id": "260220", "date": "2026-02-20", "series": "Real Easy English", "level": "Easy", "title": "Talking about birthdays", "title_zh": "聊聊生日", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260220", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/260220_REE_birthdays_download.mp3", "transcript_pdf": "260220_birthdays_transcript逐字稿.pdf", "worksheet_pdf": "260220_birthdays_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Phil 和 Beth 的生日在哪個月？他們平常怎麼過生日？Phil 有一個很特別的生日，那天他做了什麼大事？聽完再對答案！", "vocab": [{"w": "party", "zh": "派對", "src": "BBC", "ex": "I had a big party when I was ten."}, {"w": "throw a party", "zh": "辦派對", "src": "BBC", "ex": "Let's throw a party for Mum's birthday."}, {"w": "blow out the candles", "zh": "吹熄蠟燭", "src": "BBC", "ex": "Now blow out the candles on your cake!"}, {"w": "make a wish", "zh": "許願", "src": "BBC", "ex": "Close your eyes and make a wish."}, {"w": "milestone birthday", "zh": "重要的整數生日（如 18、30、40 歲）", "src": "BBC", "ex": "Thirty is a milestone birthday."}, {"w": "celebrate", "zh": "慶祝", "src": "pick", "ex": "How do you celebrate your birthday?"}, {"w": "tradition", "zh": "傳統、習俗", "src": "pick", "ex": "Birthday cake is a big tradition."}, {"w": "go out to eat", "zh": "出去吃飯、上館子", "src": "pick", "ex": "We usually go out to eat on Fridays."}, {"w": "get married", "zh": "結婚", "src": "pick", "ex": "My aunt will get married in June."}, {"w": "get older", "zh": "變老、長大", "src": "pick", "ex": "We all get older every year."}, {"w": "It doesn't bother me.", "zh": "我不在意、這不會困擾我", "src": "pick", "ex": "Getting older? It doesn't bother me."}, {"w": "wedding anniversary", "zh": "結婚週年紀念日", "src": "pick", "ex": "Today is my parents' wedding anniversary."}], "reading": {"title": "Two Winter Birthdays", "paras": [["Phil and Beth are talking about birthdays.", "Beth's birthday is in February, and Phil's birthday is in December.", "So they both have winter birthdays."], ["Phil celebrates every year, but not in a big way.", "He usually goes out to eat on his birthday.", "He doesn't throw a big party.", "Many people in Beth's family have birthdays in February, so they have one big family meal."], ["When Beth was a child, she had birthday parties.", "At the parties, there was cake, and everyone sang Happy Birthday.", "Children blow out the candles on the cake and make a wish.", "But you must not tell anyone your wish, or it won't come true."], ["Some birthdays, like 18, 30 or 40, are milestone birthdays.", "Beth knows someone who doesn't like them, but for her, they don't matter.", "Phil feels the same, and getting older doesn't bother him.", "He thinks life gets better as you get older."], ["Phil had one very unusual birthday.", "He got married on his 24th birthday!", "So his birthday is also his wedding anniversary, and he can never forget it."]], "questions": [{"q": "When is Phil's birthday?", "zh": "Phil 的生日在什麼時候？", "opts": ["In February.", "In December.", "In summer."], "a": 1, "ev": [1]}, {"q": "What does Phil usually do on his birthday?", "zh": "Phil 生日通常會做什麼？", "opts": ["He goes out for a meal.", "He throws a big party.", "He stays at home with a cake."], "a": 0, "ev": [4, 5]}, {"q": "Why does Beth's family have one big meal?", "zh": "為什麼 Beth 家只吃一頓大餐？", "opts": ["They don't like birthday parties.", "Their house is too small for a party.", "Many of them have birthdays in the same month."], "a": 2, "ev": [6]}, {"q": "How does Phil feel about getting older?", "zh": "Phil 對變老有什麼感覺？", "opts": ["It doesn't worry him.", "It makes him very sad.", "It is the worst thing in life."], "a": 0, "ev": [13, 14]}, {"q": "Why can Phil never forget his wedding anniversary?", "zh": "為什麼 Phil 永遠不會忘記結婚紀念日？", "opts": ["His wife tells him every year.", "It is on the same day as his birthday.", "He writes it on his calendar."], "a": 1, "ev": [16, 17]}]}, "cloze": {"title": "Amy's diary", "text": "Dear Diary, today was my 13th birthday! Mum and Dad decided to {1} a party for me at home, and all my friends came. At seven o'clock, Mum brought out a big chocolate cake with thirteen {2} on it. I closed my eyes and made a {3}. Then I {4} out all the candles. Next month my grandpa will be 70. That's a {5} birthday, so we will {6} it with a big family meal.", "items": [{"opts": ["make", "throw", "blow"], "a": 1}, {"opts": ["presents", "cards", "candles"], "a": 2}, {"opts": ["wish", "party", "meal"], "a": 0}, {"opts": ["threw", "made", "blew"], "a": 2}, {"opts": ["winter", "milestone", "wedding"], "a": 1}, {"opts": ["celebrate", "forget", "bother"], "a": 0}]}, "grammar": {"gp": ["GP-24"], "point": "時間介系詞 in / on / at", "explain": "說「什麼時候」要選對介系詞：<br><b>in<\/b> ＋ 月份、季節、年份、較長的時間：in February、in summer、in 2013<br><b>on<\/b> ＋ 星期、日期、特定的某一天：on Monday、on May 5th、<b>on my birthday<\/b><br><b>at<\/b> ＋ 鐘點、時刻：at 7 o'clock、at noon、at night<br>文章裡的例子：Beth's birthday is <b>in<\/b> February. / He got married <b>on<\/b> his 24th birthday!", "items": [{"s": "Beth's birthday is ___ February.", "hint": "in / on / at", "a": ["in"]}, {"s": "Phil got married ___ his 24th birthday.", "hint": "in / on / at", "a": ["on"]}, {"s": "The party starts ___ 7 o'clock.", "hint": "in / on / at", "a": ["at"]}, {"s": "I was born ___ 2013.", "hint": "in / on / at", "a": ["in"]}, {"s": "My birthday party is ___ Saturday.", "hint": "in / on / at", "a": ["on"]}, {"s": "We sang Happy Birthday ___ night.", "hint": "in / on / at", "a": ["at"]}]}, "speaking": [{"q": "When is your birthday? How do you usually celebrate it?", "zh": "你的生日是什麼時候？你通常怎麼慶祝？", "starters": ["My birthday is in …", "I usually celebrate it by …", "On my birthday, I go out to eat with …"]}, {"q": "Do you like birthday parties? Why or why not?", "zh": "你喜歡生日派對嗎？為什麼？", "starters": ["I like birthday parties because …", "I'd like to throw a party for …", "To be honest, I prefer …"]}, {"q": "Have you ever made a wish on your birthday? Can you tell me about it?", "zh": "你生日時許過願嗎？可以說說看嗎？", "starters": ["When I blow out the candles, I …", "I made a wish to …", "I can't tell you my wish because …"]}, {"q": "Tell me about your best birthday. What did you do?", "zh": "說說你最棒的一次生日。你做了什麼？", "tag": "KET 口說風格", "starters": ["My best birthday was when I was …", "I celebrated it with …", "It was special because …"]}]}; window.PAGE = 'read';</script>
+<script>window.EP = {"ssd_dir": "260220_Talking about birthdays", "id": "260220", "date": "2026-02-20", "series": "Real Easy English", "level": "Easy", "title": "Talking about birthdays", "title_zh": "聊聊生日", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260220", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/260220_REE_birthdays_download.mp3", "transcript_pdf": "260220_birthdays_transcript逐字稿.pdf", "worksheet_pdf": "260220_birthdays_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Phil 和 Beth 的生日在哪個月？他們平常怎麼過生日？Phil 有一個很特別的生日，那天他做了什麼大事？聽完再對答案！", "vocab": [{"w": "party", "zh": "派對", "src": "BBC", "ex": "I had a big party when I was ten.", "lv": "gept"}, {"w": "throw a party", "zh": "辦派對", "src": "BBC", "ex": "Let's throw a party for Mum's birthday.", "lv": "gept"}, {"w": "blow out the candles", "zh": "吹熄蠟燭", "src": "BBC", "ex": "Now blow out the candles on your cake!", "lv": "gept"}, {"w": "make a wish", "zh": "許願", "src": "BBC", "ex": "Close your eyes and make a wish.", "lv": "gept"}, {"w": "milestone birthday", "zh": "重要的整數生日（如 18、30、40 歲）", "src": "BBC", "ex": "Thirty is a milestone birthday.", "lv": "plus"}, {"w": "celebrate", "zh": "慶祝", "src": "pick", "ex": "How do you celebrate your birthday?", "lv": "gept"}, {"w": "tradition", "zh": "傳統、習俗", "src": "pick", "ex": "Eating birthday cake is a tradition.", "lv": "gept"}, {"w": "go out to eat", "zh": "出去吃飯、上館子", "src": "pick", "ex": "We usually go out to eat on Fridays.", "lv": "gept"}, {"w": "get married", "zh": "結婚", "src": "pick", "ex": "My aunt will get married in June.", "lv": "gept"}, {"w": "get older", "zh": "變老、長大", "src": "pick", "ex": "We all get older every year.", "lv": "gept"}, {"w": "It doesn't bother me.", "zh": "我不在意、這不會困擾我", "src": "pick", "ex": "Getting older? It doesn't bother me.", "lv": "gept"}, {"w": "wedding anniversary", "zh": "結婚週年紀念日", "src": "pick", "ex": "Today is my parents' wedding anniversary.", "lv": "plus"}], "reading": {"title": "Phil and Beth's Birthdays", "paras": [["Beth's birthday is in February, and Phil's is in December.", "So both have winter birthdays, not summer ones."], ["Phil celebrates every year, but not in a big way.", "He usually goes out to eat.", "He doesn't throw a big party.", "Many people in Beth's family have February birthdays, so they have one big family meal."], ["When Beth was a child, she had birthday parties.", "Their friends come to the house.", "There is cake, and everyone sings Happy Birthday.", "Children blow out the candles and make a wish.", "But don't tell anyone your wish, or it won't come true."], ["Some birthdays, like 18, 30 or 40, are milestone birthdays.", "Beth knows someone who doesn't like them because they feel old.", "But for Beth, they don't matter.", "Phil feels the same, and getting older doesn't bother him.", "But his next milestone birthday may worry him a bit.", "He thinks life gets better with age."], ["Phil had one very different birthday.", "He got married on his 24th birthday!", "So his birthday is also his wedding anniversary, and he never forgets it."]], "questions": [{"q": "When is Phil's birthday?", "zh": "Phil 的生日在什麼時候？", "opts": ["In February.", "In December.", "In summer."], "a": 1, "ev": [0]}, {"q": "What does Phil usually do on his birthday?", "zh": "Phil 生日通常會做什麼？", "opts": ["He goes out for a meal.", "He has a big family meal.", "He has friends at his house."], "a": 0, "ev": [3]}, {"q": "What does Beth say about milestone birthdays?", "zh": "Beth 對「里程碑生日」怎麼說？", "opts": ["They make her feel old.", "The next one worries her.", "They don't matter to her."], "a": 2, "ev": [13]}, {"q": "On which birthday did Phil get married?", "zh": "Phil 是在第幾歲生日那天結婚的？", "opts": ["His 18th.", "His 30th.", "His 24th."], "a": 2, "ev": [18]}, {"q": "In which month do many people in Beth's family have birthdays?", "zh": "Beth 家很多人的生日在哪個月？", "opts": ["In December.", "In February.", "In summer."], "a": 1, "ev": [5]}]}, "cloze": {"title": "Amy's diary", "text": "Dear Diary, today was my 13th birthday! Mum and Dad decided to {1} a party for me at home, and all my friends came. At seven o'clock, Mum brought out a big chocolate cake with thirteen {2} on it. I closed my eyes and made a {3}. Then I {4} out all the candles. Next month my grandpa will be 70. That's a {5} birthday, so we will {6} it with a big family meal.", "items": [{"opts": ["make", "throw", "blow"], "a": 1}, {"opts": ["presents", "cards", "candles"], "a": 2}, {"opts": ["wish", "party", "meal"], "a": 0}, {"opts": ["threw", "made", "blew"], "a": 2}, {"opts": ["winter", "milestone", "wedding"], "a": 1}, {"opts": ["celebrate", "forget", "bother"], "a": 0}]}, "grammar": {"gp": ["GP-24"], "point": "時間介系詞 in / on / at", "explain": "說「什麼時候」要選對介系詞：<br><b>in<\/b> ＋ 月份、季節、年份、較長的時間：in February、in summer、in 2013<br><b>on<\/b> ＋ 星期、日期、特定的某一天：on Monday、on May 5th、<b>on my birthday<\/b><br><b>at<\/b> ＋ 鐘點、時刻：at 7 o'clock、at noon、at night<br>文章裡的例子：Beth's birthday is <b>in<\/b> February. / He got married <b>on<\/b> his 24th birthday!<br>⚠️ 小心：不是每一題都填 in / on / at——先看後面接的是「時間點」還是「一段多久的時間」（像 three hours）。", "items": [{"s": "Beth's birthday is ___ February.", "hint": "in / on / at / for", "a": ["in"]}, {"s": "Last night, the party lasted ___ three hours.", "hint": "in / on / at / for", "a": ["for"]}, {"s": "Phil got married ___ his 24th birthday.", "hint": "in / on / at / for", "a": ["on"]}, {"s": "Yesterday we sang Happy Birthday ___ 7 o'clock.", "hint": "in / on / at / for", "a": ["at"]}, {"s": "Yesterday we played games ___ two hours.", "hint": "in / on / at / for", "a": ["for"]}, {"s": "I was born ___ 2013.", "hint": "in / on / at / for", "a": ["in"]}], "repair": [{"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Tom reads a book ___ bedtime every night.", "o": ["after", "before", "since", "for"], "a": 1, "x": "這裡要表達「在…之前」，所以用 before。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Do your homework ___ you watch television, not after.", "o": ["during", "since", "before", "after"], "a": 2, "x": "這裡要表達「在…之前」，所以用 before。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "The store is open ___ nine o'clock at night.", "o": ["for", "until", "during", "since"], "a": 1, "x": "這裡要表達「直到」，所以用 until。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "We waited for the bus ___ twenty minutes.", "o": ["until", "since", "for", "during"], "a": 2, "x": "這裡要表達「持續多久」，所以用 for。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Mary has lived in Taipei ___ 2020.", "o": ["before", "for", "since", "during"], "a": 2, "x": "這裡要表達「自從」，所以用 since。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "We have not seen Ben ___ last Friday.", "o": ["during", "after", "since", "for"], "a": 2, "x": "這裡要表達「自從」，所以用 since。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Wash the dishes ___ dinner. The table is dirty now.", "o": ["after", "for", "before", "during"], "a": 0, "x": "這裡要表達「在…之後」，所以用 after。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "We are in the library ___ an hour.", "o": ["before", "during", "for", "after"], "a": 2, "x": "這裡要表達「持續多久」，所以用 for。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Please close the window ___ the rain comes.", "o": ["during", "for", "before", "since"], "a": 2, "x": "這裡要表達「在…之前」，所以用 before。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Please turn off the lights ___ you leave the room.", "o": ["for", "after", "during", "before"], "a": 3, "x": "這裡要表達「在…之前」，所以用 before。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "Tom studies English ___ two hours every day.", "o": ["before", "for", "during", "since"], "a": 1, "x": "這裡要表達「持續多久」，所以用 for。"}, {"gp": "GP-24", "t": "MTX-ENG-GP24-time-relation-001", "s": "We can't talk ___ the movie.", "o": ["after", "before", "for", "during"], "a": 3, "x": "這裡要表達「在…期間」，所以用 during。"}], "gpName": {"GP-24": "時間介系詞"}}, "speaking": [{"q": "When is your birthday? How do you usually celebrate it?", "zh": "你的生日是什麼時候？你通常怎麼慶祝？", "starters": ["My birthday is in …", "I usually celebrate it by …", "On my birthday, I go out to eat with …"]}, {"q": "Do you like birthday parties? Why or why not?", "zh": "你喜歡生日派對嗎？為什麼？", "starters": ["I like birthday parties because …", "I'd like to throw a party for …", "To be honest, I prefer …"]}, {"q": "Have you ever made a wish on your birthday? Can you tell me about it?", "zh": "你生日時許過願嗎？可以說說看嗎？", "starters": ["When I blow out the candles, I …", "I made a wish to …", "I can't tell you my wish because …"]}, {"q": "Tell me about your best birthday. What did you do?", "zh": "說說你最棒的一次生日。你做了什麼？", "tag": "KET 口說風格", "starters": ["My best birthday was when I was …", "I celebrated it with …", "It was special because …"]}]}; window.PAGE = 'read';</script>
 <script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
    紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
 var EP = window.EP;
@@ -296,6 +307,8 @@ function passText(r) {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
   st.first = st.first || {};
+  /* 第一次就答錯的題號（給家長通知，也用來抓寫壞的題目） */
+  function logWrong(k, n) { st[k] = st[k] || []; if (st[k].indexOf(n) < 0) { st[k].push(n); store.set(st); } }
 
   function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
   $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
@@ -336,7 +349,7 @@ function passText(r) {
     q.opts.forEach(function (o, i) {
       var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
       b.onclick = function () {
-        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; if (first) logWrong('wr', qi + 1); first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
         b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
         msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
         art.classList.add('pick'); art.scrollTop = 0;
@@ -418,7 +431,7 @@ function passText(r) {
           if (!tried[n]) czFirst++; czDone++;
           $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
           if (czDone >= C.items.length) czFinish();
-        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+        } else { ob.className = 'wrong'; ob.disabled = true; if (!tried[n]) logWrong('wc', n); tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
       };
       pop.appendChild(ob);
     });
@@ -452,29 +465,78 @@ function passText(r) {
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {
-        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        row.className = 'gitem no'; if (!gWrong[i]) logWrong('wg', i + 1); gWrong[i] = (gWrong[i] || 0) + 1;
         if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
       }
     });
     if (ok >= G.items.length) {
       var f = G.items.length - Object.keys(gWrong).length;
       st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
-      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; startRepair();
     } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
   };
+
+  /* ---- 文法錯一補二（題目來自知洞學堂英文文法題庫；同知洞規則：不遞迴，補題錯了不再加題，記為「還不穩」） ---- */
+  function startRepair() {
+    var nWrong = (st.wg || []).length, P = G.repair || [];
+    if (!st.rep) {
+      var need = Math.min(nWrong * 2, P.length), ids = [], used = {};
+      // 先挑不同模板的題，再補同模板的，避免兩題長得一樣
+      P.forEach(function (x, i) { if (ids.length < need && !used[x.t]) { used[x.t] = 1; ids.push(i); } });
+      P.forEach(function (x, i) { if (ids.length < need && ids.indexOf(i) < 0) ids.push(i); });
+      st.rep = { ids: ids, i: 0, bad: [] }; store.set(st);
+    }
+    if (st.rep.i >= st.rep.ids.length) return finish();
+    $('#gRep').classList.remove('hide'); showRep();
+  }
+  function showRep() {
+    var R2 = st.rep, n = R2.ids.length;
+    $('#bG').style.width = (R2.i / n * 100) + '%'; $('#pG').textContent = '補強第 ' + (R2.i + 1) + ' / ' + n + ' 題';
+    var q = G.repair[R2.ids[R2.i]], first = true;
+    $('#gRq').textContent = q.s; $('#gRm').textContent = '';
+    var box = $('#gRo'); box.innerHTML = '';
+    q.o.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i === q.a) {
+          b.className = 'right'; [].forEach.call(box.children, function (x) { x.disabled = true; });
+          $('#gRm').innerHTML = (first ? '✅ 答對了！' : '✅ 對了，記住它！') + '<div class="zhm">' + esc(q.x) + '</div>';
+          setTimeout(function () { R2.i++; store.set(st); if (R2.i >= R2.ids.length) { $('#bG').style.width = '100%'; $('#pG').textContent = '補強完成！'; $('#gRq').textContent = ''; box.innerHTML = ''; finish(); } else showRep(); }, first ? 1300 : 2600);
+        } else {
+          b.className = 'wrong'; b.disabled = true;
+          if (first) { first = false; R2.bad.push(R2.ids[R2.i]); store.set(st); }
+          $('#gRm').innerHTML = '❌ 不對喔，看看說明再選一次：<div class="zhm">' + esc(q.x) + '</div>';
+        }
+      };
+      box.appendChild(b);
+    });
+  }
 
   function finish() {
     $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
     $('#s1').textContent = st.first.read + '/' + R.questions.length;
     $('#s2').textContent = st.first.cloze + '/' + C.items.length;
     $('#s3').textContent = st.first.gram + '/' + G.items.length;
-    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+    var lines = ['第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length];
+    var wl = [];
+    if ((st.wr || []).length) wl.push('閱讀第 ' + st.wr.join('、') + ' 題');
+    if ((st.wc || []).length) wl.push('克漏字第 ' + st.wc.join('、') + ' 格');
+    if ((st.wg || []).length) wl.push('文法第 ' + st.wg.join('、') + ' 題');
+    if (wl.length) lines.push('第一次答錯：' + wl.join('；'));
+    var rp = st.rep || { ids: [], bad: [] };
+    if (rp.ids.length) {
+      var shaky = {}; rp.bad.forEach(function (k) { var g = G.repair[k].gp; shaky[g] = g + ' ' + (G.gpName[g] || ''); });
+      lines.push('文法錯一補二：補 ' + rp.ids.length + ' 題，第一次答對 ' + (rp.ids.length - rp.bad.length) + ' 題' +
+        (rp.bad.length ? '（還不穩：' + Object.keys(shaky).map(function (k) { return shaky[k]; }).join('、') + '）' : '，補起來了 👍'));
+      rp.bad.forEach(function (k) { lines.push('・補題答錯：' + G.repair[k].s); });
+    }
+    report(lines.join('\n'));
 
   }
 
   if (st.first.gram != null) {
     gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
-    $('#gCheck').disabled = true; finish();
+    $('#gCheck').disabled = true; startRepair();
   }
 })();
 </script>

@@ -25,6 +25,8 @@ h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26p
 .tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
 .tag.bbc{background:#fde8eb;color:var(--brand2)}
 .tag.pick{background:#fff3e0;color:var(--warn)}
+.tag.gept{background:#e7f6ec;color:#1b7a3d}
+.tag.plus{background:#ede7fb;color:#5b3fb3}
 .zhm{color:var(--mute);font-size:15px}
 .ex{font-size:15px;margin-top:6px;color:#3b4250}
 .ex b{color:var(--brand2)}
@@ -138,10 +140,19 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 <div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
 <div id="gr" class="hide">
   <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
-  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <p class="hint">看括號裡的提示和句子前後的線索，填入正確的形式。<b>小心：不是每一題都套同一個規則！</b></p>
   <div class="card" id="gItems"></div>
   <button class="pri" id="gCheck">✔︎ 對答案</button>
   <div class="msg" id="gMsg"></div>
+  <div id="gRep" class="hide">
+    <div class="card" style="border-color:#f0b429">
+      <b>🔁 文法補強：錯一題，補兩題</b>
+      <div class="zhm">剛剛第一次填錯的地方，再用同一個文法練兩題。</div>
+      <div class="bar" style="margin-top:8px"><i id="bG"></i></div><div class="prog" id="pG"></div>
+      <div class="qhead" id="gRq" style="margin-top:8px"></div>
+      <div class="olist" id="gRo"></div><div class="msg" id="gRm"></div>
+    </div>
+  </div>
 </div>
 
 <div id="allDone" class="hide">
@@ -156,7 +167,7 @@ textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:1
 </div>
 </div>
 <div id="toast"></div>
-<script>window.EP = {"ssd_dir": "261009_Talking about the cinema", "id": "261009", "date": "2026-10-09", "series": "Real Easy English", "level": "Easy", "title": "Talking about the cinema", "title_zh": "聊聊電影院", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/261009", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/REE_cinema_download.mp3", "transcript_pdf": "261009_cinema_transcript逐字稿.pdf", "worksheet_pdf": "261009_cinema_worksheet.pdf", "worksheet_answer_pages": [3], "speakers": ["Georgie", "Phil"], "predict": "聽之前先猜猜看：Georgie 和 Phil 喜歡去電影院嗎？他們覺得電影院有什麼「討厭的地方」？聽完再對答案！", "vocab": [{"w": "trailers", "zh": "電影預告片", "src": "BBC", "ex": "I always go in early to watch the trailers."}, {"w": "popcorn", "zh": "爆米花", "src": "BBC", "ex": "Popcorn tastes better at the cinema."}, {"w": "spectacular", "zh": "壯觀的、精彩的", "src": "BBC", "ex": "The action scenes were spectacular on the big screen."}, {"w": "distractions", "zh": "讓人分心的事物", "src": "BBC", "ex": "Put your phone away, so there are no distractions."}, {"w": "film / movie", "say": "film, movie", "zh": "電影（英式／美式）", "src": "BBC", "ex": "In British English we say film. In American English we say movie."}, {"w": "downside", "zh": "缺點、壞處", "src": "pick", "ex": "One downside of the cinema is the price."}, {"w": "annoying", "zh": "令人厭煩的", "src": "pick", "ex": "It's annoying when people talk during a film."}, {"w": "whisper", "zh": "小聲說話、耳語", "src": "pick", "ex": "You can whisper, but don't talk loudly."}, {"w": "I'm not a big fan of …", "say": "I'm not a big fan of action movies.", "zh": "我不太喜歡⋯", "src": "pick", "ex": "I'm not a big fan of action movies."}, {"w": "I can't stand …", "say": "I can't stand loud people.", "zh": "我受不了⋯", "src": "pick", "ex": "I can't stand loud people at the cinema."}, {"w": "I tend to …", "say": "I tend to watch films at home.", "zh": "我通常、往往會⋯", "src": "pick", "ex": "I tend to watch films at home."}, {"w": "to be honest", "zh": "老實說", "src": "pick", "ex": "To be honest, I prefer watching films on my sofa."}], "dialogue": [{"s": "Georgie", "t": "Hi Phil! Do you go to the cinema often?", "zh": "嗨 Phil！你常去電影院嗎？"}, {"s": "Phil", "t": "Not really. To be honest, I tend to watch films at home.", "zh": "不太常。老實說，我通常在家看電影。"}, {"s": "Georgie", "t": "Why? Don't you like the cinema?", "zh": "為什麼？你不喜歡電影院嗎？"}, {"s": "Phil", "t": "I like the big screen, but one downside is that you can't talk to anyone.", "zh": "我喜歡大螢幕，但有個缺點是你不能跟任何人說話。"}, {"s": "Georgie", "t": "I saw an action film last week. It was spectacular, and I'm not a big fan of action movies!", "zh": "我上週看了一部動作片。超精彩，而且我本來不太喜歡動作片耶！"}, {"s": "Phil", "t": "Wow! What do you like most about the cinema?", "zh": "哇！你最喜歡電影院的什麼？"}, {"s": "Georgie", "t": "I love eating popcorn and watching the trailers before the film.", "zh": "我喜歡吃爆米花，還有在電影開始前看預告片。"}, {"s": "Phil", "t": "For me, there are no distractions. I put my phone away and enjoy the film.", "zh": "對我來說，那裡沒有讓人分心的事。我把手機收起來，好好看電影。"}, {"s": "Georgie", "t": "But it's really annoying when people talk loudly during the film.", "zh": "可是有人在電影中大聲講話真的很煩。"}, {"s": "Phil", "t": "I agree. I can't stand that! It's OK to whisper, but not all the time.", "zh": "同意，我受不了那樣！小聲說一下還可以，但不能一直講。"}], "speaking": [{"q": "Do you prefer watching films at the cinema or at home? Why?", "zh": "你比較喜歡在電影院還是在家看電影？為什麼？", "starters": ["I prefer … because …", "One downside of … is …", "To be honest, …"]}, {"q": "What kind of films do you like to watch?", "zh": "你喜歡看哪一類的電影？", "starters": ["I'm a big fan of …", "I'm not a big fan of …", "… films are spectacular because …"]}, {"q": "What do you think is annoying at the cinema?", "zh": "你覺得在電影院什麼事情最討厭？", "starters": ["I can't stand it when …", "It's annoying when …", "It's OK to whisper, but …"]}, {"q": "Tell me about the last film you watched. Did you like it? Why?", "zh": "說說你最近看的一部電影。你喜歡嗎？為什麼？", "tag": "KET 口說風格", "starters": ["The last film I watched was …", "I watched it at home / at the cinema with …", "I liked it because … / To be honest, I didn't like it because …"]}], "reading": {"title": "Cinema or Sofa?", "paras": [["Georgie and Phil are friends.", "They both love films, but they don't often go to the cinema.", "Phil hasn't been to the cinema for about two years."], ["A few weeks ago, Georgie went to see an action film.", "She isn't a big fan of action films, but on the big screen it was spectacular.", "She also loves eating popcorn and watching the trailers before the film."], ["Phil likes the big screen and the great sound too.", "But for him, there is one big downside: you can't talk to your friends during the film.", "So he tends to watch films at home on his new TV."], ["Georgie says the seats at the cinema are not very comfortable.", "At home, you can lie on the sofa and eat snacks you don't have to pay for."], ["But they both agree on one thing.", "At the cinema, there are no distractions because everyone puts their phone away.", "And they both can't stand people who talk loudly during a film!"]], "questions": [{"q": "How often does Phil go to the cinema?", "zh": "Phil 多常去電影院？", "opts": ["Every week.", "He hasn't gone for a long time.", "Only with his kids."], "a": 1, "ev": [2]}, {"q": "What did Georgie think of the action film?", "zh": "Georgie 覺得那部動作片怎麼樣？", "opts": ["It was boring.", "It was too long.", "It looked great on the big screen."], "a": 2, "ev": [4]}, {"q": "Why does Phil usually watch films at home?", "zh": "為什麼 Phil 通常在家看電影？", "opts": ["He can't talk to his friends at the cinema.", "Cinema tickets are too expensive.", "He doesn't like the sound at the cinema."], "a": 0, "ev": [7, 8]}, {"q": "What doesn't Georgie like about the cinema?", "zh": "Georgie 不喜歡電影院的什麼？", "opts": ["The popcorn.", "The seats.", "The trailers."], "a": 1, "ev": [9]}, {"q": "What do Georgie and Phil BOTH dislike?", "zh": "Georgie 和 Phil「都」討厭什麼？", "opts": ["Small screens.", "People who talk loudly.", "Eating snacks."], "a": 1, "ev": [13]}]}, "cloze": {"title": "Tom's message", "text": "Hi Sam! Last Saturday I went to the cinema with my cousin. Before the film, we watched some {1} for new films. My cousin bought a big box of {2}. It was an action film and it was {3} — I loved it! But a man behind us was talking on his phone. It was really {4}. My cousin asked him to {5}, but he didn't stop. At home there are more {6}, but I think I'll watch the next film on my sofa!", "items": [{"opts": ["trailers", "tickets", "screens"], "a": 0}, {"opts": ["popcorn", "sofa", "blanket"], "a": 0}, {"opts": ["spectacular", "comfortable", "honest"], "a": 0}, {"opts": ["annoying", "exciting", "cheap"], "a": 0}, {"opts": ["be quiet", "be loud", "be late"], "a": 0}, {"opts": ["distractions", "trailers", "seats"], "a": 0}]}, "grammar": {"gp": ["GP-37"], "point": "喜好動詞 ＋ V-ing", "explain": "表達「喜歡、討厭」的動詞後面如果接動詞，要用 <b>V-ing<\/b>：<br><b>like / love / enjoy / hate / can't stand / don't mind ＋ V-ing<\/b><br>文章裡的例子：She loves <b>eating<\/b> popcorn and <b>watching<\/b> the trailers.", "spelling": ["一般直接加 ing：watch → watching、go → going", "字尾是不發音的 e，去 e 再加 ing：make → making", "短母音＋一個子音結尾，重複字尾再加 ing：sit → sitting、swim → swimming"], "items": [{"s": "Georgie loves ___ popcorn at the cinema.", "hint": "eat", "a": ["eating"]}, {"s": "I enjoy ___ films with my family.", "hint": "watch", "a": ["watching"]}, {"s": "Do you like ___ to the cinema?", "hint": "go", "a": ["going"]}, {"s": "Phil can't stand ___ in the dark without talking.", "hint": "sit", "a": ["sitting"]}, {"s": "My brother doesn't mind ___ dinner for us.", "hint": "make", "a": ["making"]}, {"s": "We love ___ in the sea in summer.", "hint": "swim", "a": ["swimming"]}]}}; window.PAGE = 'read';</script>
+<script>window.EP = {"ssd_dir": "261009_Talking about the cinema", "id": "261009", "date": "2026-10-09", "series": "Real Easy English", "level": "Easy", "title": "Talking about the cinema", "title_zh": "聊聊電影院", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/261009", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/REE_cinema_download.mp3", "transcript_pdf": "261009_cinema_transcript逐字稿.pdf", "worksheet_pdf": "261009_cinema_worksheet.pdf", "worksheet_answer_pages": [3], "speakers": ["Georgie", "Phil"], "predict": "聽之前先猜猜看：Georgie 和 Phil 喜歡去電影院嗎？他們覺得電影院有什麼「討厭的地方」？聽完再對答案！", "vocab": [{"w": "trailers", "zh": "電影預告片", "src": "BBC", "ex": "I always go in early to watch the trailers.", "lv": "plus"}, {"w": "popcorn", "zh": "爆米花", "src": "BBC", "ex": "Popcorn tastes better at the cinema.", "lv": "gept"}, {"w": "spectacular", "zh": "壯觀的、精彩的", "src": "BBC", "ex": "The action scenes were spectacular on the big screen.", "lv": "plus"}, {"w": "distractions", "zh": "讓人分心的事物", "src": "BBC", "ex": "Put your phone away so there are no distractions.", "lv": "plus"}, {"w": "film / movie", "say": "film, movie", "zh": "電影（英式／美式）", "src": "BBC", "ex": "In British English we say film. In American English we say movie.", "lv": "gept"}, {"w": "downside", "zh": "缺點、壞處", "src": "pick", "ex": "One downside of the cinema is the price.", "lv": "plus"}, {"w": "annoying", "zh": "令人厭煩的", "src": "pick", "ex": "It's annoying when people talk during a film.", "lv": "plus"}, {"w": "whisper", "zh": "小聲說話、耳語", "src": "pick", "ex": "You can whisper, but don't talk loudly.", "lv": "plus"}, {"w": "I'm not a big fan of …", "say": "I'm not a big fan of action movies.", "zh": "我不太喜歡⋯", "src": "pick", "ex": "I'm not a big fan of action movies.", "lv": "gept"}, {"w": "I can't stand …", "say": "I can't stand loud people.", "zh": "我受不了⋯", "src": "pick", "ex": "I can't stand loud people at the cinema.", "lv": "gept"}, {"w": "I tend to …", "say": "I tend to watch films at home.", "zh": "我通常、往往會⋯", "src": "pick", "ex": "I tend to watch films at home.", "lv": "plus"}, {"w": "to be honest", "zh": "老實說", "src": "pick", "ex": "To be honest, I prefer watching films on my sofa.", "lv": "gept"}], "dialogue": [{"s": "Georgie", "t": "Hi Phil! Do you go to the cinema often?", "zh": "嗨 Phil！你常去電影院嗎？"}, {"s": "Phil", "t": "Not really. To be honest, I tend to watch films at home.", "zh": "不太常。老實說，我通常在家看電影。"}, {"s": "Georgie", "t": "Why? Don't you like the cinema?", "zh": "為什麼？你不喜歡電影院嗎？"}, {"s": "Phil", "t": "I like the big screen, but one downside is that you can't talk to anyone.", "zh": "我喜歡大螢幕，但有個缺點是你不能跟任何人說話。"}, {"s": "Georgie", "t": "I saw an action film last week. It was spectacular, and I'm not a big fan of action movies!", "zh": "我上週看了一部動作片。超精彩，而且我本來不太喜歡動作片耶！"}, {"s": "Phil", "t": "Wow! What do you like most about the cinema?", "zh": "哇！你最喜歡電影院的什麼？"}, {"s": "Georgie", "t": "I love eating popcorn and watching the trailers before the film.", "zh": "我喜歡吃爆米花，還有在電影開始前看預告片。"}, {"s": "Phil", "t": "For me, there are no distractions. I put my phone away and enjoy the film.", "zh": "對我來說，那裡沒有讓人分心的事。我把手機收起來，好好看電影。"}, {"s": "Georgie", "t": "But it's really annoying when people talk loudly during the film.", "zh": "可是有人在電影中大聲講話真的很煩。"}, {"s": "Phil", "t": "I agree. I can't stand that! It's OK to whisper, but not all the time.", "zh": "同意，我受不了那樣！小聲說一下還可以，但不能一直講。"}], "speaking": [{"q": "Do you prefer watching films at the cinema or at home? Why?", "zh": "你比較喜歡在電影院還是在家看電影？為什麼？", "starters": ["I prefer … because …", "One downside of … is …", "To be honest, …"]}, {"q": "What kind of films do you like to watch?", "zh": "你喜歡看哪一類的電影？", "starters": ["I'm a big fan of …", "I'm not a big fan of …", "… films are spectacular because …"]}, {"q": "What do you think is annoying at the cinema?", "zh": "你覺得在電影院什麼事情最討厭？", "starters": ["I can't stand it when …", "It's annoying when …", "It's OK to whisper, but …"]}, {"q": "Tell me about the last film you watched. Did you like it? Why?", "zh": "說說你最近看的一部電影。你喜歡嗎？為什麼？", "tag": "KET 口說風格", "starters": ["The last film I watched was …", "I watched it at home / at the cinema with …", "I liked it because … / To be honest, I didn't like it because …"]}], "reading": {"title": "Cinema or Sofa?", "paras": [["Georgie and Phil are friends.", "They both love films, but they don't often go to the cinema.", "Phil hasn't been to the cinema for about two years, and the last time, he went with his kids."], ["A couple of weeks ago, Georgie went to see an action film.", "She isn't a big fan of action films, but on the big screen it was spectacular.", "She loves eating popcorn and watching the trailers before the film.", "But she never eats popcorn at home."], ["Phil likes the big screen and the sound too.", "But for him, there is one big downside: you can't talk to your friends during the film.", "So he tends to watch films at home.", "He also has quite a nice TV now."], ["Georgie says the seats at the cinema are not very comfortable.", "At home, you can lie on the sofa and eat free snacks."], ["Phil says there are no distractions at the cinema.", "Everyone should put their phone away, but some people don't.", "And neither of them can stand people who talk loudly all through a film!"]], "questions": [{"q": "Who went with Phil the last time he went to the cinema?", "zh": "Phil 上次去電影院是跟誰去的？", "opts": ["His friends.", "His kids.", "Georgie."], "a": 1, "ev": [2]}, {"q": "What is Georgie NOT a big fan of?", "zh": "Georgie「不太喜歡」什麼？", "opts": ["Action films.", "Film trailers.", "Cinema popcorn."], "a": 0, "ev": [4]}, {"q": "Why does Phil usually watch films at home?", "zh": "為什麼 Phil 通常在家看電影？", "opts": ["The seats at the cinema are not comfortable.", "He doesn't like the big screen or the sound.", "He can't talk to his friends during the film."], "a": 2, "ev": [8, 9]}, {"q": "What does Georgie like about watching films at home?", "zh": "Georgie 喜歡在家看電影的什麼？", "opts": ["Lying on the sofa.", "Eating popcorn.", "No distractions."], "a": 0, "ev": [12]}, {"q": "What do Georgie and Phil BOTH dislike?", "zh": "Georgie 和 Phil「都」討厭什麼？", "opts": ["The cinema seats.", "Action films.", "Loud talking."], "a": 2, "ev": [15]}]}, "cloze": {"title": "Tom's message", "text": "Hi Sam! Last Saturday I went to the cinema with my cousin. Before the film, we watched some {1} for new films. My cousin bought a big box of {2}. It was an action film and it was {3} — I loved it! But a man behind us was talking on his phone. It was really {4}. My cousin asked him to {5}, but he didn't stop. People say there are no {6} at the cinema, but that's not true! Next time I'll watch the film on my sofa.", "items": [{"opts": ["screens", "trailers", "tickets"], "a": 1}, {"opts": ["blanket", "sofa", "popcorn"], "a": 2}, {"opts": ["comfortable", "spectacular", "honest"], "a": 1}, {"opts": ["cheap", "exciting", "annoying"], "a": 2}, {"opts": ["be loud", "be late", "be quiet"], "a": 2}, {"opts": ["trailers", "distractions", "seats"], "a": 1}]}, "grammar": {"gp": ["GP-37"], "point": "喜好動詞 ＋ V-ing", "explain": "有些動詞後面如果接動詞，<b>只能用 V-ing<\/b>：<br><b>enjoy / don't mind / finish / avoid / keep / practise ＋ V-ing<\/b><br>（like / love / hate / can't stand 後面用 V-ing 或 to V 都可以，例如文章裡的 She loves <b>eating<\/b> popcorn = She loves <b>to eat<\/b> popcorn。）<br>但 <b>want ＋ to V<\/b>，<b>can / will / should ＋ 原形<\/b>，不加 ing。<br>⚠️ 小心：不是每一題都要加 ing，看前面的字決定。", "spelling": ["一般直接加 ing：watch → watching、go → going", "字尾是不發音的 e，去 e 再加 ing：make → making", "短母音＋一個子音結尾，重複字尾再加 ing：sit → sitting、swim → swimming"], "items": [{"s": "Phil enjoys ___ films at home at the weekend.", "hint": "watch", "a": ["watching"]}, {"s": "Georgie wants ___ a new action film tomorrow.", "hint": "see", "a": ["to see"]}, {"s": "Do you mind ___ at the front of the cinema tonight?", "hint": "sit", "a": ["sitting"]}, {"s": "I finished ___ my homework an hour ago, so now I can watch a film.", "hint": "do", "a": ["doing"]}, {"s": "You can ___ sometimes, but don't talk all through the film.", "hint": "whisper", "a": ["whisper"]}, {"s": "Please avoid ___ your phone during the film tonight.", "hint": "use", "a": ["using"]}], "repair": [{"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "The students gave up ___ chocolate last year.", "o": ["ate", "eating", "to eat", "eat"], "a": 1, "x": "「gave up」後面接動名詞（V-ing），所以是 eating。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "You can improve your English by ___ a diary.", "o": ["keeping", "kept", "to keep", "keep"], "a": 0, "x": "by 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "My parents wanted ___ a movie with Amy.", "o": ["see", "saw", "be seen", "to see"], "a": 3, "x": "「wanted」後面接不定詞（to + 原形），所以是 to see。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Ben is interested in ___ the guitar.", "o": ["played", "playing", "play", "to play"], "a": 1, "x": "in 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "They expected ___ a gift from a good friend.", "o": ["to get", "be getting", "get", "got"], "a": 0, "x": "「expected」後面接不定詞（to + 原形），所以是 to get。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "How about ___ a cake for Tom's birthday?", "o": ["made", "to make", "making", "make"], "a": 2, "x": "How about 的 about 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Tom is good at ___. He won the race last year.", "o": ["swam", "to swim", "swim", "swimming"], "a": 3, "x": "be good at 的 at 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "She finished ___ the room.", "o": ["cleaned", "cleaning", "to clean", "clean"], "a": 1, "x": "「finished」後面接動名詞（V-ing），所以是 cleaning。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Mary looks forward to ___ her friends this weekend.", "o": ["seeing", "see", "saw", "to see"], "a": 0, "x": "look forward to 的 to 是介系詞不是不定詞，後面接動名詞——這是最常被寫錯的一個。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "The students planned ___ on a picnic this Sunday.", "o": ["went", "go", "to go", "going"], "a": 2, "x": "「planned」後面接不定詞（to + 原形），所以是 to go。這一組要整批背下來，沒有規則可以推。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-prep-gerund-001", "s": "Tom left without ___ a word.", "o": ["said", "saying", "say", "to say"], "a": 1, "x": "without 是介系詞，後面接動名詞。"}, {"gp": "GP-37", "t": "MTX-ENG-GP37-object-form-001", "s": "They enjoyed ___ basketball after school.", "o": ["play", "playing", "be playing", "to play"], "a": 1, "x": "「enjoyed」後面接動名詞（V-ing），所以是 playing。這一組要整批背下來，沒有規則可以推。"}], "gpName": {"GP-37": "不定詞&動名詞當受詞"}}}; window.PAGE = 'read';</script>
 <script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
    紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
 var EP = window.EP;
@@ -296,6 +307,8 @@ function passText(r) {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
   st.first = st.first || {};
+  /* 第一次就答錯的題號（給家長通知，也用來抓寫壞的題目） */
+  function logWrong(k, n) { st[k] = st[k] || []; if (st[k].indexOf(n) < 0) { st[k].push(n); store.set(st); } }
 
   function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
   $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
@@ -336,7 +349,7 @@ function passText(r) {
     q.opts.forEach(function (o, i) {
       var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
       b.onclick = function () {
-        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; if (first) logWrong('wr', qi + 1); first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
         b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
         msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
         art.classList.add('pick'); art.scrollTop = 0;
@@ -418,7 +431,7 @@ function passText(r) {
           if (!tried[n]) czFirst++; czDone++;
           $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
           if (czDone >= C.items.length) czFinish();
-        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+        } else { ob.className = 'wrong'; ob.disabled = true; if (!tried[n]) logWrong('wc', n); tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
       };
       pop.appendChild(ob);
     });
@@ -452,29 +465,78 @@ function passText(r) {
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {
-        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        row.className = 'gitem no'; if (!gWrong[i]) logWrong('wg', i + 1); gWrong[i] = (gWrong[i] || 0) + 1;
         if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
       }
     });
     if (ok >= G.items.length) {
       var f = G.items.length - Object.keys(gWrong).length;
       st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
-      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; startRepair();
     } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
   };
+
+  /* ---- 文法錯一補二（題目來自知洞學堂英文文法題庫；同知洞規則：不遞迴，補題錯了不再加題，記為「還不穩」） ---- */
+  function startRepair() {
+    var nWrong = (st.wg || []).length, P = G.repair || [];
+    if (!st.rep) {
+      var need = Math.min(nWrong * 2, P.length), ids = [], used = {};
+      // 先挑不同模板的題，再補同模板的，避免兩題長得一樣
+      P.forEach(function (x, i) { if (ids.length < need && !used[x.t]) { used[x.t] = 1; ids.push(i); } });
+      P.forEach(function (x, i) { if (ids.length < need && ids.indexOf(i) < 0) ids.push(i); });
+      st.rep = { ids: ids, i: 0, bad: [] }; store.set(st);
+    }
+    if (st.rep.i >= st.rep.ids.length) return finish();
+    $('#gRep').classList.remove('hide'); showRep();
+  }
+  function showRep() {
+    var R2 = st.rep, n = R2.ids.length;
+    $('#bG').style.width = (R2.i / n * 100) + '%'; $('#pG').textContent = '補強第 ' + (R2.i + 1) + ' / ' + n + ' 題';
+    var q = G.repair[R2.ids[R2.i]], first = true;
+    $('#gRq').textContent = q.s; $('#gRm').textContent = '';
+    var box = $('#gRo'); box.innerHTML = '';
+    q.o.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i === q.a) {
+          b.className = 'right'; [].forEach.call(box.children, function (x) { x.disabled = true; });
+          $('#gRm').innerHTML = (first ? '✅ 答對了！' : '✅ 對了，記住它！') + '<div class="zhm">' + esc(q.x) + '</div>';
+          setTimeout(function () { R2.i++; store.set(st); if (R2.i >= R2.ids.length) { $('#bG').style.width = '100%'; $('#pG').textContent = '補強完成！'; $('#gRq').textContent = ''; box.innerHTML = ''; finish(); } else showRep(); }, first ? 1300 : 2600);
+        } else {
+          b.className = 'wrong'; b.disabled = true;
+          if (first) { first = false; R2.bad.push(R2.ids[R2.i]); store.set(st); }
+          $('#gRm').innerHTML = '❌ 不對喔，看看說明再選一次：<div class="zhm">' + esc(q.x) + '</div>';
+        }
+      };
+      box.appendChild(b);
+    });
+  }
 
   function finish() {
     $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
     $('#s1').textContent = st.first.read + '/' + R.questions.length;
     $('#s2').textContent = st.first.cloze + '/' + C.items.length;
     $('#s3').textContent = st.first.gram + '/' + G.items.length;
-    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+    var lines = ['第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length];
+    var wl = [];
+    if ((st.wr || []).length) wl.push('閱讀第 ' + st.wr.join('、') + ' 題');
+    if ((st.wc || []).length) wl.push('克漏字第 ' + st.wc.join('、') + ' 格');
+    if ((st.wg || []).length) wl.push('文法第 ' + st.wg.join('、') + ' 題');
+    if (wl.length) lines.push('第一次答錯：' + wl.join('；'));
+    var rp = st.rep || { ids: [], bad: [] };
+    if (rp.ids.length) {
+      var shaky = {}; rp.bad.forEach(function (k) { var g = G.repair[k].gp; shaky[g] = g + ' ' + (G.gpName[g] || ''); });
+      lines.push('文法錯一補二：補 ' + rp.ids.length + ' 題，第一次答對 ' + (rp.ids.length - rp.bad.length) + ' 題' +
+        (rp.bad.length ? '（還不穩：' + Object.keys(shaky).map(function (k) { return shaky[k]; }).join('、') + '）' : '，補起來了 👍'));
+      rp.bad.forEach(function (k) { lines.push('・補題答錯：' + G.repair[k].s); });
+    }
+    report(lines.join('\n'));
 
   }
 
   if (st.first.gram != null) {
     gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
-    $('#gCheck').disabled = true; finish();
+    $('#gCheck').disabled = true; startRepair();
   }
 })();
 </script>
