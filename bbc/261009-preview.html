@@ -80,7 +80,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px;padding:0 2px}
 <div class="wrap">
 
 <h2><span class="n">1</span>單字＆片語：先聽，再唸</h2>
-<p class="hint">每張卡都要先按 🔊 聽，才能按 🎤 唸。唸對了卡片會變綠色。全部唸對才能進下一關。</p>
+<p class="hint">每張卡先聽、再唸<b>單字</b>，唸對後會出現<b>例句</b>，一樣先聽再唸整句。單字和例句都唸對，卡片才會變綠色。</p>
 <div class="bar"><i id="b1"></i></div><div class="prog" id="p1"></div>
 <div id="cards" style="margin-top:12px"></div>
 
@@ -250,8 +250,7 @@ function passText(r) {
 (function () {
   $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
   $('#predict').textContent = EP.predict; $('#bbcMp3').href = EP.audio_url; $('#afterLink').href = EP.id + '-practice.html';
-  var V = EP.vocab, st = store.get(); st.pass = st.pass || {};
-  var heardOnce = {};
+  var V = EP.vocab, st = store.get();
 
   function hl(ex, w) {
     var core = w.replace(/…/g, '').split('/')[0].trim().replace(/^I'm |^I /, '');
@@ -260,38 +259,52 @@ function passText(r) {
   }
   function target(v) { return v.say || v.w; }
 
+  /* 每張卡：先聽單字→唸單字；唸過後再聽例句→唸例句。兩個都過，這張卡才算完成。 */
+  st.wd = st.wd || {}; st.done = st.done || {};
   V.forEach(function (v, i) {
     var c = el('div', 'card');
     c.innerHTML = '<div class="row"><span class="word">' + esc(v.w) + '</span>' +
-      '<span class="tag ' + v.src + '">' + (v.src === 'bbc' || v.src === 'BBC' ? 'BBC 官方' : '加碼片語') + '</span>' +
+      '<span class="tag ' + (v.src === 'BBC' ? 'bbc' : 'pick') + '">' + (v.src === 'BBC' ? 'BBC 官方' : '加碼片語') + '</span>' +
       '<span class="spacer"></span><button class="say">🔊 聽</button><button class="mic" disabled>🎤 唸</button></div>' +
-      '<div class="zhm">' + esc(v.zh) + '</div>' +
-      '<div class="ex">' + hl(v.ex, v.w) + ' <button class="exsay" style="min-height:30px;padding:2px 8px;font-size:13px">🔊 例句</button></div>' +
-      '<div class="heard"></div>';
-    if (v.src === 'BBC') c.querySelector('.tag').className = 'tag bbc';
-    var mic = c.querySelector('.mic'), heard = c.querySelector('.heard');
-    c.querySelector('.say').onclick = function () { heardOnce[i] = 1; mic.disabled = false; speak(target(v), { rate: 0.85 }); };
-    c.querySelector('.exsay').onclick = function () { speak(v.ex, { rate: 0.9 }); };
+      '<div class="zhm">' + esc(v.zh) + '</div><div class="heard hw"></div>' +
+      '<div class="exrow hide" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)">' +
+      '<div class="ex">例句：' + hl(v.ex, v.w) + '</div>' +
+      '<div class="row" style="margin-top:6px"><button class="exsay">🔊 聽例句</button><button class="mic exmic" disabled>🎤 唸例句</button></div>' +
+      '<div class="heard he"></div></div>';
+    var mic = c.querySelector('.mic'), hw = c.querySelector('.hw'), exrow = c.querySelector('.exrow'),
+        exmic = c.querySelector('.exmic'), he = c.querySelector('.he');
+    c.querySelector('.say').onclick = function () { if (!st.wd[i]) mic.disabled = false; speak(target(v), { rate: 0.85 }); };
+    c.querySelector('.exsay').onclick = function () { if (!st.done[i]) exmic.disabled = false; speak(v.ex, { rate: 0.85 }); };
+    function micState(b, label) { return function (on) { b.classList.toggle('rec', on); b.textContent = on ? '⏹ 停' : label; }; }
     mic.onclick = function () {
-      heard.className = 'heard'; heard.textContent = '🎙️ 請唸：' + target(v);
+      hw.className = 'heard hw'; hw.textContent = '🎙️ 請唸：' + target(v);
       listen({}, function (alts) {
-        if (alts === null) { heard.className = 'heard no'; heard.textContent = NO_SR_MSG; return; }
+        if (alts === null) { hw.className = 'heard hw no'; hw.textContent = NO_SR_MSG; return; }
         var r = judge('w' + i, '單字「' + v.w + '」', target(v), alts, 0.7, 'word');
-        if (r.pass) ok(r);
-        else { heard.className = 'heard no'; heard.textContent = failText(r, '再試一次！'); }
-      }, function (on) { mic.classList.toggle('rec', on); mic.textContent = on ? '⏹ 停' : '🎤 唸'; });
+        if (r.pass) { st.wd[i] = 1; store.set(st); mic.disabled = true; hw.className = 'heard hw ok'; hw.textContent = passText(r) + '　接著唸例句 👇'; exrow.classList.remove('hide'); }
+        else { hw.className = 'heard hw no'; hw.textContent = failText(r, '再試一次！'); }
+      }, micState(mic, '🎤 唸'));
     };
-    function ok(r) { st.pass[i] = 1; store.set(st); heard.className = 'heard ok'; heard.textContent = passText(r); c.classList.add('pass'); mic.disabled = true; upd(); }
-    if (st.pass[i]) { c.classList.add('pass'); mic.disabled = false; heard.className = 'heard ok'; heard.textContent = '✅ 已完成'; }
+    exmic.onclick = function () {
+      he.className = 'heard he'; he.textContent = '🎙️ 請唸整句例句';
+      listen({}, function (alts) {
+        if (alts === null) { he.className = 'heard he no'; he.textContent = NO_SR_MSG; return; }
+        var r = judge('e' + i, '例句「' + v.ex + '」', v.ex, alts, 0.75, 'sentence');
+        if (r.pass) { st.done[i] = 1; store.set(st); exmic.disabled = true; he.className = 'heard he ok'; he.textContent = passText(r); c.classList.add('pass'); upd(); }
+        else { he.className = 'heard he no'; he.textContent = failText(r, '整句再唸一次，每個字都要唸到！'); }
+      }, micState(exmic, '🎤 唸例句'));
+    };
+    if (st.wd[i]) { exrow.classList.remove('hide'); hw.className = 'heard hw ok'; hw.textContent = '✅ 單字已完成'; }
+    if (st.done[i]) { c.classList.add('pass'); he.className = 'heard he ok'; he.textContent = '✅ 例句已完成'; }
     $('#cards').appendChild(c);
   });
 
   function upd() {
-    var n = Object.keys(st.pass).length;
+    var n = Object.keys(st.done).length;
     $('#b1').style.width = (n / V.length * 100) + '%';
     $('#p1').textContent = '已唸對 ' + n + ' / ' + V.length;
     if (n >= V.length) {
-      sectionDone('vocab', '單字片語 ' + V.length + ' 個全部唸過');
+      sectionDone('vocab', '單字片語＋例句 ' + V.length + ' 組全部唸過');
       $('#st1').className = 'done'; $('#quizLock').classList.add('hide'); $('#quiz').classList.remove('hide');
       if (st.quiz) unlockGo(); else { $('#st2').className = 'on'; if (!quizStarted) startQuiz(); }
     }
