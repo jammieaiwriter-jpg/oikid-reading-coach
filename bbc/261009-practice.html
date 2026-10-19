@@ -448,7 +448,7 @@ function passText(r) {
   $('#gCheck').onclick = function () {
     var ok = 0;
     G.items.forEach(function (it, i) {
-      var row = gRows[i], inp = row.querySelector('input'), v = inp.value.trim().toLowerCase();
+      var row = gRows[i], inp = row.querySelector('input'), v = inp.value.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ');
       if (row.classList.contains('ok')) { ok++; return; }
       if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
       else {

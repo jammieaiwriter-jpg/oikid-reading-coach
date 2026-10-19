@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Talking about breakfast｜課後練習</title>
+<style>:root{--bg:#f6f4ef;--card:#fff;--ink:#22262e;--mute:#6b7280;--line:#e6e2d9;--brand:#b8001f;--brand2:#7a0015;--ok:#1e8a4c;--okbg:#e6f5ec;--warn:#b45f06;--chip:#f1ede4}
+*{box-sizing:border-box}
+body{margin:0;font-family:"PingFang TC","Helvetica Neue",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+header.top{background:var(--brand);color:#fff;padding:18px 16px 16px}
+header.top .wrap{padding:0 16px}
+header.top .kick{font-size:13px;opacity:.85;letter-spacing:.5px}
+header.top h1{margin:4px 0 2px;font-size:24px;line-height:1.25}
+header.top .zh{font-size:15px;opacity:.9}
+.steps{display:flex;gap:6px;margin:14px 0 4px;flex-wrap:wrap}
+.steps span{background:rgba(255,255,255,.18);border-radius:99px;padding:3px 11px;font-size:13px}
+.steps span.on{background:#fff;color:var(--brand)}
+.steps span.done{background:rgba(255,255,255,.4)}
+h2{font-size:19px;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+h2 .n{background:var(--brand);color:#fff;border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.hint{color:var(--mute);font-size:14px;margin:-4px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.card.pass{border-color:#9fd6b5;background:var(--okbg)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.word{font-size:21px;font-weight:700}
+.tag{font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--chip);color:var(--mute)}
+.tag.bbc{background:#fde8eb;color:var(--brand2)}
+.tag.pick{background:#fff3e0;color:var(--warn)}
+.zhm{color:var(--mute);font-size:15px}
+.ex{font-size:15px;margin-top:6px;color:#3b4250}
+.ex b{color:var(--brand2)}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 14px;font-size:15px;background:var(--chip);color:var(--ink);min-height:42px}
+button:disabled{opacity:.4;cursor:default}
+button.pri{background:var(--brand);color:#fff}
+button.mic{background:#22262e;color:#fff}
+button.mic.rec{background:#d62839;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
+.spacer{flex:1}
+.heard{font-size:13.5px;color:var(--mute);margin-top:6px;min-height:1em}
+.heard.ok{color:var(--ok)} .heard.no{color:#c0392b}
+.lock{background:#fff8e6;border:1px dashed #e0b44c;border-radius:12px;padding:12px 14px;color:#7a5b00;font-size:14.5px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.opts button{background:#fff;border:1.5px solid var(--line);text-align:left}
+.opts button.right{border-color:var(--ok);background:var(--okbg)}
+.opts button.wrong{border-color:#e08a8a;background:#fdecec;animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.q{font-size:22px;font-weight:700;margin:4px 0}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.prog{font-size:13px;color:var(--mute)}
+.big{display:block;text-align:center;text-decoration:none;font-size:17px;padding:14px;border-radius:12px;background:var(--brand);color:#fff;margin:10px 0}
+.big.alt{background:#fff;color:var(--brand);border:1.5px solid var(--brand)}
+.line{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.line .who{flex:0 0 72px;font-weight:700;font-size:14px;padding-top:12px}
+.line .bub{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.line.me .bub{border:2px solid var(--brand)}
+.line.me.pass .bub{border-color:var(--ok);background:var(--okbg)}
+.line.wait{opacity:.35}
+.line .t{font-size:17px}
+.line .z{font-size:13.5px;color:var(--mute)}
+mark{background:#ffe9a8;color:inherit;border-radius:3px;padding:0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chips span{background:var(--chip);border-radius:8px;padding:4px 9px;font-size:14px}
+.stars{font-size:14px;color:var(--warn);margin-top:6px}
+.seg{display:inline-flex;background:var(--chip);border-radius:10px;padding:3px}
+.seg button{background:transparent;min-height:36px;padding:6px 14px}
+.seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.done-box{text-align:center;padding:26px 16px}
+.done-box .em{font-size:48px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:#22262e;color:#fff;padding:10px 18px;border-radius:99px;font-size:15px;transition:transform .25s;z-index:9}
+#toast.on{transform:translateX(-50%) translateY(0)}
+.hide{display:none!important}
+@media (max-width:520px){.opts{grid-template-columns:1fr}.line .who{flex-basis:58px}}
+
+.art{position:sticky;top:0;z-index:2;max-height:46vh;overflow:auto;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.art h3{margin:0 0 6px;font-size:18px}
+.art p{margin:0 0 8px;font-size:16.5px;line-height:1.7}
+.sen{border-radius:4px;transition:background .2s}
+.pick .sen{cursor:pointer;background:#fff6d6;box-shadow:inset 0 -2px 0 #e9c46a}
+.sen.ev{background:#cdeedb!important;box-shadow:none}
+.sen.bad{background:#f8d7d7!important}
+.vw{border-bottom:1.5px dotted var(--brand);cursor:help}
+.qhead{font-size:18px;font-weight:700}
+.olist{display:grid;gap:8px;margin-top:10px}
+.olist button{background:#fff;border:1.5px solid var(--line);text-align:left}
+.olist button.right{border-color:var(--ok);background:var(--okbg)}
+.olist button.wrong{border-color:#e08a8a;background:#fdecec}
+.msg{font-size:14.5px;margin-top:8px;min-height:1.2em}
+.cz{font-size:16.5px;line-height:2.2}
+.blank{display:inline-block;min-width:92px;text-align:center;border:1.5px dashed var(--brand);border-radius:8px;padding:0 8px;line-height:1.7;cursor:pointer;background:#fff}
+.blank.ok{border-style:solid;border-color:var(--ok);background:var(--okbg);cursor:default}
+.blank.on{background:#fff3c4}
+.gitem{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:16.5px}
+.gitem input{font:inherit;width:120px;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px}
+.gitem.ok input{border-color:var(--ok);background:var(--okbg)}
+.gitem.no input{border-color:#e08a8a}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.score div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.score b{display:block;font-size:22px}
+textarea.card{width:100%;font:14px/1.5 ui-monospace,Menlo,monospace;min-height:170px}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="kick">BBC Learning English · <span id="series"></span> · 課後練習</div>
+  <h1 id="ttl"></h1><div class="zh" id="ttlzh"></div>
+  <div class="steps"><span id="st1" class="on">① 閱讀理解</span><span id="stR">② 朗讀</span><span id="st2">③ 克漏字</span><span id="st3">④ 文法</span></div>
+</div></header>
+<div class="wrap">
+
+<div id="gate" class="card" style="margin-top:18px">
+  <b>開始之前</b>
+  <p style="margin:6px 0 10px">這一頁要在<b>看著逐字稿聽完第二次</b>之後才做。</p>
+  <button class="pri" id="gateOk">✅ 我聽完了，開始！</button>
+</div>
+
+<div id="main" class="hide">
+<h2><span class="n">1</span>閱讀理解</h2>
+<p class="hint">先讀短文。每題選完答案後，還要<b>在文章裡點出證據句</b>才算過關，不能用猜的喔！虛線底的字點一下可以看中文。</p>
+<div id="readSec"><div class="card art" id="art"></div>
+<div class="bar"><i id="b1"></i></div><div class="prog" id="p1"></div>
+<div class="card" id="qbox"></div></div>
+
+<h2><span class="n">2</span>朗讀短文：一句一句唸</h2>
+<div id="raLock" class="lock">🔒 閱讀理解完成後打開。</div>
+<div id="ra" class="hide">
+  <p class="hint">每句先按 🔊 聽，再按 🎤 把<b>整句</b>唸出來。唸對會變綠色。練習把句子說完整、說正確！</p>
+  <div class="bar"><i id="bR"></i></div><div class="prog" id="pR"></div>
+  <div id="raList" style="margin-top:10px"></div>
+</div>
+
+<h2><span class="n">3</span>克漏字</h2>
+<div id="czLock" class="lock">🔒 朗讀完成後打開。</div>
+<div id="cz" class="hide">
+  <p class="hint">點空格，選出最適合的字。</p>
+  <div class="card"><b id="czTitle"></b><div class="cz" id="czText"></div><div class="msg" id="czMsg"></div></div>
+</div>
+
+<h2><span class="n">4</span>文法：<span id="gPoint"></span></h2>
+<div id="gLock" class="lock">🔒 克漏字完成後打開。</div>
+<div id="gr" class="hide">
+  <div class="card"><div id="gExp"></div><ul id="gSp" style="margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#3b4250"></ul></div>
+  <p class="hint">用括號裡的動詞，填入正確的形式。</p>
+  <div class="card" id="gItems"></div>
+  <button class="pri" id="gCheck">✔︎ 對答案</button>
+  <div class="msg" id="gMsg"></div>
+</div>
+
+<div id="allDone" class="hide">
+  <div class="card done-box"><div class="em">🏆</div>
+    <div style="font-size:20px;font-weight:700;margin:6px 0">這週的 BBC 聽力閱讀完成了！</div>
+    <div class="zhm">第一次就答對的題數：</div>
+    <div class="score"><div>閱讀<b id="s1"></b></div><div>克漏字<b id="s2"></b></div><div>文法<b id="s3"></b></div></div>
+  </div>
+</div>
+
+
+</div>
+</div>
+<div id="toast"></div>
+<script>window.EP = {"ssd_dir": "251107_Talking about breakfast", "id": "251107", "date": "2025-11-07", "series": "Real Easy English", "level": "Easy", "title": "Talking about breakfast", "title_zh": "聊聊早餐", "page_url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/251107", "audio_url": "https://downloads.bbc.co.uk/learningenglish/realeasyenglish/RealEasyEnglish_breakfast_download.mp3", "transcript_pdf": "251107_breakfast_transcript逐字稿.pdf", "worksheet_pdf": "251107_breakfast_worksheet.pdf", "worksheet_answer_pages": [3], "predict": "聽之前先猜猜看：Beth 和 Phil 每天都會吃早餐嗎？他們平日和週末各吃些什麼？比較喜歡甜的還是鹹的早餐？聽完再對答案！", "vocab": [{"w": "eat on the go / eat on the move", "say": "eat on the go, eat on the move", "zh": "邊走邊吃、在路上吃", "src": "BBC", "ex": "I sometimes eat on the go."}, {"w": "takeaway", "zh": "外帶的（食物飲料）", "src": "BBC", "ex": "I bought a takeaway coffee."}, {"w": "fills you up", "zh": "讓你吃飽", "src": "BBC", "ex": "Porridge fills you up."}, {"w": "savoury", "zh": "鹹的（不是甜的）", "src": "BBC", "ex": "I like a savoury breakfast with eggs."}, {"w": "sweet", "zh": "甜的", "src": "BBC", "ex": "Pancakes are a sweet breakfast."}, {"w": "full English breakfast", "zh": "英式全套早餐", "src": "BBC", "ex": "A full English breakfast has eggs and bacon."}, {"w": "skip", "zh": "跳過、不吃（一餐）", "src": "pick", "ex": "Don't skip breakfast before school."}, {"w": "porridge", "zh": "燕麥粥", "src": "pick", "ex": "I have porridge with apple in winter."}, {"w": "cereal", "zh": "早餐穀片", "src": "pick", "ex": "I eat cereal with milk."}, {"w": "pastry", "zh": "酥皮點心、糕點", "src": "pick", "ex": "He bought a pastry and a coffee."}, {"w": "hungry", "zh": "餓的", "src": "pick", "ex": "I'm always hungry before lunch."}, {"w": "I used to …", "say": "I used to eat breakfast on the go.", "zh": "我以前常常⋯（現在不會了）", "src": "pick", "ex": "I used to eat breakfast on the go."}], "speaking": [{"q": "Do you always have breakfast? Why or why not?", "zh": "你每天都吃早餐嗎？為什麼？", "starters": ["I always / never skip breakfast because …", "If I don't have breakfast, I feel …", "Breakfast fills me up, so …"]}, {"q": "What do you usually eat for breakfast on school days?", "zh": "上學的日子你早餐通常吃什麼？", "starters": ["On school days, I usually have …", "I like … because it fills me up.", "My mum / dad makes …"]}, {"q": "Do you prefer sweet or savoury breakfasts? Why?", "zh": "你比較喜歡甜的還是鹹的早餐？為什麼？", "starters": ["I prefer sweet / savoury breakfasts because …", "My favourite sweet breakfast is …", "I'm not a big fan of …"]}, {"q": "Do you ever eat breakfast on the go? Tell me about it.", "zh": "你會在路上邊走邊吃早餐嗎？說說看。", "tag": "KET 口說風格", "starters": ["Sometimes I eat breakfast on the go when …", "I buy a takeaway … from …", "I used to …, but now …"]}], "reading": {"title": "Beth and Phil's Breakfast", "paras": [["Beth and Phil always have breakfast.", "Beth says she is a monster if she doesn't eat in the morning.", "She doesn't understand why people skip breakfast.", "Phil has breakfast at home before he leaves for work."], ["Phil used to eat a second breakfast on the go.", "He bought a takeaway coffee and a pastry on his way to work.", "But it was quite expensive, so he stopped.", "Now he usually eats porridge with apple and cinnamon because it fills him up."], ["Beth likes porridge too, but she eats it in winter because it is warm.", "In summer, she usually has cereal with milk and fruit."], ["At the weekend, Beth often has a savoury breakfast.", "She loves eggs and hash browns, like in a full English breakfast.", "Phil likes weekend breakfasts because he has more time to cook."], ["What about sweet breakfasts?", "Phil loves croissants, but they don't fill him up, so he gets hungry later.", "Beth sometimes makes sweet pancakes with lemon juice and fruit.", "Phil likes his pancakes with maple syrup."]], "questions": [{"q": "What does Beth think about skipping breakfast?", "zh": "Beth 對不吃早餐有什麼看法？", "opts": ["She often skips it.", "She skips it at the weekend.", "She doesn't understand it."], "a": 2, "ev": [2]}, {"q": "Why did Phil stop buying coffee and a pastry on his way to work?", "zh": "Phil 為什麼不再在上班路上買咖啡和糕點？", "opts": ["It cost too much money.", "He didn't like the taste.", "He had no time."], "a": 0, "ev": [5, 6]}, {"q": "When does Beth usually eat porridge?", "zh": "Beth 通常什麼時候吃燕麥粥？", "opts": ["In summer.", "In winter.", "At the weekend."], "a": 1, "ev": [8]}, {"q": "Why does Phil like weekend breakfasts?", "zh": "Phil 為什麼喜歡週末的早餐？", "opts": ["He can eat at work.", "He can buy takeaway food.", "He has more time to cook."], "a": 2, "ev": [12]}, {"q": "What is the problem with croissants for Phil?", "zh": "對 Phil 來說，可頌有什麼問題？", "opts": ["They don't fill him up.", "They are too sweet for him.", "They are hard to find."], "a": 0, "ev": [14]}]}, "cloze": {"title": "Mia's diary", "text": "Dear diary, This morning I got up late, so I didn't have time for breakfast at home. I had to eat {1} on the bus. I bought a {2} hot chocolate and a small cake from a café near my school. It was nice, but it didn't {3} me up, and I was really {4} before lunch! Tomorrow I won't {5} breakfast. I'll get up early and have a bowl of {6} with milk and fruit at home.", "items": [{"opts": ["on time", "on the go", "on foot"], "a": 1}, {"opts": ["savoury", "takeaway", "full"], "a": 1}, {"opts": ["fill", "make", "eat"], "a": 0}, {"opts": ["full", "sweet", "hungry"], "a": 2}, {"opts": ["enjoy", "skip", "have"], "a": 1}, {"opts": ["bacon", "toast", "cereal"], "a": 2}]}, "grammar": {"point": "現在簡單式第三人稱單數（he / she ＋ V-s / V-es，does / doesn't）", "explain": "主詞是 <b>he / she / it<\/b> 或一個人（Beth、Phil）時，現在簡單式的動詞要加 <b>-s / -es<\/b>；否定和問句用 <b>doesn't / does<\/b>，後面的動詞要回到原形。<br>文章裡的例子：Phil <b>has<\/b> breakfast at home before he <b>leaves<\/b> for work.<br>Now he usually <b>eats<\/b> porridge because it <b>fills<\/b> him up.<br>She <b>doesn't understand<\/b> why people skip breakfast.", "spelling": ["一般直接加 s：eat → eats、like → likes", "字尾是 s、sh、ch、x、o，加 es：watch → watches、go → goes", "子音＋y 結尾，去 y 加 ies：study → studies", "特別的：have → has"], "items": [{"s": "Phil ___ porridge with apple and cinnamon.", "hint": "eat", "a": ["eats"]}, {"s": "Beth ___ breakfast at home every day.", "hint": "have", "a": ["has"]}, {"s": "My mum ___ the bus to work at seven.", "hint": "catch", "a": ["catches"]}, {"s": "___ Beth like hash browns? Yes, she loves them.", "hint": "do", "a": ["Does", "does"]}, {"s": "Beth ___ breakfast. She is a monster without it!", "hint": "not skip", "a": ["doesn't skip", "does not skip"]}, {"s": "Tom ___ English for an hour after breakfast.", "hint": "study", "a": ["studies"]}]}}; window.PAGE = 'read';</script>
+<script>/* BBC 聽力週課共用引擎：TTS（speechSynthesis）＋語音辨識＋比對＋練習紀錄＋家長通知。
+   紅線：辨識頁零 HTML5 Audio；錄音中不出聲（防止拿示範音作弊）。 */
+var EP = window.EP;
+function $(s, r) { return (r || document).querySelector(s); }
+function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function mkStore(key) {
+  return {
+    get: function () { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { return {}; } },
+    set: function (o) { try { localStorage.setItem(key, JSON.stringify(o)); } catch (e) {} }
+  };
+}
+var store = mkStore('bbc-' + EP.id + '-' + (window.PAGE || ''));
+
+/* ---- 家長通知：沿用 OiKID 的 Cloudflare Worker 中繼（token 不落前端） ---- */
+var NOTIFY_ENDPOINT = 'https://bobo-math-notify.bobo-math-grader.workers.dev';
+var PAGE_NAME = { pre: '預習', read: '課後練習' }[window.PAGE] || window.PAGE;
+function notify(msg) {
+  try {
+    fetch(NOTIFY_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: msg, to: 'bobo' }) }).catch(function () {});
+  } catch (e) {}
+}
+
+/* ---- 練習紀錄：每個口說項目的嘗試次數、一直唸不過才放行的項目 ----
+   唸對就立刻過關；只有連續唸不過時，單字練滿 5 次、句子練滿 3 次才放行（Emma 2026-10-19）。
+   畫面不顯示「再幾次可過關」，以免孩子故意亂唸耗次數。 */
+var FORCE_AFTER = { word: 5, sentence: 3 };
+var trackStore = mkStore('bbc-' + EP.id + '-' + (window.PAGE || '') + '-track');
+var T = trackStore.get(); T.att = T.att || {}; T.forced = T.forced || {}; T.sent = T.sent || {};
+function saveT() { trackStore.set(T); }
+/* 只在「有聽到聲音」時記一次嘗試；沒唸對但已練滿 5 次 → 以「練習 5 次過關」放行，並記下來通知家長 */
+function judge(key, label, target, alts, thr, kind) {
+  var limit = FORCE_AFTER[kind] || 5;
+  var b = best(target, alts);
+  if (!b.t) return { pass: false, heard: '', silent: true };
+  T.att[key] = (T.att[key] || 0) + 1; saveT();
+  if (b.s >= thr) return { pass: true, heard: b.t, n: T.att[key] };
+  if (T.att[key] >= limit) { T.forced[key] = label; saveT(); return { pass: true, forced: true, heard: b.t, n: T.att[key] }; }
+  return { pass: false, heard: b.t, n: T.att[key] };
+}
+function sectionDone(id, name) {
+  if (T.sent[id]) return;
+  T.sent[id] = 1; saveT();
+  notify('通過：Bobo BBC ' + EP.id + '「' + EP.title + '」' + PAGE_NAME + '：' + name);
+}
+function report(extra) {
+  if (T.sent._done) return;
+  T.sent._done = 1; saveT();
+  var tot = 0; Object.keys(T.att).forEach(function (k) { tot += T.att[k]; });
+  var forced = Object.keys(T.forced).map(function (k) { return '・' + T.forced[k] + '（練 ' + T.att[k] + ' 次）'; });
+  notify('Bobo BBC ' + EP.id + '「' + EP.title + '」' + PAGE_NAME + '完成。' +
+    (extra ? '\n' + extra : '') +
+    '\n口說總嘗試：' + tot + ' 次' +
+    (forced.length ? '\n一直唸不過、練滿次數才放行的：\n' + forced.join('\n') : '\n口說全部正常唸對過關'));
+}
+
+window.__recActive = false;
+function speak(text, opts, onEnd) {
+  opts = opts || {};
+  if (window.__recActive || !window.speechSynthesis) { if (onEnd) onEnd(); return; }
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB';
+  u.rate = opts.rate || 0.9;
+  u.pitch = opts.pitch || 1;
+  var done = false;
+  function fin() { if (!done) { done = true; if (onEnd) onEnd(); } }
+  u.onend = fin; u.onerror = fin;
+  speechSynthesis.speak(u);
+}
+
+function norm(s) {
+  return String(s).toLowerCase().replace(/[’']/g, '').replace(/…|\.\.\./g, ' ')
+    .replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+}
+/* 目標字有幾成被唸到（不計順序，同字可重複計） */
+function score(target, heard) {
+  var t = norm(target), h = norm(heard), pool = {};
+  h.forEach(function (w) { pool[w] = (pool[w] || 0) + 1; });
+  var hit = 0;
+  t.forEach(function (w) { if (pool[w]) { pool[w]--; hit++; } });
+  return t.length ? hit / t.length : 0;
+}
+
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var HAS_SR = !!SR;
+var NO_SR_MSG = '這個瀏覽器不能收音。請用 Safari 直接打開這個網頁（不要用 LINE／Telegram 內建瀏覽器）。';
+/* 一次辨識。cb(alternatives[])；不支援辨識時 cb(null) */
+var curRec = null;
+function listen(opts, cb, onState) {
+  if (curRec) { try { curRec.stop(); } catch (e) {} return; }
+  if (!HAS_SR) { cb(null); return; }
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  var r = new SR();
+  r.lang = 'en-US';
+  r.interimResults = false;
+  r.maxAlternatives = 5;
+  r.continuous = !!opts.long;
+  var finals = [], alts = [];
+  r.onresult = function (e) {
+    for (var i = e.resultIndex; i < e.results.length; i++) {
+      if (!e.results[i].isFinal) continue;
+      if (opts.long) finals.push(e.results[i][0].transcript);
+      else for (var j = 0; j < e.results[i].length; j++) alts.push(e.results[i][j].transcript);
+    }
+  };
+  r.onerror = function (e) { if (e && e.error === 'not-allowed') toast('麥克風權限被拒絕，請到設定允許 Safari 使用麥克風'); };
+  r.onend = function () {
+    curRec = null; window.__recActive = false; if (onState) onState(false);
+    cb(opts.long ? [finals.join(' ')] : alts);
+  };
+  curRec = r; window.__recActive = true; if (onState) onState(true);
+  try { r.start(); } catch (e) { curRec = null; window.__recActive = false; if (onState) onState(false); cb([]); }
+}
+function best(target, alts) {
+  var b = { s: 0, t: '' };
+  (alts || []).forEach(function (a) { var s = score(target, a); if (s > b.s || !b.t) b = { s: s, t: a }; });
+  return b;
+}
+function toast(msg) {
+  var t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('on'); }, 2200);
+}
+/* 唸不過時的提示文字 */
+function failText(r, again) {
+  if (r.silent) return '沒聽到聲音，靠近一點再唸一次';
+  return '聽到：「' + r.heard + '」，' + again;
+}
+function passText(r) {
+  return r.forced ? '💪 練習 ' + r.n + ' 次，先過關（這個比較難，之後再多唸幾次）' : '✅ 唸對了：「' + r.heard + '」';
+}
+</script>
+<script>
+(function () {
+  $('#series').textContent = EP.series; $('#ttl').textContent = EP.title; $('#ttlzh').textContent = EP.title_zh + '（' + EP.date + '）';
+  var st = store.get(), R = EP.reading, C = EP.cloze, G = EP.grammar;
+  st.first = st.first || {};
+
+  function begin() { $('#gate').classList.add('hide'); $('#main').classList.remove('hide'); }
+  $('#gateOk').onclick = function () { st.gate = 1; store.set(st); begin(); };
+  if (st.gate) begin();
+
+  /* ---- 文章：句子可點、預習單字可看中文 ---- */
+  var V = EP.vocab.map(function (v) { return { k: v.w.split('/')[0].replace(/…/g, '').trim(), zh: v.zh }; })
+    .filter(function (v) { return v.k.split(' ').length <= 3; });
+  function vocabMark(s) {
+    var out = esc(s);
+    V.forEach(function (v) {
+      if (v.used) return;
+      var re = new RegExp('\\b(' + v.k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/'/g, "(?:'|’)") + '(?:s|ed|ing)?)\\b', 'i');
+      if (re.test(out)) { v.used = true; out = out.replace(re, '<span class="vw" data-zh="' + esc(v.zh) + '">$1</span>'); }
+    });
+    return out;
+  }
+  var sid = 0, art = $('#art');
+  art.innerHTML = '<h3>' + esc(R.title) + '</h3>' + R.paras.map(function (p) {
+    return '<p>' + p.map(function (s) { return '<span class="sen" data-i="' + (sid++) + '">' + vocabMark(s) + '</span>'; }).join(' ') + '</p>';
+  }).join('');
+  art.addEventListener('click', function (e) {
+    var w = e.target.closest('.vw');
+    if (w && !art.classList.contains('pick')) { toast(w.textContent + '：' + w.dataset.zh); return; }
+    var s = e.target.closest('.sen');
+    if (s && art.classList.contains('pick') && onEvidence) onEvidence(+s.dataset.i, s);
+  });
+
+  /* ---- 閱讀理解：選答案 → 點證據句 ---- */
+  var qi = 0, onEvidence = null, firstOK = 0;
+  function showQ() {
+    $('#b1').style.width = (qi / R.questions.length * 100) + '%';
+    $('#p1').textContent = '第 ' + Math.min(qi + 1, R.questions.length) + ' / ' + R.questions.length + ' 題';
+    if (qi >= R.questions.length) return readDone();
+    var q = R.questions[qi], first = true, box = $('#qbox');
+    box.innerHTML = '<div class="qhead">' + esc(q.q) + '</div><div class="zhm">' + esc(q.zh) + '</div><div class="olist"></div><div class="msg"></div>';
+    var list = box.querySelector('.olist'), msg = box.querySelector('.msg');
+    q.opts.forEach(function (o, i) {
+      var b = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      b.onclick = function () {
+        if (i !== q.a) { b.className = 'wrong'; b.disabled = true; first = false; msg.innerHTML = '❌ 不對喔。回文章找找看，答案一定寫在裡面。'; return; }
+        b.className = 'right'; [].forEach.call(list.children, function (x) { x.disabled = true; });
+        msg.innerHTML = '✅ 答對了！現在<b>在上面的文章裡點出證據句</b>（哪一句告訴你答案？）';
+        art.classList.add('pick'); art.scrollTop = 0;
+        onEvidence = function (i, s) {
+          if (q.ev.indexOf(i) >= 0) {
+            s.classList.add('ev'); art.classList.remove('pick'); onEvidence = null;
+            if (first) firstOK++;
+            msg.innerHTML = '🎯 找到證據了！';
+            setTimeout(function () { art.querySelectorAll('.ev').forEach(function (x) { x.classList.remove('ev'); }); qi++; showQ(); }, 1100);
+          } else {
+            s.classList.add('bad'); setTimeout(function () { s.classList.remove('bad'); }, 700);
+            msg.innerHTML = '這句沒有說到答案喔，再找一次。';
+          }
+        };
+      };
+      list.appendChild(b);
+    });
+  }
+  function readDone() {
+    st.first.read = st.first.read != null ? st.first.read : firstOK; store.set(st);
+    sectionDone('read', '閱讀理解完成，第一次答對 ' + st.first.read + '/' + R.questions.length);
+    $('#qbox').innerHTML = '✅ 閱讀理解完成！第一次就答對 ' + st.first.read + ' / ' + R.questions.length + ' 題';
+    $('#st1').className = 'done'; $('#stR').className = 'on'; art.style.position = 'static'; art.style.maxHeight = 'none';
+    $('#raLock').classList.add('hide'); $('#ra').classList.remove('hide');
+    if (st.ra) setTimeout(raDone, 0);
+  }
+  if (st.first.read != null) { qi = R.questions.length; showQ(); } else showQ();
+
+  /* ---- 朗讀：先聽再唸，整句唸對才過 ---- */
+  var SENS = [].concat.apply([], R.paras), raPass = {};
+  SENS.forEach(function (sen, i) {
+    var c = el('div', 'card');
+    c.innerHTML = '<div style="font-size:17px">' + esc(sen) + '</div>' +
+      '<div class="row" style="margin-top:8px"><button class="say">🔊 聽</button><button class="mic" disabled>🎤 唸</button></div><div class="heard"></div>';
+    var mic = c.querySelector('.mic'), heard = c.querySelector('.heard');
+    c.querySelector('.say').onclick = function () { mic.disabled = false; speak(sen, { rate: 0.85 }); };
+    mic.onclick = function () {
+      heard.className = 'heard'; heard.textContent = '🎙️ 請唸整句…';
+      listen({}, function (alts) {
+        if (alts === null) { heard.className = 'heard no'; heard.textContent = NO_SR_MSG; return; }
+        var r = judge('s' + i, '第 ' + (i + 1) + ' 句「' + sen + '」', sen, alts, 0.75, 'sentence');
+        if (r.pass) ok(r);
+        else { heard.className = 'heard no'; heard.textContent = failText(r, '再唸一次，每個字都要唸到！'); }
+      }, function (on) { mic.classList.toggle('rec', on); mic.textContent = on ? '⏹ 停' : '🎤 唸'; });
+    };
+    function ok(r) {
+      raPass[i] = 1; c.classList.add('pass'); mic.disabled = true;
+      heard.className = 'heard ok'; heard.textContent = passText(r);
+      var n = Object.keys(raPass).length;
+      $('#bR').style.width = (n / SENS.length * 100) + '%'; $('#pR').textContent = '已唸對 ' + n + ' / ' + SENS.length + ' 句';
+      if (n >= SENS.length) { st.ra = 1; store.set(st); raDone(); }
+    }
+    $('#raList').appendChild(c);
+  });
+  $('#pR').textContent = '已唸對 0 / ' + SENS.length + ' 句';
+  function raDone() {
+    sectionDone('ra', '朗讀 ' + SENS.length + ' 句完成');
+    $('#ra').innerHTML = '<div class="card pass">✅ 朗讀完成！' + SENS.length + ' 句都唸對了</div>';
+    $('#stR').className = 'done'; $('#st2').className = 'on';
+    $('#czLock').classList.add('hide'); $('#cz').classList.remove('hide');
+  }
+
+  /* ---- 克漏字 ---- */
+  $('#czTitle').textContent = C.title;
+  var czDone = 0, czFirst = 0, tried = {};
+  $('#czText').innerHTML = esc(C.text).replace(/\{(\d+)\}/g, function (_, n) { return '<span class="blank" data-n="' + n + '">(' + n + ') ______</span>'; });
+  var pop = el('div', 'olist hide'); $('#czText').parentNode.insertBefore(pop, $('#czMsg'));
+  $('#czText').addEventListener('click', function (e) {
+    var b = e.target.closest('.blank'); if (!b || b.classList.contains('ok')) return;
+    [].forEach.call(document.querySelectorAll('.blank.on'), function (x) { x.classList.remove('on'); });
+    b.classList.add('on');
+    var n = +b.dataset.n, it = C.items[n - 1];
+    pop.innerHTML = ''; pop.classList.remove('hide');
+    it.opts.forEach(function (o, i) {
+      var ob = el('button', '', String.fromCharCode(65 + i) + '. ' + esc(o));
+      ob.onclick = function () {
+        if (i === it.a) {
+          b.className = 'blank ok'; b.textContent = '(' + n + ') ' + o; pop.classList.add('hide');
+          if (!tried[n]) czFirst++; czDone++;
+          $('#czMsg').textContent = '✅ 答對了！還剩 ' + (C.items.length - czDone) + ' 格';
+          if (czDone >= C.items.length) czFinish();
+        } else { ob.className = 'wrong'; ob.disabled = true; tried[n] = 1; $('#czMsg').textContent = '❌ 再看看前後文。'; }
+      };
+      pop.appendChild(ob);
+    });
+  });
+  function czFinish() {
+    st.first.cloze = st.first.cloze != null ? st.first.cloze : czFirst; store.set(st);
+    sectionDone('cloze', '克漏字完成，第一次答對 ' + st.first.cloze + '/' + C.items.length);
+    $('#czMsg').textContent = '✅ 克漏字完成！第一次就答對 ' + st.first.cloze + ' / ' + C.items.length + ' 格';
+    $('#st2').className = 'done'; $('#st3').className = 'on';
+    $('#gLock').classList.add('hide'); $('#gr').classList.remove('hide');
+  }
+  if (st.first.cloze != null) {
+    document.querySelectorAll('.blank').forEach(function (b) { var n = +b.dataset.n; b.className = 'blank ok'; b.textContent = '(' + n + ') ' + C.items[n - 1].opts[C.items[n - 1].a]; });
+    czFinish();
+  }
+
+  /* ---- 文法 ---- */
+  $('#gPoint').textContent = G.point; $('#gExp').innerHTML = G.explain;
+  $('#gSp').innerHTML = (G.spelling || []).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('');
+  var gWrong = {}, gRows = [];
+  G.items.forEach(function (it, i) {
+    var row = el('div', 'gitem');
+    var parts = esc(it.s).split('___');
+    row.innerHTML = '<span>' + (i + 1) + '.</span><span>' + parts[0] + '</span><input autocapitalize="off" autocomplete="off" spellcheck="false"><span>' + (parts[1] || '') + '</span><span class="zhm">(' + esc(it.hint) + ')</span>';
+    $('#gItems').appendChild(row); gRows.push(row);
+  });
+  $('#gCheck').onclick = function () {
+    var ok = 0;
+    G.items.forEach(function (it, i) {
+      var row = gRows[i], inp = row.querySelector('input'), v = inp.value.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ');
+      if (row.classList.contains('ok')) { ok++; return; }
+      if (it.a.indexOf(v) >= 0) { row.className = 'gitem ok'; inp.readOnly = true; ok++; }
+      else {
+        row.className = 'gitem no'; gWrong[i] = (gWrong[i] || 0) + 1;
+        if (gWrong[i] >= 2) { inp.placeholder = it.a[0]; inp.value = ''; }
+      }
+    });
+    if (ok >= G.items.length) {
+      var f = G.items.length - Object.keys(gWrong).length;
+      st.first.gram = st.first.gram != null ? st.first.gram : f; store.set(st);
+      $('#gMsg').textContent = '✅ 全對！'; $('#gCheck').disabled = true; finish();
+    } else $('#gMsg').textContent = '還有 ' + (G.items.length - ok) + ' 題不對，改一改再對一次。' + (Object.keys(gWrong).some(function (k) { return gWrong[k] >= 2; }) ? '（錯兩次的題目，灰色字是答案，照著打一次）' : '');
+  };
+
+  function finish() {
+    $('#st3').className = 'done'; $('#allDone').classList.remove('hide');
+    $('#s1').textContent = st.first.read + '/' + R.questions.length;
+    $('#s2').textContent = st.first.cloze + '/' + C.items.length;
+    $('#s3').textContent = st.first.gram + '/' + G.items.length;
+    report('第一次就答對：閱讀 ' + st.first.read + '/' + R.questions.length + '、克漏字 ' + st.first.cloze + '/' + C.items.length + '、文法 ' + st.first.gram + '/' + G.items.length);
+
+  }
+
+  if (st.first.gram != null) {
+    gRows.forEach(function (row, i) { row.className = 'gitem ok'; var inp = row.querySelector('input'); inp.value = G.items[i].a[0]; inp.readOnly = true; });
+    $('#gCheck').disabled = true; finish();
+  }
+})();
+</script>
+<script>/* 選聲升級 2026-09-03：頁面原本沒設定 voice，用到系統預設的機械 compact 音。
+   這裡統一攔截 speechSynthesis.speak：英文語音自動改挑「增強/Siri 版」聲音
+   （家長已在裝置下載 Allison/Joelle/Tom/Nathan 增強音質），沒有增強音就照舊。 */
+(function(){
+  var ENH=/enhanced|premium|siri/i, PREF=['Allison','Joelle','Samantha','Ava','Tom','Nathan','Aaron','Daniel','Karen'];
+  function pick(){
+    var vs=(window.speechSynthesis&&speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+    var en=vs.filter(function(v){return /^en[-_](US|GB|AU)/i.test(v.lang||'');});
+    if(!en.length) return null;
+    function isEnh(v){return ENH.test(v.name+'|'+(v.voiceURI||''));}
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<PREF.length;i++){
+        var hits=en.filter(function(v){return v.name.indexOf(PREF[i])>=0;});
+        if(pass===0)hits=hits.filter(isEnh);
+        if(hits.length)return hits.find(isEnh)||hits[0];
+      }
+    }
+    return en.find(isEnh)||null;
+  }
+  var orig=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&!u.voice&&/^en/i.test(u.lang||'en')){ var v=pick(); if(v)u.voice=v; } }catch(e){}
+    return orig(u);
+  };
+  try{ speechSynthesis.getVoices(); }catch(e){}
+})();
+</script>
+</body></html>
