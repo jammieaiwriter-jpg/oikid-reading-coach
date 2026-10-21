@@ -93,6 +93,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px;padding:0 2px}
   <div class="card" style="margin-top:10px">
     <div class="row"><div class="q" id="qw"></div><span class="spacer"></span><button id="qsay">🔊</button></div>
     <div class="opts" id="qopts"></div>
+    <div id="qfix" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)"></div>
   </div>
 </div>
 
@@ -338,17 +339,40 @@ function passText(r) {
     var v = V[order[qi]]; firstTry = true;
     $('#qw').textContent = v.w; $('#qsay').onclick = function () { speak(target(v)); };
     var others = shuffle(V.filter(function (x) { return x !== v; })).slice(0, 3);
-    var box = $('#qopts'); box.innerHTML = '';
+    var box = $('#qopts'); box.innerHTML = ''; $('#qfix').classList.add('hide'); $('#qfix').innerHTML = '';
     shuffle(others.concat([v])).forEach(function (o) {
       var b = el('button', '', esc(o.zh));
       b.onclick = function () {
         if (o === v) {
           b.className = 'right'; speak(target(v));
           setTimeout(function () { qi++; if (qi >= order.length) finishQuiz(); else showQ(); }, 700);
-        } else { b.className = 'wrong'; b.disabled = true; if (firstTry) { wrongs++; firstTry = false; order.push(order[qi]); } }
+        } else {
+          b.className = 'wrong'; if (firstTry) { wrongs++; firstTry = false; order.push(order[qi]); }
+          [].forEach.call(box.children, function (x) { x.disabled = true; if (x._v === v) x.className = 'right'; });
+          sayFix(v, order[qi]);
+        }
       };
-      box.appendChild(b);
+      b._v = o; box.appendChild(b);
     });
+  }
+  /* 小測答錯：顯示正確意思，先聽、再把這個字唸對才能往下（Emma 2026-10-21）。這題之後還會再考一次。 */
+  function sayFix(v, vi) {
+    var f = $('#qfix'); f.classList.remove('hide');
+    f.innerHTML = '<div>❌ <b>' + esc(v.w) + '</b> 的意思是「' + esc(v.zh) + '」。先聽，再唸一次這個字才能繼續。</div>' +
+      '<div class="row" style="margin-top:6px"><button class="fsay">🔊 聽</button><button class="mic fmic" disabled>🎤 唸</button></div><div class="heard fh"></div>';
+    var mic = f.querySelector('.fmic'), fh = f.querySelector('.fh');
+    f.querySelector('.fsay').onclick = function () { mic.disabled = false; speak(target(v), { rate: 0.85 }); };
+    mic.onclick = function () {
+      fh.className = 'heard fh'; fh.textContent = '🎙️ 請唸：' + target(v);
+      listen({}, function (alts) {
+        if (alts === null) { fh.className = 'heard fh no'; fh.textContent = NO_SR_MSG; return; }
+        var r = judge('q' + vi, '小測答錯補唸「' + v.w + '」', target(v), alts, 0.7, 'word');
+        if (r.pass) {
+          mic.disabled = true; fh.className = 'heard fh ok'; fh.textContent = passText(r) + '　這個字等一下會再考一次';
+          setTimeout(function () { qi++; if (qi >= order.length) finishQuiz(); else showQ(); }, 1200);
+        } else { fh.className = 'heard fh no'; fh.textContent = failText(r, '再試一次！'); }
+      }, function (on) { mic.classList.toggle('rec', on); mic.textContent = on ? '⏹ 停' : '🎤 唸'; });
+    };
   }
   function finishQuiz() {
     st.quiz = 1; store.set(st);
